@@ -155,14 +155,7 @@ function InventoryModule:addItem(itemSpec)
 		if itemSpec.equip ~= nil then
 			local slotIndex = math.max(1, type(itemSpec.equip) == 'number' and itemSpec.equip or 1)
 
-			if self.equipmentPlayerData:IsEquipped(itemId) then
-				self.equipmentPlayerData:RemoveItemFromEquipSlot(itemId)
-				self.equipmentPlayerData:UnequipItem(itemId)
-			end
-
-			mod.defer(0.075, function()
-				self.equipmentPlayerData:EquipItemInSlot(itemId, slotIndex - 1, false, false, false)
-			end)
+			self:forceEquipItem(itemId, slotIndex)
 		end
 
 		-- Force quest flag
@@ -191,17 +184,6 @@ function InventoryModule:addItems(itemSpecs)
 	end
 
 	self.tweakDb:unload()
-end
-
-function InventoryModule:autoScaleItems()
-	local currentLevel = Game.GetStatsSystem():GetStatValue(Game.GetPlayer():GetEntityID(), 'Level')
-
-	-- This triggers the items with auto-scaling feature to update to the current character level
-	Game.SetLevel('Level', currentLevel)
-
-	if mod.debug then
-		print(('[DEBUG] Respector: Updating auto-scale items to level %d.'):format(currentLevel))
-	end
 end
 
 function InventoryModule:getItems(specOptions)
@@ -265,11 +247,16 @@ function InventoryModule:getItems(specOptions)
 							if itemSpec.slots == nil then
 								itemSpec.slots = {}
 								itemSpec._inline = false
+
+								-- This will prevent the spam of the stats system
+								-- Otherwise it'll react on every slot / mod iteraction
+								-- and the event queue will be overflowed very quickly
+								self:unequipItem(itemId)
 							end
 
 							local partSpec = {}
 
-							-- We can't use the obvious function due to this error:
+							-- Can't use the function due to this error:
 							-- Error: Function 'GetItemPart' parameter 0 must be gameInnerItemData.
 							--local partItemData = itemData:GetItemPart(slotId)
 
@@ -304,7 +291,6 @@ function InventoryModule:getItems(specOptions)
 									partSpec.upgrade = partQuality ~= 'Common' and partQuality or true
 								end
 
-								--partSpec._comment = string.upper(partMeta.name)
 								partSpec._comment = self.tweakDb:describe(partMeta)
 							else
 								partSpec.id = partId2.id
@@ -319,6 +305,10 @@ function InventoryModule:getItems(specOptions)
 
 							table.insert(itemSpec.slots, partSpec)
 						end
+					end
+
+					if itemSpec.slots then
+						self:forceEquipItem(itemId, slotIndex)
 					end
 
 					if equipArea.max > 1 then
@@ -346,10 +336,36 @@ function InventoryModule:getItems(specOptions)
 	return itemSpecs
 end
 
+function InventoryModule:unequipItem(itemId)
+	self.equipmentPlayerData:RemoveItemFromEquipSlot(itemId)
+	self.equipmentPlayerData:UnequipItem(itemId)
+end
+
+function InventoryModule:forceEquipItem(itemId, slotIndex)
+	if self.equipmentPlayerData:IsEquipped(itemId) then
+		self:unequipItem(itemId)
+	end
+
+	mod.defer(0.075, function()
+		self.equipmentPlayerData:EquipItemInSlot(itemId, slotIndex - 1, false, false, false)
+	end)
+end
+
+function InventoryModule:updateAutoScalingItems()
+	local currentLevel = Game.GetStatsSystem():GetStatValue(Game.GetPlayer():GetEntityID(), 'Level')
+
+	-- This triggers the items with auto-scaling feature to update to the current character level
+	Game.SetLevel('Level', currentLevel)
+
+	if mod.debug then
+		print(('[DEBUG] Respector: Updating auto-scale items to level %d.'):format(currentLevel))
+	end
+end
+
 function InventoryModule:applySpec(specData)
 	if specData.Inventory then
 		self:addItems(specData.Inventory)
-		self:autoScaleItems()
+		self:updateAutoScalingItems()
 	end
 end
 

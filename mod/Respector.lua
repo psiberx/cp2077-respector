@@ -1,6 +1,6 @@
 local mod = ...
 
-local Respector = { version = '0.9.2' }
+local Respector = { version = '0.9.3' }
 Respector.__index = Respector
 
 local asyncWait = false
@@ -8,13 +8,13 @@ local maxLastSpesc = 50
 
 local components = {
 	modules = {
-		character = 'mod/modules/Character',
-		inventory = 'mod/modules/Inventory',
-		crafting = 'mod/modules/Crafting',
-		transport = 'mod/modules/Transport',
+		{ name = 'character', source = 'mod/modules/Character' },
+		{ name = 'inventory', source = 'mod/modules/Inventory' },
+		{ name = 'crafting', source = 'mod/modules/Crafting' },
+		{ name = 'transport', source = 'mod/modules/Transport' },
 	},
 	stores = {
-		specStore = 'mod/stores/SpecStore',
+		{ name = 'specStore', source = 'mod/stores/SpecStore' },
 	}
 }
 
@@ -38,30 +38,40 @@ end
 
 function Respector:loadComponents()
 	for _, componentList in pairs(components) do
-		for componentName, componentSource in pairs(componentList) do
+		for _, component in ipairs(componentList) do
 			if mod.debug then
-				print(('[DEBUG] Respector: Loading %q component.'):format(componentName))
+				print(('[DEBUG] Respector: Loading %q component.'):format(component.name))
 			end
 
-			local componentType = mod.require(componentSource)
+			local componentType = mod.require(component.source)
 
 			if componentType then
-				self[componentName] = componentType:new()
+				self[component.name] = componentType:new()
 			end
 		end
 	end
 end
 
 function Respector:prepareModules()
-	for moduleName, _ in pairs(components.modules) do
-		self[moduleName]:prepare()
+	for _, module in ipairs(components.modules) do
+		self[module.name]:prepare()
 	end
 end
 
 function Respector:releaseModules()
-	for moduleName, _ in pairs(components.modules) do
-		self[moduleName]:release()
+	for _, module in ipairs(components.modules) do
+		self[module.name]:release()
 	end
+end
+
+function Respector:releaseModulesAsync()
+	asyncWait = true
+
+	mod.defer(1.0, function()
+		self:releaseModules()
+
+		asyncWait = false
+	end)
 end
 
 function Respector:loadSpec(specName)
@@ -78,19 +88,15 @@ function Respector:loadSpec(specName)
 
 	self:prepareModules()
 
-	for moduleName, _ in pairs(components.modules) do
+	for _, module in ipairs(components.modules) do
 		if mod.debug then
-			print(('[DEBUG] Respector: Applying spec using %q module.'):format(moduleName))
+			print(('[DEBUG] Respector: Applying spec using %q module.'):format(module.name))
 		end
 
-		self[moduleName]:applySpec(specData)
+		self[module.name]:applySpec(specData)
 	end
 
-	asyncWait = true
-	mod.defer(1.0, function()
-		self:releaseModules()
-		asyncWait = false
-	end)
+	self:releaseModulesAsync()
 
 	self:rememberRecentSpec(specName, '>')
 
@@ -110,15 +116,15 @@ function Respector:saveSpec(specName, specOptions)
 
 	local specData = {}
 
-	for moduleName, _ in pairs(components.modules) do
+	for _, module in ipairs(components.modules) do
 		if mod.debug then
-			print(('[DEBUG] Respector: Filling spec using %q module.'):format(moduleName))
+			print(('[DEBUG] Respector: Filling spec using %q module.'):format(module.name))
 		end
 
-		self[moduleName]:fillSpec(specData, specOptions)
+		self[module.name]:fillSpec(specData, specOptions)
 	end
 
-	self:releaseModules()
+	self:releaseModulesAsync()
 
 	if not specData then
 		print(('Respector: Failed to create spec.'))

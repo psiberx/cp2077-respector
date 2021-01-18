@@ -60,7 +60,7 @@ function debug.exportKeys(t, depth)
 	local indent = string.rep('\t', depth)
 
 	for k, v in pairs(t) do
-		local kstr = ''
+		local kstr = tostring(k)
 		if type(k) == 'string' then
 			kstr = string.format('[\'%s\']', k)
 		end

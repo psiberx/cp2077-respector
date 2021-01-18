@@ -84,9 +84,10 @@ function mod.defer(delay, callback)
 		for i, deferred in ipairs(mod.deferred) do
 			deferred.delay = deferred.delay - delay
 
-			if deferred.delay <= 0 then
+			if deferred.delay <= 0.01 then
 				table.remove(mod.deferred, i)
 				deferred.callback()
+				break
 			end
 		end
 	end
