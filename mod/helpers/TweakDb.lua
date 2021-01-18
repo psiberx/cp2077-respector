@@ -121,22 +121,37 @@ function TweakDb:match(item, criteria)
 	return match
 end
 
-function TweakDb:getTweakDbId(data)
+function TweakDb:getTweakDbId(data, prefix)
 	if type(data) == 'table' then
 		return TweakDBID.new(data.hash, data.length)
-	elseif type(data) == 'number' then
+	end
+
+	if type(data) == 'number' then
 		data = TweakDb.struct(data)
+
 		return TweakDBID.new(data.hash, data.length)
-	elseif type(data) == 'string' then
-		return TweakDBID.new(str.with(data, 'Items.'))
-	elseif type(data) == 'userdata' then
+	end
+
+	if type(data) == 'string' then
+		if prefix then
+			data = str.with(data, prefix)
+		end
+
+		return TweakDBID.new(data)
+	end
+
+	if type(data) == 'userdata' then
 		return data
 	end
 end
 
+function TweakDb:getItemTweakDbId(data)
+	return self:getTweakDbId(data, 'Items.')
+end
+
 function TweakDb:getItemId(tweakDbId, seed)
 	if type(tweakDbId) == 'string' then
-		tweakDbId = self:getTweakDbId(tweakDbId)
+		tweakDbId = self:getItemTweakDbId(tweakDbId)
 	end
 
 	if seed then
@@ -147,7 +162,7 @@ function TweakDb:getItemId(tweakDbId, seed)
 	end
 end
 
-function TweakDb:getSlotId(slotAlias, itemMeta)
+function TweakDb:getSlotTweakDbId(slotAlias, itemMeta)
 	if slotAlias == 'Muzzle' then
 		slotAlias = 'PowerModule'
 	end
@@ -173,12 +188,12 @@ function TweakDb:getSlotId(slotAlias, itemMeta)
 	return tweakDbId
 end
 
-function TweakDb:getSlotAlias(slotName, itemMeta)
-	if type(slotName) == 'userdata' then
-		local slotMeta = self:resolve(slotName)
+function TweakDb:getSlotAlias(slotType, itemMeta)
+	if type(slotType) == 'userdata' then
+		local slotMeta = self:resolve(slotType)
 
 		if type(slotMeta) == 'string' then
-			slotName = slotMeta
+			slotType = slotMeta
 		elseif type(slotMeta) == 'table' then
 			return slotMeta.name
 		else
@@ -186,7 +201,7 @@ function TweakDb:getSlotAlias(slotName, itemMeta)
 		end
 	end
 
-	local slotAlias = str.without(slotName, 'AttachmentSlots.')
+	local slotAlias = str.without(slotType, 'AttachmentSlots.')
 
 	if slotAlias == 'PowerModule' then
 		slotAlias = 'Muzzle'
@@ -256,13 +271,13 @@ function TweakDb:order(itemMeta)
 	end
 
 	if itemMeta.quality then
-		order = order .. '::' .. self:qualityIndex(itemMeta.quality)
+		order = order .. '::' .. self:getQualityIndex(itemMeta.quality)
 	end
 
 	return order
 end
 
-function TweakDb:qualityIndex(qualityName)
+function TweakDb:getQualityIndex(qualityName)
 	return qualityIndices[qualityName] or 0
 end
 

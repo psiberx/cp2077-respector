@@ -8,7 +8,7 @@ return {
 		-- This example defines WIDOW MAKER tech precision rifle.
 		--
 		-- When saving items each item entry gets a comment with
-		-- the in-game name, category, sub-category and rarity.
+		-- the in-game name, category and rarity.
 
 		-- WIDOW MAKER / Weapon / Tech / Legendary
 		{

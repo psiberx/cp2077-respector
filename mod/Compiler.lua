@@ -69,6 +69,8 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 		samplePacks = mod.load('mod/data/sample-packs')
 	end
 
+	local partSlots = mod.load('mod/data/attachment-slots')
+
 	local SpecStore = mod.require('mod/stores/SpecStore')
 	local specStore = SpecStore:new(samplePacksDir)
 
@@ -102,7 +104,33 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 
 				itemSpec.id = str.without(itemMeta.type, 'Items.')
 
-				if samplePack.name == 'stash-wall' then
+				if samplePack.items.kind == 'Cyberware' then
+					local itemSlots = {}
+
+					for _, partSlot in ipairs(partSlots) do
+						if tweakDb:match(itemMeta, partSlot.criteria) then
+							local matched = true
+
+							if itemMeta.group2 == 'Cyberdeck' then
+								local slotsNum = tweakDb:getQualityIndex(itemMeta.quality) + 1
+
+								if partSlot.index > slotsNum then
+									matched = false
+								end
+							end
+
+							if matched then
+								table.insert(itemSlots, { slot = partSlot.slot })
+							end
+						end
+					end
+
+					if #itemSlots > 0 then
+						itemSpec.slots = itemSlots
+						itemSpec._inline = false
+					end
+
+				elseif samplePack.name == 'stash-wall' then
 					if itemMeta.quest then
 						itemSpec.quest = false
 					end
@@ -176,7 +204,7 @@ end
 --	--local itemData = transactionSystem:GetItemData(player, itemId)
 --
 --	--for _, slotName in ipairs(partSlots) do
---	--	local slotId = tweakDb:getSlotId(slotName)
+--	--	local slotId = tweakDb:getSlotTweakDbId(slotName)
 --	--
 --	--	if itemData:HasPlacementSlot(slotId) or itemData:HasAttachmentSlot(slotId) then
 --	--		print(itemMeta.type, tweakDb:getSlotAlias(slotName, itemMeta))

@@ -52,7 +52,7 @@ function InventoryModule:addItem(itemSpec)
 
 	-- Resolve item
 
-	local tweakDbId = self.tweakDb:getTweakDbId(itemSpec.id)
+	local tweakDbId = self.tweakDb:getItemTweakDbId(itemSpec.id)
 	local itemMeta = self.tweakDb:resolve(tweakDbId) or { rng = true }
 	local itemCopy
 	local itemId
@@ -96,8 +96,8 @@ function InventoryModule:addItem(itemSpec)
 		-- Add mods and attachments
 
 		if itemSpec.slots then
-			for _, slotName in ipairs(self.partSlots) do
-				local slotId = self.tweakDb:getSlotId(slotName)
+			for _, slotMeta in ipairs(self.partSlots) do
+				local slotId = self.tweakDb:getTweakDbId(slotMeta.type)
 				local slotItemIds = {}
 
 				if itemData:HasPartInSlot(slotId) then
@@ -126,10 +126,12 @@ function InventoryModule:addItem(itemSpec)
 					slotSpec.slot = key
 				end
 
-				local slotId = self.tweakDb:getSlotId(slotSpec.slot, itemMeta)
-				local partItemId = self:addItem(slotSpec)
+				if slotSpec.slot and slotSpec.id then
+					local slotId = self.tweakDb:getSlotTweakDbId(slotSpec.slot, itemMeta)
+					local partItemId = self:addItem(slotSpec)
 
-				self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)
+					self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)
+				end
 			end
 		end
 
@@ -256,8 +258,8 @@ function InventoryModule:getItems(specOptions)
 						itemSpec._comment = itemSpec._comment .. ' / ' .. itemQuality
 					end
 
-					for _, slotName in ipairs(self.partSlots) do
-						local slotId = self.tweakDb:getSlotId(slotName)
+					for _, slotMeta in ipairs(self.partSlots) do
+						local slotId = self.tweakDb:getSlotTweakDbId(slotMeta.type)
 
 						if itemData:HasPartInSlot(slotId) then
 							if itemSpec.slots == nil then
@@ -284,7 +286,8 @@ function InventoryModule:getItems(specOptions)
 							local partId2 = self.tweakDb:extract(partId)
 							local partMeta = self.tweakDb:resolve(partId.tdbid)
 
-							partSpec.slot = self.tweakDb:getSlotAlias(slotName, itemMeta)
+							--partSpec.slot = self.tweakDb:getSlotAlias(slotMeta.type, itemMeta)
+							partSpec.slot = slotMeta.slot
 
 							if partMeta ~= nil then
 								if specOptions.itemFormat == 'hash' then

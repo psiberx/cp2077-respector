@@ -61,6 +61,10 @@ return {
 		items = { kind = "Weapon", iconic = false },
 	},
 	{
+		name = "weapons-atts",
+		items = { kind = "Mod", group = { "Scope", "Muzzle" } },
+	},
+	{
 		name = "weapons-iconic",
 		items = { kind = "Weapon", iconic = 1 },
 	},

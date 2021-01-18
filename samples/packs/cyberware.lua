@@ -24,13 +24,32 @@ return {
 		-- Decreases the RAM cost of Covert quickhacks by 1.
 		-- Quickhacking an enemy affected by Ping will reset the duratio of ping.
 		-- Increases combat quickhack duration by 30%.
-		{ id = "ArasakaEpicMKIII" }, 
+		{
+			id = "ArasakaEpicMKIII", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+				{ slot = "Program5" }, 
+			},
+		},
 
 		-- ARASAKA MK.4 / Cyberware / Operating System / Legendary
 		-- Decreases the RAM cost of Covert quickhacks by 2.
 		-- Quickhacking an enemy affected by Ping will reset the duratio of ping.
 		-- Increases combat quickhack duration by 40%.
-		{ id = "ArasakaLegendaryMKIV" }, 
+		{
+			id = "ArasakaLegendaryMKIV", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+				{ slot = "Program5" }, 
+				{ slot = "Program6" }, 
+			},
+		},
 
 		-- BALLISTIC COPROCESSOR / Cyberware / Hands / Rare
 		-- A coprocessor with an integrated servomotor system.
@@ -59,36 +78,79 @@ return {
 		-- BIODYNE BERSERK MK.1 / Cyberware / Operating System / Uncommon
 		-- When activated, ranged weapon recoil and sway -15%, melee damage -15% and Armor and Resistances +5% for 10 seconds.
 		-- Cooldown 30 seconds.
-		{ id = "BerserkC2MK1" }, 
+		{
+			id = "BerserkC2MK1", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- BIODYNE BERSERK MK.2 / Cyberware / Operating System / Rare
 		-- When activated, ranged weapon recoil and sway -25%, melee damage -25% and Armor and Resistances +5% for 15 seconds.
 		-- Ranged attack damage +10%.
 		-- Cooldown 30 seconds.
-		{ id = "BerserkC2MK2" }, 
+		{
+			id = "BerserkC2MK2", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- BIODYNE BERSERK MK.3 / Cyberware / Operating System / Epic
 		-- When activated, ranged weapon recoil and sway -25%, melee damage -25% and Armor and Resistances +5% for 5 seconds.
 		-- Ranged attack damage +15.
 		-- Defeating enemies restores 3% health.
 		-- Cooldown 30 seconds.
-		{ id = "BerserkC2MK3" }, 
+		{
+			id = "BerserkC2MK3", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- BIODYNE BERSERK MK.4 / Cyberware / Operating System / Legendary
 		-- When activated, ranged weapon recoil and sway -25%, melee damage -25% and Armor and Resistances +5% for 5 seconds.
 		-- Ranged attack damage +20%.
 		-- Defeating enemies restores 4% health.
 		-- Cooldown 30 seconds.
-		{ id = "BerserkC2MK4" }, 
+		{
+			id = "BerserkC2MK4", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- BIODYNE MK.1 / Cyberware / Operating System / Uncommon
 		-- Allows you to preform quckhacks on targets and devices while scanning.
-		{ id = "BioDyneUncommonMKI" }, 
+		{
+			id = "BioDyneUncommonMKI", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+			},
+		},
 
 		-- BIODYNE MK.2 / Cyberware / Operating System / Rare
 		-- Allows you to preform quckhacks on targets and devices while scanning.
 		-- Increases Cyberdeck Ram recovery rate by 3 unite(s) per 60 seconds.
-		{ id = "BioDyneRareMKII" }, 
+		{
+			id = "BioDyneRareMKII", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+			},
+		},
 
 		-- BIOMONITOR / Cyberware / Circulatory System / Common
 		-- Instant restores 30% Health when Health drops to 15%.
@@ -164,13 +226,37 @@ return {
 		{ id = "EnhancedBloodVesselsLegendary" }, 
 
 		-- BIOTECH Σ MK.1 / Cyberware / Operating System / Uncommon
-		{ id = "BiotechUncommonMKI" }, 
+		{
+			id = "BiotechUncommonMKI", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+			},
+		},
 
 		-- BIOTECH Σ MK.2 / Cyberware / Operating System / Rare
-		{ id = "BiotechRareMKII" }, 
+		{
+			id = "BiotechRareMKII", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+			},
+		},
 
 		-- BIOTECH Σ MK.3 / Cyberware / Operating System / Epic
-		{ id = "BiotechEpicMKIII" }, 
+		{
+			id = "BiotechEpicMKIII", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+				{ slot = "Program5" }, 
+			},
+		},
 
 		-- BLOOD PUMP / Cyberware / Circulatory System / Common
 		-- Activate to instantly restore 50% health (cooldown 180 seconds).
@@ -238,26 +324,54 @@ return {
 		-- Slows time by 50% for 8 sec.
 		-- Cooldown 30 sec.
 		-- Increase any damage dealt by 5% when Sandevistan is active.
-		{ id = "SandevistanC2MK1" }, 
+		{
+			id = "SandevistanC2MK1", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- DYNALAR SANDEVISTAN MK.2 / Cyberware / Operating System / Rare
 		-- Slows time by 25% for 12 sec.
 		-- Cooldown 30 sec.
 		-- Increase any damage dealt by 10% when Sandevistan is active.
-		{ id = "SandevistanC2MK2" }, 
+		{
+			id = "SandevistanC2MK2", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- DYNALAR SANDEVISTAN MK.3 / Cyberware / Operating System / Epic
 		-- Slows time by 50% for 16 sec.
 		-- Cooldown 30 sec.
 		-- Increase any damage dealt by 15% when Sandevistan is active.
-		{ id = "SandevistanC2MK3" }, 
+		{
+			id = "SandevistanC2MK3", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- DYNALAR SANDEVISTAN MK.4 / Cyberware / Operating System / Legendary
 		-- Slows time by 25% for 16 sec.
 		-- Cooldown 30 sec.
 		-- Increase any damage dealt by 15% when Sandevistan is active.
 		-- Increase Crit Chance by 15% when Sandevistan is active.
-		{ id = "SandevistanC2MK4" }, 
+		{
+			id = "SandevistanC2MK4", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- EX-DISK / Cyberware / Frontal Cortex / Rare
 		-- increases your cyberdeck's max Ram units by 1.
@@ -297,25 +411,62 @@ return {
 		{ id = "ReinforcedMusclesEpic" }, 
 
 		-- FUYUTSUI ELECTRONICS MK.1 / Cyberware / Operating System / Common
-		{ id = "FuyutsuiCommonMKI" }, 
+		{
+			id = "FuyutsuiCommonMKI", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+			},
+		},
 
 		-- FUYUTSUI TINKERER MK.3 / Cyberware / Operating System / Legendary
 		-- Increases cyberdeck ram recovery rate by 9 unit(s) per 60 sec.
 		-- Increases combat quickhacks duration by 50%.
 		-- Increaces quickhacks spread distance by 40%.
-		{ id = "FuyutsuiTinkererLegendaryMKIII" }, 
+		{
+			id = "FuyutsuiTinkererLegendaryMKIII", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+				{ slot = "Program5" }, 
+				{ slot = "Program6" }, 
+			},
+		},
 
 		-- GORILLA ARMS / Cyberware / Arms / Rare
 		-- Classic and Reliable replacements for natural limbs, suited for all kinds of hard labor.
-		{ id = "StrongArms" }, 
+		{
+			id = "StrongArms", 
+			slots = {
+				{ slot = "Knuckles" }, 
+				{ slot = "Battery" }, 
+				{ slot = "Mod" }, 
+			},
+		},
 
 		-- GORILLA ARMS / Cyberware / Arms / Epic
 		-- Classic and Reliable replacements for natural limbs, suited for all kinds of hard labor.
-		{ id = "StrongArmsEpic" }, 
+		{
+			id = "StrongArmsEpic", 
+			slots = {
+				{ slot = "Knuckles" }, 
+				{ slot = "Battery" }, 
+				{ slot = "Mod" }, 
+			},
+		},
 
 		-- GORILLA ARMS / Cyberware / Arms / Legendary
 		-- Classic and Reliable replacements for natural limbs, suited for all kinds of hard labor.
-		{ id = "StrongArmsLegendary" }, 
+		{
+			id = "StrongArmsLegendary", 
+			slots = {
+				{ slot = "Knuckles" }, 
+				{ slot = "Battery" }, 
+				{ slot = "Mod" }, 
+			},
+		},
 
 		-- GROUNDING PLATE / Cyberware / Integumentary System / Rare
 		-- Grants Immunity to Shock.
@@ -379,17 +530,38 @@ return {
 		-- KIROSHI OPTICS MK.1 / Cyberware / Ocular System / Common
 		-- Ehances your vision.
 		-- 1 Empty cyberware mod slot.
-		{ id = "KiroshiOptics" }, 
+		{
+			id = "KiroshiOptics", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- KIROSHI OPTICS MK.2 / Cyberware / Ocular System / Rare
 		-- Ehances your vision.
 		-- 2 Empty cyberware mod slot.
-		{ id = "KiroshiOpticsRare" }, 
+		{
+			id = "KiroshiOpticsRare", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- KIROSHI OPTICS MK.3 / Cyberware / Ocular System / Epic
 		-- Ehances your vision.
 		-- 3 Empty cyberware mod slot.
-		{ id = "KiroshiOpticsEpic" }, 
+		{
+			id = "KiroshiOpticsEpic", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- LIMBIC SYSTEM ENHANCEMENT / Cyberware / Frontal Cortex / Common
 		-- Increases Crit Chance By 7%.
@@ -411,17 +583,38 @@ return {
 		-- MANTIS BLADES / Cyberware / Arms / Rare
 		-- Arm blades designed with lethality and concealment in mind.
 		-- As effective as they are flashy.
-		{ id = "MantisBlades" }, 
+		{
+			id = "MantisBlades", 
+			slots = {
+				{ slot = "Edge" }, 
+				{ slot = "Rotor" }, 
+				{ slot = "Mod" }, 
+			},
+		},
 
 		-- MANTIS BLADES / Cyberware / Arms / Epic
 		-- Arm blades designed with lethality and concealment in mind.
 		-- As effective as they are flashy.
-		{ id = "MantisBladesEpic" }, 
+		{
+			id = "MantisBladesEpic", 
+			slots = {
+				{ slot = "Edge" }, 
+				{ slot = "Rotor" }, 
+				{ slot = "Mod" }, 
+			},
+		},
 
 		-- MANTIS BLADES / Cyberware / Arms / Legendary
 		-- Arm blades designed with lethality and concealment in mind.
 		-- As effective as they are flashy.
-		{ id = "MantisBladesLegendary" }, 
+		{
+			id = "MantisBladesLegendary", 
+			slots = {
+				{ slot = "Edge" }, 
+				{ slot = "Rotor" }, 
+				{ slot = "Mod" }, 
+			},
+		},
 
 		-- MANUVERING SYSTEM / Cyberware / Nervous System / Rare
 		-- Allows you to preform dodges in midair.
@@ -525,46 +718,108 @@ return {
 		-- Increase any damage dealt by 15% when Sandevistan is active.
 		-- Increase Crit Chance by 20% and Crit Damage by 35% when Sandevistan is active.
 		-- Cooldown 60 sec.
-		{ id = "SandevistanC4MK5" }, 
+		{
+			id = "SandevistanC4MK5", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- MILITECH BERSERK MK.5 / Cyberware / Operating System / Legendary
 		-- When activated, ranged weapon recoil and sway -15%, melee damage +15% and Armor +10% for 10 seconds.
 		-- Max health and stamina +40%, defeating enemies restores 5% health.
 		-- Cooldown 60 seconds.
-		{ id = "BerserkC4MK5" }, 
+		{
+			id = "BerserkC4MK5", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- MILITECH PARALINE / Cyberware / Operating System / Common
-		{ id = "MilitechParaline" }, 
+		{
+			id = "MilitechParaline", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+			},
+		},
 
 		-- MONOWIRE / Cyberware / Arms / Rare
 		-- Whiplike Monofilament wire with a cutting edge only a molecule wide.
-		{ id = "NanoWires" }, 
+		{
+			id = "NanoWires", 
+			slots = {
+				{ slot = "Cable" }, 
+				{ slot = "Battery" }, 
+				{ slot = "Mod" }, 
+			},
+		},
 
 		-- MONOWIRE / Cyberware / Arms / Epic
 		-- Whiplike Monofilament wire with a cutting edge only a molecule wide.
-		{ id = "NanoWiresEpic" }, 
+		{
+			id = "NanoWiresEpic", 
+			slots = {
+				{ slot = "Cable" }, 
+				{ slot = "Battery" }, 
+				{ slot = "Mod" }, 
+			},
+		},
 
 		-- MONOWIRE / Cyberware / Arms / Legendary
 		-- Whiplike Monofilament wire with a cutting edge only a molecule wide.
-		{ id = "NanoWiresLegendary" }, 
+		{
+			id = "NanoWiresLegendary", 
+			slots = {
+				{ slot = "Cable" }, 
+				{ slot = "Battery" }, 
+				{ slot = "Mod" }, 
+			},
+		},
 
 		-- MOORE TECH BERSERK MK.1 / Cyberware / Operating System / Uncommon
 		-- When activated, ranged weapon recoil and sway -10%, melee damage +10% and Armor +5% for 10 seconds.
 		-- Cooldown 60 seconds.
-		{ id = "BerserkC1MK1" }, 
+		{
+			id = "BerserkC1MK1", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- MOORE TECH BERSERK MK.2 / Cyberware / Operating System / Rare
 		-- When activated, ranged weapon recoil and sway -10%, melee damage +15% and Armor +5% for 15 seconds.
 		-- Max Health +10%.
 		-- Cooldown 60 seconds.
-		{ id = "BerserkC1MK2" }, 
+		{
+			id = "BerserkC1MK2", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- MOORE TECH BERSERK MK.3 / Cyberware / Operating System / Epic
 		-- When activated, ranged weapon recoil and sway -10%, melee damage +15% and Armor +10% for 30 seconds.
 		-- Max Health +20%.
 		-- Defeating enemies restore 2% health.
 		-- Cooldown 60 seconds.
-		{ id = "BerserkC1MK3" }, 
+		{
+			id = "BerserkC1MK3", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- NANORELAYS / Cyberware / Nervous System / Uncommon
 		-- Increases Sandevistan and Kerenzikov duration by 0.5 sec.
@@ -604,7 +859,17 @@ return {
 		-- Increases damage dealt by quickhacks by 30%.
 		-- Increases cyberdeck RAM recovery rare by 9 unit(s) per 60 sec.
 		-- Increases quickhack spread distance by 60%.
-		{ id = "NetwatchNetdriverLegendaryMKV" }, 
+		{
+			id = "NetwatchNetdriverLegendaryMKV", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+				{ slot = "Program5" }, 
+				{ slot = "Program6" }, 
+			},
+		},
 
 		-- PAIN EDITOR / Cyberware / Immune System / Legendary
 		-- Reduces all incoming damage by 10%.
@@ -612,29 +877,64 @@ return {
 
 		-- PROJECTILE LAUNCH SYSTEM / Cyberware / Arms / Rare
 		-- A missile launcher in the pal of your hand (more or less literally).
-		{ id = "ProjectileLauncher" }, 
+		{
+			id = "ProjectileLauncher", 
+			slots = {
+				{ slot = "Round" }, 
+				{ slot = "Wiring" }, 
+				{ slot = "Mod" }, 
+			},
+		},
 
 		-- PROJECTILE LAUNCH SYSTEM / Cyberware / Arms / Epic
 		-- A missile launcher in the pal of your hand (more or less literally).
-		{ id = "ProjectileLauncherEpic" }, 
+		{
+			id = "ProjectileLauncherEpic", 
+			slots = {
+				{ slot = "Round" }, 
+				{ slot = "Wiring" }, 
+				{ slot = "Mod" }, 
+			},
+		},
 
 		-- PROJECTILE LAUNCH SYSTEM / Cyberware / Arms / Legendary
 		-- A missile launcher in the pal of your hand (more or less literally).
-		{ id = "ProjectileLauncherLegendary" }, 
+		{
+			id = "ProjectileLauncherLegendary", 
+			slots = {
+				{ slot = "Round" }, 
+				{ slot = "Wiring" }, 
+				{ slot = "Mod" }, 
+			},
+		},
 
 		-- QIANT "WARP DANCER" SANDEVISTAN MK.5 / Cyberware / Operating System / Legendary
 		-- Slows time by 10% for 8 sec.
 		-- Increase any damage dealt by 15% when Sandevistan is active.
 		-- Increase Crit Chance by 10% and Crit Damage by 50% when Sandevistan is active.
 		-- Cooldown 30 sec.
-		{ id = "SandevistanC3MK5" }, 
+		{
+			id = "SandevistanC3MK5", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- QIANT SANDEVISTAN MK.4 / Cyberware / Operating System / Legendary
 		-- Slows time by 25% for 12 sec.
 		-- Cooldown 30 sec.
 		-- Increase any damage dealt by 15% when Sandevistan is active.
 		-- Increase Crit Chance by 15% when Sandevistan is active.
-		{ id = "SandevistanC3MK4" }, 
+		{
+			id = "SandevistanC3MK4", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- RAM UPGRADE / Cyberware / Frontal Cortex / Common
 		-- Increases cyberdeck RAM recovery rate by 0.05 units(s) per second.
@@ -653,14 +953,33 @@ return {
 		-- Increases time it takes for an enemy netrunner to hack you by 50%.
 		-- Increases quickhack spread distance by 40%.
 		-- Increases cyberdeck RAM recovery rate by 3 unit(s) per 60 sec.,.
-		{ id = "RavenEpicMKIII" }, 
+		{
+			id = "RavenEpicMKIII", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+				{ slot = "Program5" }, 
+			},
+		},
 
 		-- RAVEN MICROCYBER MK.4 / Cyberware / Operating System / Legendary
 		-- Allows you to perform quickhacks on targets and devices while scanning.
 		-- Increases time it takes for an enemy netrunner to hack you by 100%.
 		-- Increases quickhack spread distance by 60%.
 		-- Increases cyberdeck RAM recovery rate by 6 unit(s) per 60 sec.,.
-		{ id = "RavenLegendaryMKIV" }, 
+		{
+			id = "RavenLegendaryMKIV", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+				{ slot = "Program5" }, 
+				{ slot = "Program6" }, 
+			},
+		},
 
 		-- REFLEX TUNERS / Cyberware / Nervous System / Common
 		-- Slows time by 50% for 2 sec.
@@ -703,13 +1022,28 @@ return {
 		-- SEOCHO ELECTRONICS MK.1 / Cyberware / Operating System / Uncommon
 		-- Allows you to perform quickhacks on targets and devicese while scanning.
 		-- Decreases the RAM cost of Covert Quickhacks by 1.
-		{ id = "SeachoUncommonMKI" }, 
+		{
+			id = "SeachoUncommonMKI", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+			},
+		},
 
 		-- SEOCHO ELECTRONICS MK.2 / Cyberware / Operating System / Rare
 		-- Allows you to perform quickhacks on targets and devicese while scanning.
 		-- Decreases the RAM cost of Covert Quickhacks by 1.
 		-- Reduces quickhack Upload time by 25%.
-		{ id = "SeachoRareMKII" }, 
+		{
+			id = "SeachoRareMKII", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+			},
+		},
 
 		-- SHOCK-N-AWE / Cyberware / Immune System / Common
 		-- After taking damage, there is a 2% chance of release a large electroshock that deals damage to nearby enemies.
@@ -741,16 +1075,43 @@ return {
 
 		-- STEPHENSON TECK MK. 2 / Cyberware / Operating System / Rare
 		-- Quickhack cooldown reduced by 30% Increase combat quickhack duration by 30%.
-		{ id = "StephensonRareMKII" }, 
+		{
+			id = "StephensonRareMKII", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+			},
+		},
 
 		-- STEPHENSON TECK MK. 3 / Cyberware / Operating System / Epic
 		-- Quickhack cooldown reduced by 45% Increase combat quickhack duration by 40%.
-		{ id = "StephensonEpicMKIII" }, 
+		{
+			id = "StephensonEpicMKIII", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+				{ slot = "Program5" }, 
+			},
+		},
 
 		-- STEPHENSON TECK MK. 4 / Cyberware / Operating System / Legendary
 		-- Quickhack cooldown reduced by 45% Increase combat quickhack duration by 50%.
 		-- Reduces quickhack upload time by 25%.
-		{ id = "StephensonLegendaryMKIV" }, 
+		{
+			id = "StephensonLegendaryMKIV", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+				{ slot = "Program5" }, 
+				{ slot = "Program6" }, 
+			},
+		},
 
 		-- SUBDERMAL ARMOR / Cyberware / Integumentary System / Common
 		-- increases armor by 20.
@@ -908,31 +1269,66 @@ return {
 		-- While active, defeating enemies restores 5% health and jumping from a high height create a Shockwave.
 		-- Cooldown 30 seconds.
 		-- 3 Mod Slots.
-		{ id = "BerserkC3MK4" }, 
+		{
+			id = "BerserkC3MK4", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- ZETATECH BERSERK MK.5 / Cyberware / Operating System / Legendary
 		-- When activated, reduces weapon recoil and increases melee damage, Armor, Resistances by 20% for 10 seconds.
 		-- While active, defeating enemies restores 5% health and jumping from a high height create a Shockwave.
 		-- Cooldown 30 seconds.
 		-- 3 Mod Slots.
-		{ id = "BerserkC3MK5" }, 
+		{
+			id = "BerserkC3MK5", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- ZETATECH SANDEVISTAN MK. 2 / Cyberware / Operating System / Rare
 		-- Slows time by 50% for 12 sec.
 		-- Cooldown 30 sec.
 		-- Increase Crit Chance by 15% when Sandevistan is active.
-		{ id = "SandevistanC1MK2" }, 
+		{
+			id = "SandevistanC1MK2", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- ZETATECH SANDEVISTAN MK. 3 / Cyberware / Operating System / Epic
 		-- Slows time by 50% for 16 sec.
 		-- Cooldown 30 sec.
 		-- Increase Crit Chance by 20% when Sandevistan is active.
-		{ id = "SandevistanC1MK3" }, 
+		{
+			id = "SandevistanC1MK3", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 
 		-- ZETATECH SANDEVISTAN MK.1 / Cyberware / Operating System / Uncommon
 		-- Slows time by 75% for 8 sec.
 		-- Cooldown 30 sec.
 		-- Increase Crit Chance by 10% when Sandevistan is active.
-		{ id = "SandevistanC1MK1" }, 
+		{
+			id = "SandevistanC1MK1", 
+			slots = {
+				{ slot = "Slot1" }, 
+				{ slot = "Slot2" }, 
+				{ slot = "Slot3" }, 
+			},
+		},
 	},
 }

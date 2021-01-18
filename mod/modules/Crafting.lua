@@ -49,7 +49,7 @@ function CraftingModule:getRecipes()
 	local recipeSpecs = {}
 
 	for itemKey, itemMeta in self.tweakDb:iterate() do
-		local itemId = self.tweakDb:getTweakDbId(itemKey)
+		local itemId = self.tweakDb:getItemTweakDbId(itemKey)
 
 		if self.craftingSystem:IsRecipeKnown(itemId, self.playerCraftBook) then
 			local recipeSpec = {}
@@ -98,7 +98,7 @@ function CraftingModule:setRecipes(recipeSpecs)
 			itemType = str.with(itemType, 'Items.')
 		end
 
-		local itemId = self.tweakDb:getTweakDbId(itemType)
+		local itemId = self.tweakDb:getItemTweakDbId(itemType)
 
 		self.playerCraftBook:AddRecipe(itemId, {}, 1)
 	end
