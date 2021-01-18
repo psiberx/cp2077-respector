@@ -1,0 +1,4 @@
+/.dev
+/.idea
+/specs/*
+!/specs/V.lua
