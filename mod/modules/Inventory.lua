@@ -107,7 +107,7 @@ function InventoryModule:addItem(itemSpec)
 				end
 
 				if #slotItemIds > 0 then
-					mod.defer(0.05, function()
+					mod.defer(0.75, function()
 						for _, slotItemId in ipairs(slotItemIds) do
 							self.craftingSystem:DisassembleItem(self.player, slotItemId, 1)
 						end
@@ -158,7 +158,7 @@ function InventoryModule:addItem(itemSpec)
 				self.equipmentPlayerData:UnequipItem(itemId)
 			end
 
-			mod.defer(0.05, function()
+			mod.defer(0.075, function()
 				self.equipmentPlayerData:EquipItemInSlot(itemId, slotIndex - 1, false, false, false)
 			end)
 		end

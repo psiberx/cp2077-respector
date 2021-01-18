@@ -149,3 +149,12 @@ A copy of the config file with default values can be found at `samples/config/de
 - Ability to export all items in the inventory.
 - Ability to export vehicles owned by the player. 
 - Better GUI with the list of available specs and ability to select them for saving and loading.
+
+## Credits
+
+- [yamashi](https://github.com/yamashi) and [Cyber Engine Tweaks](https://github.com/yamashi/CyberEngineTweaks) team
+- [WolvenKit](https://github.com/WolvenKit)
+- [WopsS](https://github.com/WopsS)
+- [rfuzzo](https://github.com/rfuzzo)
+- [PixelRick](https://github.com/PixelRick)
+- [Rick Gibbed](https://github.com/gibbed)

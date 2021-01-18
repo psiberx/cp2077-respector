@@ -80,12 +80,12 @@ if mod.config.useGui then
 
 	gui.init(respector)
 
-	registerForEvent('onConsoleOpen', function()
-		gui.onConsoleOpen()
+	registerForEvent('onOverlayOpen', function()
+		gui.onOverlayOpen()
 	end)
 
-	registerForEvent('onConsoleClose', function()
-		gui.onConsoleClose()
+	registerForEvent('onOverlayClose', function()
+		gui.onOverlayClose()
 	end)
 
 	registerForEvent('onUpdate', function(delta)

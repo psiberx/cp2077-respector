@@ -180,11 +180,11 @@ function gui.writeDefaultSpec()
 	compiler:writeDefaultSpec()
 end
 
-function gui.onConsoleOpen()
+function gui.onOverlayOpen()
 	drawWindow = true
 end
 
-function gui.onConsoleClose()
+function gui.onOverlayClose()
 	drawWindow = false
 end
 
