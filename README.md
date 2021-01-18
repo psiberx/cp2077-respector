@@ -87,8 +87,8 @@ Available options for `specOptions` are: <a name="spec-options"></a>
 
 | Option | Values | Default | Description |
 | :--- | :---: | :---: | :--- |
-| `itemFormat`       | `"auto"`,&nbsp;`"hash"` | `"auto"` | The preferred ItemID format for use in item specs:<br>`"auto"` &ndash; Use item name whenever possible.<br>`"hash"` &ndash; Always use a struct with hash and length values (eg. `{ hash = 0x026C324A, length = 27 }`). |
-| `keepSeed`         | `"auto"`,&nbsp;`"always"` | `"auto"` | How to save the RNG seed in item specs:<br>`"auto"` &ndash; Save the seed only for items that can be randomized.<br>`"always"` &ndash; Always write the seed for all items. |
+| `itemFormat`       | `"auto"`, `"hash"` | `"auto"` | The preferred ItemID format for use in item specs:<br>`"auto"` &ndash; Use item name whenever possible.<br>`"hash"` &ndash; Always use a struct with hash and length values (eg. `{ hash = 0x026C324A, length = 27 }`). |
+| `keepSeed`         | `"auto"`, `"always"` | `"auto"` | How to save the RNG seed in item specs:<br>`"auto"` &ndash; Save the seed only for items that can be randomized.<br>`"always"` &ndash; Always write the seed for all items. |
 | `exportAllPerks`   | `bool` | `false`  | If enabled, all perks will be saved in the spec, including those not purchased. If disabled, only purchased perks will be saved. |
 | `exportComponents` | `bool` | `true`   | If disabled, crafting components will not be added to the spec. |
 | `exportRecipes`    | `bool` | `true`   | If disabled, crafting recipes will not be added to the spec. |
@@ -124,8 +124,8 @@ The configuration is stored in the `config.lua` file in the mod directory.
 | :--- | :---: | :---: | :--- |
 | `specsDir`         | `""`     | `string` | The directory for storing spec files. Can be any location outside of the mod (eg. `D:\Games\Cyberpunk 2077\Specs`). If empty then the `specs` dir of the mod is used. |
 | `defaultSpec`      | `"V"`    | `string` | The defalt spec name. Used when saving and loading without specifying a spec name (aka quick saving an quick loading). |
-| `itemFormat`       | `"auto"` | `"auto"`,&nbsp;`"hash"` | The default value for `itemFormat` option when saving specs. See [spec options](#spec-options) for details. |
-| `keepSeed`         | `"auto"` | `"auto"`,&nbsp;`"always"` | The default value for `keepSeed` option when saving specs. See [spec options](#spec-options) for details. |
+| `itemFormat`       | `"auto"` | `"auto"`, `"hash"` | The default value for `itemFormat` option when saving specs. See [spec options](#spec-options) for details. |
+| `keepSeed`         | `"auto"` | `"auto"`, `"always"` | The default value for `keepSeed` option when saving specs. See [spec options](#spec-options) for details. |
 | `exportAllPerks`   | `false`  | `bool` | The default value for `exportAllPerks` option when saving specs. See [spec options](#spec-options) for details. |
 | `exportComponents` | `true`   | `bool` | The default value for `exportComponents` option when saving specs. See [spec options](#spec-options) for details. |
 | `exportRecipes`    | `true`   | `bool` | The default value for `exportRecipes` option when saving specs. See [spec options](#spec-options) for details. |
