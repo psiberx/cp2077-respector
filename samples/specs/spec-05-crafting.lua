@@ -19,20 +19,13 @@ return {
 		},
 
 		Recipes = {
-			--
-			-- Each recipe is defined by the item ID to craft,
-			-- not the item ID of recipe itself as a loot.
-			--
-			-- When saving recipes mod adds comment with the name
-			-- and rarity of the item if rerity is fixed.
-			--
+			-- Each recipe is defined by the item ID to craft, not by the item ID of a recipe as a loot.
+			-- Each recipe entry has comment with the name of the item and a rarity if rarity is fixed.
 			"Preset_Nekomata_Breakthrough", -- BREAKTHROUGH / Epic
 			"Preset_Pulsar_Buzzsaw", -- BUZZSAW / Rare
 			"SimpleFabricEnhancer01", -- ARMADILLO
 
-			--
-			-- If textual item ID is currently unknown then the hash value will be used.
-			--
+			-- If the mod doesn't know the textual item ID, then the hash value will be used.
 			0xBCFB0A1216, -- OZOB'S NOSE / Legendary
 		},
 	},

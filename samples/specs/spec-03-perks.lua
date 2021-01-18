@@ -1,12 +1,12 @@
 --
--- The Perks section defines perks in groups of respected skills.
+-- The Perks section defines perks in groups of their respective skills.
 --
--- When saving spec with default options it will contain only purchased perks.
--- But you can enable the option to save all perks even with level zero.
+-- When you save the spec with default options, it will only contain purchased perks.
+-- You can enable the option to save all perks even with level zero.
 --
--- Perk names are identical are as close as possible to the in-game names.
--- Each perk entry have a comment with the maximum level for that perk
--- and in-game description with bonuses for each perk level.
+-- The names of the perks are as close as possible to the in-game names.
+-- Each perk entry has a comment with a maximum level for that perk
+-- and an in-game description with bonuses for each perk level.
 --
 return {
 	Character = {
