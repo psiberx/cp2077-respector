@@ -39,180 +39,15 @@ function InventoryModule:release()
 	self.gameRPGManager = nil
 	self.forceItemQuality = nil
 	self.itemModSystem = nil
-end
 
-function InventoryModule:addItem(itemSpec)
-	if type(itemSpec) ~= 'table' then
-		itemSpec = { id = itemSpec }
-	end
-
-	if type(itemSpec.id) ~= 'table' and type(itemSpec.id) ~= 'string' then
-		itemSpec.id = tostring(itemSpec.id)
-	end
-
-	-- Resolve item
-
-	local tweakDbId = self.tweakDb:getItemTweakDbId(itemSpec.id)
-	local itemMeta = self.tweakDb:resolve(tweakDbId) or { rng = true }
-	local itemCopy
-	local itemId
-
-	if itemMeta.stack then
-		itemCopy = 1
-		if not itemSpec.qty then
-			itemSpec.qty = 1
-		end
-	else
-		if itemSpec.seed then
-			-- Cannot have more than one item with the same seed
-			itemCopy = 1
-
-			--if itemSpec.qty and itemSpec.qty > 1 then
-			--	print(warning)
-			--end
-		else
-			itemCopy = (itemSpec.qty or 1)
-		end
-	end
-
-	for _ = 1, itemCopy do
-		itemId = self.tweakDb:getItemId(tweakDbId, itemSpec.seed)
-
-		-- Add item to inventory
-
-		local currentQty = self.transactionSystem:GetItemQuantity(self.player, itemId)
-
-		if itemMeta.stack then
-			self.transactionSystem:GiveItem(self.player, itemId, itemSpec.qty - currentQty)
-		else
-			-- Never add the exact same item (hash + seed) if it's already in inventory
-			if currentQty == 0 then
-				self.transactionSystem:GiveItem(self.player, itemId, 1)
-			else
-				-- Prevent spamming the stats system
-				self:unequipItem(itemId)
-
-				for _, slotMeta in ipairs(self.partSlots) do
-					local slotId = self.tweakDb:getTweakDbId(slotMeta.type)
-					local slotItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, false)
-
-					if slotItemId then
-						self.transactionSystem:RemoveItem(self.player, slotItemId, 1)
-					end
-				end
-				--self.transactionSystem:RemoveItem(self.player, itemId, 1)
-				--self.transactionSystem:GiveItem(self.player, itemId, 1)
-			end
-		end
-
-		local itemData = self.transactionSystem:GetItemData(self.player, itemId)
-
-		-- Add mods and attachments
-
-		if itemSpec.slots then
-			--for _, slotMeta in ipairs(self.partSlots) do
-			--	local slotId = self.tweakDb:getTweakDbId(slotMeta.type)
-			--	local slotItemIds = {}
-			--
-			--	if itemData:HasPartInSlot(slotId) then
-			--		local slotItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, false)
-			--
-			--		table.insert(slotItemIds, slotItemId)
-			--	end
-			--
-			--	if #slotItemIds > 0 then
-			--		mod.defer(0.75, function()
-			--			for _, slotItemId in ipairs(slotItemIds) do
-			--				self.craftingSystem:DisassembleItem(self.player, slotItemId, 1)
-			--			end
-			--		end)
-			--	end
-			--end
-
-			for key, slotSpec in pairs(itemSpec.slots) do
-				if type(slotSpec) == 'string' then
-					slotSpec = {
-						id = slotSpec
-					}
-				end
-
-				if type(key) == 'string' then
-					slotSpec.slot = key
-				end
-
-				if slotSpec.slot and slotSpec.id then
-					local slotId = self.tweakDb:getSlotTweakDbId(slotSpec.slot, itemMeta)
-					local partItemId = self:addItem(slotSpec)
-
-					self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)
-				end
-			end
-		end
-
-		-- Upgrade item
-
-		if itemSpec.upgrade ~= nil and itemSpec.upgrade ~= false then
-			local itemQuality
-
-			if type(itemSpec.upgrade) == 'string' then
-				itemQuality = itemSpec.upgrade
-			else
-				itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
-			end
-
-			self.craftingSystem:SetItemLevel(itemData)
-			self.forceItemQuality(self.player, itemData, CName.new(itemQuality))
-		end
-
-		-- Equip item
-
-		if itemSpec.equip ~= nil then
-			local slotIndex = math.max(1, type(itemSpec.equip) == 'number' and itemSpec.equip or 1)
-
-			self:equipItem(itemId, slotIndex)
-		end
-
-		-- Force quest flag
-
-		if itemSpec.quest ~= nil then
-			if itemSpec.quest then
-				if not itemData:HasTag('Quest') then
-					itemData:SetDynamicTag('Quest')
-				end
-			else
-				if itemData:HasTag('Quest') then
-					itemData:RemoveDynamicTag('Quest')
-				end
-			end
-		end
-	end
-
-	return itemId
-end
-
-function InventoryModule:addItems(itemSpecs)
-	self.tweakDb:load('mod/data/tweakdb-meta')
-
-	for _, itemSpec in ipairs(itemSpecs) do
-		self:addItem(itemSpec)
-	end
-
-	self.tweakDb:unload()
+	self.partSlots = nil
 end
 
 function InventoryModule:getItems(specOptions)
 	self.tweakDb:load('mod/data/tweakdb-meta')
 
-	--local m = self.equipmentPlayerData:GetInventoryManager()
-	--local a = m:GetPlayerInventoryItems()
-	--
-	--print(#a)
-	--
-	--for i, item in ipairs(a) do
-	--	print(item:GetID())
-	--end
-
 	local itemSpecs = {}
+	local itemReEquips = {}
 
 	local equipAreas = mod.load('mod/data/equipment-areas')
 
@@ -274,7 +109,15 @@ function InventoryModule:getItems(specOptions)
 								-- This will prevent the spam of the stats system
 								-- Otherwise it'll react on every slot / mod iteraction
 								-- and the event queue will be overflowed very quickly
-								self:unequipItem(itemId)
+								if slotMeta.criteria.kind == 'Clothing' then
+									self:unequipItem(itemId)
+
+									table.insert(itemReEquips, 1, {
+										itemId = itemId,
+										equipArea = equipArea,
+										slotIndex = slotIndex,
+									})
+								end
 							end
 
 							local partSpec = {}
@@ -330,10 +173,6 @@ function InventoryModule:getItems(specOptions)
 						end
 					end
 
-					if itemSpec.slots then
-						self:equipItem(itemId, slotIndex)
-					end
-
 					if equipArea.max > 1 then
 						itemSpec.equip = slotIndex
 					else
@@ -356,7 +195,182 @@ function InventoryModule:getItems(specOptions)
 		return nil
 	end
 
+	mod.defer(0.2, function()
+		for _, itemReEquip in ipairs(itemReEquips) do
+			self:equipItem(itemReEquip.itemId, itemReEquip.slotIndex)
+		end
+	end)
+
 	return itemSpecs
+end
+
+function InventoryModule:completeSpec(itemSpec)
+	if type(itemSpec) ~= 'table' then
+		itemSpec = { id = itemSpec }
+	end
+
+	if type(itemSpec.id) ~= 'table' and type(itemSpec.id) ~= 'string' then
+		itemSpec.id = tostring(itemSpec.id)
+	end
+end
+
+function InventoryModule:addItem(itemSpec)
+	self:completeSpec(itemSpec)
+
+	local removedParts = {}
+
+	-- Resolve item
+
+	local tweakDbId = self.tweakDb:getItemTweakDbId(itemSpec.id)
+	local itemMeta = self.tweakDb:resolve(tweakDbId) or { rng = true }
+	local itemId, itemCopy
+
+	if itemMeta.stack then
+		itemCopy = 1
+		if not itemSpec.qty then
+			itemSpec.qty = 1
+		end
+	else
+		if itemSpec.seed then
+			-- Cannot have more than one item with the same seed
+			itemCopy = 1
+
+			--if itemSpec.qty and itemSpec.qty > 1 then
+			--	print(warning)
+			--end
+		else
+			itemCopy = (itemSpec.qty or 1)
+		end
+	end
+
+	for _ = 1, itemCopy do
+		itemId = self.tweakDb:getItemId(tweakDbId, itemSpec.seed)
+
+		local itemEquip = itemSpec.equip == true or type(itemSpec.equip) == 'number'
+		local itemEquipIndex = itemSpec.equip and math.max(1, type(itemSpec.equip) == 'number' and itemSpec.equip or 1)
+
+		-- Add item to inventory
+
+		local currentQty = self.transactionSystem:GetItemQuantity(self.player, itemId)
+		local currentEquipIndex = self.equipmentPlayerData:GetSlotIndex(itemId) + 1
+
+		if itemMeta.stack then
+			self.transactionSystem:GiveItem(self.player, itemId, itemSpec.qty - currentQty)
+		else
+			-- Never add the exact same item (hash + seed) if it's already in inventory
+			if currentQty == 0 then
+				self.transactionSystem:GiveItem(self.player, itemId, 1)
+			else
+				--print(getmetatable(self.equipmentPlayerData:GetEquipAreaFromItemID(itemId))) -- (gameSEquipArea)
+
+				-- Need to be delicate with equipping / unequipping armor
+				if self:isEquipped(itemId) then
+					if not itemEquip or itemEquipIndex ~= currentEquipIndex or itemMeta.kind == 'Clothing' then
+						self:unequipItem(itemId)
+					end
+				end
+			end
+		end
+
+		local itemData = self.transactionSystem:GetItemData(self.player, itemId)
+
+		-- Manage mods and attachments
+
+		for _, slotMeta in ipairs(self.partSlots) do
+			local slotId = self.tweakDb:getTweakDbId(slotMeta.type)
+
+			if itemData:HasPartInSlot(slotId) then
+				local partItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
+
+				if partItemId then
+					table.insert(removedParts, partItemId)
+				end
+			end
+		end
+
+		if itemSpec.slots then
+			for key, slotSpec in pairs(itemSpec.slots) do
+				if type(slotSpec) == 'string' then
+					slotSpec = {
+						id = slotSpec
+					}
+				end
+
+				if type(key) == 'string' then
+					slotSpec.slot = key
+				end
+
+				if slotSpec.slot and slotSpec.id then
+					local slotId = self.tweakDb:getSlotTweakDbId(slotSpec.slot, itemMeta)
+					local partItemId = self:addItem(slotSpec)
+
+					self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)
+				end
+			end
+		end
+
+		-- Upgrade item
+
+		if itemSpec.upgrade ~= nil and itemSpec.upgrade ~= false then
+			local itemQuality
+
+			if type(itemSpec.upgrade) == 'string' then
+				itemQuality = itemSpec.upgrade
+			else
+				itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
+			end
+
+			self.craftingSystem:SetItemLevel(itemData)
+			self.forceItemQuality(self.player, itemData, CName.new(itemQuality))
+		end
+
+		-- Equip item
+
+		if itemEquip then
+			if not self:isEquipped(itemId) then
+				self:equipItem(itemId, itemEquipIndex)
+			end
+		end
+
+		-- Force quest flag
+
+		if itemSpec.quest ~= nil then
+			if itemSpec.quest then
+				if not itemData:HasTag('Quest') then
+					itemData:SetDynamicTag('Quest')
+				end
+			else
+				if itemData:HasTag('Quest') then
+					itemData:RemoveDynamicTag('Quest')
+				end
+			end
+		end
+	end
+
+	--if #removedParts > 0 then
+	--	mod.defer(0.8, function()
+	--		for _, partItemId in ipairs(removedParts) do
+	--			self.transactionSystem:RemoveItem(self.player, partItemId, 1)
+	--			--self.craftingSystem:DisassembleItem(self.player, slotItemId, 1)
+	--		end
+	--	end)
+	--end
+
+	return itemId
+end
+
+function InventoryModule:addItems(itemSpecs)
+	self.tweakDb:load('mod/data/tweakdb-meta')
+
+	for _, itemSpec in ipairs(itemSpecs) do
+		self:addItem(itemSpec)
+	end
+
+	self.tweakDb:unload()
+end
+
+function InventoryModule:isEquipped(itemId)
+	return self.equipmentPlayerData:IsEquipped(itemId)
 end
 
 function InventoryModule:unequipItem(itemId)
@@ -367,13 +381,15 @@ function InventoryModule:unequipItem(itemId)
 end
 
 function InventoryModule:equipItem(itemId, slotIndex)
-	--if self.equipmentPlayerData:IsEquipped(itemId) then
-	self:unequipItem(itemId)
-	--end
-
-	mod.defer(0.075, function()
+	mod.defer(0.15, function()
 		self.equipmentPlayerData:EquipItemInSlot(itemId, slotIndex - 1, false, false, false)
+		--self.equipmentPlayerData:UpdateEquipAreaActiveIndex(newCurrentItem: gameItemID)
 	end)
+end
+
+function InventoryModule:forceEquipItem(itemId, slotIndex)
+	self:unequipItem(itemId)
+	self:equipItem(itemId, slotIndex)
 end
 
 function InventoryModule:updateAutoScalingItems()
