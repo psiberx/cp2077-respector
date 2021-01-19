@@ -15,7 +15,7 @@ etc.
 
 ## Requirements
 
-- [CyberEngineTweaks](https://github.com/yamashi/CyberEngineTweaks) 1.8.3
+- [CyberEngineTweaks](https://github.com/yamashi/CyberEngineTweaks) 1.8.3-1.8.4
 - Cyberpunk 2077 1.0.6
 
 ## Installation
@@ -144,7 +144,6 @@ A copy of the config file with default values can be found at `samples/config/de
 
 ## TODO
 
-- More samples with comments.
 - Ability to manage the individual stats of the weapon.
 - Ability to export all items in the inventory.
 - Ability to export vehicles owned by the player. 

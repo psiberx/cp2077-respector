@@ -5,7 +5,7 @@
 -- Change it if you renamed the directory of the mod.
 -- -------------------------------------------------------------------------- --
 
-local baseDir = 'respector'
+local baseDir = 'plugins/cyber_engine_tweaks/mods/respector'
 
 -- -------------------------------------------------------------------------- --
 -- Debug Mode
@@ -80,12 +80,12 @@ if mod.config.useGui then
 
 	gui.init(respector)
 
-	registerForEvent('onOverlayOpen', function()
-		gui.onOverlayOpen()
+	registerForEvent('onConsoleOpen', function()
+		gui.onConsoleOpen()
 	end)
 
-	registerForEvent('onOverlayClose', function()
-		gui.onOverlayClose()
+	registerForEvent('onConsoleClose', function()
+		gui.onConsoleClose()
 	end)
 
 	registerForEvent('onUpdate', function(delta)

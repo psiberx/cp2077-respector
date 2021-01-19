@@ -264,11 +264,10 @@ return {
 			equip = true,
 		},
 
-		-- HEAT-RESISTANT MILITARY BOOTS / Clothing / Feet / Legendary
+		-- NETRUNNER SET: HARDENED NETRUNNER BOOTS WITH COMPOSITE INSERT / Clothing / Feet / Legendary
 		{
-			id = "Boots_06_basic_01", 
-			seed = 940493387,
-			upgrade = "Legendary",
+			id = "Netrunner_01_Set_Shoes",
+			seed = 2191998712,
 			slots = {
 				-- ARMADILLO / Epic
 				{ slot = "Mod1", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 

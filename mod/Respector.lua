@@ -1,6 +1,6 @@
 local mod = ...
 
-local Respector = { version = '0.9.3' }
+local Respector = { version = '0.9.4' }
 Respector.__index = Respector
 
 local asyncWait = false
@@ -64,10 +64,14 @@ function Respector:releaseModules()
 	end
 end
 
-function Respector:releaseModulesAsync()
+function Respector:releaseModulesAsync(waitTime)
 	asyncWait = true
 
-	mod.defer(1.0, function()
+	if not waitTime then
+		waitTime = 1.0
+	end
+
+	mod.defer(waitTime, function()
 		self:releaseModules()
 
 		asyncWait = false
@@ -124,7 +128,7 @@ function Respector:saveSpec(specName, specOptions)
 		self[module.name]:fillSpec(specData, specOptions)
 	end
 
-	self:releaseModulesAsync()
+	self:releaseModulesAsync(1.5)
 
 	if not specData then
 		print(('Respector: Failed to create spec.'))

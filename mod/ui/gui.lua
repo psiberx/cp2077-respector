@@ -62,6 +62,7 @@ function gui.init(_respector)
 	inputData.specNameLoad = inputData.globalOptions.defaultSpec
 
 	inputData.specOptions = respector:getSpecOptions()
+	inputData.specOptions.timestamp = false
 
 	for index, option in ipairs(itemFormatList) do
 		if option == inputData.globalOptions.itemFormat then
@@ -180,11 +181,11 @@ function gui.writeDefaultSpec()
 	compiler:writeDefaultSpec()
 end
 
-function gui.onOverlayOpen()
+function gui.onConsoleOpen()
 	drawWindow = true
 end
 
-function gui.onOverlayClose()
+function gui.onConsoleClose()
 	drawWindow = false
 end
 
@@ -203,7 +204,7 @@ function gui.onDraw()
 		return
 	end
 
-	ImGui.SetNextWindowPos(0, 400, ImGuiCond.FirstUseEver)
+	ImGui.SetNextWindowPos(0, 350, ImGuiCond.FirstUseEver)
 	ImGui.SetNextWindowSize(355, 294) -- 340 x 300
 
 	ImGui.Begin('Respector', true, ImGuiWindowFlags.NoResize)
