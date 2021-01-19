@@ -66,16 +66,16 @@ All items have in-game names, and many of them even have full descriptions and s
 
 There are two ways to access mod functions:
 
-1. Using global `Game` object.
+1. Using global `Respector` object.
 2. Using `GetMod("respector")`.
 
-#### `Game.LoadSpec(specName)`
+#### `Respector.LoadSpec(specName)`
 
 Loads spec named `specName`.
 
-Calling without parameters `Game.LoadSpec()` will load spec with a default name from the [configuration](#configuration) is used.
+Calling without parameters `Respector.LoadSpec()` will load spec with a default name from the [configuration](#configuration) is used.
 
-#### `Game.SaveSpec(specName, specOptions)`
+#### `Respector.SaveSpec(specName, specOptions)`
 
 Saves spec with the name `specName` and using `specOptions`.
 
@@ -96,13 +96,13 @@ Available options for `specOptions` are: <a name="spec-options"></a>
 
 Any particular option and `specOptions` parameter itself can be omitted. In this case, the default option values will be used. The defaults for most of the options can be changed in the [configuration](#configuration).
 
-For example, `Game.SaveSpec("Legend", { itemFormat = "hash", exportRecipes = false, timestamp = true })`  will create a spec named `Legend-210105-142037` (assuming it's January 5, 2021, 14:20) containing everything but crafting recipes and having hash values for item IDs instead of names.
+For example, `Respector.SaveSpec("Legend", { itemFormat = "hash", exportRecipes = false, timestamp = true })`  will create a spec named `Legend-210105-142037` (assuming it's January 5, 2021, 14:20) containing everything but crafting recipes and having hash values for item IDs instead of names.
 
-Calling without parameters `Game.SaveSpec()` will save the spec with a default name, overwriting the existing one, and using all default options.
+Calling without parameters `Respector.SaveSpec()` will save the spec with a default name, overwriting the existing one, and using all default options.
 
-#### `Game.SaveSpecSnap()`
+#### `Respector.SaveSnap()`
 
-Saves spec with a default name appended with the current date and time. Has the same results as `Game.SaveSpec(nil, { timestamp = true })` but is slightly shorter.
+Saves spec with a default name appended with the current date and time. Has the same results as `Respector.SaveSpec(nil, { timestamp = true })` but is slightly shorter.
 
 ### GUI
 
@@ -114,7 +114,8 @@ Also, you can change where to store specs, the default spec name, and hotkeys fo
 
 ![CP2077 Respector GUI](https://siberx.dev/cp2077-respector/gui-3-options.png)
 
-The GUI is disabled by default. If you want to use the GUI, you need to enable it in the [configuration](#configuration).
+With Cyber Engine Tweaks 1.8.4 or higher the GUI will show up when opening the console, and hide when closing the console.
+For version 1.8.3 you have to use hotkey to open the GUI (default is F1).
 
 ### Configuration
 
@@ -131,7 +132,7 @@ The configuration is stored in the `config.lua` file in the mod directory.
 | `exportRecipes`    | `true`   | `bool` | The default value for `exportRecipes` option when saving specs. See [spec options](#spec-options) for details. |
 | `useModApi`        | `true`   | `bool` | Enables API access using `GetMod()`. |
 | `useGlobalApi`     | `true`   | `bool` | Enables mod functions in the global `Game` object. |
-| `useGui`           | `false`  | `bool` | Enables the GUI. |
+| `useGui`           | `true`   | `bool` | Enables the GUI. |
 | `openGuiKey`       | `0x70`   | `int`  | Hotkey to open / close the GUI. Default is F1. You can find key codes [here](https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes). |
 | `saveSpecKey`      | `0x71`   | `int`  | Hotkey to save spec with currently selected options in the GUI. Default is F2. You can find key codes [here](https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes). |
 

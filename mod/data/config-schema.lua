@@ -92,7 +92,7 @@ return {
 		{
 			name = "useGlobalApi",
 			comment = {
-				"Enables mod functions in the global Game object.",
+				"Enables API access using global Respector object.",
 			},
 			default = true,
 			margin = true,

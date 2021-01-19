@@ -204,7 +204,7 @@ function gui.onDraw()
 		return
 	end
 
-	ImGui.SetNextWindowPos(0, 350, ImGuiCond.FirstUseEver)
+	ImGui.SetNextWindowPos(0, 400, ImGuiCond.FirstUseEver)
 	ImGui.SetNextWindowSize(355, 294) -- 340 x 300
 
 	ImGui.Begin('Respector', true, ImGuiWindowFlags.NoResize)

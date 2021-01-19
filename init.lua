@@ -29,12 +29,13 @@ local devMode = false
 
 -- -------------------------------------------------------------------------- --
 
+local corePath = baseDir .. '/mod/mod'
+
 if devMode then
-	local moduleCore = baseDir .. '/mod/mod'
-	local modulePattern = '^%.[\\/]' .. baseDir .. '[./]*'
+	local modulePathPattern = '^%.[\\/]' .. baseDir .. '[./]*'
 
 	for module, _ in pairs(package.loaded) do
-		if module:find(modulePattern) or module == moduleCore then
+		if module:find(modulePathPattern) or module == corePath then
 			package.loaded[module] = nil
 
 			if debugMode then
@@ -45,7 +46,7 @@ if devMode then
 end
 
 local api = {}
-local mod = require(baseDir .. '/mod/mod')
+local mod = require(corePath)
 
 mod.init(devMode, debugMode)
 
