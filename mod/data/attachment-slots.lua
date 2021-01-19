@@ -1,6 +1,6 @@
 return {
-	{ type = "AttachmentSlots.Scope", slot = "Scope", criteria = { kind = "Weapon", group = "Ranged" } },
-	{ type = "AttachmentSlots.PowerModule", slot = "Muzzle", criteria = { kind = "Weapon", group = "Ranged" } },
+	{ type = "AttachmentSlots.Scope", slot = "Scope", criteria = { kind = "Weapon", group = { "Power", "Smart", "Tech" } } },
+	{ type = "AttachmentSlots.PowerModule", slot = "Muzzle", criteria = { kind = "Weapon", group = { "Power", "Smart", "Tech" } } },
 	{ type = "AttachmentSlots.GenericWeaponMod1", slot = "Mod1", index = 1, criteria = { kind = "Weapon", group = "GenericWeapon" } },
 	{ type = "AttachmentSlots.GenericWeaponMod2", slot = "Mod2", index = 2, criteria = { kind = "Weapon", group = "GenericWeapon" } },
 	{ type = "AttachmentSlots.GenericWeaponMod3", slot = "Mod3", index = 3, criteria = { kind = "Weapon", group = "GenericWeapon" } },
