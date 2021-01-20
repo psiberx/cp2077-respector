@@ -81,16 +81,20 @@ function StructWriter:writeNodeData(structFile, nodeSchema, nodeData, depth, inl
 			if nodeSchema.children then
 				local childIndex = 0
 				for _, childSchema in ipairs(nodeSchema.children) do
-					local childData = nodeData[childSchema.name]
-					if childData ~= nil or childSchema.nullable or childSchema.default ~= nil then
-						childIndex = childIndex + 1
-						local childInline = inline or childSchema.inline
-						if not inline and childInline then
-							structFile:write(indent .. '\t')
-						end
-						self:writeNodeData(structFile, childSchema, childData, depth + 1, childInline, childIndex)
-						if not inline and childInline then
-							structFile:write(br)
+					local childNames = childSchema.aliases and { childSchema.name, table.unpack(childSchema.aliases) } or { childSchema.name }
+					for _, childName in ipairs(childNames) do
+						local childData = nodeData[childName]
+						if childData ~= nil or childSchema.nullable or childSchema.default ~= nil then
+							childIndex = childIndex + 1
+							childSchema.name = childName
+							local childInline = inline or childSchema.inline
+							if not inline and childInline then
+								structFile:write(indent .. '\t')
+							end
+							self:writeNodeData(structFile, childSchema, childData, depth + 1, childInline, childIndex)
+							if not inline and childInline then
+								structFile:write(br)
+							end
 						end
 					end
 				end

@@ -69,13 +69,13 @@ function CraftingModule:getRecipes()
 
 	self.tweakDb:unload()
 
-	if #recipeSpecs > 0 then
-		table.sort(recipeSpecs, function(a, b) return a._order < b._order end)
-
-		return recipeSpecs
+	if #recipeSpecs == 0 then
+		return nil
 	end
 
-	return nil
+	self.tweakDb:sort(recipeSpecs)
+
+	return recipeSpecs
 end
 
 function CraftingModule:setComponents(componentSpecs)

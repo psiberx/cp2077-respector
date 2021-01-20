@@ -91,8 +91,8 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 			for itemMeta in tweakDb:filter(samplePack.items) do
 				local itemSpec = {}
 
-				itemSpec._order = tweakDb:order(itemMeta)
 				itemSpec._comment = tweakDb:describe(itemMeta, true)
+				itemSpec._order = tweakDb:order(itemMeta)
 
 				if itemMeta.desc then
 					itemSpec._comment = itemSpec._comment .. '\n' .. itemMeta.desc:gsub('%. ', '.\n')
@@ -139,7 +139,7 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 				table.insert(itemSpecs, itemSpec)
 			end
 
-			table.sort(itemSpecs, function(a, b) return a._order < b._order end)
+			tweakDb:sort(itemSpecs)
 
 			specData.Inventory = itemSpecs
 		end
@@ -151,14 +151,15 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 				local vehicleSpec = {}
 
 				vehicleSpec[1] = str.without(vehicleMeta.type, 'Vehicle.')
-				vehicleSpec._comment = vehicleMeta.name
+				vehicleSpec._comment = tweakDb:describe(vehicleMeta)
+				vehicleSpec._order = tweakDb:order(vehicleMeta)
 
 				table.insert(vehicleSpecs, vehicleSpec)
 			end
 
-			table.sort(vehicleSpecs, function(a, b) return a._comment < b._comment end)
+			tweakDb:sort(vehicleSpecs)
 
-			specData.Transport = vehicleSpecs
+			specData.Vehicles = vehicleSpecs
 		end
 
 		specStore:writeSpec(specName, specData)

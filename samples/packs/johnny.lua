@@ -26,7 +26,7 @@ return {
 		{ id = "SQ031_Samurai_Jacket" }, 
 	},
 
-	Transport = {
+	Vehicles = {
 		"v_sport2_porsche_911turbo_player", -- 911 II (930) TURBO
 	},
 }

@@ -269,6 +269,10 @@ function TweakDb:order(itemMeta)
 	return order
 end
 
+function TweakDb:sort(items)
+	table.sort(items, function(a, b) return a._order < b._order end)
+end
+
 function TweakDb:getQualityIndex(qualityName)
 	return qualityIndices[qualityName] or 0
 end

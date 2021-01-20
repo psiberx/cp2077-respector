@@ -44,6 +44,21 @@ function InventoryModule:release()
 	self.attachmentSlots = nil
 end
 
+function InventoryModule:applySpec(specData)
+	if specData.Inventory then
+		self:addItems(specData.Inventory)
+		self:updateAutoScalingItems()
+	end
+end
+
+function InventoryModule:fillSpec(specData, specOptions)
+	local equipmentSpecs = self:getItems(specOptions)
+
+	if equipmentSpecs then
+		specData.Equipment = equipmentSpecs
+	end
+end
+
 function InventoryModule:getItems(specOptions)
 	self.tweakDb:load('mod/data/tweakdb-meta')
 
@@ -388,21 +403,6 @@ function InventoryModule:updateAutoScalingItems()
 
 	if mod.debug then
 		print(('[DEBUG] Respector: Auto-scale items updated to level %d.'):format(currentLevel))
-	end
-end
-
-function InventoryModule:applySpec(specData)
-	if specData.Inventory then
-		self:addItems(specData.Inventory)
-		self:updateAutoScalingItems()
-	end
-end
-
-function InventoryModule:fillSpec(specData, specOptions)
-	local inventoryData = self:getItems(specOptions)
-
-	if inventoryData then
-		specData.Inventory = inventoryData
 	end
 end
 

@@ -397,6 +397,11 @@ return {
 		},
 		{
 			name = "Inventory",
+			aliases = {
+				"Equipment",
+				"Cyberware",
+				"Backpack",
+			},
 			margin = true,
 			spacing = true,
 			table = {
@@ -461,7 +466,7 @@ return {
 			},
 		},
 		{
-			name = "Transport",
+			name = "Vehicles",
 			margin = true,
 		},
 	}
