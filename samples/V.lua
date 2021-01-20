@@ -130,7 +130,7 @@ return {
 		},
 	},
 
-	Inventory = {
+	Equipment = {
 		-- ARCHANGEL / Weapon / Power / Legendary
 		{
 			id = "Preset_Overture_Kerry_Legendary", 
@@ -278,7 +278,9 @@ return {
 			},
 			equip = true,
 		},
+	},
 
+	Cyberware = {
 		-- NETWATCH NETDRIVER MK.5 / Cyberware / Operating System / Legendary
 		{
 			id = "NetwatchNetdriverLegendaryMKV",
