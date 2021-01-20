@@ -4,7 +4,7 @@ return {
 		-- Increases damage by 7.
 		{ id = "ValentinosMeleeWeaponMod" }, 
 
-		-- KUNAI - RARE / Mod / Melee / Rare
+		-- KUNAI / Mod / Melee / Rare
 		-- Increases weapon attack speed by 0.3.
 		{ id = "ArasakaMeleeWeaponMod" }, 
 

@@ -249,5 +249,51 @@ return {
 		-- If the target is defeated by this quickhack,they burst into flames, cuasing enemies within a 6-meter radius to panic.
 		-- Passive While Equiped: Defeating an enemy with any quickhack causes nearby enemies to panic.
 		{ id = "BrainMeltLvl4Program" }, 
+
+		-- SYSTEM RESET / Quickhack / Epic
+		-- Cripples a target's nervous system, causing them to lose consciousness.
+		-- The affected target will not make any noise when passing out.
+		{ id = "SystemCollapseLvl3Program" }, 
+
+		-- SYSTEM RESET / Quickhack / Legendary
+		-- Cripples a target's nervous system, causing them to lose consciousness.
+		-- The affected target will not make any noise when passing out.
+		-- Passive while equipped: defeating an enemy reduces the RAM cost of the next quickhack.
+		{ id = "SystemCollapseLvl4Program" }, 
+
+		-- WEAPON GLITCH / Quickhack / Uncommon
+		-- Causes the target's weapon to malfunction, reducing its accuracy and disabling Smart tracking and obstavle penetration.
+		{ id = "WeaponMalfunctionProgram" }, 
+
+		-- WEAPON GLITCH / Quickhack / Rare
+		-- Causes the target's weapon to malfunction, reducing its accuracy and disabling Smart tracking and obstavle penetration.
+		-- Spreads to the nearest target within a radius.
+		{ id = "WeaponMalfunctionLvl2Program" }, 
+
+		-- WEAPON GLITCH / Quickhack / Epic
+		-- Causes the target's weapon to malfunction, reducing its accuracy and disabling Smart tracking and obstavle penetration.
+		-- Spreads to the nearest target within a radius.
+		-- Causes the target's weapon to explode, causing damage.
+		{ id = "WeaponMalfunctionLvl3Program" }, 
+
+		-- WEAPON GLITCH / Quickhack / Legendary
+		-- Causes the target's weapon to malfunction, reducing its accuracy and disabling Smart tracking and obstavle penetration.
+		-- Spreads to the nearest target within a radius.
+		-- Causes the target's weapon to explode, causing damage.
+		-- Passive while equipped: enables the Weapons Jammer deamon during Breach Protocol.
+		{ id = "WeaponMalfunctionLvl4Program" }, 
+
+		-- WHISTLE / Quickhack / Uncommon
+		-- The affected target will enter a heightened state of alertness and move to your current position.
+		{ id = "WhistleProgram" }, 
+
+		-- WHISTLE / Quickhack / Rare
+		-- The target will no longer be in a state of alertness when moving to your current position.
+		{ id = "WhistleLvl2Program" }, 
+
+		-- WHISTLE / Quickhack / Epic
+		-- The target will no longer be in a state of alertness when moving to your current position.
+		-- Can be executed on enemies engaged in combat.
+		{ id = "WhistleLvl3Program" }, 
 	},
 }

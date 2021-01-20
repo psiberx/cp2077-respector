@@ -19,10 +19,10 @@ function InventoryModule:prepare()
 
 	self.player = Game.GetPlayer()
 	self.transactionSystem = Game.GetTransactionSystem()
-	self.equipmentPlayerData = equipmentSystem:GetPlayerData(self.player)
-	self.equipmentPlayerData['EquipItemInSlot'] = self.equipmentPlayerData['EquipItem;ItemIDInt32BoolBoolBool']
-	self.equipmentPlayerData['GetItemInEquipSlotArea'] = self.equipmentPlayerData['GetItemInEquipSlot;gamedataEquipmentAreaInt32']
-	self.equipmentPlayerData['GetSlotIndexInArea'] = self.equipmentPlayerData['GetSlotIndex;ItemIDgamedataEquipmentArea']
+	self.playerEquipmentData = equipmentSystem:GetPlayerData(self.player)
+	self.playerEquipmentData['EquipItemInSlot'] = self.playerEquipmentData['EquipItem;ItemIDInt32BoolBoolBool']
+	self.playerEquipmentData['GetItemInEquipSlotArea'] = self.playerEquipmentData['GetItemInEquipSlot;gamedataEquipmentAreaInt32']
+	self.playerEquipmentData['GetSlotIndexInArea'] = self.playerEquipmentData['GetSlotIndex;ItemIDgamedataEquipmentArea']
 	self.craftingSystem = scriptableSystemsContainer:Get(CName.new('CraftingSystem'))
 	self.gameRPGManager = GetSingleton('gameRPGManager')
 	self.forceItemQuality = Game['gameRPGManager::ForceItemQuality;GameObjectgameItemDataCName']
@@ -34,7 +34,7 @@ end
 function InventoryModule:release()
 	self.player = nil
 	self.transactionSystem = nil
-	self.equipmentPlayerData = nil
+	self.playerEquipmentData = nil
 	self.craftingSystem = nil
 	self.gameRPGManager = nil
 	self.forceItemQuality = nil
@@ -53,7 +53,7 @@ function InventoryModule:getItems(specOptions)
 
 	for _, equipArea in ipairs(equipAreas) do
 		for slotIndex = 1, equipArea.max do
-			local itemId = self.equipmentPlayerData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
+			local itemId = self.playerEquipmentData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
 
 			if itemId.tdbid.hash ~= 0 then
 				local itemData = self.transactionSystem:GetItemData(self.player, itemId)
@@ -254,7 +254,7 @@ function InventoryModule:addItem(itemSpec)
 		-- Add item to inventory
 
 		local currentQty = self.transactionSystem:GetItemQuantity(self.player, itemId)
-		local currentEquipIndex = self.equipmentPlayerData:GetSlotIndex(itemId) + 1
+		local currentEquipIndex = self.playerEquipmentData:GetSlotIndex(itemId) + 1
 
 		if itemMeta.stack then
 			self.transactionSystem:GiveItem(self.player, itemId, itemSpec.qty - currentQty)
@@ -263,8 +263,6 @@ function InventoryModule:addItem(itemSpec)
 			if currentQty == 0 then
 				self.transactionSystem:GiveItem(self.player, itemId, 1)
 			else
-				--print(getmetatable(self.equipmentPlayerData:GetEquipAreaFromItemID(itemId))) -- (gameSEquipArea)
-
 				-- Need to be delicate with equipping / unequipping armor
 				if self:isEquipped(itemId) then
 					if not itemEquip or itemEquipIndex ~= currentEquipIndex or itemMeta.kind == 'Clothing' then
@@ -372,20 +370,19 @@ function InventoryModule:addItems(itemSpecs)
 end
 
 function InventoryModule:isEquipped(itemId)
-	return self.equipmentPlayerData:IsEquipped(itemId)
+	return self.playerEquipmentData:IsEquipped(itemId)
 end
 
 function InventoryModule:unequipItem(itemId)
-	if self.equipmentPlayerData:IsEquipped(itemId) then
-		self.equipmentPlayerData:RemoveItemFromEquipSlot(itemId)
-		self.equipmentPlayerData:UnequipItem(itemId)
+	if self.playerEquipmentData:IsEquipped(itemId) then
+		self.playerEquipmentData:RemoveItemFromEquipSlot(itemId)
+		self.playerEquipmentData:UnequipItem(itemId)
 	end
 end
 
 function InventoryModule:equipItem(itemId, slotIndex)
 	mod.defer(0.15, function()
-		self.equipmentPlayerData:EquipItemInSlot(itemId, slotIndex - 1, false, false, false)
-		--self.equipmentPlayerData:UpdateEquipAreaActiveIndex(newCurrentItem: gameItemID)
+		self.playerEquipmentData:EquipItemInSlot(itemId, slotIndex - 1, false, false, false)
 	end)
 end
 

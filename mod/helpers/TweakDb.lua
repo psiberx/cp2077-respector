@@ -15,6 +15,22 @@ local qualityIndices = {
 	['Legendary'] = 5,
 }
 
+local kindOrders = {
+	['Weapon'] = '01',
+	['Clothing'] = '02',
+	['Cyberware'] = '03',
+	['Mod'] = '11',
+	['Grenade'] = '21',
+	['Consumable'] = '22',
+	['Progression'] = '23',
+	['Quickhack'] = '31',
+	['Junk'] = '71',
+	['Recipe'] = '81',
+	['Component'] = '82',
+	['Misc'] = '91',
+	['Shard'] = '92',
+}
+
 local RealToItemID = ToItemID
 local FakeToItemID = function (o) return o end
 local RealToTweakDBID = ToTweakDBID
@@ -174,8 +190,12 @@ function TweakDb:describe(itemMeta, extended)
 	return comment
 end
 
-function TweakDb:order(itemMeta)
+function TweakDb:order(itemMeta, orderKind)
 	local order = ''
+
+	if orderKind then
+		order = order .. (kindOrders[itemMeta.kind] or '99') .. '::'
+	end
 
 	if itemMeta.kind == 'Mod' then
 		order = order .. itemMeta.group .. '::'
@@ -209,15 +229,27 @@ function TweakDb:getQualityIndex(qualityName)
 end
 
 function TweakDb:extract(id)
-	ToItemID = FakeToItemID
-	ToTweakDBID = FakeToTweakDBID
+	if mod.env.is183() then
+		ToItemID = FakeToItemID
+		ToTweakDBID = FakeToTweakDBID
 
-	local data = (load('return ' .. tostring(id)))()
+		local data = (load('return ' .. tostring(id)))()
 
-	ToItemID = RealToItemID
-	ToTweakDBID = RealToTweakDBID
+		ToItemID = RealToItemID
+		ToTweakDBID = RealToTweakDBID
 
-	return data
+		return data
+	end
+
+	if id.id then
+		return { id = { id.id.hash, length = id.id.length }, rng_seed = id.rng_seed }
+	end
+
+	if id.hash then
+		return { hash = id.hash, length = id.length }
+	end
+
+	return id
 end
 
 function TweakDb.key(struct)
