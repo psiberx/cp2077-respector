@@ -186,7 +186,7 @@ function gui.onDrawEvent()
 	end
 
 	ImGui.SetNextWindowPos(0, 400, ImGuiCond.FirstUseEver)
-	ImGui.SetNextWindowSize(windowWidth + (windowPadding * 2), windowHeight)
+	ImGui.SetNextWindowSize(windowWidth + (windowPadding * 2), windowHeight, ImGuiCond.Appearing)
 
 	ImGui.Begin('Respector', true, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
 	ImGui.BeginTabBar('Respector Tabs')

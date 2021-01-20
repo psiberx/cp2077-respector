@@ -133,133 +133,135 @@ return {
 	Equipment = {
 		-- ARCHANGEL / Weapon / Power / Legendary
 		{
-			id = "Preset_Overture_Kerry_Legendary", 
+			id = "Preset_Overture_Kerry_Legendary",
 			seed = 2993855342,
 			slots = {
 				-- OS-1 GIMLETEYE / Uncommon
-				{ slot = "Scope", id = "w_att_scope_short_01", seed = 3868463560, upgrade = "Uncommon" }, 
+				-- ADS Time -0.05% / Range +0.19
+				{ slot = "Scope", id = "w_att_scope_short_01", seed = 3868463560, upgrade = "Uncommon" },
 				-- COUNTERMASS / Epic
-				{ slot = "Mod1", id = "SimpleWeaponMod11" }, 
+				{ slot = "Mod1", id = "SimpleWeaponMod11" },
 				-- PACIFIER / Epic
-				{ slot = "Mod2", id = "SimpleWeaponMod03", upgrade = "Epic" }, 
+				{ slot = "Mod2", id = "SimpleWeaponMod03", upgrade = "Epic" },
 				-- PACIFIER / Epic
-				{ slot = "Mod3", id = "SimpleWeaponMod03", upgrade = "Epic" }, 
+				{ slot = "Mod3", id = "SimpleWeaponMod03", upgrade = "Epic" },
 				-- PACIFIER / Epic
-				{ slot = "Mod4", id = "SimpleWeaponMod03", upgrade = "Epic" }, 
+				{ slot = "Mod4", id = "SimpleWeaponMod03", upgrade = "Epic" },
 			},
 			equip = 1,
 		},
 
 		-- WIDOW MAKER / Weapon / Tech / Legendary
 		{
-			id = "Preset_Achilles_Nash_Legendary", 
+			id = "Preset_Achilles_Nash_Legendary",
 			seed = 4114643488,
 			slots = {
 				-- E255 PERCIPIENT / Rare
-				{ slot = "Scope", id = "w_att_scope_long_02", seed = 442254023, upgrade = "Rare" }, 
+				-- ADS Time -0.13% / Range +0.31
+				{ slot = "Scope", id = "w_att_scope_long_02", seed = 442254023, upgrade = "Rare" },
 				-- COUNTERMASS / Epic
-				{ slot = "Mod1", id = "SimpleWeaponMod11" }, 
+				{ slot = "Mod1", id = "SimpleWeaponMod11" },
 				-- WEAKEN / Rare
-				{ slot = "Mod2", id = "SimpleWeaponMod13" }, 
+				{ slot = "Mod2", id = "SimpleWeaponMod13" },
 				-- CRUNCH / Epic
-				{ slot = "Mod3", id = "SimpleWeaponMod01", upgrade = "Epic" }, 
+				{ slot = "Mod3", id = "SimpleWeaponMod01", upgrade = "Epic" },
 				-- CRUNCH / Epic
-				{ slot = "Mod4", id = "SimpleWeaponMod01", upgrade = "Epic" }, 
+				{ slot = "Mod4", id = "SimpleWeaponMod01", upgrade = "Epic" },
 			},
 			equip = 2,
 		},
 
 		-- SATORI / Weapon / Melee / Legendary
 		{
-			id = "Preset_Katana_Saburo_Legendary", 
+			id = "Preset_Katana_Saburo_Legendary",
 			seed = 1851745209,
 			slots = {
 				-- WHITE KNUCKLED / Rare
-				{ slot = "Mod1", id = "TygerMeleeWeaponMod" }, 
+				{ slot = "Mod1", id = "TygerMeleeWeaponMod" },
 				-- WHITE KNUCKLED / Rare
-				{ slot = "Mod2", id = "TygerMeleeWeaponMod" }, 
+				{ slot = "Mod2", id = "TygerMeleeWeaponMod" },
 				-- WHITE KNUCKLED / Rare
-				{ slot = "Mod3", id = "TygerMeleeWeaponMod" }, 
+				{ slot = "Mod3", id = "TygerMeleeWeaponMod" },
 			},
 			equip = 3,
 		},
 
 		-- MEDIA SET: MEDIA BASEBALL CAP WITH REACTIVE LAYER / Clothing / Head / Legendary
 		{
-			id = "Media_01_Set_Cap", 
+			id = "Media_01_Set_Cap",
 			seed = 2953617070,
 			slots = {
 				-- ARMADILLO / Epic
-				{ slot = "Mod1", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod1", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 				-- ARMADILLO / Epic
-				{ slot = "Mod2", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod2", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 				-- ARMADILLO / Epic
-				{ slot = "Mod3", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod3", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 			},
 			equip = true,
 		},
 
 		-- CORPO SET: TACTICAL HYBRID CORPORATE GLASSES / Clothing / Face / Legendary
 		{
-			id = "Corporate_01_Set_Glasses", 
+			id = "Corporate_01_Set_Glasses",
 			seed = 2254254692,
 			slots = {
 				-- BULLY / Legendary
-				{ slot = "Mod1", id = "SimpleFabricEnhancer04" }, 
+				{ slot = "Mod1", id = "SimpleFabricEnhancer04" },
 				-- ARMADILLO / Epic
-				{ slot = "Mod2", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod2", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 				-- ARMADILLO / Epic
-				{ slot = "Mod3", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod3", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 			},
 			equip = true,
 		},
 
 		-- TIMEWORN TRENCH COAT / Clothing / Outer Torso / Legendary
 		{
-			id = "Coat_04_old_02", 
+			id = "Coat_04_old_02",
 			seed = 1156644295,
 			upgrade = "Legendary",
 			slots = {
 				-- FORTUNA / Legendary
-				{ slot = "Mod1", id = "SimpleFabricEnhancer03" }, 
+				{ slot = "Mod1", id = "SimpleFabricEnhancer03" },
 				-- ARMADILLO / Epic
-				{ slot = "Mod2", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod2", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 				-- ARMADILLO / Epic
-				{ slot = "Mod3", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod3", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 				-- ARMADILLO / Epic
-				{ slot = "Mod4", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod4", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 			},
 			equip = true,
 		},
 
 		-- SOLO SET: ULTRATHIN COMPOSITE PRINT SOLO SHIRT / Clothing / Inner Torso / Legendary
 		{
-			id = "Solo_01_Set_TShirt", 
+			id = "Solo_01_Set_TShirt",
 			seed = 2456603112,
 			slots = {
 				-- ARMADILLO / Epic
-				{ slot = "Mod1", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod1", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 				-- ARMADILLO / Epic
-				{ slot = "Mod2", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod2", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 				-- ARMADILLO / Epic
-				{ slot = "Mod3", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod3", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 				-- ARMADILLO / Epic
-				{ slot = "Mod4", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod4", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 			},
 			equip = true,
 		},
 
 		-- ROCKER SET: ELASTIC FLAME RESISTANT ROCKER PANTS / Clothing / Legs / Legendary
 		{
-			id = "Rockerboy_01_Set_Pants", 
+			id = "Rockerboy_01_Set_Pants",
 			seed = 2948959660,
 			slots = {
 				-- ARMADILLO / Epic
-				{ slot = "Mod1", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod1", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 				-- ARMADILLO / Epic
-				{ slot = "Mod2", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod2", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 				-- ARMADILLO / Epic
-				{ slot = "Mod3", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod3", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 			},
 			equip = true,
 		},
@@ -270,14 +272,20 @@ return {
 			seed = 2191998712,
 			slots = {
 				-- ARMADILLO / Epic
-				{ slot = "Mod1", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod1", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 				-- ARMADILLO / Epic
-				{ slot = "Mod2", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod2", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 				-- ARMADILLO / Epic
-				{ slot = "Mod3", id = "SimpleFabricEnhancer01", upgrade = "Epic" }, 
+				{ slot = "Mod3", id = "SimpleFabricEnhancer01", upgrade = "Epic" },
 			},
 			equip = true,
 		},
+
+		-- GASH ANTIPERSONNEL GRENADE / Grenade / Epic
+		{ id = "GrenadeCuttingRegular", equip = 1, qty = 8 },
+
+		-- MAXDOC MK.1 / Consumable / Meds / Uncommon
+		{ id = "FirstAidWhiffV0", equip = 3, qty = 149 },
 	},
 
 	Cyberware = {
@@ -287,113 +295,160 @@ return {
 			seed = 1441747907,
 			slots = {
 				-- SYSTEM RESET / Legendary
-				{ slot = "Mod1", id = "SystemCollapseLvl4Program" },
+				{ slot = "Program1", id = "SystemCollapseLvl4Program" },
 				-- SYNAPSE BURNOUT / Epic
-				{ slot = "Mod2", id = "BrainMeltLvl3Program" },
+				{ slot = "Program2", id = "BrainMeltLvl3Program" },
 				-- SHORT CIRCUIT / Rare
-				{ slot = "Mod3", id = "EMPOverloadLvl2Program" },
+				{ slot = "Program3", id = "EMPOverloadLvl2Program" },
 				-- REBOOT OPTICS / Rare
-				{ slot = "Mod4", id = "BlindLvl2Program" },
+				{ slot = "Program4", id = "BlindLvl2Program" },
 				-- PING / Rare
-				{ slot = "Mod5", id = "PingLvl2Program" },
+				{ slot = "Program5", id = "PingLvl2Program" },
 			},
 			equip = true,
 		},
 
 		-- HEAL-ON-KILL / Cyberware / Frontal Cortex / Legendary
-		{ id = "HealOnKillLegendary", seed = 1065218999, equip = 1 }, 
+		{ id = "HealOnKillLegendary", seed = 1065218999, equip = 1 },
 
 		-- LIMBIC SYSTEM ENHANCEMENT / Cyberware / Frontal Cortex / Rare
-		{ id = "LimbicSystemEnhancementRare", seed = 3230397378, equip = 2 }, 
+		{ id = "LimbicSystemEnhancementRare", seed = 3230397378, equip = 2 },
 
 		-- VISUAL CORTEX SUPPORT / Cyberware / Frontal Cortex / Uncommon
-		{ id = "ImprovedPerceptionUncommon", seed = 2076712113, equip = 3 }, 
+		{ id = "ImprovedPerceptionUncommon", seed = 2076712113, equip = 3 },
 
 		-- KIROSHI OPTICS MK.3 / Cyberware / Ocular System / Epic
 		{
-			id = "KiroshiOpticsEpic", 
+			id = "KiroshiOpticsEpic",
 			seed = 305842793,
 			slots = {
 				-- THREAT DETECTOR / Rare
-				{ slot = "Mod1", id = "KiroshiOpticsFragment4" }, 
+				{ slot = "Slot1", id = "KiroshiOpticsFragment4" },
 				-- WEAKSPOT DETECTION / Uncommon
-				{ slot = "Mod2", id = "KiroshiOpticsFragment6" }, 
+				{ slot = "Slot2", id = "KiroshiOpticsFragment6" },
 				-- TRAJECTORY ANALYSIS / Legendary
-				{ slot = "Mod3", id = "KiroshiOpticsFragment5" }, 
+				{ slot = "Slot3", id = "KiroshiOpticsFragment5" },
 			},
 			equip = true,
 		},
 
 		-- MICROGENERATOR / Cyberware / Circulatory System / Legendary
-		{ id = "MicroGeneratorLegendary", seed = 3033535034, equip = 1 }, 
+		{ id = "MicroGeneratorLegendary", seed = 3033535034, equip = 1 },
 
 		-- BIOMONITOR / Cyberware / Circulatory System / Legendary
-		{ id = "HealthMonitorLegendary", seed = 3083686144, equip = 2 }, 
+		{ id = "HealthMonitorLegendary", seed = 3083686144, equip = 2 },
 
 		-- BIOCONDUCTOR / Cyberware / Circulatory System / Legendary
-		{ id = "BioConductorsLegendary", seed = 2940703132, equip = 3 }, 
+		{ id = "BioConductorsLegendary", seed = 2940703132, equip = 3 },
 
 		-- DETOXIFIER / Cyberware / Immune System / Rare
-		{ id = "ToxinCleanser", seed = 37509607, equip = 1 }, 
+		{ id = "ToxinCleanser", seed = 37509607, equip = 1 },
 
 		-- SHOCK-N-AWE / Cyberware / Immune System / Common
-		{ id = "ElectroshockMechanismCommon", seed = 1724657227, equip = 2 }, 
+		{ id = "ElectroshockMechanismCommon", seed = 1724657227, equip = 2 },
 
 		-- KERENZIKOV / Cyberware / Nervous System / Legendary
-		{ id = "KerenzikovLegendary", seed = 1200218785, equip = 1 }, 
+		{ id = "KerenzikovLegendary", seed = 1200218785, equip = 1 },
 
 		-- REFLEX TUNERS / Cyberware / Nervous System / Legendary
-		{ id = "ReflexRecorderLegendary", seed = 1773080081, equip = 2 }, 
+		{ id = "ReflexRecorderLegendary", seed = 1773080081, equip = 2 },
 
 		-- SUBDERMAL ARMOR / Cyberware / Integumentary System / Legendary
-		{ id = "SubdermalArmorLegendary", seed = 2197823386, equip = 1 }, 
+		{ id = "SubdermalArmorLegendary", seed = 2197823386, equip = 1 },
 
 		-- FIREPROOF COATING / Cyberware / Integumentary System / Rare
-		{ id = "FireproofSkin", seed = 1437592899, equip = 2 }, 
+		{ id = "FireproofSkin", seed = 1437592899, equip = 2 },
 
 		-- SUPRA-DERMAL WEAVE / Cyberware / Integumentary System / Rare
-		{ id = "MetalCoveredSkin", seed = 3780897052, equip = 3 }, 
+		{ id = "MetalCoveredSkin", seed = 3780897052, equip = 3 },
 
-		-- TITANIUM BONES / Cyberware / Legs / Rare
-		{ id = "TitaniumInfusedBonesRare", seed = 3076947252, equip = 1 }, 
+		-- TITANIUM BONES / Cyberware / Skeleton / Rare
+		{ id = "TitaniumInfusedBonesRare", seed = 3076947252, equip = 1 },
 
 		-- MICROROTORS / Cyberware / Skeleton / Legendary
-		{ id = "CyberRotorsLegendary", seed = 1776570697, equip = 2 }, 
+		{ id = "CyberRotorsLegendary", seed = 1776570697, equip = 2 },
 
 		-- SMART LINK / Cyberware / Hands / Legendary
-		{ id = "SmartLinkLegendary", seed = 4158208826, equip = true }, 
+		{ id = "SmartLinkLegendary", seed = 4158208826, equip = true },
 
 		-- GORILLA ARMS / Cyberware / Arms / Legendary
 		{
-			id = "StrongArmsLegendary", 
+			id = "StrongArmsLegendary",
 			seed = 2309621426,
 			slots = {
 				-- KNUCKLES - PHYSICAL DAMAGE / Rare
-				{ slot = "Knuckles", id = "PhysicalDamageKnuckles" }, 
+				{ slot = "Knuckles", id = "PhysicalDamageKnuckles" },
 				-- BLACK MARKET BATTERY / Legendary
-				{ slot = "Battery", id = "AnimalsStrongArmsBattery1" }, 
+				{ slot = "Battery", id = "AnimalsStrongArmsBattery1" },
 				-- SENSORY AMPLIFER - CRIT DAMAGE / Rare
-				{ slot = "Mod", id = "ArmsCyberwareSharedFragment2" }, 
+				{ slot = "Mod", id = "ArmsCyberwareSharedFragment2" },
 			},
 			equip = true,
 		},
 
 		-- REINFORCED TENDONS / Cyberware / Legs / Rare
-		{ id = "BoostedTendonsRare", seed = 3292313404, equip = true }, 
+		{ id = "BoostedTendonsRare", seed = 3292313404, equip = true },
+	},
 
-		-- GASH ANTIPERSONNEL GRENADE / Grenade / Epic
-		{ id = "GrenadeCuttingRegular", equip = 1, qty = 8 }, 
+	Backpack = {
+		-- BREAKTHROUGH / Weapon / Tech / Legendary
+		{
+			id = "Preset_Nekomata_Breakthrough_Legendary",
+			seed = 1388485219,
+			slots = {
+				-- E305 PROSPECTA / Uncommon
+				-- ADS Time -0.07% / Range +0.96
+				{ slot = "Scope", id = "w_att_scope_sniper_02", seed = 3345681130, upgrade = "Uncommon" },
+				-- COUNTERMASS / Epic
+				{ slot = "Mod1", id = "SimpleWeaponMod11" },
+				-- CRUNCH / Rare
+				{ slot = "Mod2", id = "SimpleWeaponMod01", upgrade = "Rare" },
+				-- CRUNCH / Rare
+				{ slot = "Mod3", id = "SimpleWeaponMod01", upgrade = "Rare" },
+				-- CRUNCH / Rare
+				{ slot = "Mod4", id = "SimpleWeaponMod01", upgrade = "Rare" },
+			},
+		},
 
-		-- MAXDOC MK.1 / Consumable / Meds / Uncommon
-		{ id = "FirstAidWhiffV0", equip = 3, qty = 149 }, 
+		-- COMRADE'S HAMMER / Weapon / Tech / Legendary
+		{
+			id = "Preset_Burya_Comrade_Legendary",
+			seed = 665329095,
+			slots = {
+				-- COUNTERMASS / Epic
+				{ slot = "Mod1", id = "SimpleWeaponMod11" },
+				-- NEON ARROW / Rare
+				{ slot = "Mod2", id = "TygerRangedWeaponMod" },
+				-- CRUNCH / Epic
+				{ slot = "Mod3", id = "SimpleWeaponMod01", upgrade = "Epic" },
+				-- CRUNCH / Epic
+				{ slot = "Mod4", id = "SimpleWeaponMod01", upgrade = "Epic" },
+			},
+		},
+
+		-- SOVEREIGN / Weapon / Power / Legendary
+		{
+			id = "Preset_Igla_Sovereign_Legendary",
+			seed = 2391825316,
+			slots = {
+				-- COUNTERMASS / Epic
+				{ slot = "Mod1", id = "SimpleWeaponMod11" },
+				-- PENETRATOR / Epic
+				{ slot = "Mod2", id = "SimpleWeaponMod02", upgrade = "Epic" },
+				-- PENETRATOR / Epic
+				{ slot = "Mod3", id = "SimpleWeaponMod02", upgrade = "Epic" },
+				-- PENETRATOR / Epic
+				{ slot = "Mod4", id = "SimpleWeaponMod02", upgrade = "Epic" },
+			},
+		},
 	},
 
 	Crafting = {
 		Components = {
-			CommonItem = 23466,
-			UncommonItem = 13685,
-			RareItem = 7402,
-			RareUpgrade = 15908,
+			CommonItem = 23409,
+			UncommonItem = 13709,
+			RareItem = 7416,
+			RareUpgrade = 15936,
 			EpicItem = 1107,
 			EpicUpgrade = 4244,
 			LegendaryItem = 363,

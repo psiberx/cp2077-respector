@@ -33,7 +33,7 @@ return {
 		{
 			name = "defaultOptions",
 			comment = {
-				"The default options for saving specs.",
+				"Default options for saving specs.",
 			},
 			default = {},
 			margin = true,

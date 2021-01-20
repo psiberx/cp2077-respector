@@ -8,7 +8,7 @@ return {
 	-- Used when saving and loading without specifying a spec name (aka quick saving an quick loading).
 	defaultSpec = "V",
 
-	-- The default options for saving specs.
+	-- Default options for saving specs.
 	defaultOptions = {
 
 		-- If enabled, the character levels, attributes, skills, and perks will be added to the spec.
