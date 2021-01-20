@@ -81,7 +81,12 @@ function StructWriter:writeNodeData(structFile, nodeSchema, nodeData, depth, inl
 			if nodeSchema.children then
 				local childIndex = 0
 				for _, childSchema in ipairs(nodeSchema.children) do
-					local childNames = childSchema.aliases and { childSchema.name, table.unpack(childSchema.aliases) } or { childSchema.name }
+					local childNames = { childSchema.name }
+					if childSchema.aliases then
+						for _, childAlias in ipairs(childSchema.aliases) do
+							table.insert(childNames, childAlias)
+						end
+					end
 					for _, childName in ipairs(childNames) do
 						local childData = nodeData[childName]
 						if childData ~= nil or childSchema.nullable or childSchema.default ~= nil then
@@ -97,6 +102,8 @@ function StructWriter:writeNodeData(structFile, nodeSchema, nodeData, depth, inl
 							end
 						end
 					end
+					-- Restore original name
+					childSchema.name = childNames[1]
 				end
 				if not inline then
 					structFile:write(indent)
