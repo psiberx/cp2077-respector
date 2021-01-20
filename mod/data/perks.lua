@@ -166,7 +166,7 @@ return {
 	LicketySplit = { type = "Engineering_Area_09_Perk_1", max = 2, skill = "Engineering", name = "Lickety Split", desc = "Tech weapons charge time is reduced by 10/20%." },
 	Jackpot = { type = "Engineering_Area_10_Perk_1", max = 1, skill = "Engineering", name = "Jackpot", desc = "Enables grenades to deal Crit Hits." },
 	Superconductor = { type = "Engineering_Area_10_Perk_2", max = 1, skill = "Engineering", name = "Superconductor", desc = "Tech weapons ignore Armor." },
-	Revamp = { type = "EngineeringTrait01", max = 999, trait = true, skill = "Engineering", name = "Revamp", desc = "Increases damage Tech weapons by 25%, increases charges damage from all chargeable weapons and cyberware by 10%. +1% charge damage per Perk level." },
+	Revamp = { type = "EngineeringTrait01", max = 999, trait = true, skill = "Engineering", name = "Revamp", desc = "Increases damage from Tech weapons by 25%, increases charge damage from all chargeable weapons and cyberware by 10%. +1% charge damage per Perk level." },
 
 	-- Breach Protocol
 	BigSleep = { type = "Hacking_Area_01_Perk_1", max = 2, skill = "BreachProtocol", name = "Big Sleep", desc = "Unlocks the Big Sleep daemon, which disables all cameras in the network for 3/6 min." },
