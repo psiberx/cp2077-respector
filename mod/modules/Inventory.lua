@@ -125,7 +125,7 @@ function InventoryModule:getBackpackItems(specOptions)
 	local itemIds = {}
 
 	local baseCriteria = { kind = { 'Weapon', 'Clothing', 'Cyberware', 'Mod', 'Grenade', 'Consumable', 'Progression', 'Quickhack' } }
-	local extraCriteria = {}
+	local extraCriteria
 
 	if specOptions.rarity then
 		extraCriteria = RarityFilter.asCriteria(specOptions.rarity)
@@ -134,20 +134,26 @@ function InventoryModule:getBackpackItems(specOptions)
 	local backpackData = self.playerInventoryData:GetPlayerInventoryItemsExcludingLoadout()
 
 	for _, itemData in ipairs(backpackData) do
-		local itemMatch = true
+		local itemMatch = false
 
-		if itemMatch and extraCriteria.quality ~= nil then
-			local itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
-			if extraCriteria.quality ~= itemQuality then
-				itemMatch = false
+		if extraCriteria then
+			if extraCriteria.quality ~= nil and not itemMatch then
+				local itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
+				local itemQualityIndex = self.tweakDb:getQualityIndex(itemQuality)
+				local criteriaQualityIndex = self.tweakDb:getQualityIndex(extraCriteria.quality)
+				if itemQualityIndex >= criteriaQualityIndex then
+					itemMatch = true
+				end
 			end
-		end
 
-		if itemMatch and extraCriteria.iconic ~= nil then
-			local itemIconic = self.gameRPGManager:IsItemDataIconic(itemData)
-			if extraCriteria.iconic ~= itemIconic then
-				itemMatch = false
+			if extraCriteria.iconic ~= nil and not itemMatch then
+				local itemIconic = self.gameRPGManager:IsItemDataIconic(itemData)
+				if extraCriteria.iconic == itemIconic then
+					itemMatch = true
+				end
 			end
+		else
+			itemMatch = true
 		end
 
 		if itemMatch then
