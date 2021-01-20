@@ -42,7 +42,7 @@ return {
 	useGlobalApi = true,
 
 	-- Enables the GUI.
-	useGui = false,
+	useGui = true,
 
 	-- Hotkey to open / close the GUI.
 	-- You can find key codes here: https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
