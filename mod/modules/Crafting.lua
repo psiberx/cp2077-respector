@@ -8,7 +8,7 @@ CraftingModule.__index = CraftingModule
 function CraftingModule:new()
 	local this = { tweakDb = TweakDb:new() }
 
-	setmetatable(this, CraftingModule)
+	setmetatable(this, self)
 
 	return this
 end
@@ -27,6 +27,40 @@ function CraftingModule:release()
 	self.transactionSystem = nil
 	self.craftingSystem = nil
 	self.playerCraftBook = nil
+end
+
+function CraftingModule:fillSpec(specData, specOptions)
+	if specOptions.components or specOptions.recipes then
+		specData.Crafting = {}
+
+		if specOptions.components then
+			local componentData = self:getComponents()
+
+			if componentData then
+				specData.Crafting.Components = componentData
+			end
+		end
+
+		if specOptions.recipes then
+			local recipeData = self:getRecipes()
+
+			if recipeData then
+				specData.Crafting.Recipes = recipeData
+			end
+		end
+	end
+end
+
+function CraftingModule:applySpec(specData)
+	if specData.Crafting then
+		if specData.Crafting.Components then
+			self:setComponents(specData.Crafting.Components)
+		end
+
+		if specData.Crafting.Recipes then
+			self:setRecipes(specData.Crafting.Recipes)
+		end
+	end
 end
 
 function CraftingModule:getComponents()
@@ -101,40 +135,6 @@ function CraftingModule:setRecipes(recipeSpecs)
 		local itemId = self.tweakDb:getItemTweakDbId(itemType)
 
 		self.playerCraftBook:AddRecipe(itemId, {}, 1)
-	end
-end
-
-function CraftingModule:applySpec(specData)
-	if specData.Crafting then
-		if specData.Crafting.Components then
-			self:setComponents(specData.Crafting.Components)
-		end
-
-		if specData.Crafting.Recipes then
-			self:setRecipes(specData.Crafting.Recipes)
-		end
-	end
-end
-
-function CraftingModule:fillSpec(specData, specOptions)
-	if specOptions.exportComponents or specOptions.exportRecipes then
-		specData.Crafting = {}
-
-		if specOptions.exportComponents then
-			local componentData = self:getComponents()
-
-			if componentData then
-				specData.Crafting.Components = componentData
-			end
-		end
-
-		if specOptions.exportRecipes then
-			local recipeData = self:getRecipes()
-
-			if recipeData then
-				specData.Crafting.Recipes = recipeData
-			end
-		end
 	end
 end
 

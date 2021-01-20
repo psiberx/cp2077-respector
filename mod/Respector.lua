@@ -18,18 +18,10 @@ local components = {
 	}
 }
 
-local globalOptions = {
-	'itemFormat',
-	'keepSeed',
-	'exportAllPerks',
-	'exportComponents',
-	'exportRecipes',
-}
-
 function Respector:new()
 	local this = { recentSpecs = {}, recentSpecsInfo = {} }
 
-	setmetatable(this, Respector)
+	setmetatable(this, self)
 
 	this:loadComponents()
 
@@ -158,9 +150,9 @@ function Respector:getSpecOptions(specOptions)
 		specOptions = { timestamp = true }
 	end
 
-	for _, option in ipairs(globalOptions) do
-		if specOptions[option] == nil then
-			specOptions[option] = mod.config[option]
+	for optionName, optionDefault in pairs(mod.config.defaultOptions) do
+		if specOptions[optionName] == nil then
+			specOptions[optionName] = optionDefault
 		end
 	end
 

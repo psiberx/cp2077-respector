@@ -6,7 +6,7 @@ CharacterModule.__index = CharacterModule
 function CharacterModule:new()
 	local this = {}
 
-	setmetatable(this, CharacterModule)
+	setmetatable(this, self)
 
 	return this
 end
@@ -34,10 +34,12 @@ function CharacterModule:release()
 end
 
 function CharacterModule:fillSpec(specData, specOptions)
-	local characterSchema = (mod.load('mod/data/spec-schema'))['children'][1]
-	local characterData = self:getExpirience(characterSchema, specOptions)
+	if specOptions.character then
+		local characterSchema = (mod.load('mod/data/spec-schema'))['children'][1]
+		local characterData = self:getExpirience(characterSchema, specOptions)
 
-	specData.Character = characterData
+		specData.Character = characterData
+	end
 end
 
 function CharacterModule:applySpec(specData)
@@ -95,7 +97,7 @@ function CharacterModule:getExpirience(schema, specOptions)
 				else
 					perkLevel = self.playerDevData:GetPerkLevel(perkType)
 				end
-				if perkLevel > 0 or specOptions.exportAllPerks then
+				if perkLevel > 0 or specOptions.allPerks then
 					data[node.name] = math.max(0, math.floor(perkLevel))
 					count = count + 1
 				end

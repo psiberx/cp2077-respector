@@ -8,7 +8,7 @@ TransportModule.__index = TransportModule
 function TransportModule:new()
 	local this = { tweakDb = TweakDb:new() }
 
-	setmetatable(this, TransportModule)
+	setmetatable(this, self)
 
 	return this
 end
@@ -21,17 +21,19 @@ function TransportModule:release()
 	self.vehicleSystem = nil
 end
 
-function TransportModule:applySpec(specData)
-	if specData.Vehicles then
-		self:setVehicles(specData.Vehicles)
+function TransportModule:fillSpec(specData, specOptions)
+	if specOptions.vehicles then
+		local vehicleSpecs = self:getVehicles()
+
+		if vehicleSpecs then
+			specData.Vehicles = vehicleSpecs
+		end
 	end
 end
 
-function TransportModule:fillSpec(specData)
-	local vehicleSpecs = self:getVehicles()
-
-	if vehicleSpecs then
-		specData.Vehicles = vehicleSpecs
+function TransportModule:applySpec(specData)
+	if specData.Vehicles then
+		self:setVehicles(specData.Vehicles)
 	end
 end
 

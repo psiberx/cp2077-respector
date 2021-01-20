@@ -1,7 +1,11 @@
 local str = {}
 
 function str.trim(s)
-	return (string.gsub(s, '^%s*(.-)%s*$', '%1'))
+	return (s:gsub('^%s*(.-)%s*$', '%1'))
+end
+
+function str.ucfirst(s)
+    return (s:gsub('^%l', string.upper))
 end
 
 function str.with(s, prefix, suffix)

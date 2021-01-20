@@ -8,38 +8,54 @@ return {
 	-- Used when saving and loading without specifying a spec name (aka quick saving an quick loading).
 	defaultSpec = "V",
 
-	-- The preferred ItemID format for use in item specs:
-	-- "auto" - Use item name whenever possible.
-	-- "hash" - Always use a struct with hash and length values (eg. `{ hash = 0x026C324A, length = 27 }`).
-	-- Sets default value for "itemFormat" option when saving specs.
-	itemFormat = "auto",
+	-- The default options for saving specs.
+	defaultOptions = {
 
-	-- How to save the RNG seed in the item spec:
-	-- "auto" - Save the seed only for items that can be randomized.
-	-- "always" - Always save the seed for all items.
-	-- Sets default value for "keepSeed" option when saving specs.
-	keepSeed = "auto",
+		-- If enabled, the character levels, attributes, skills, and perks will be added to the spec.
+		-- If disabled, the character data will NOT be added to the spec.
+		character = true,
 
-	-- If enabled, all perks will be saved in the spec, including those not purchased.
-	-- If disabled, only purchased perks will be saved.
-	-- Sets default value for "exportAllPerks" option when saving specs.
-	exportAllPerks = false,
+		-- If enabled, all perks will be saved in the spec, including those not purchased.
+		-- If disabled, only purchased perks will be saved.
+		allPerks = false,
 
-	-- If enabled, crafting components will be added to the spec.
-	-- If disabled, crafting components will NOT be added to the spec.
-	-- Sets default value for "exportComponents" option when saving specs.
-	exportComponents = true,
+		-- If enabled, the currently equipped items will be added to the spec.
+		-- If disabled, the current equipment will NOT be added to the spec.
+		equipment = true,
 
-	-- If enabled, crafting recipes will be added to the spec.
-	-- If disabled, crafting recipes will NOT be added to the spec.
-	-- Sets default value for "exportRecipes" option when saving specs.
-	exportRecipes = true,
+		-- If enabled, the currently equipped cyberware will be added to the spec.
+		-- If disabled, the current cyberware will NOT be added to the spec.
+		cyberware = true,
 
-	-- Enables API access using `GetMod()`.
-	useModApi = true,
+		-- If enabled, items in the backpack will be added to the spec.
+		-- If disabled, items in the backpack will NOT be added to the spec.
+		backpack = true,
 
-	-- Enables API access using global Respector object.
-	useGlobalApi = true,
+		-- Filter backpack items.
+		rarity = false,
+
+		-- If enabled, crafting components will be added to the spec.
+		-- If disabled, crafting components will NOT be added to the spec.
+		components = true,
+
+		-- If enabled, crafting recipes will be added to the spec.
+		-- If disabled, crafting recipes will NOT be added to the spec.
+		recipes = true,
+
+		-- If enabled, own vehicles will be added to the spec.
+		-- If disabled, vehicles will NOT be added to the spec.
+		vehicles = true,
+
+		-- The preferred ItemID format for use in item specs:
+		-- "auto" - Use item name whenever possible.
+		-- "hash" - Always use a struct with hash and length values (eg. `{ hash = 0x026C324A, length = 27 }`).
+		itemFormat = "auto",
+
+		-- How to save the RNG seed in the item spec:
+		-- "auto" - Save the seed only for items that can be randomized.
+		-- "always" - Always save the seed for all items.
+		keepSeed = "auto",
+	},
 
 	-- Enables the GUI.
 	useGui = true,
@@ -51,4 +67,10 @@ return {
 	-- Hotkey to save spec with currently selected options in the GUI.
 	-- You can find key codes here: https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
 	saveSpecKey = 0x71, -- F2
+
+	-- Enables API access using `GetMod()`.
+	useModApi = true,
+
+	-- Enables API access using global `Respector` object.
+	useGlobalApi = true,
 }

@@ -6,7 +6,7 @@ function StructWriter:new(structSchema)
 
 	this.structSchema = structSchema
 
-	setmetatable(this, StructWriter)
+	setmetatable(this, self)
 
 	return this
 end
@@ -51,7 +51,7 @@ function StructWriter:writeNodeData(structFile, nodeSchema, nodeData, depth, inl
 	end
 
 	if nodeData ~= nil or nodeSchema.nullable then
-		if not inline and nodeSchema.margin and index > 1 then
+		if not inline and nodeSchema.margin and (index > 1 or nodeSchema.margin == 'always') then
 			structFile:write(br)
 		end
 

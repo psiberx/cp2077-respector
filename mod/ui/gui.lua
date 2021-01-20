@@ -1,18 +1,33 @@
 local mod = ...
 local str = mod.require('mod/utils/str')
+local array = mod.require('mod/utils/array')
+local RarityFilter = mod.require('mod/enums/RarityFilter')
 
 local gui = {}
 
 local respector
 
 local drawWindow = false
+local windowWidth = 340
+local windowHeight = 375
+local windowPadding = 7.5
 local maxInputLen = 256
 local openKey = 0x70
 local saveKey = 0x71
 
+local rarityFilterList = RarityFilter.all()
 local itemFormatList = { 'auto', 'hash' }
 local keepSeedList = { 'auto', 'always' }
 local textOptions = { ['specsDir'] = 'specs/', ['defaultSpec'] = 'V' }
+local specSections = {
+	{ option = 'character', label = 'Character', desc = '(attributes / skills / perks)' },
+	{ option = 'equipment', label = 'Equipped gear', desc = '(weapons / clothing / quick)' },
+	{ option = 'cyberware', label = 'Equipped cyberware' },
+	{ option = 'backpack', label = 'Backpack items' },
+	{ option = 'components', label = 'Crafting components' },
+	{ option = 'recipes', label = 'Crafting recipes' },
+	{ option = 'vehicles', label = 'Own vehicles' },
+}
 local keyCodes = mod.load('mod/data/virtual-key-codes')
 
 local inputData = {
@@ -23,12 +38,16 @@ local inputData = {
 
 	globalOptions = {},
 
+	rarityFilterIndex = 0,
+	rarityFilterList = 'Any rarity\0Iconic only\0Rare or higher\0Rare or higher + Iconic\0Epic or higher\0Epic or higher + Iconic\0Legendary only\0Legendary only + Iconic\0',
+	rarityFilterCount = #rarityFilterList,
+
 	itemFormatIndex = 0,
-	itemFormatList = 'Auto (use name if possible)\0Hash (always use hash value)\0',
+	itemFormatList = 'Use item name\0Use hash + length\0',
 	itemFormatCount = #itemFormatList,
 
 	keepSeedIndex = 0,
-	keepSeedList = 'Auto (only if necessary)\0Always (keep for all items)\0',
+	keepSeedList = 'Only if necessary\0For all items\0',
 	keepSeedCount = #keepSeedList,
 
 	openKeyIndex = 0,
@@ -60,19 +79,9 @@ function gui.init(_respector)
 	inputData.specOptions = respector:getSpecOptions()
 	inputData.specOptions.timestamp = false
 
-	for index, option in ipairs(itemFormatList) do
-		if option == inputData.globalOptions.itemFormat then
-			inputData.itemFormatIndex = index - 1
-			break
-		end
-	end
-
-	for index, option in ipairs(keepSeedList) do
-		if option == inputData.globalOptions.keepSeed then
-			inputData.keepSeedIndex = index - 1
-			break
-		end
-	end
+	inputData.rarityFilterIndex = array.find(rarityFilterList, inputData.specOptions.rarity) - 1
+	inputData.itemFormatIndex = array.find(itemFormatList, inputData.specOptions.itemFormat) - 1
+	inputData.keepSeedIndex = array.find(keepSeedList, inputData.specOptions.keepSeed) - 1
 
 	for index, keyCode in ipairs(keyCodes) do
 		inputData.keyCodeList = inputData.keyCodeList .. keyCode.desc .. '\0'
@@ -92,100 +101,15 @@ function gui.configureKeys()
 	saveKey = mod.config.saveSpecKey
 end
 
-function gui.saveSpec()
-	respector:saveSpec(str.stripnul(inputData.specNameSave), inputData.specOptions)
-end
-
-function gui.saveSnap()
-	local timestamp = inputData.specOptions.timestamp
-	inputData.specOptions.timestamp = true
-
-	respector:saveSpec(str.stripnul(inputData.specNameSave), inputData.specOptions)
-
-	inputData.specOptions.timestamp = timestamp
-end
-
-function gui.loadSpec()
-	respector:loadSpec(str.stripnul(inputData.specNameLoad))
-end
-
-function gui.saveConfig()
-	for optionName, optionValue in pairs(inputData.globalOptions) do
-		if textOptions[optionName] then
-			optionValue = str.stripnul(optionValue)
-
-			if str.isempty(optionValue) then
-				optionValue = textOptions[optionName]
-			end
-		end
-
-		mod.config[optionName] = optionValue
-	end
-
-	local Configuration = mod.require('mod/Configuration')
-	local configuration = Configuration:new()
-
-	configuration:writeConfig()
-
-	respector:loadComponents()
-
-	gui.configureKeys()
-
-	print(('Respector: Configuration saved.'))
-end
-
-function gui.resetConfig()
-	local Configuration = mod.require('mod/Configuration')
-	local configuration = Configuration:new()
-
-	configuration:resetConfig({ useGui = true })
-
-	mod.loadConfig()
-
-	respector:loadComponents()
-
-	gui.init(respector)
-
-	print(('Respector: Configuration has been reset to defaults.'))
-end
-
-function gui.rehashTweakDb()
-	local Compiler = mod.require('mod/Compiler')
-	local compiler = Compiler:new()
-
-	compiler:rehashTweakDbNames()
-end
-
-function gui.compileSamples()
-	local Compiler = mod.require('mod/Compiler')
-	local compiler = Compiler:new()
-
-	compiler:compileSamplePacks()
-end
-
-function gui.writeDefaultConfig()
-	local Compiler = mod.require('mod/Compiler')
-	local compiler = Compiler:new()
-
-	compiler:writeDefaultConfig()
-end
-
-function gui.writeDefaultSpec()
-	local Compiler = mod.require('mod/Compiler')
-	local compiler = Compiler:new()
-
-	compiler:writeDefaultSpec()
-end
-
-function gui.onConsoleOpen()
+function gui.handleConsoleOpen()
 	drawWindow = true
 end
 
-function gui.onConsoleClose()
+function gui.handleConsoleClose()
 	drawWindow = false
 end
 
-function gui.onUpdate()
+function gui.handleUpdate()
 	if ImGui.IsKeyPressed(openKey, false) then
 		drawWindow = not drawWindow
 	end
@@ -195,15 +119,15 @@ function gui.onUpdate()
 	end
 end
 
-function gui.onDraw()
+function gui.handleDraw()
 	if not drawWindow then
 		return
 	end
 
 	ImGui.SetNextWindowPos(0, 400, ImGuiCond.FirstUseEver)
-	ImGui.SetNextWindowSize(355, 294) -- 340 x 300
+	ImGui.SetNextWindowSize(windowWidth + (windowPadding * 2), windowHeight)
 
-	ImGui.Begin('Respector', true, ImGuiWindowFlags.NoResize)
+	ImGui.Begin('Respector', true, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
 	ImGui.BeginTabBar('Respector Tabs')
 
 	if ImGui.BeginTabItem('Save Spec') then
@@ -223,36 +147,45 @@ function gui.onDraw()
 		ImGui.Spacing()
 
 		-- Saving: Timestamp
-		inputData.specOptions.timestamp = ImGui.Checkbox('With timestamp (snapshot)', inputData.specOptions.timestamp)
+		inputData.specOptions.timestamp = ImGui.Checkbox('Add timestamp to the name', inputData.specOptions.timestamp)
 
 		ImGui.Spacing()
 		ImGui.Separator()
 		ImGui.Spacing()
 
-		-- Saving: Item Format
+		-- Saving: Sections
+		ImGui.Text('Include in the spec:')
+		ImGui.Spacing()
+		for _, section in ipairs(specSections) do
+			--ImGui.Spacing()
+			inputData.specOptions[section.option] = ImGui.Checkbox(section.label, inputData.specOptions[section.option])
+
+			if section.option == 'backpack' and inputData.specOptions.backpack then
+				ImGui.SameLine()
+				ImGui.PushItemWidth(190)
+				inputData.rarityFilterIndex = ImGui.Combo('##Backpack Filter', inputData.rarityFilterIndex, inputData.rarityFilterList, inputData.rarityFilterCount)
+				inputData.specOptions.rarity = rarityFilterList[inputData.rarityFilterIndex + 1]
+			elseif section.desc then
+				ImGui.SameLine()
+				ImGui.TextColored(0.5, 0.5, 0.5, 1, section.desc)
+			end
+		end
+
+		ImGui.Spacing()
+		ImGui.Separator()
+		ImGui.Spacing()
+
+		-- Saving: Item Format & Keep Seed
 		ImGui.Text('Item format:')
-		ImGui.PushItemWidth(233)
+		ImGui.SameLine(181)
+		ImGui.Text('Keep seed:')
+		ImGui.PushItemWidth(167)
 		inputData.itemFormatIndex = ImGui.Combo('##Item Format', inputData.itemFormatIndex, inputData.itemFormatList, inputData.itemFormatCount)
 		inputData.specOptions.itemFormat = itemFormatList[inputData.itemFormatIndex + 1]
-
-		ImGui.Spacing()
-
-		-- Saving: Keep Seed
-		ImGui.Text('Keep seed:')
-		ImGui.PushItemWidth(233)
+		ImGui.SameLine(181)
+		ImGui.PushItemWidth(167)
 		inputData.keepSeedIndex = ImGui.Combo('##Keep Seed', inputData.keepSeedIndex, inputData.keepSeedList, inputData.keepSeedCount)
 		inputData.specOptions.keepSeed = keepSeedList[inputData.keepSeedIndex + 1]
-
-		ImGui.Spacing()
-
-		-- Saving: Export Crafting Components
-		inputData.specOptions.exportComponents = ImGui.Checkbox('Export crafting components', inputData.specOptions.exportComponents)
-
-		-- Saving: Export Crafting Recipes
-		inputData.specOptions.exportRecipes = ImGui.Checkbox('Export crafting recipes', inputData.specOptions.exportRecipes)
-
-		-- Saving: Export All Perks
-		inputData.specOptions.exportAllPerks = ImGui.Checkbox('Export all perks', inputData.specOptions.exportAllPerks)
 
 		ImGui.EndTabItem()
 	end
@@ -278,7 +211,7 @@ function gui.onDraw()
 		-- Loading: Recent Specs
 		ImGui.Text('Recently saved / loaded specs:')
 		ImGui.PushItemWidth(340)
-		local lastSpecIndex = ImGui.ListBox('##Load Recent Specs', -1, respector.recentSpecsInfo, #respector.recentSpecsInfo, 9)
+		local lastSpecIndex = ImGui.ListBox('##Load Recent Specs', -1, respector.recentSpecsInfo, #respector.recentSpecsInfo, 14)
 		if lastSpecIndex >= 0 then
 			inputData.specNameLoad = str.padnul(respector.recentSpecs[lastSpecIndex + 1], maxInputLen)
 			lastSpecIndex = -1
@@ -375,6 +308,91 @@ function gui.onDraw()
 
 	ImGui.EndTabBar()
 	ImGui.End()
+end
+
+function gui.saveSpec()
+	respector:saveSpec(str.stripnul(inputData.specNameSave), inputData.specOptions)
+end
+
+function gui.saveSnap()
+	local timestamp = inputData.specOptions.timestamp
+	inputData.specOptions.timestamp = true
+
+	respector:saveSpec(str.stripnul(inputData.specNameSave), inputData.specOptions)
+
+	inputData.specOptions.timestamp = timestamp
+end
+
+function gui.loadSpec()
+	respector:loadSpec(str.stripnul(inputData.specNameLoad))
+end
+
+function gui.saveConfig()
+	for optionName, optionValue in pairs(inputData.globalOptions) do
+		if textOptions[optionName] then
+			optionValue = str.stripnul(optionValue)
+
+			if str.isempty(optionValue) then
+				optionValue = textOptions[optionName]
+			end
+		end
+
+		mod.config[optionName] = optionValue
+	end
+
+	local Configuration = mod.require('mod/Configuration')
+	local configuration = Configuration:new()
+
+	configuration:writeConfig()
+
+	respector:loadComponents()
+
+	gui.configureKeys()
+
+	print(('Respector: Configuration saved.'))
+end
+
+function gui.resetConfig()
+	local Configuration = mod.require('mod/Configuration')
+	local configuration = Configuration:new()
+
+	configuration:resetConfig({ useGui = true })
+
+	mod.loadConfig()
+
+	respector:loadComponents()
+
+	gui.init(respector)
+
+	print(('Respector: Configuration has been reset to defaults.'))
+end
+
+function gui.rehashTweakDb()
+	local Compiler = mod.require('mod/Compiler')
+	local compiler = Compiler:new()
+
+	compiler:rehashTweakDbNames()
+end
+
+function gui.compileSamples()
+	local Compiler = mod.require('mod/Compiler')
+	local compiler = Compiler:new()
+
+	compiler:compileSamplePacks()
+end
+
+function gui.writeDefaultConfig()
+	local Compiler = mod.require('mod/Compiler')
+	local compiler = Compiler:new()
+
+	compiler:writeDefaultConfig()
+end
+
+function gui.writeDefaultSpec()
+	local Compiler = mod.require('mod/Compiler')
+	local compiler = Compiler:new()
+
+	compiler:writeDefaultSpec()
 end
 
 return gui

@@ -1,5 +1,6 @@
 local mod = ...
 local str = mod.require('mod/utils/str')
+local RarityFilter = mod.require('mod/enums/RarityFilter')
 local TweakDb = mod.require('mod/helpers/TweakDb')
 local SimpleDb = mod.require('mod/helpers/SimpleDb')
 
@@ -12,7 +13,7 @@ function InventoryModule:new()
 		equipAreaDb = SimpleDb:new(),
 	}
 
-	setmetatable(this, InventoryModule)
+	setmetatable(this, self)
 
 	return this
 end
@@ -59,9 +60,17 @@ function InventoryModule:release()
 end
 
 function InventoryModule:fillSpec(specData, specOptions)
-	specData.Equipment = self:getEquipmentItems(specOptions)
-	specData.Cyberware = self:getCyberwareItems(specOptions)
-	specData.Backpack = self:getBackpackItems(specOptions)
+	if specOptions.equipment then
+		specData.Equipment = self:getEquipmentItems(specOptions)
+	end
+
+	if specOptions.cyberware then
+		specData.Cyberware = self:getCyberwareItems(specOptions)
+	end
+
+	if specOptions.backpack then
+		specData.Backpack = self:getBackpackItems(specOptions)
+	end
 end
 
 function InventoryModule:applySpec(specData)
@@ -114,15 +123,40 @@ end
 
 function InventoryModule:getBackpackItems(specOptions)
 	local itemIds = {}
-	local itemCriteria = { kind = { 'Weapon', 'Clothing', 'Cyberware', 'Mod', 'Grenade', 'Consumable', 'Progression', 'Quickhack' } }
+
+	local baseCriteria = { kind = { 'Weapon', 'Clothing', 'Cyberware', 'Mod', 'Grenade', 'Consumable', 'Progression', 'Quickhack' } }
+	local extraCriteria = {}
+
+	if specOptions.rarity then
+		extraCriteria = RarityFilter.asCriteria(specOptions.rarity)
+	end
+
 	local backpackData = self.playerInventoryData:GetPlayerInventoryItemsExcludingLoadout()
 
 	for _, itemData in ipairs(backpackData) do
-		local itemId = itemData:GetID()
-		local itemMeta = self.tweakDb:resolve(itemId.tdbid)
+		local itemMatch = true
 
-		if itemMeta and self.tweakDb:match(itemMeta, itemCriteria) then
-			table.insert(itemIds, itemData:GetID())
+		if itemMatch and extraCriteria.quality ~= nil then
+			local itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
+			if extraCriteria.quality ~= itemQuality then
+				itemMatch = false
+			end
+		end
+
+		if itemMatch and extraCriteria.iconic ~= nil then
+			local itemIconic = self.gameRPGManager:IsItemDataIconic(itemData)
+			if extraCriteria.iconic ~= itemIconic then
+				itemMatch = false
+			end
+		end
+
+		if itemMatch then
+			local itemId = itemData:GetID()
+			local itemMeta = self.tweakDb:resolve(itemId.tdbid)
+
+			if itemMeta and self.tweakDb:match(itemMeta, baseCriteria) then
+				table.insert(itemIds, itemData:GetID())
+			end
 		end
 	end
 
@@ -149,9 +183,12 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 			local itemMeta = self.tweakDb:resolve(itemId.tdbid)
 			local itemQty = self.transactionSystem:GetItemQuantity(self.player, itemId)
 			local itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
-			local itemDuplicate = false
+			local itemSkip = false
 
-			if itemSpecsByTweakDbId[itemKey] and itemMeta and not itemMeta.rng then
+			if itemData:HasTag('Quest') then
+				itemSkip = true
+
+			elseif itemSpecsByTweakDbId[itemKey] and itemMeta and not itemMeta.rng then
 				local itemSpec = itemSpecsByTweakDbId[itemKey]
 
 				if itemMeta.quality or itemSpec.upgrade == itemQuality then
@@ -161,11 +198,11 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 					itemSpec.qty = itemSpec.qty + itemQty
 
-					itemDuplicate = true
+					itemSkip = true
 				end
 			end
 
-			if not itemDuplicate then
+			if not itemSkip then
 				local itemSpec = {}
 				local itemEquipArea, itemSlotIndex
 
@@ -257,8 +294,8 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 									partSpec.seed = partId.rng_seed
 								end
 
-								if partMeta.quality == nil or specOptions.exportQuality == 'always' then
-									partSpec.upgrade = partQuality ~= 'Common' and partQuality or true
+								if partMeta.quality == nil then
+									partSpec.upgrade = partQuality
 								end
 
 								partSpec._comment = self.tweakDb:describe(partMeta)
@@ -288,9 +325,9 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 					end
 				end
 
-				if itemData:HasTag('Quest') then
-					itemSpec.quest = true
-				end
+				--if itemData:HasTag('Quest') then
+				--	itemSpec.quest = true
+				--end
 
 				if itemQty > 1 then
 					itemSpec.qty = itemQty

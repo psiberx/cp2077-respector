@@ -31,11 +31,11 @@ local devMode = false
 
 local corePath = baseDir .. '/mod/mod'
 
-if devMode then
-	local modulePathPattern = '^%.[\\/]' .. baseDir .. '[./]*'
+if devMode or true then
+	local modulePattern = '^%.[\\/]' .. baseDir .. '[./]*'
 
 	for module, _ in pairs(package.loaded) do
-		if module:find(modulePathPattern) or module == corePath then
+		if module:find(modulePattern) or module == corePath then
 			package.loaded[module] = nil
 
 			if debugMode then
@@ -90,24 +90,24 @@ if mod.config.useGui then
 	gui.init(respector)
 
 	registerForEvent('onConsoleOpen', function()
-		gui.onConsoleOpen()
+		gui.handleConsoleOpen()
 	end)
 
 	registerForEvent('onConsoleClose', function()
-		gui.onConsoleClose()
+		gui.handleConsoleClose()
 	end)
 
 	registerForEvent('onUpdate', function(delta)
-		mod.onUpdate(delta)
-		gui.onUpdate()
+		mod.handleUpdate(delta)
+		gui.handleUpdate()
 	end)
 
 	registerForEvent('onDraw', function()
-		gui.onDraw()
+		gui.handleDraw()
 	end)
 else
 	registerForEvent('onUpdate', function(delta)
-		mod.onUpdate(delta)
+		mod.handleUpdate(delta)
 	end)
 end
 

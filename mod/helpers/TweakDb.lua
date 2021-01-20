@@ -36,14 +36,6 @@ local FakeToItemID = function (o) return o end
 local RealToTweakDBID = ToTweakDBID
 local FakeToTweakDBID = function (o) return o end
 
---function TweakDb:new()
---	local this = {}
---
---	setmetatable(this, TweakDb)
---
---	return this
---end
-
 function TweakDb:resolve(tweakDbId)
 	if mod.env.is183() then
 		tweakDbId = self:extract(tweakDbId)

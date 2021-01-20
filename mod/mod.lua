@@ -99,7 +99,7 @@ function mod.loadConfig()
 	mod.config = mod.load('config') or {}
 end
 
-function mod.onUpdate(delta)
+function mod.handleUpdate(delta)
 	if #mod.deferred > 0 then
 		mod.defer(delta)
 	end

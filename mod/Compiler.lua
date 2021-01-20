@@ -8,7 +8,7 @@ Compiler.__index = Compiler
 function Compiler:new()
 	local this = {}
 
-	setmetatable(this, Compiler)
+	setmetatable(this, self)
 
 	return this
 end

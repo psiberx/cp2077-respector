@@ -7,7 +7,7 @@ Configuration.__index = Configuration
 function Configuration:new()
 	local this = {}
 
-	setmetatable(this, Configuration)
+	setmetatable(this, self)
 
 	return this
 end

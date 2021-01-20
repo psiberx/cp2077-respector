@@ -17,7 +17,7 @@ function SpecStore:new(specsDir, defaultSpec)
 		print(('[DEBUG] Respector: Created spec store using %q.'):format(this.specsDir))
 	end
 
-	setmetatable(this, SpecStore)
+	setmetatable(this, self)
 
 	return this
 end

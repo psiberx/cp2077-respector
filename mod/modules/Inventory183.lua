@@ -8,7 +8,7 @@ InventoryModule.__index = InventoryModule
 function InventoryModule:new()
 	local this = { tweakDb = TweakDb:new() }
 
-	setmetatable(this, InventoryModule)
+	setmetatable(this, self)
 
 	return this
 end
@@ -80,7 +80,7 @@ function InventoryModule:getItems(specOptions)
 							itemSpec.seed = itemId2.rng_seed
 						end
 
-						if itemMeta.quality == nil or specOptions.exportQuality == 'always' then
+						if itemMeta.quality == nil then
 							itemSpec.upgrade = itemQuality ~= 'Common' and itemQuality or true
 							--elseif itemMeta.kind == 'Weapon' or itemMeta.kind == 'Clothing' then
 							--	itemSpec.upgrade = true
@@ -153,7 +153,7 @@ function InventoryModule:getItems(specOptions)
 									partSpec.seed = partId2.rng_seed
 								end
 
-								if partMeta.quality == nil or specOptions.exportQuality == 'always' then
+								if partMeta.quality == nil then
 									partSpec.upgrade = partQuality ~= 'Common' and partQuality or true
 								end
 
@@ -410,10 +410,12 @@ function InventoryModule:applySpec(specData)
 end
 
 function InventoryModule:fillSpec(specData, specOptions)
-	local inventoryData = self:getItems(specOptions)
+	if specOptions.equipment or specOptions.cyberware then
+		local inventoryData = self:getItems(specOptions)
 
-	if inventoryData then
-		specData.Inventory = inventoryData
+		if inventoryData then
+			specData.Inventory = inventoryData
+		end
 	end
 end
 
