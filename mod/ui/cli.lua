@@ -1,29 +1,32 @@
 local mod = ...
 
-local api = {
-	respector = nil
-}
+local respector
+local api = {}
 
-function api.LoadSpec(specName)
-	return api.respector:loadSpec(specName)
+function api.LoadSpec(specName, _)
+	if specName == api then
+		specName = _
+	end
+
+	return respector:loadSpec(specName)
 end
 
-function api.SaveSpec(specName, specOptions)
-	return api.respector:saveSpec(specName, specOptions)
+function api.SaveSpec(specName, specOptions, _)
+	if specName == api then
+		specName, specOptions = specOptions, _
+	end
+
+	return respector:saveSpec(specName, specOptions)
 end
 
 function api.SaveSnap()
-	return api.respector:saveSpec(nil, { timestamp = true })
+	return respector:saveSpec(nil, { timestamp = true })
 end
 
 local cli = {}
 
-function cli.init(respector)
-	if mod.debug then
-		print(('[DEBUG] Respector: Initializing CLI...'))
-	end
-
-	api.respector = respector
+function cli.init(_respector)
+	respector = _respector
 end
 
 function cli.getModApi()
@@ -31,10 +34,7 @@ function cli.getModApi()
 end
 
 function cli.registerGlobalApi()
-	Respector = {}
-	Respector['LoadSpec'] = api['LoadSpec']
-	Respector['SaveSpec'] = api['SaveSpec']
-	Respector['SaveSnap'] = api['SaveSnap']
+	Respector = api
 
 	if mod.debug then
 		print(('[DEBUG] Respector: Registered global API.'))

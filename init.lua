@@ -61,6 +61,10 @@ local Respector = mod.require('mod/Respector')
 local respector = Respector:new()
 
 if mod.config.useModApi or mod.config.useGlobalApi then
+	if mod.debug then
+		print(('[DEBUG] Respector: Initializing CLI...'))
+	end
+
 	local cli = mod.require('mod/ui/cli')
 
 	cli.init(respector)
@@ -77,6 +81,10 @@ if mod.config.useModApi or mod.config.useGlobalApi then
 end
 
 if mod.config.useGui then
+	if mod.debug then
+		print(('[DEBUG] Respector: Initializing GUI...'))
+	end
+
 	local gui = mod.require('mod/ui/gui')
 
 	gui.init(respector)
