@@ -247,7 +247,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 					itemSpec._comment = itemSpec._comment .. ' / ' .. itemQuality
 				end
 
-				self:addStatsComment(itemSpec, itemMeta, itemData)
+				self:appendStatsComment(itemSpec, itemMeta, itemData)
 
 				local itemParts = itemData:GetItemParts()
 				local itemPartsBySlots = {}
@@ -310,7 +310,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 								partSpec._comment = partSpec._comment .. ' / ' .. partQuality
 							end
 
-							self:addStatsComment(partSpec, partMeta, partData)
+							self:appendStatsComment(partSpec, partMeta, partData)
 
 							table.insert(itemSpec.slots, partSpec)
 						end
@@ -347,7 +347,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 	return itemSpecs
 end
 
-function InventoryModule:addStatsComment(itemSpec, itemMeta, itemData)
+function InventoryModule:appendStatsComment(itemSpec, itemMeta, itemData)
 	if itemMeta and itemMeta.kind == 'Mod' and itemMeta.group == 'Scope' then
 		local ads = itemData:GetStatValueByType('AimInTime')
 		local range = itemData:GetStatValueByType('EffectiveRange')
@@ -497,14 +497,16 @@ function InventoryModule:addItem(itemSpec)
 		end
 	end
 
-	--if #removedParts > 0 then
-	--	mod.defer(0.8, function()
-	--		for _, partItemId in ipairs(removedParts) do
-	--			self.transactionSystem:RemoveItem(self.player, partItemId, 1)
-	--			--self.craftingSystem:DisassembleItem(self.player, slotItemId, 1)
-	--		end
-	--	end)
-	--end
+	if #removedParts > 0 then
+		mod.defer(0.8, function()
+			for _, partItemId in ipairs(removedParts) do
+				if self.playerEquipmentData:HasItemInInventory(partItemId) then
+					self.transactionSystem:RemoveItem(self.player, partItemId, 1)
+					--self.craftingSystem:DisassembleItem(self.player, slotItemId, 1)
+				end
+			end
+		end)
+	end
 
 	return itemId
 end

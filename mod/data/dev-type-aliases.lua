@@ -1,13 +1,13 @@
 return {
-	-- Attributes
+	-- Attributes (gamedataStatType)
 	Body = "Strength",
-	-- Skills
+	-- Skills (gamedataProficiencyType)
 	Annihilation = "Demolition",
 	StreetBrawler = "Brawling",
 	Handguns = "Gunslinger",
 	Blades = "Kenjutsu",
 	BreachProtocol = "Hacking",
 	Quickhacking = "CombatHacking",
-	-- Points
+	-- Points (gamedataDevelopmentPointType)
 	Perk = "Primary",
 }

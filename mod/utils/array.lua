@@ -10,4 +10,19 @@ function array.find(list, value)
 	return nil
 end
 
+function array.map(list, mapper)
+	local result = {}
+	local isCallback = type(mapper) == 'function'
+
+	for index, item in ipairs(list) do
+		if isCallback then
+			result[index] = mapper(item, index)
+		else
+			result[index] = item[mapper]
+		end
+	end
+
+	return result
+end
+
 return array

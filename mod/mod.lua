@@ -57,19 +57,14 @@ function mod.path(path)
 end
 
 function mod.load(path)
-	--return dofile(mod.path(path))
-	return (loadfile(mod.path(path)))(mod)
-end
+	local chunk = loadfile(mod.path(path))
 
-function mod.load(path)
-	return (loadfile(mod.path(path)))(mod)
+	return chunk and chunk(mod) or nil
 end
 
 function mod.require(path)
-	--return require(mod.baseDir ..path)
-
 	if not mod.loaded[path] then
-		mod.loaded[path] = (loadfile(mod.path(path)))(mod)
+		mod.loaded[path] = mod.load(path)
 	end
 
 	return mod.loaded[path]
@@ -99,7 +94,7 @@ function mod.loadConfig()
 	mod.config = mod.load('config') or {}
 end
 
-function mod.handleUpdate(delta)
+function mod.onUpdateEvent(delta)
 	if #mod.deferred > 0 then
 		mod.defer(delta)
 	end

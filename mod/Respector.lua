@@ -4,7 +4,6 @@ local Respector = { version = '0.9.5' }
 Respector.__index = Respector
 
 local asyncWait = false
-local maxLastSpesc = 50
 
 local components = {
 	modules = {
@@ -19,7 +18,7 @@ local components = {
 }
 
 function Respector:new()
-	local this = { recentSpecs = {}, recentSpecsInfo = {} }
+	local this = { eventHandlers = {} }
 
 	setmetatable(this, self)
 
@@ -101,7 +100,8 @@ function Respector:saveSpec(specName, specOptions)
 	local success, specName = self.specStore:writeSpec(specName, specData, specOptions.timestamp)
 
 	if success then
-		self:rememberRecentSpec(specName, '<')
+		self:triggerEvent('save', specName)
+
 		print(('Respector: Spec %q saved.'):format(specName))
 	else
 		print(('Respector: Failed to save %q spec.'):format(specName))
@@ -136,7 +136,7 @@ function Respector:loadSpec(specName)
 
 	self:releaseModulesAsync()
 
-	self:rememberRecentSpec(specName, '>')
+	self:triggerEvent('load', specName)
 
 	print(('Respector: Spec %q loaded.'):format(specName))
 
@@ -159,33 +159,22 @@ function Respector:getSpecOptions(specOptions)
 	return specOptions
 end
 
-function Respector:rememberRecentSpec(specName, context)
-	if self.recentSpecs[1] ~= specName then
-		for lastSpecIndex, lastSpecName in ipairs(self.recentSpecs) do
-			if lastSpecName == specName then
-				table.remove(self.recentSpecs, lastSpecIndex)
-				table.remove(self.recentSpecsInfo, lastSpecIndex)
-				break
-			end
-		end
+function Respector:addEventHandler(handler)
+	table.insert(self.eventHandlers, handler)
+end
 
-		table.insert(self.recentSpecs, 1, specName)
-		table.insert(self.recentSpecsInfo, 1, os.date('%d.%m.%Y %H:%M') .. ' ' .. context .. ' ' .. specName)
-		--table.insert(self.recentSpecsInfo, 1, specName .. ' / ' .. context .. ' @ ' .. os.date('%d.%m.%Y %H:%M:%S'))
+function Respector:triggerEvent(event, specName)
+	if #self.eventHandlers > 0 then
+		local eventData = {
+			event = event,
+			time = os.date('%d.%m.%Y %H:%M'),
+			specName = specName,
+		}
 
-		if #self.recentSpecs > maxLastSpesc then
-			table.remove(self.recentSpecs)
-			table.remove(self.recentSpecsInfo)
+		for _, eventHandler in ipairs(self.eventHandlers) do
+			eventHandler(eventData)
 		end
 	end
-end
-
-function Respector:getLastSpecs()
-	return self.recentSpecs
-end
-
-function Respector:getLastSpecsInfo()
-	return self.recentSpecsInfo
 end
 
 return Respector

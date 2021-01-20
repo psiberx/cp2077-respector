@@ -90,24 +90,24 @@ if mod.config.useGui then
 	gui.init(respector)
 
 	registerForEvent('onConsoleOpen', function()
-		gui.handleConsoleOpen()
+		gui.onConsoleOpenEvent()
 	end)
 
 	registerForEvent('onConsoleClose', function()
-		gui.handleConsoleClose()
+		gui.onConsoleCloseEvent()
 	end)
 
 	registerForEvent('onUpdate', function(delta)
-		mod.handleUpdate(delta)
-		gui.handleUpdate()
+		mod.onUpdateEvent(delta)
+		gui.onUpdateEvent()
 	end)
 
 	registerForEvent('onDraw', function()
-		gui.handleDraw()
+		gui.onDrawEvent()
 	end)
 else
 	registerForEvent('onUpdate', function(delta)
-		mod.handleUpdate(delta)
+		mod.onUpdateEvent(delta)
 	end)
 end
 

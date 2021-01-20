@@ -20,7 +20,7 @@ function CharacterModule:prepare()
 	self.statsSystem = Game.GetStatsSystem()
 	self.playerDevData = playerDevSystem:GetDevelopmentData(player)
 
-	self.aliases = mod.load('mod/data/string-type-aliases')
+	self.aliases = mod.load('mod/data/dev-type-aliases')
 	self.perksDb = mod.load('mod/data/perks')
 end
 
