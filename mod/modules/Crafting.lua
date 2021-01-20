@@ -48,7 +48,7 @@ function CraftingModule:getRecipes()
 
 	local recipeSpecs = {}
 
-	for itemKey, itemMeta in self.tweakDb:iterate() do
+	for itemKey, itemMeta in self.tweakDb:each() do
 		local itemId = self.tweakDb:getItemTweakDbId(itemKey)
 
 		if self.craftingSystem:IsRecipeKnown(itemId, self.playerCraftBook) then

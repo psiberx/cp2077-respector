@@ -1,8 +1,11 @@
 local mod = ...
 local str = mod.require('mod/utils/str')
+local SimpleDb = mod.require('mod/helpers/SimpleDb')
 
 local TweakDb = {}
 TweakDb.__index = TweakDb
+
+setmetatable(TweakDb, { __index = SimpleDb })
 
 local qualityIndices = {
 	['Common'] = 1,
@@ -17,21 +20,13 @@ local FakeToItemID = function (o) return o end
 local RealToTweakDBID = ToTweakDBID
 local FakeToTweakDBID = function (o) return o end
 
-function TweakDb:new()
-	local this = {}
-
-	setmetatable(this, TweakDb)
-
-	return this
-end
-
-function TweakDb:load(path)
-	self.db = mod.load(path)
-end
-
-function TweakDb:unload()
-	self.db = nil
-end
+--function TweakDb:new()
+--	local this = {}
+--
+--	setmetatable(this, TweakDb)
+--
+--	return this
+--end
 
 function TweakDb:resolve(tweakDbId)
 	if mod.env.is183() then
@@ -47,70 +42,6 @@ function TweakDb:resolvable(tweakDbId)
 	end
 
 	return self.db[self.key(tweakDbId)] ~= nil
-end
-
-function TweakDb:iterate()
-	return pairs(self.db)
-end
-
-function TweakDb:filter(criteria)
-	local key, item
-
-	return function()
-		while true do
-			key, item = next(self.db, key)
-
-			if item == nil then
-				return nil
-			end
-
-			local match = self:match(item, criteria)
-
-			if match then
-				return item
-			end
-		end
-	end
-end
-
-function TweakDb:filtered(criteria)
-	local result = {}
-
-	for _, item in pairs(self.db) do
-		if self:match(item, criteria) then
-			table.insert(result, item)
-		end
-	end
-
-	return result
-end
-
-function TweakDb:match(item, criteria)
-	local match = true
-
-	for field, condition in pairs(criteria) do
-		if type(condition) == 'table' then
-			match = false
-			for _, value in ipairs(condition) do
-				if item[field] == value then
-					match = true
-					break
-				end
-			end
-		elseif type(condition) == 'boolean' then
-			if (item[field] and true or false) ~= condition then
-				match = false
-				break
-			end
-		else
-			if item[field] ~= condition then
-				match = false
-				break
-			end
-		end
-	end
-
-	return match
 end
 
 function TweakDb:getTweakDbId(data, prefix)

@@ -1,12 +1,23 @@
 local mod = ...
 local str = mod.require('mod/utils/str')
 local TweakDb = mod.require('mod/helpers/TweakDb')
+local SimpleDb = mod.require('mod/helpers/SimpleDb')
 
 local InventoryModule = {}
 InventoryModule.__index = InventoryModule
 
+local inventoryNodes = {
+	'Inventory',
+	'Equipment',
+	'Cyberware',
+	'Backpack',
+}
+
 function InventoryModule:new()
-	local this = { tweakDb = TweakDb:new() }
+	local this = {
+		tweakDb = TweakDb:new(),
+		equipAreaDb = SimpleDb:new(),
+	}
 
 	setmetatable(this, InventoryModule)
 
@@ -30,6 +41,9 @@ function InventoryModule:prepare()
 	self.itemModSystem = scriptableSystemsContainer:Get(CName.new('ItemModificationSystem'))
 
 	self.attachmentSlots = mod.load('mod/data/attachment-slots')
+
+	self.tweakDb:load('mod/data/tweakdb-meta')
+	self.equipAreaDb:load('mod/data/equipment-areas')
 end
 
 function InventoryModule:release()
@@ -42,163 +56,207 @@ function InventoryModule:release()
 	self.itemModSystem = nil
 
 	self.attachmentSlots = nil
+
+	self.tweakDb:unload()
+	self.equipAreaDb:unload()
+end
+
+function InventoryModule:fillSpec(specData, specOptions)
+	local inventoryData = self:getGroupedItems(specOptions)
+
+	for _, inventoryNode in ipairs(inventoryNodes) do
+		if inventoryData[inventoryNode] then
+			specData[inventoryNode] = inventoryData[inventoryNode]
+		end
+	end
 end
 
 function InventoryModule:applySpec(specData)
-	if specData.Inventory then
-		self:addItems(specData.Inventory)
+	local inventoryUpdated = false
+
+	for _, inventoryNode in ipairs(inventoryNodes) do
+		if specData[inventoryNode] then
+			self:addItems(specData[inventoryNode])
+			inventoryUpdated = true
+		end
+	end
+
+	if inventoryUpdated then
 		self:updateAutoScalingItems()
 	end
 end
 
-function InventoryModule:fillSpec(specData, specOptions)
-	local equipmentSpecs = self:getItems(specOptions)
+function InventoryModule:getGroupedItems(specOptions)
 
-	if equipmentSpecs then
-		specData.Equipment = equipmentSpecs
-	end
-end
 
-function InventoryModule:getItems(specOptions)
-	self.tweakDb:load('mod/data/tweakdb-meta')
-
-	--local items = self.equipmentPlayerData:GetInventoryManager():GetPlayerItems()
+	--local items = self.equipmentPlayerData:GetInventoryManager():GetPlayerInventoryItemsExcludingLoadout()
 	--
 	--for _, item in ipairs(items) do
-	--	print(item:GetID())
+	--	local itemId = item:GetID()
+	--
+	--	if self:isEquipped(itemId) then
+	--		local itemMeta = self.tweakDb:resolve(itemId.tdbid)
+	--		print(itemMeta.type)
+	--	end
 	--end
 
-	local itemSpecs = {}
+	local itemGroups = {}
 
-	local equipAreas = mod.load('mod/data/equipment-areas')
+	local itemIds = {}
 
-	for _, equipArea in ipairs(equipAreas) do
+	for _, equipArea in self.equipAreaDb:each() do
 		for slotIndex = 1, equipArea.max do
 			local itemId = self.equipmentPlayerData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
 
 			if itemId.tdbid.hash ~= 0 then
-				local itemData = self.transactionSystem:GetItemData(self.player, itemId)
-
-				-- Sometimes equipment system bugs out and gives ItemID for an actually empty slot.
-				-- When this happens, GetItemData() will return nil, so we have to check that.
-				if itemData ~= nil then
-					local itemSpec = {}
-					local itemMeta = self.tweakDb:resolve(itemId.tdbid)
-					local itemQty = self.transactionSystem:GetItemQuantity(self.player, itemId)
-					local itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
-
-					if itemMeta ~= nil then
-						if itemMeta.type == '' or specOptions.itemFormat == 'hash' then
-							itemSpec.id = itemId.tdbid
-						else
-							itemSpec.id = str.without(itemMeta.type, 'Items.')
-						end
-
-						if itemMeta.rng or specOptions.keepSeed == 'always' then
-							itemSpec.seed = itemId.rng_seed
-						end
-
-						if itemMeta.quality == nil or specOptions.exportQuality == 'always' then
-							itemSpec.upgrade = itemQuality ~= 'Common' and itemQuality or true
-							--elseif itemMeta.kind == 'Weapon' or itemMeta.kind == 'Clothing' then
-							--	itemSpec.upgrade = true
-						end
-
-						itemSpec._comment = self.tweakDb:describe(itemMeta, true)
-					else
-						itemSpec.id = itemId.tdbid
-						itemSpec.seed = itemId.rng_seed
-						itemSpec.upgrade = itemQuality
-						itemSpec._comment = '??? / ' .. equipArea.name
-					end
-
-					if (not itemMeta or itemMeta.quality == nil) and itemQuality ~= 'Invalid' then
-						itemSpec._comment = itemSpec._comment .. ' / ' .. itemQuality
-					end
-
-					local itemParts = itemData:GetItemParts()
-					local itemPartsBySlots = {}
-
-					for _, part in ipairs(itemParts) do
-						if part then
-							local slotId = part:GetSlotID(part)
-							local slotMeta = self.tweakDb:resolve(slotId)
-
-							if slotMeta and slotMeta.kind == 'Slot' then
-								local partId = part:GetItemID(part)
-								itemPartsBySlots[slotMeta.type] = partId
-							end
-						end
-					end
-
-					for _, slotMeta in ipairs(self.attachmentSlots) do
-						local slotId = self.tweakDb:getSlotTweakDbId(slotMeta.type)
-
-						if itemData:HasPartInSlot(slotId) then
-							if itemSpec.slots == nil then
-								itemSpec.slots = {}
-								itemSpec._inline = false
-							end
-
-							local partSpec = {}
-
-							local partId = itemPartsBySlots[slotMeta.type]
-							local partData = self.inventoryManager:CreateItemData(partId, self.player)
-							local partQuality = self.gameRPGManager:GetItemDataQuality(partData).value
-
-							local partId2 = self.tweakDb:extract(partId)
-							local partMeta = self.tweakDb:resolve(partId.tdbid)
-
-							partSpec.slot = slotMeta.slot
-
-							if partMeta ~= nil then
-								if specOptions.itemFormat == 'hash' then
-									partSpec.id = partId2.id
-								else
-									partSpec.id = str.without(partMeta.type, 'Items.')
-								end
-
-								if partMeta.rng or specOptions.keepSeed == 'always' then
-									partSpec.seed = partId2.rng_seed
-								end
-
-								if partMeta.quality == nil or specOptions.exportQuality == 'always' then
-									partSpec.upgrade = partQuality ~= 'Common' and partQuality or true
-								end
-
-								partSpec._comment = self.tweakDb:describe(partMeta)
-							else
-								partSpec.id = partId2.id
-								partSpec.seed = partId2.rng_seed
-								partSpec.upgrade = partQuality
-								partSpec._comment = '???'
-							end
-
-							if (not partMeta or partMeta.quality == nil) and partQuality ~= 'Invalid' then
-								partSpec._comment = partSpec._comment .. ' / ' .. partQuality
-							end
-
-							table.insert(itemSpec.slots, partSpec)
-						end
-					end
-
-					if equipArea.max > 1 then
-						itemSpec.equip = slotIndex
-					else
-						itemSpec.equip = true
-					end
-
-					if itemQty > 1 then
-						itemSpec.qty = itemQty
-					end
-
-					table.insert(itemSpecs, itemSpec)
-				end
+				table.insert(itemIds, itemId)
 			end
 		end
 	end
 
-	self.tweakDb:unload()
+	itemGroups.Equipment = self:getItemsById(itemIds, specOptions)
+
+	return itemGroups
+end
+
+function InventoryModule:getItemsById(itemIds, specOptions)
+	local itemSpecs = {}
+
+	for _, itemId in ipairs(itemIds) do
+		local itemData = self.transactionSystem:GetItemData(self.player, itemId)
+
+		-- Sometimes equipment system bugs out and gives ItemID for an actually empty slot.
+		-- When this happens, GetItemData() will return nil, so we have to check that.
+		if itemData ~= nil then
+			local itemSpec = {}
+			local itemMeta = self.tweakDb:resolve(itemId.tdbid)
+			local itemQty = self.transactionSystem:GetItemQuantity(self.player, itemId)
+			local itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
+			local itemEquipArea, itemSlotIndex
+
+			if self:isEquipped(itemId) then
+				local itemEquipAreaData = self.equipmentPlayerData:GetEquipAreaFromItemID(itemId)
+
+				itemEquipArea = self.equipAreaDb:find({ type = itemEquipAreaData.areaType.value })
+				itemSlotIndex = self.equipmentPlayerData:GetSlotIndex(itemId) + 1
+			end
+
+			if itemMeta ~= nil then
+				if itemMeta.type == '' or specOptions.itemFormat == 'hash' then
+					itemSpec.id = itemId.tdbid
+				else
+					itemSpec.id = str.without(itemMeta.type, 'Items.')
+				end
+
+				if itemMeta.rng or specOptions.keepSeed == 'always' then
+					itemSpec.seed = itemId.rng_seed
+				end
+
+				if itemMeta.quality == nil or specOptions.exportQuality == 'always' then
+					itemSpec.upgrade = itemQuality ~= 'Common' and itemQuality or true
+					--elseif itemMeta.kind == 'Weapon' or itemMeta.kind == 'Clothing' then
+					--	itemSpec.upgrade = true
+				end
+
+				itemSpec._comment = self.tweakDb:describe(itemMeta, true)
+			else
+				itemSpec.id = itemId.tdbid
+				itemSpec.seed = itemId.rng_seed
+				itemSpec.upgrade = itemQuality
+				itemSpec._comment = '??? / ' .. itemEquipArea.name
+			end
+
+			if (not itemMeta or itemMeta.quality == nil) and itemQuality ~= 'Invalid' then
+				itemSpec._comment = itemSpec._comment .. ' / ' .. itemQuality
+			end
+
+			local itemParts = itemData:GetItemParts()
+			local itemPartsBySlots = {}
+
+			for _, part in ipairs(itemParts) do
+				if part then
+					local slotId = part:GetSlotID(part)
+					local slotMeta = self.tweakDb:resolve(slotId)
+
+					if slotMeta and slotMeta.kind == 'Slot' then
+						itemPartsBySlots[slotMeta.type] = part:GetItemID(part)
+					end
+				end
+			end
+
+			for _, slotMeta in ipairs(self.attachmentSlots) do
+				local slotId = self.tweakDb:getSlotTweakDbId(slotMeta.type)
+
+				if itemData:HasPartInSlot(slotId) then
+					if itemSpec.slots == nil then
+						itemSpec.slots = {}
+						itemSpec._inline = false
+					end
+
+					local partSpec = {}
+
+					local partId = itemPartsBySlots[slotMeta.type]
+					local partData = self.inventoryManager:CreateItemData(partId, self.player)
+					local partQuality = self.gameRPGManager:GetItemDataQuality(partData).value
+
+					local partId2 = self.tweakDb:extract(partId)
+					local partMeta = self.tweakDb:resolve(partId.tdbid)
+
+					partSpec.slot = slotMeta.slot
+
+					if partMeta ~= nil then
+						if specOptions.itemFormat == 'hash' then
+							partSpec.id = partId2.id
+						else
+							partSpec.id = str.without(partMeta.type, 'Items.')
+						end
+
+						if partMeta.rng or specOptions.keepSeed == 'always' then
+							partSpec.seed = partId2.rng_seed
+						end
+
+						if partMeta.quality == nil or specOptions.exportQuality == 'always' then
+							partSpec.upgrade = partQuality ~= 'Common' and partQuality or true
+						end
+
+						partSpec._comment = self.tweakDb:describe(partMeta)
+					else
+						partSpec.id = partId2.id
+						partSpec.seed = partId2.rng_seed
+						partSpec.upgrade = partQuality
+						partSpec._comment = '???'
+					end
+
+					if (not partMeta or partMeta.quality == nil) and partQuality ~= 'Invalid' then
+						partSpec._comment = partSpec._comment .. ' / ' .. partQuality
+					end
+
+					if partMeta and partMeta.kind == 'Mod' and partMeta.group == 'Scope' then
+						local ads = partData:GetStatValueByType('AimInTime')
+						local range = partData:GetStatValueByType('EffectiveRange')
+
+						partSpec._comment = partSpec._comment .. '\n' .. ('ADS Time %.2f%% / Range +%.2f'):format(ads, range)
+					end
+
+					table.insert(itemSpec.slots, partSpec)
+				end
+			end
+
+			if itemEquipArea then
+				if itemEquipArea.max > 1 then
+					itemSpec.equip = itemSlotIndex
+				else
+					itemSpec.equip = true
+				end
+			end
+
+			if itemQty > 1 then
+				itemSpec.qty = itemQty
+			end
+
+			table.insert(itemSpecs, itemSpec)
+		end
+	end
 
 	if #itemSpecs == 0 then
 		return nil

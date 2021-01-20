@@ -78,39 +78,6 @@ function Respector:releaseModulesAsync(waitTime)
 	end)
 end
 
-function Respector:loadSpec(specName)
-	print() -- hotfix: Temporary fix for CET 1.8.4
-
-	if asyncWait then
-		return false
-	end
-
-	local specData, specName = self.specStore:readSpec(specName)
-
-	if not specData then
-		print(('Respector: Can\'t load %q spec.'):format(specName))
-		return false
-	end
-
-	self:prepareModules()
-
-	for _, module in ipairs(components.modules) do
-		if mod.debug then
-			print(('[DEBUG] Respector: Applying spec using %q module...'):format(module.name))
-		end
-
-		self[module.name]:applySpec(specData)
-	end
-
-	self:releaseModulesAsync()
-
-	self:rememberRecentSpec(specName, '>')
-
-	print(('Respector: Spec %q loaded.'):format(specName))
-
-	return true
-end
-
 function Respector:saveSpec(specName, specOptions)
 	print() -- hotfix: Temporary fix for CET 1.8.4
 
@@ -149,6 +116,39 @@ function Respector:saveSpec(specName, specOptions)
 	end
 
 	return success
+end
+
+function Respector:loadSpec(specName)
+	print() -- hotfix: Temporary fix for CET 1.8.4
+
+	if asyncWait then
+		return false
+	end
+
+	local specData, specName = self.specStore:readSpec(specName)
+
+	if not specData then
+		print(('Respector: Can\'t load %q spec.'):format(specName))
+		return false
+	end
+
+	self:prepareModules()
+
+	for _, module in ipairs(components.modules) do
+		if mod.debug then
+			print(('[DEBUG] Respector: Applying spec using %q module...'):format(module.name))
+		end
+
+		self[module.name]:applySpec(specData)
+	end
+
+	self:releaseModulesAsync()
+
+	self:rememberRecentSpec(specName, '>')
+
+	print(('Respector: Spec %q loaded.'):format(specName))
+
+	return true
 end
 
 function Respector:getSpecOptions(specOptions)
