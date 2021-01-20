@@ -38,11 +38,11 @@ return {
 	-- Enables API access using `GetMod()`.
 	useModApi = true,
 
-	-- Enables mod functions in the global Game object.
+	-- Enables API access using global Respector object.
 	useGlobalApi = true,
 
 	-- Enables the GUI.
-	useGui = true,
+	useGui = false,
 
 	-- Hotkey to open / close the GUI.
 	-- You can find key codes here: https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes

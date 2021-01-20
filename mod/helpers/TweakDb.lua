@@ -33,28 +33,20 @@ function TweakDb:unload()
 	self.db = nil
 end
 
-function TweakDb:extract(id)
-	ToItemID = FakeToItemID
-	ToTweakDBID = FakeToTweakDBID
+function TweakDb:resolve(tweakDbId)
+	if mod.env.is183() then
+		tweakDbId = self:extract(tweakDbId)
+	end
 
-	local data = (load('return ' .. tostring(id)))()
-
-	ToItemID = RealToItemID
-	ToTweakDBID = RealToTweakDBID
-
-	return data
+	return self.db and self.db[self.key(tweakDbId)] or nil
 end
 
-function TweakDb:resolve(tdbid)
-	tdbid = self:extract(tdbid)
+function TweakDb:resolvable(tweakDbId)
+	if mod.env.is183() then
+		tweakDbId = self:extract(tweakDbId)
+	end
 
-	return self.db and self.db[self.key(tdbid)] or nil
-end
-
-function TweakDb:resolvable(tdbid)
-	tdbid = self:extract(tdbid)
-
-	return self.db[self.key(tdbid)] ~= nil
+	return self.db[self.key(tweakDbId)] ~= nil
 end
 
 function TweakDb:iterate()
@@ -279,6 +271,18 @@ end
 
 function TweakDb:getQualityIndex(qualityName)
 	return qualityIndices[qualityName] or 0
+end
+
+function TweakDb:extract(id)
+	ToItemID = FakeToItemID
+	ToTweakDBID = FakeToTweakDBID
+
+	local data = (load('return ' .. tostring(id)))()
+
+	ToItemID = RealToItemID
+	ToTweakDBID = RealToTweakDBID
+
+	return data
 end
 
 function TweakDb.key(struct)

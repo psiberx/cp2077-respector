@@ -38,7 +38,7 @@ return {
 	-- Enables API access using `GetMod()`.
 	useModApi = true,
 
-	-- Enables mod functions in the global Game object.
+	-- Enables API access using global Respector object.
 	useGlobalApi = true,
 
 	-- Enables the GUI.

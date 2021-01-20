@@ -113,4 +113,9 @@ if mod.config.useGui then
 	print(('Respector: Console GUI enabled.'))
 end
 
+if mod.env.is183() then
+	print(('Respector: The mod\'s functions are limited and not guaranteed, since Cyber Engine Tweaks 1.8.3 or lower is used.'))
+	print(('Respector: It\'s recommended to upgrade your Cyber Engine Tweaks to version 1.8.4 or higher.'))
+end
+
 return api

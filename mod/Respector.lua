@@ -1,6 +1,6 @@
 local mod = ...
 
-local Respector = { version = '0.9.4' }
+local Respector = { version = '0.9.5' }
 Respector.__index = Respector
 
 local asyncWait = false
@@ -9,7 +9,7 @@ local maxLastSpesc = 50
 local components = {
 	modules = {
 		{ name = 'character', source = 'mod/modules/Character' },
-		{ name = 'inventory', source = 'mod/modules/Inventory' },
+		{ name = 'inventory', source = 'mod/modules/Inventory' .. (mod.env.is183() and '183' or '') },
 		{ name = 'crafting', source = 'mod/modules/Crafting' },
 		{ name = 'transport', source = 'mod/modules/Transport' },
 	},
@@ -40,7 +40,7 @@ function Respector:loadComponents()
 	for _, componentList in pairs(components) do
 		for _, component in ipairs(componentList) do
 			if mod.debug then
-				print(('[DEBUG] Respector: Loading %q component.'):format(component.name))
+				print(('[DEBUG] Respector: Loading %q component...'):format(component.name))
 			end
 
 			local componentType = mod.require(component.source)
@@ -79,6 +79,8 @@ function Respector:releaseModulesAsync(waitTime)
 end
 
 function Respector:loadSpec(specName)
+	print() -- hotfix: Temporary fix for CET 1.8.4
+
 	if asyncWait then
 		return false
 	end
@@ -94,7 +96,7 @@ function Respector:loadSpec(specName)
 
 	for _, module in ipairs(components.modules) do
 		if mod.debug then
-			print(('[DEBUG] Respector: Applying spec using %q module.'):format(module.name))
+			print(('[DEBUG] Respector: Applying spec using %q module...'):format(module.name))
 		end
 
 		self[module.name]:applySpec(specData)
@@ -110,6 +112,8 @@ function Respector:loadSpec(specName)
 end
 
 function Respector:saveSpec(specName, specOptions)
+	print() -- hotfix: Temporary fix for CET 1.8.4
+
 	if asyncWait then
 		return false
 	end
@@ -122,7 +126,7 @@ function Respector:saveSpec(specName, specOptions)
 
 	for _, module in ipairs(components.modules) do
 		if mod.debug then
-			print(('[DEBUG] Respector: Filling spec using %q module.'):format(module.name))
+			print(('[DEBUG] Respector: Filling spec using %q module...'):format(module.name))
 		end
 
 		self[module.name]:fillSpec(specData, specOptions)

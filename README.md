@@ -131,7 +131,7 @@ The configuration is stored in the `config.lua` file in the mod directory.
 | `exportComponents` | `true`   | `bool` | The default value for `exportComponents` option when saving specs. See [spec options](#spec-options) for details. |
 | `exportRecipes`    | `true`   | `bool` | The default value for `exportRecipes` option when saving specs. See [spec options](#spec-options) for details. |
 | `useModApi`        | `true`   | `bool` | Enables API access using `GetMod()`. |
-| `useGlobalApi`     | `true`   | `bool` | Enables mod functions in the global `Game` object. |
+| `useGlobalApi`     | `true`   | `bool` | Enables API access using global `Respector` object. |
 | `useGui`           | `true`   | `bool` | Enables the GUI. |
 | `openGuiKey`       | `0x70`   | `int`  | Hotkey to open / close the GUI. Default is F1. You can find key codes [here](https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes). |
 | `saveSpecKey`      | `0x71`   | `int`  | Hotkey to save spec with currently selected options in the GUI. Default is F2. You can find key codes [here](https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes). |

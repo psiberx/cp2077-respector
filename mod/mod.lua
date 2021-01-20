@@ -13,6 +13,8 @@ function mod.init(devMode, debugMode)
 	mod.dev = devMode
 	mod.debug = debugMode
 
+	mod.env = mod.require('mod/utils/env')
+
 	if mod.dev or mod.debug then
 		mod.dbg = mod.require('mod/utils/debug')
 	end
