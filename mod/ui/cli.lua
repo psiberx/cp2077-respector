@@ -20,7 +20,7 @@ local cli = {}
 
 function cli.init(respector)
 	if mod.debug then
-		print(('[DEBUG] Respector: Initializing CLI.'))
+		print(('[DEBUG] Respector: Initializing CLI...'))
 	end
 
 	api.respector = respector

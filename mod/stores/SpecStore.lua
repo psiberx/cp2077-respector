@@ -55,11 +55,11 @@ function SpecStore:writeSpec(specName, specData, timestamped)
 		specName = specName .. '-' .. os.date('%y%m%d-%H%M%S')
 	end
 
-	if mod.debug then
-		print(('[DEBUG] Respector: Writing spec %q.'):format(specName))
-	end
-
 	local specPath = mod.path(self.specsDir .. specName)
+
+	if mod.debug then
+		print(('[DEBUG] Respector: Writing spec %q...'):format(specPath))
+	end
 
 	local success = self.writer:writeStruct(specPath, specData)
 

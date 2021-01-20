@@ -39,7 +39,7 @@ local inputData = {
 
 function gui.init(_respector)
 	if mod.debug then
-		print(('[DEBUG] Respector: Initializing GUI.'))
+		print(('[DEBUG] Respector: Initializing GUI...'))
 	end
 
 	respector = _respector
