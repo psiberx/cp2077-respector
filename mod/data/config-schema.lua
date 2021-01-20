@@ -102,7 +102,7 @@ return {
 			comment = {
 				"Enables the GUI.",
 			},
-			default = false,
+			default = true,
 			margin = true,
 		},
 		{
