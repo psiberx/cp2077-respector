@@ -408,6 +408,9 @@ return {
 				{
 					name = "id",
 					inline = true,
+					format = {
+						number = "0x%016X",
+					},
 					children = {
 						{ name = "hash", format = "0x%08X" },
 						{ name = "length" }
@@ -422,6 +425,9 @@ return {
 						{
 							name = "id",
 							inline = true,
+							format = {
+								number = "0x%016X",
+							},
 							children = {
 								{ name = "hash", format = "0x%08X" },
 								{ name = "length" }

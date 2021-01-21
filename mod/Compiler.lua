@@ -45,8 +45,8 @@ function Compiler:rehashTweakDbNames(namesListPath, hashNamesDbPath, hashNamesCs
 		local length = string.len(name)
 		local key = TweakDb.key({ hash = hash, length = length })
 
-		fdb:write(string.format('[0x%010X] = %q, -- { hash = 0x%X, length = %d }\n', key, name, hash, length))
-		fcsv:write(string.format('"0x%010X",%q\n', key, name))
+		fdb:write(string.format('[0x%016X] = %q, -- { hash = 0x%X, length = %d }\n', key, name, hash, length))
+		fcsv:write(string.format('"0x%016X",%q\n', key, name))
 	end
 
 	fdb:write('}')
@@ -186,33 +186,5 @@ function Compiler:writeDefaultSpec()
 		}
 	})
 end
-
---local player = Game.GetPlayer()
---local transactionSystem = Game.GetTransactionSystem()
---local partSlots = mod.load('mod/data/attachment-slots')
---
---if itemMeta.kind == 'Cyberware' or itemMeta.kind == 'Weapon' or itemMeta.kind == 'Clothing' then
---	local itemId = tweakDb:getItemId(itemSpec.id)
---
---	transactionSystem:GiveItem(player, itemId, 1)
---
---	local slots = transactionSystem:GetAvailableSlotsOnItem(player, itemId)
---
---	for _, slotTweakDbId in pairs(slots) do
---		--print(itemMeta.type, tweakDb:getSlotAlias(slotTweakDbId, itemMeta))
---	end
---
---	--local itemData = transactionSystem:GetItemData(player, itemId)
---
---	--for _, slotName in ipairs(partSlots) do
---	--	local slotId = tweakDb:getSlotTweakDbId(slotName)
---	--
---	--	if itemData:HasPlacementSlot(slotId) or itemData:HasAttachmentSlot(slotId) then
---	--		print(itemMeta.type, tweakDb:getSlotAlias(slotName, itemMeta))
---	--	end
---	--end
---
---	transactionSystem:RemoveItem(player, itemId, 1)
---end
 
 return Compiler

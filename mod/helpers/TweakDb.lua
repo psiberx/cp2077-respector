@@ -16,19 +16,19 @@ local qualityIndices = {
 }
 
 local kindOrders = {
-	['Weapon'] = '01',
-	['Clothing'] = '02',
-	['Cyberware'] = '03',
-	['Mod'] = '11',
-	['Grenade'] = '21',
-	['Consumable'] = '22',
-	['Progression'] = '23',
-	['Quickhack'] = '31',
-	['Junk'] = '71',
-	['Recipe'] = '81',
-	['Component'] = '82',
-	['Misc'] = '91',
-	['Shard'] = '92',
+	['Weapon'] = 1,
+	['Clothing'] = 2,
+	['Cyberware'] = 3,
+	['Mod'] = 11,
+	['Grenade'] = 21,
+	['Consumable'] = 22,
+	['Progression'] = 23,
+	['Quickhack'] = 31,
+	['Junk'] = 71,
+	['Recipe'] = 81,
+	['Component'] = 82,
+	['Misc'] = 91,
+	['Shard'] = 92,
 }
 
 local RealToItemID = ToItemID
@@ -186,7 +186,7 @@ function TweakDb:order(itemMeta, orderKind)
 	local order = ''
 
 	if orderKind then
-		order = order .. (kindOrders[itemMeta.kind] or '99') .. '::'
+		order = order .. ('%02d'):format(kindOrders[itemMeta.kind] or 99) .. '::'
 	end
 
 	if itemMeta.kind == 'Mod' then
@@ -245,11 +245,11 @@ function TweakDb:extract(id)
 end
 
 function TweakDb.key(struct)
-	return (struct.hash << 8 | struct.length)
+	return (struct.length << 32 | struct.hash)
 end
 
 function TweakDb.struct(key)
-	return { hash = key >> 8, length = key & 0xFF }
+	return { hash = key & 0xFFFFFFFF, length = key >> 32 }
 end
 
 return TweakDb
