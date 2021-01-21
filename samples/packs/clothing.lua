@@ -865,10 +865,10 @@ return {
 		{ id = "Glasses_02_basic_02" }, 
 
 		-- ELECTRIC MARBLE ULTRALIGHT ATHLETIC SHOES / Clothing / Feet
-		{ id = "CasualShoes_05_basic_01" }, 
+		{ id = "Boots_01_basic_01" }, 
 
 		-- ELECTRIC MARBLE ULTRALIGHT ATHLETIC SHOES / Clothing / Feet
-		{ id = "Boots_01_basic_01" }, 
+		{ id = "CasualShoes_05_basic_01" }, 
 
 		-- ELEGANT CARET CASSICO BLAZER WITH NANOTUBE STRIPES / Clothing / Outer Torso
 		{ id = "FormalJacket_02_rich_03" }, 
@@ -1236,7 +1236,7 @@ return {
 
 		-- JOHNNY'S PANTS / Clothing / Legs
 		-- Authentic leather for an authentic rockerboy.
-		{ id = "Q005_Johnny_Pants" }, 
+		{ id = "Q005_Johnny_Pants_Epic" }, 
 
 		-- JOHNNY'S PANTS / Clothing / Legs
 		-- Authentic leather for an authentic rockerboy.
@@ -1244,11 +1244,11 @@ return {
 
 		-- JOHNNY'S PANTS / Clothing / Legs
 		-- Authentic leather for an authentic rockerboy.
-		{ id = "Q005_Johnny_Pants_Epic" }, 
+		{ id = "Q005_Johnny_Pants" }, 
 
 		-- JOHNNY'S SHOES / Clothing / Feet
 		-- Oh, to spend a day in the shoes of a legend...
-		{ id = "Q005_Johnny_Shoes" }, 
+		{ id = "Q005_Johnny_Shoes_Epic" }, 
 
 		-- JOHNNY'S SHOES / Clothing / Feet
 		-- Oh, to spend a day in the shoes of a legend...
@@ -1256,7 +1256,7 @@ return {
 
 		-- JOHNNY'S SHOES / Clothing / Feet
 		-- Oh, to spend a day in the shoes of a legend...
-		{ id = "Q005_Johnny_Shoes_Epic" }, 
+		{ id = "Q005_Johnny_Shoes" }, 
 
 		-- JOHNNY'S TANK TOP / Clothing / Inner Torso
 		-- Without the dog tags it looks like any other fanboy shirt.
@@ -1264,11 +1264,11 @@ return {
 
 		-- JOHNNY'S TANK TOP / Clothing / Inner Torso
 		-- Without the dog tags it looks like any other fanboy shirt.
-		{ id = "Q005_Johnny_Shirt_Legendary" }, 
+		{ id = "Q005_Johnny_Shirt" }, 
 
 		-- JOHNNY'S TANK TOP / Clothing / Inner Torso
 		-- Without the dog tags it looks like any other fanboy shirt.
-		{ id = "Q005_Johnny_Shirt" }, 
+		{ id = "Q005_Johnny_Shirt_Legendary" }, 
 
 		-- JSHLX REINFORCED PUFFER JACKET / Clothing / Outer Torso
 		{ id = "Vest_17_basic_01" }, 

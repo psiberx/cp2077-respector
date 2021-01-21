@@ -1,28 +1,28 @@
 return {
 	Inventory = {
 		-- A-22B CHAO / Weapon / Smart
-		{ id = "Preset_Chao_Default" }, 
-
-		-- A-22B CHAO / Weapon / Smart
 		{ id = "Preset_Chao_Neon" }, 
-
-		-- A-22B CHAO / Weapon / Smart
-		{ id = "Preset_Chao_Pimp" }, 
 
 		-- A-22B CHAO / Weapon / Smart
 		{ id = "Preset_Chao_Military" }, 
 
-		-- ASHURA / Weapon / Smart
-		{ id = "Preset_Ashura_Pimp" }, 
+		-- A-22B CHAO / Weapon / Smart
+		{ id = "Preset_Chao_Default" }, 
 
-		-- ASHURA / Weapon / Smart
-		{ id = "Preset_Ashura_Military" }, 
+		-- A-22B CHAO / Weapon / Smart
+		{ id = "Preset_Chao_Pimp" }, 
 
 		-- ASHURA / Weapon / Smart
 		{ id = "Preset_Ashura_Default" }, 
 
 		-- ASHURA / Weapon / Smart
+		{ id = "Preset_Ashura_Military" }, 
+
+		-- ASHURA / Weapon / Smart
 		{ id = "Preset_Ashura_Neon" }, 
+
+		-- ASHURA / Weapon / Smart
+		{ id = "Preset_Ashura_Pimp" }, 
 
 		-- BASEBALL BAT / Weapon / Melee
 		{ id = "Preset_Baseball_Bat_Default" }, 
@@ -46,13 +46,13 @@ return {
 		{ id = "Preset_Carnage_Pimp" }, 
 
 		-- CARNAGE / Weapon / Power
+		{ id = "Preset_Carnage_Default" }, 
+
+		-- CARNAGE / Weapon / Power
 		{ id = "Preset_Carnage_Neon" }, 
 
 		-- CARNAGE / Weapon / Power
 		{ id = "Preset_Carnage_Military" }, 
-
-		-- CARNAGE / Weapon / Power
-		{ id = "Preset_Carnage_Default" }, 
 
 		-- CHEF'S KNIFE / Weapon / Melee
 		{ id = "Preset_Chefs_Knife_Default" }, 
@@ -61,22 +61,16 @@ return {
 		{ id = "Preset_Crowbar_Default" }, 
 
 		-- CRUSHER / Weapon / Power
-		{ id = "Preset_Crusher_Default" }, 
-
-		-- CRUSHER / Weapon / Power
 		{ id = "Preset_Crusher_Neon" }, 
 
 		-- CRUSHER / Weapon / Power
-		{ id = "Preset_Crusher_Pimp" }, 
+		{ id = "Preset_Crusher_Default" }, 
 
 		-- CRUSHER / Weapon / Power
 		{ id = "Preset_Crusher_Military" }, 
 
-		-- D5 COPPERHEAD / Weapon / Power
-		{ id = "Preset_Copperhead_Neon" }, 
-
-		-- D5 COPPERHEAD / Weapon / Power
-		{ id = "Preset_Copperhead_Pimp" }, 
+		-- CRUSHER / Weapon / Power
+		{ id = "Preset_Crusher_Pimp" }, 
 
 		-- D5 COPPERHEAD / Weapon / Power
 		{ id = "Preset_Copperhead_Military" }, 
@@ -87,6 +81,12 @@ return {
 		-- D5 COPPERHEAD / Weapon / Power
 		{ id = "Preset_Base_Copperhead" }, 
 
+		-- D5 COPPERHEAD / Weapon / Power
+		{ id = "Preset_Copperhead_Pimp" }, 
+
+		-- D5 COPPERHEAD / Weapon / Power
+		{ id = "Preset_Copperhead_Neon" }, 
+
 		-- D5 SIDEWINDER / Weapon / Smart
 		{ id = "Preset_Sidewinder_Default" }, 
 
@@ -94,25 +94,22 @@ return {
 		{ id = "Preset_Sidewinder_Neon" }, 
 
 		-- D5 SIDEWINDER / Weapon / Smart
-		{ id = "Preset_Sidewinder_Military" }, 
-
-		-- D5 SIDEWINDER / Weapon / Smart
 		{ id = "Preset_Sidewinder_Pimp" }, 
 
-		-- DB-2 SATARA / Weapon / Tech
-		{ id = "Preset_Satara_Neon" }, 
+		-- D5 SIDEWINDER / Weapon / Smart
+		{ id = "Preset_Sidewinder_Military" }, 
 
 		-- DB-2 SATARA / Weapon / Tech
 		{ id = "Preset_Satara_Default" }, 
 
 		-- DB-2 SATARA / Weapon / Tech
-		{ id = "Preset_Satara_Pimp" }, 
+		{ id = "Preset_Satara_Neon" }, 
 
 		-- DB-2 SATARA / Weapon / Tech
 		{ id = "Preset_Satara_Military" }, 
 
-		-- DB-2 TESTERA / Weapon / Power
-		{ id = "Preset_Testera_Neon" }, 
+		-- DB-2 SATARA / Weapon / Tech
+		{ id = "Preset_Satara_Pimp" }, 
 
 		-- DB-2 TESTERA / Weapon / Power
 		{ id = "Preset_Testera_Default" }, 
@@ -120,29 +117,35 @@ return {
 		-- DB-2 TESTERA / Weapon / Power
 		{ id = "Preset_Testera_Pimp" }, 
 
-		-- DB-4 IGLA / Weapon / Power
-		{ id = "Preset_Igla_Neon" }, 
-
-		-- DB-4 IGLA / Weapon / Power
-		{ id = "Preset_Igla_Default" }, 
+		-- DB-2 TESTERA / Weapon / Power
+		{ id = "Preset_Testera_Neon" }, 
 
 		-- DB-4 IGLA / Weapon / Power
 		{ id = "Preset_Igla_Military" }, 
 
 		-- DB-4 IGLA / Weapon / Power
+		{ id = "Preset_Igla_Default" }, 
+
+		-- DB-4 IGLA / Weapon / Power
 		{ id = "Preset_Igla_Pimp" }, 
 
-		-- DB-4 PALICA / Weapon / Smart
-		{ id = "Preset_Palica_Military" }, 
+		-- DB-4 IGLA / Weapon / Power
+		{ id = "Preset_Igla_Neon" }, 
 
 		-- DB-4 PALICA / Weapon / Smart
-		{ id = "Preset_Palica_Default" }, 
+		{ id = "Preset_Palica_Pimp" }, 
 
 		-- DB-4 PALICA / Weapon / Smart
 		{ id = "Preset_Palica_Neon" }, 
 
 		-- DB-4 PALICA / Weapon / Smart
-		{ id = "Preset_Palica_Pimp" }, 
+		{ id = "Preset_Palica_Default" }, 
+
+		-- DB-4 PALICA / Weapon / Smart
+		{ id = "Preset_Palica_Military" }, 
+
+		-- DR12 QUASAR / Weapon / Tech
+		{ id = "Preset_Quasar_Neon" }, 
 
 		-- DR12 QUASAR / Weapon / Tech
 		{ id = "Preset_Quasar_Default" }, 
@@ -153,8 +156,14 @@ return {
 		-- DR12 QUASAR / Weapon / Tech
 		{ id = "Preset_Quasar_Military" }, 
 
-		-- DR12 QUASAR / Weapon / Tech
-		{ id = "Preset_Quasar_Neon" }, 
+		-- DR5 NOVA / Weapon / Power
+		{ id = "Preset_Nova_Neon" }, 
+
+		-- DR5 NOVA / Weapon / Power
+		{ id = "Preset_Nova_Pimp" }, 
+
+		-- DR5 NOVA / Weapon / Power
+		{ id = "Preset_Nova_Default" }, 
 
 		-- DR5 NOVA / Weapon / Power
 		{ id = "Preset_Nova_Q000_Nomad" }, 
@@ -163,28 +172,19 @@ return {
 		{ id = "Preset_Nova_Military" }, 
 
 		-- DR5 NOVA / Weapon / Power
-		{ id = "Preset_Nova_Neon" }, 
-
-		-- DR5 NOVA / Weapon / Power
-		{ id = "Preset_Nova_Pimp" }, 
-
-		-- DR5 NOVA / Weapon / Power
 		{ id = "Preset_MQ008_Nova" }, 
-
-		-- DR5 NOVA / Weapon / Power
-		{ id = "Preset_Nova_Default" }, 
 
 		-- DS1 PULSAR / Weapon / Power
 		{ id = "Preset_Pulsar_Military" }, 
-
-		-- DS1 PULSAR / Weapon / Power
-		{ id = "Preset_Pulsar_Pimp" }, 
 
 		-- DS1 PULSAR / Weapon / Power
 		{ id = "Preset_Pulsar_Neon" }, 
 
 		-- DS1 PULSAR / Weapon / Power
 		{ id = "Preset_Pulsar_Default" }, 
+
+		-- DS1 PULSAR / Weapon / Power
+		{ id = "Preset_Pulsar_Pimp" }, 
 
 		-- ELECTRIC BATON ALPHA / Weapon / Melee
 		{ id = "Preset_Baton_Alpha" }, 
@@ -196,19 +196,19 @@ return {
 		{ id = "Preset_Baton_Gamma" }, 
 
 		-- G-58 DIAN / Weapon / Smart
-		{ id = "Preset_Dian_Pimp" }, 
+		{ id = "Preset_Dian_Default" }, 
 
 		-- G-58 DIAN / Weapon / Smart
 		{ id = "Preset_Dian_Military" }, 
 
 		-- G-58 DIAN / Weapon / Smart
-		{ id = "Preset_Dian_Default" }, 
+		{ id = "Preset_Dian_Trauma" }, 
 
 		-- G-58 DIAN / Weapon / Smart
 		{ id = "Preset_Dian_Neon" }, 
 
 		-- G-58 DIAN / Weapon / Smart
-		{ id = "Preset_Dian_Trauma" }, 
+		{ id = "Preset_Dian_Pimp" }, 
 
 		-- HAMMER / Weapon / Melee
 		{ id = "Preset_Hammer_Default" }, 
@@ -217,34 +217,34 @@ return {
 		{ id = "Preset_Yukimura_Pimp" }, 
 
 		-- HJKE-11 YUKIMURA / Weapon / Smart
-		{ id = "Preset_Yukimura_Neon" }, 
+		{ id = "Preset_Yukimura_Military" }, 
 
 		-- HJKE-11 YUKIMURA / Weapon / Smart
 		{ id = "Preset_Yukimura_Default" }, 
 
 		-- HJKE-11 YUKIMURA / Weapon / Smart
-		{ id = "Preset_Yukimura_Military" }, 
+		{ id = "Preset_Yukimura_Neon" }, 
 
 		-- HJSH-18 MASAMUNE / Weapon / Power
-		{ id = "Preset_Masamune_Default" }, 
+		{ id = "Preset_Masamune_Pimp" }, 
 
 		-- HJSH-18 MASAMUNE / Weapon / Power
 		{ id = "Preset_Masamune_Arasaka_2020" }, 
 
 		-- HJSH-18 MASAMUNE / Weapon / Power
-		{ id = "Preset_Masamune_Scope" }, 
+		{ id = "Preset_Masamune_Default" }, 
 
 		-- HJSH-18 MASAMUNE / Weapon / Power
 		{ id = "Preset_Masamune_Neon" }, 
 
 		-- HJSH-18 MASAMUNE / Weapon / Power
-		{ id = "Preset_Base_Masamune" }, 
-
-		-- HJSH-18 MASAMUNE / Weapon / Power
 		{ id = "Preset_Masamune_Trauma" }, 
 
 		-- HJSH-18 MASAMUNE / Weapon / Power
-		{ id = "Preset_Masamune_Pimp" }, 
+		{ id = "Preset_Base_Masamune" }, 
+
+		-- HJSH-18 MASAMUNE / Weapon / Power
+		{ id = "Preset_Masamune_Scope" }, 
 
 		-- HJSH-18 MASAMUNE / Weapon / Power
 		{ id = "Preset_Masamune_Military" }, 
@@ -253,19 +253,19 @@ return {
 		{ id = "Preset_Masamune_Flashlight" }, 
 
 		-- JKE-X2 KENSHIN / Weapon / Tech
-		{ id = "Preset_Kenshin_Neon" }, 
-
-		-- JKE-X2 KENSHIN / Weapon / Tech
-		{ id = "Preset_Kenshin_MQ041" }, 
-
-		-- JKE-X2 KENSHIN / Weapon / Tech
-		{ id = "Preset_Kenshin_Military" }, 
+		{ id = "Preset_Kenshin_Takemura" }, 
 
 		-- JKE-X2 KENSHIN / Weapon / Tech
 		{ id = "Preset_Kenshin_Pimp" }, 
 
 		-- JKE-X2 KENSHIN / Weapon / Tech
-		{ id = "Preset_Kenshin_Takemura" }, 
+		{ id = "Preset_Kenshin_Neon" }, 
+
+		-- JKE-X2 KENSHIN / Weapon / Tech
+		{ id = "Preset_Kenshin_Military" }, 
+
+		-- JKE-X2 KENSHIN / Weapon / Tech
+		{ id = "Preset_Kenshin_MQ041" }, 
 
 		-- KANABO / Weapon / Melee
 		{ id = "Preset_Kanabo_Default" }, 
@@ -274,7 +274,7 @@ return {
 		{ id = "Preset_Katana_Military" }, 
 
 		-- KATANA / Weapon / Melee
-		{ id = "Preset_Katana_Default" }, 
+		{ id = "Preset_Katana_Neon" }, 
 
 		-- KATANA / Weapon / Melee
 		{ id = "Preset_Katana_Arasaka_2020" }, 
@@ -282,17 +282,17 @@ return {
 		-- KATANA / Weapon / Melee
 		{ id = "Preset_Katana_Training" }, 
 
-		-- KATANA / Weapon / Melee
-		{ id = "Preset_Katana_Neon" }, 
-
 		-- KATANA / Weapon / Tech
 		{ id = "Preset_Kenshin_Default" }, 
 
-		-- KNIFE / Weapon / Melee
-		{ id = "Preset_Knife_Military" }, 
+		-- KATANA / Weapon / Melee
+		{ id = "Preset_Katana_Default" }, 
 
 		-- KNIFE / Weapon / Melee
 		{ id = "Preset_Knife_Default" }, 
+
+		-- KNIFE / Weapon / Melee
+		{ id = "Preset_Knife_Military" }, 
 
 		-- KUKRI / Weapon / Melee
 		{ id = "Preset_Kukri_Default" }, 
@@ -304,13 +304,13 @@ return {
 		{ id = "Preset_Zhuo_Military" }, 
 
 		-- L-69 ZHUO / Weapon / Smart
+		{ id = "Preset_Zhuo_Trauma" }, 
+
+		-- L-69 ZHUO / Weapon / Smart
 		{ id = "Preset_Zhuo_Default" }, 
 
 		-- L-69 ZHUO / Weapon / Smart
 		{ id = "Preset_Zhuo_Neon" }, 
-
-		-- L-69 ZHUO / Weapon / Smart
-		{ id = "Preset_Zhuo_Trauma" }, 
 
 		-- L-69 ZHUO / Weapon / Smart
 		{ id = "Preset_Zhuo_Pimp" }, 
@@ -322,7 +322,7 @@ return {
 		{ id = "Preset_Lexington_Pimp" }, 
 
 		-- M-10AF LEXINGTON / Weapon / Power
-		{ id = "Preset_Lexington_Neon" }, 
+		{ id = "Preset_Lexington_Military" }, 
 
 		-- M-10AF LEXINGTON / Weapon / Power
 		{ id = "Preset_Lexington_Default" }, 
@@ -334,10 +334,13 @@ return {
 		{ id = "Preset_Base_Lexington" }, 
 
 		-- M-10AF LEXINGTON / Weapon / Power
-		{ id = "Preset_Lexington_DEBUG" }, 
+		{ id = "Preset_Lexington_Neon" }, 
 
 		-- M-10AF LEXINGTON / Weapon / Power
-		{ id = "Preset_Lexington_Military" }, 
+		{ id = "Preset_Lexington_DEBUG" }, 
+
+		-- M-179E ACHILLES / Weapon / Tech
+		{ id = "Preset_Achilles_Tiny_Mike" }, 
 
 		-- M-179E ACHILLES / Weapon / Tech
 		{ id = "Preset_Achilles_Military" }, 
@@ -346,37 +349,34 @@ return {
 		{ id = "Preset_Achilles_Default" }, 
 
 		-- M-179E ACHILLES / Weapon / Tech
-		{ id = "Preset_Achilles_Neon" }, 
-
-		-- M-179E ACHILLES / Weapon / Tech
-		{ id = "Preset_Achilles_Tiny_Mike" }, 
-
-		-- M-179E ACHILLES / Weapon / Tech
 		{ id = "Preset_Achilles_Pimp" }, 
 
-		-- M-76E OMAHA / Weapon / Tech
-		{ id = "Preset_Omaha_Military" }, 
+		-- M-179E ACHILLES / Weapon / Tech
+		{ id = "Preset_Achilles_Neon" }, 
 
 		-- M-76E OMAHA / Weapon / Tech
 		{ id = "Preset_Omaha_Default" }, 
 
 		-- M-76E OMAHA / Weapon / Tech
+		{ id = "Preset_Omaha_Pimp" }, 
+
+		-- M-76E OMAHA / Weapon / Tech
 		{ id = "Preset_Omaha_Neon" }, 
 
 		-- M-76E OMAHA / Weapon / Tech
-		{ id = "Preset_Omaha_Pimp" }, 
+		{ id = "Preset_Omaha_Military" }, 
 
 		-- M2038 TACTICIAN / Weapon / Power
 		{ id = "Preset_Tactician_Neon" }, 
+
+		-- M2038 TACTICIAN / Weapon / Power
+		{ id = "Preset_Tactician_Pimp" }, 
 
 		-- M2038 TACTICIAN / Weapon / Power
 		{ id = "Preset_Tactician_Military" }, 
 
 		-- M2038 TACTICIAN / Weapon / Power
 		{ id = "Preset_Tactician_Default" }, 
-
-		-- M2038 TACTICIAN / Weapon / Power
-		{ id = "Preset_Tactician_Pimp" }, 
 
 		-- M2067 DEFENDER / Weapon / Power
 		{ id = "Preset_Defender_Military" }, 
@@ -385,28 +385,28 @@ return {
 		{ id = "Preset_Defender_Default" }, 
 
 		-- M2067 DEFENDER / Weapon / Power
-		{ id = "Preset_Defender_Pimp" }, 
-
-		-- M2067 DEFENDER / Weapon / Power
 		{ id = "Preset_Defender_Neon" }, 
 
-		-- M221 SARATOGA / Weapon / Power
-		{ id = "Preset_Saratoga_Neon" }, 
+		-- M2067 DEFENDER / Weapon / Power
+		{ id = "Preset_Defender_Pimp" }, 
 
 		-- M221 SARATOGA / Weapon / Power
 		{ id = "Preset_Saratoga_Default" }, 
 
 		-- M221 SARATOGA / Weapon / Power
+		{ id = "Preset_Saratoga_Pimp" }, 
+
+		-- M221 SARATOGA / Weapon / Power
 		{ id = "Preset_Saratoga_Arasaka_2020" }, 
+
+		-- M221 SARATOGA / Weapon / Power
+		{ id = "Preset_Saratoga_Neon" }, 
 
 		-- M221 SARATOGA / Weapon / Power
 		{ id = "Preset_Saratoga_Military" }, 
 
-		-- M221 SARATOGA / Weapon / Power
-		{ id = "Preset_Saratoga_Pimp" }, 
-
 		-- M251S AJAX / Weapon / Power
-		{ id = "Preset_Ajax_Training" }, 
+		{ id = "Preset_Ajax_Military" }, 
 
 		-- M251S AJAX / Weapon / Power
 		{ id = "Preset_Ajax_Default" }, 
@@ -415,19 +415,19 @@ return {
 		{ id = "Preset_Ajax_Pimp" }, 
 
 		-- M251S AJAX / Weapon / Power
-		{ id = "Preset_Ajax_Military" }, 
+		{ id = "Preset_Ajax_Training" }, 
 
 		-- M251S AJAX / Weapon / Power
 		{ id = "Preset_Ajax_Neon" }, 
+
+		-- MACHETE / Weapon / Melee
+		{ id = "Preset_Machete_Maelstrom" }, 
 
 		-- MACHETE / Weapon / Melee
 		{ id = "Preset_Machete_Default" }, 
 
 		-- MACHETE / Weapon / Melee
 		{ id = "Preset_Machete_Valentinos" }, 
-
-		-- MACHETE / Weapon / Melee
-		{ id = "Preset_Machete_Maelstrom" }, 
 
 		-- MK.31 HMG / Weapon / Power
 		-- 6.21 Attacks Per Second.
@@ -443,10 +443,10 @@ return {
 		{ id = "Preset_Nekomata_Pimp" }, 
 
 		-- NEKOMATA / Weapon / Tech
-		{ id = "Preset_Nekomata_Default" }, 
+		{ id = "Preset_Nekomata_Neon" }, 
 
 		-- NEKOMATA / Weapon / Tech
-		{ id = "Preset_Nekomata_Neon" }, 
+		{ id = "Preset_Nekomata_Default" }, 
 
 		-- NUE / Weapon / Power
 		{ id = "Preset_Nue_Arasaka_2020" }, 
@@ -455,25 +455,25 @@ return {
 		{ id = "Preset_Nue_Pimp" }, 
 
 		-- NUE / Weapon / Power
-		{ id = "Preset_Nue_Default" }, 
-
-		-- NUE / Weapon / Power
-		{ id = "Preset_Nue_Neon" }, 
-
-		-- NUE / Weapon / Power
 		{ id = "Preset_Nue_Military" }, 
 
 		-- NUE / Weapon / Power
 		{ id = "Preset_Nue_Arasaka" }, 
 
+		-- NUE / Weapon / Power
+		{ id = "Preset_Nue_Neon" }, 
+
+		-- NUE / Weapon / Power
+		{ id = "Preset_Nue_Default" }, 
+
 		-- OVERTURE / Weapon / Power
 		{ id = "Preset_Overture_Pimp" }, 
 
 		-- OVERTURE / Weapon / Power
-		{ id = "Preset_Overture_Neon" }, 
+		{ id = "Preset_Overture_Military" }, 
 
 		-- OVERTURE / Weapon / Power
-		{ id = "Preset_Overture_Military" }, 
+		{ id = "Preset_Overture_Neon" }, 
 
 		-- OVERTURE / Weapon / Power
 		{ id = "Preset_Overture_Default" }, 
@@ -511,6 +511,9 @@ return {
 		{ id = "Preset_Knuckles_Pimp" }, 
 
 		-- RT-46 BURYA / Weapon / Tech
+		{ id = "Preset_Burya_Default" }, 
+
+		-- RT-46 BURYA / Weapon / Tech
 		{ id = "Preset_Burya_Military" }, 
 
 		-- RT-46 BURYA / Weapon / Tech
@@ -518,9 +521,6 @@ return {
 
 		-- RT-46 BURYA / Weapon / Tech
 		{ id = "Preset_Burya_Pimp" }, 
-
-		-- RT-46 BURYA / Weapon / Tech
-		{ id = "Preset_Burya_Default" }, 
 
 		-- SOCKET WRENCH / Weapon / Melee
 		{ id = "Preset_Pipe_Wrench_Default" }, 
@@ -532,22 +532,22 @@ return {
 		{ id = "Preset_Sor22_Default" }, 
 
 		-- SOR-22 / Weapon / Power
-		{ id = "Preset_Sor22_Pimp" }, 
+		{ id = "Preset_Sor22_Neon" }, 
 
 		-- SOR-22 / Weapon / Power
-		{ id = "Preset_Sor22_Neon" }, 
+		{ id = "Preset_Sor22_Pimp" }, 
 
 		-- SPT32 GRAD / Weapon / Power
 		{ id = "Preset_Grad_Neon" }, 
+
+		-- SPT32 GRAD / Weapon / Power
+		{ id = "Preset_Grad_Default" }, 
 
 		-- SPT32 GRAD / Weapon / Power
 		{ id = "Preset_Grad_Pimp" }, 
 
 		-- SPT32 GRAD / Weapon / Power
 		{ id = "Preset_Grad_Military" }, 
-
-		-- SPT32 GRAD / Weapon / Power
-		{ id = "Preset_Grad_Default" }, 
 
 		-- STEEL PIPE / Weapon / Melee
 		{ id = "Preset_Iron_Pipe_Default" }, 
@@ -559,19 +559,25 @@ return {
 		{ id = "Preset_Tire_Iron_Default" }, 
 
 		-- TKI-20 SHINGEN / Weapon / Smart
-		{ id = "Preset_Shingen_Military" }, 
-
-		-- TKI-20 SHINGEN / Weapon / Smart
 		{ id = "Preset_Shingen_Pimp" }, 
 
 		-- TKI-20 SHINGEN / Weapon / Smart
-		{ id = "Preset_Shingen_Neon" }, 
+		{ id = "Preset_Shingen_Military" }, 
 
 		-- TKI-20 SHINGEN / Weapon / Smart
 		{ id = "Preset_Shingen_Default" }, 
 
+		-- TKI-20 SHINGEN / Weapon / Smart
+		{ id = "Preset_Shingen_Neon" }, 
+
 		-- TOMAHAWK / Weapon / Melee
 		{ id = "Preset_Tomahawk_Default" }, 
+
+		-- UNITY / Weapon / Power
+		{ id = "Preset_Unity_Neon" }, 
+
+		-- UNITY / Weapon / Power
+		{ id = "Preset_V_Unity" }, 
 
 		-- UNITY / Weapon / Power
 		{ id = "Preset_Unity_Default" }, 
@@ -580,15 +586,9 @@ return {
 		{ id = "Preset_Unity_Military" }, 
 
 		-- UNITY / Weapon / Power
-		{ id = "Preset_V_Unity_Cutscene" }, 
-
-		-- UNITY / Weapon / Power
-		{ id = "Preset_Unity_Neon" }, 
-
-		-- UNITY / Weapon / Power
 		{ id = "Preset_Unity_Pimp" }, 
 
 		-- UNITY / Weapon / Power
-		{ id = "Preset_V_Unity" }, 
+		{ id = "Preset_V_Unity_Cutscene" }, 
 	},
 }

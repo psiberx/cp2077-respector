@@ -75,9 +75,7 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 	local specStore = SpecStore:new(samplePacksDir)
 
 	local TweakDb = mod.require('mod/helpers/TweakDb')
-	local tweakDb = TweakDb:new()
-
-	tweakDb:load('mod/data/tweakdb-meta')
+	local tweakDb = TweakDb:new('mod/data/tweakdb-meta')
 
 	for _, samplePack in ipairs(samplePacks) do
 		local specName = samplePack.name

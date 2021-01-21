@@ -99,11 +99,11 @@ return {
 
 		-- TARGET ANALYSIS / Mod / Cyberware / Kiroshi / Rare
 		-- All your weapons are non-leathal.
-		{ id = "KiroshiOpticsFragment3" }, 
+		{ id = "KiroshiOpticsFragment1" }, 
 
 		-- TARGET ANALYSIS / Mod / Cyberware / Kiroshi / Rare
 		-- All your weapons are non-leathal.
-		{ id = "KiroshiOpticsFragment1" }, 
+		{ id = "KiroshiOpticsFragment3" }, 
 
 		-- THREAT DETECTOR / Mod / Cyberware / Kiroshi / Rare
 		-- Automatically highlights who have detected you.
