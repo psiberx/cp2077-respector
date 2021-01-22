@@ -28,12 +28,15 @@ return {
 		{ id = "Preset_Baseball_Bat_Default" }, 
 
 		-- BLACK UNICORN / Weapon / Melee / Blade / Rare
+		-- DRM FREE!
 		{ id = "Preset_Katana_GoG" }, 
 
 		-- BLACK UNICORN / Weapon / Melee / Blade / Epic
+		-- DRM FREE!
 		{ id = "Preset_Katana_GoG_Epic" }, 
 
 		-- BLACK UNICORN / Weapon / Melee / Blade / Legendary
+		-- DRM FREE!
 		{ id = "Preset_Katana_GoG_Legendary" }, 
 
 		-- BUTCHER'S CLEAVER / Weapon / Melee / Blade
@@ -475,18 +478,23 @@ return {
 		{ id = "Preset_Overture_Default" }, 
 
 		-- OVERTURE / Weapon / Power / Revolver / Uncommon
+		-- Packs one hell of a kick.
 		{ id = "Preset_Overture_Default_U" }, 
 
 		-- OVERTURE / Weapon / Power / Revolver / Rare
+		-- Packs one hell of a kick.
 		{ id = "Preset_Overture_Default_R" }, 
 
 		-- OVERTURE / Weapon / Power / Revolver / Epic
+		-- Packs one hell of a kick.
 		{ id = "Preset_Overture_Default_E" }, 
 
 		-- OVERTURE / Weapon / Power / Revolver / Legendary
+		-- Packs one hell of a kick.
 		{ id = "Preset_Overture_Default_L" }, 
 
 		-- OVERTURE / Weapon / Power / Revolver / Legendary
+		-- Packs one hell of a kick.
 		{ id = "Preset_Overture_Legendary" }, 
 
 		--  / Weapon / Melee / Blunt

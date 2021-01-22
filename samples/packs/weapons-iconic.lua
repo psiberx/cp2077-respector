@@ -1,6 +1,6 @@
 return {
 	Inventory = {
-		-- AMESTY / Weapon / Power / Revolver / Epic
+		-- AMNESTY / Weapon / Power / Revolver / Epic
 		-- Cassidy's mods improved the revolver's handling and firepower, making it the most lethal revolver in the west.
 		{ id = "Preset_Overture_Cassidy" }, 
 
@@ -20,7 +20,7 @@ return {
 		{ id = "Preset_Zhuo_Eight_Star" }, 
 
 		-- BREAKTHROUGH / Weapon / Tech / Sniper Riffle / Epic
-		-- Can Penatrate through walls and ricochet multiple times.
+		-- Can penatrate through walls and ricochet multiple times.
 		{ id = "Preset_Nekomata_Breakthrough" }, 
 
 		-- BUZZSAW / Weapon / Power / SMG / Rare
@@ -37,7 +37,7 @@ return {
 		{ id = "Preset_Kenshin_Royce" }, 
 
 		-- COCKTAIL STICK / Weapon / Melee / Blade / Rare
-		-- Looks like a toy, Cuts like a laser.
+		-- Looks like a toy, cuts like a laser.
 		{ id = "Preset_Katana_Cocktail" }, 
 
 		-- COMRADE'S HAMMER / Weapon / Tech / Revolver / Epic

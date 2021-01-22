@@ -11,7 +11,7 @@ return {
 		{ id = "Preset_Zhuo_Eight_Star" }, 
 
 		-- BREAKTHROUGH / Weapon / Tech / Sniper Riffle / Epic
-		-- Can Penatrate through walls and ricochet multiple times.
+		-- Can penatrate through walls and ricochet multiple times.
 		{ id = "Preset_Nekomata_Breakthrough" }, 
 
 		-- BUZZSAW / Weapon / Power / SMG / Rare
@@ -43,7 +43,7 @@ return {
 		-- MALORIAN ARMS 3516 / Weapon / Power / Pistol / Legendary
 		-- Custom-made for Johnny Silverhand.
 		-- The guy had taste.
-		{ id = "Preset_Silverhand_3516", quest = false }, 
+		{ id = "Preset_Silverhand_3516" }, 
 
 		-- MORON LABE / Weapon / Power / Assault Riffle / Epic
 		-- Increases fire rate.
