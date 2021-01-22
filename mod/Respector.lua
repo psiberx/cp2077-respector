@@ -49,6 +49,12 @@ function Respector:prepareModules()
 	end
 end
 
+function Respector:prepareModules()
+	for _, module in ipairs(components.modules) do
+		self[module.name]:prepare()
+	end
+end
+
 function Respector:releaseModules()
 	for _, module in ipairs(components.modules) do
 		self[module.name]:release()
@@ -139,6 +145,30 @@ function Respector:loadSpec(specName)
 	self:triggerEvent('load', specName)
 
 	print(('Respector: Spec %q loaded.'):format(specName))
+
+	return true
+end
+
+function Respector:applySpecData(specData)
+	if asyncWait then
+		return false
+	end
+
+	self:prepareModules()
+
+	for _, module in ipairs(components.modules) do
+		if mod.debug then
+			print(('[DEBUG] Respector: Applying spec using %q module...'):format(module.name))
+		end
+
+		self[module.name]:applySpec(specData)
+	end
+
+	self:releaseModulesAsync()
+
+	if mod.debug then
+		print(('[DEBUG] Respector: Applied custom spec data.'))
+	end
 
 	return true
 end

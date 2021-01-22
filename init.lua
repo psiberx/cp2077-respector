@@ -31,17 +31,15 @@ local devMode = false
 
 local corePath = baseDir .. '/mod/mod'
 
-if devMode or true then
-	local modulePattern = '^%.[\\/]' .. baseDir .. '[./]*'
+if package.loaded[corePath] ~= nil then
+	package.loaded[corePath] = nil
 
-	for module, _ in pairs(package.loaded) do
-		if module:find(modulePattern) or module == corePath then
-			package.loaded[module] = nil
+	if devMode then
+		package.loaded[corePath .. '-state'] = nil
+	end
 
-			if debugMode then
-				print(('[DEBUG] Respector: Unloaded module %q.'):format(module))
-			end
-		end
+	if debugMode then
+		print(('[DEBUG] Respector: Reloaded module %q.'):format(corePath))
 	end
 end
 
@@ -87,7 +85,13 @@ if mod.config.useGui then
 
 	local gui = mod.require('mod/ui/gui')
 
-	gui.init(respector)
+	registerForEvent('onInit', function()
+		gui.init(respector)
+	end)
+
+	registerForEvent('onDraw', function()
+		gui.onDrawEvent()
+	end)
 
 	registerForEvent('onConsoleOpen', function()
 		gui.onConsoleOpenEvent()
@@ -101,17 +105,13 @@ if mod.config.useGui then
 		mod.onUpdateEvent(delta)
 		gui.onUpdateEvent()
 	end)
-
-	registerForEvent('onDraw', function()
-		gui.onDrawEvent()
-	end)
 else
 	registerForEvent('onUpdate', function(delta)
 		mod.onUpdateEvent(delta)
 	end)
 end
 
-print(('Respector v.%s loaded.'):format(respector.version))
+print(('Respector v.%s %s.'):format(respector.version, (mod.start and 'loaded' or 'reloaded')))
 
 if mod.config.useGlobalApi then
 	print(('Respector: Global API enabled.'))

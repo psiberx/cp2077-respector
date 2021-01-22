@@ -16,7 +16,7 @@ return {
 		-- Without the dog tags it looks like any other fanboy shirt.
 		{ id = "Q005_Johnny_Shirt" }, 
 
-		-- MALORIAN ARMS 3516 / Weapon / Power / Legendary
+		-- MALORIAN ARMS 3516 / Weapon / Power / Pistol / Legendary
 		-- Custom-made for Johnny Silverhand.
 		-- The guy had taste.
 		{ id = "Preset_Silverhand_3516" }, 

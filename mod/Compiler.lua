@@ -89,15 +89,15 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 			for itemMeta in tweakDb:filter(samplePack.items) do
 				local itemSpec = {}
 
-				itemSpec._comment = tweakDb:describe(itemMeta, true)
+				itemSpec._comment = tweakDb:describe(itemMeta, true, true)
 				itemSpec._order = tweakDb:order(itemMeta)
 
 				if itemMeta.desc then
-					itemSpec._comment = itemSpec._comment .. '\n' .. itemMeta.desc:gsub('%. ', '.\n')
+					itemSpec._comment = itemSpec._comment .. '\n' .. itemMeta.desc:gsub('([.!?]) ', '%1\n')
 
-					if not itemSpec._comment:find('%.$') then
-						itemSpec._comment = itemSpec._comment .. '.'
-					end
+					--if not itemSpec._comment:find('%.$') then
+					--	itemSpec._comment = itemSpec._comment .. '.'
+					--end
 				end
 
 				itemSpec.id = str.without(itemMeta.type, 'Items.')

@@ -1,10 +1,12 @@
 local mod = {
+	baseReq = string.gsub(({...})[1], '/+mod/mod', ''),
 	baseDir = string.gsub(({...})[2], '/+mod/mod%.lua$', ''):gsub('\\', '/') .. '/',
 	config = {},
 	loaded = {},
 	deferred = {},
 	dev = false,
 	debug = false,
+	start = true,
 }
 
 function mod.init(devMode, debugMode)
@@ -18,6 +20,11 @@ function mod.init(devMode, debugMode)
 	if mod.dev or mod.debug then
 		mod.dbg = mod.require('mod/utils/debug')
 	end
+
+	local state = require(mod.baseReq .. '/mod/mod-state')
+
+	mod.start = state.start
+	state.start = false
 end
 
 function mod.dir(path)

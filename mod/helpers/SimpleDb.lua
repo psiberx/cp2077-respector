@@ -73,18 +73,6 @@ function SimpleDb:filter(criteria)
 	end
 end
 
-function SimpleDb:filtered(criteria)
-	local result = {}
-
-	for _, item in pairs(self.db) do
-		if self:match(item, criteria) then
-			table.insert(result, item)
-		end
-	end
-
-	return result
-end
-
 function SimpleDb:match(item, criteria)
 	local match = true
 
@@ -111,6 +99,57 @@ function SimpleDb:match(item, criteria)
 	end
 
 	return match
+end
+
+function SimpleDb:search(term, fields)
+	local dmp = mod.require('mod/vendor/diff_match_patch')
+
+	dmp.settings({
+		Match_Threshold = 0.2,
+		Match_Distance = 256,
+	})
+
+	term = term:upper()
+
+	local key, item
+
+	return function()
+		while true do
+			key, item = next(self.db, key)
+
+			if item == nil then
+				return nil
+			end
+
+			for field, weight in pairs(fields) do
+				if item[field] then
+					local position = dmp.match_main(item[field]:upper(), term, 1)
+
+					if position > 0 then
+						position = position * weight
+
+						return key, item, position
+					end
+				end
+			end
+		end
+	end
+end
+
+function SimpleDb:sort(items, field)
+	table.sort(items, function(a, b)
+		if field then
+			return a[field] < b[field]
+		end
+
+		return a < b
+	end)
+end
+
+function SimpleDb:limit(items, limit)
+	while #items > limit do
+		table.remove(items)
+	end
 end
 
 return SimpleDb

@@ -124,7 +124,7 @@ end
 function InventoryModule:getBackpackItems(specOptions)
 	local itemIds = {}
 
-	local baseCriteria = { kind = { 'Weapon', 'Clothing', 'Cyberware', 'Mod', 'Grenade', 'Consumable', 'Progression', 'Quickhack' } }
+	local baseCriteria = { kind = { 'Weapon', 'Clothing', 'Cyberware', 'Mod', 'Grenade', 'Consumable', 'Progression Shard', 'Quickhack' } }
 	local extraCriteria
 
 	if specOptions.rarity then
@@ -432,35 +432,37 @@ function InventoryModule:addItem(itemSpec)
 
 		-- Manage mods and attachments
 
-		for _, slotMeta in ipairs(self.attachmentSlots) do
-			local slotId = self.tweakDb:getTweakDbId(slotMeta.type)
+		if itemSpec.kind == 'Weapon' or itemSpec.kind == 'Clothing' or itemSpec.kind == 'Cyberware' then
+			for _, slotMeta in ipairs(self.attachmentSlots) do
+				local slotId = self.tweakDb:getTweakDbId(slotMeta.type)
 
-			if itemData:HasPartInSlot(slotId) then
-				local partItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
+				if itemData:HasPartInSlot(slotId) then
+					local partItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
 
-				if partItemId then
-					table.insert(removedParts, partItemId)
+					if partItemId then
+						table.insert(removedParts, partItemId)
+					end
 				end
 			end
-		end
 
-		if itemSpec.slots then
-			for key, slotSpec in pairs(itemSpec.slots) do
-				if type(slotSpec) == 'string' then
-					slotSpec = {
-						id = slotSpec
-					}
-				end
+			if itemSpec.slots then
+				for key, slotSpec in pairs(itemSpec.slots) do
+					if type(slotSpec) == 'string' then
+						slotSpec = {
+							id = slotSpec
+						}
+					end
 
-				if type(key) == 'string' then
-					slotSpec.slot = key
-				end
+					if type(key) == 'string' then
+						slotSpec.slot = key
+					end
 
-				if slotSpec.slot and slotSpec.id then
-					local slotId = self.tweakDb:getSlotTweakDbId(slotSpec.slot, itemMeta)
-					local partItemId = self:addItem(slotSpec)
+					if slotSpec.slot and slotSpec.id then
+						local slotId = self.tweakDb:getSlotTweakDbId(slotSpec.slot, itemMeta)
+						local partItemId = self:addItem(slotSpec)
 
-					self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)
+						self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)
+					end
 				end
 			end
 		end

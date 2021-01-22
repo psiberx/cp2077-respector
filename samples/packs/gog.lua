@@ -1,16 +1,16 @@
 -- The stuff you get for buying the game in the GOG or by linking your GOG account.
 return {
 	Inventory = {
-		-- BLACK UNICORN / Weapon / Melee / Rare
-		-- DRM FREE!.
+		-- BLACK UNICORN / Weapon / Melee / Blade / Rare
+		-- DRM FREE!
 		{ id = "Preset_Katana_GoG" }, 
 
-		-- BLACK UNICORN / Weapon / Melee / Epic
-		-- DRM FREE!.
+		-- BLACK UNICORN / Weapon / Melee / Blade / Epic
+		-- DRM FREE!
 		{ id = "Preset_Katana_GoG_Epic" }, 
 
-		-- BLACK UNICORN / Weapon / Melee / Legendary
-		-- DRM FREE!.
+		-- BLACK UNICORN / Weapon / Melee / Blade / Legendary
+		-- DRM FREE!
 		{ id = "Preset_Katana_GoG_Legendary" }, 
 
 		-- GALAXY T-SHIRT / Clothing / Inner Torso / Rare

@@ -2196,7 +2196,7 @@ return {
 
 		-- SAMURAI 2020 TOUR T-SHIRT / Clothing / Inner Torso
 		-- Saporo, Katowice, Berlin, Oslo, Leningrad...
-		-- What, you thought they only played in the NUSA?.
+		-- What, you thought they only played in the NUSA?
 		{ id = "SamuraiWorldTour_TShirt" }, 
 
 		-- SAMURAI COMBAT TURTLENECK / Clothing / Inner Torso

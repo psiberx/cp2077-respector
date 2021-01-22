@@ -47,6 +47,18 @@ function str.nonempty(...)
 	return nil
 end
 
+function str.ellipsis(s, limit, ending)
+	if not ending then
+		ending = '...'
+	end
+
+	if s:len() - ending:len() <= limit then
+		return s
+	end
+
+	return s:sub(1, limit) .. ending
+end
+
 function str.padnul(s, len)
 	return s .. string.rep('\0', len - s:len())
 end
