@@ -63,7 +63,7 @@ function InventoryModule:getItems(specOptions)
 				if itemData ~= nil then
 					local itemSpec = {}
 
-					local itemId2 = self.tweakDb:extract(itemId)
+					local itemId2 = TweakDb.extract(itemId)
 					local itemMeta = self.tweakDb:resolve(itemId.tdbid)
 
 					local itemQty = self.transactionSystem:GetItemQuantity(self.player, itemId)
@@ -99,7 +99,7 @@ function InventoryModule:getItems(specOptions)
 					end
 
 					for _, slotMeta in ipairs(self.partSlots) do
-						local slotId = self.tweakDb:getSlotTweakDbId(slotMeta.type)
+						local slotId = TweakDb.getTweakSlotId(slotMeta.type)
 
 						if itemData:HasPartInSlot(slotId) then
 							if itemSpec.slots == nil then
@@ -136,7 +136,7 @@ function InventoryModule:getItems(specOptions)
 							-- Then we put the part back as if nothing happened
 							self.itemModSystem:InstallItemPart(self.player, itemId, partId, slotId)
 
-							local partId2 = self.tweakDb:extract(partId)
+							local partId2 = TweakDb.extract(partId)
 							local partMeta = self.tweakDb:resolve(partId.tdbid)
 
 							--partSpec.slot = self.tweakDb:getSlotAlias(slotMeta.type, itemMeta)
@@ -223,7 +223,7 @@ function InventoryModule:addItem(itemSpec)
 
 	-- Resolve item
 
-	local tweakDbId = self.tweakDb:getItemTweakDbId(itemSpec.id)
+	local tweakDbId = TweakDb.getTweakItemId(itemSpec.id)
 	local itemMeta = self.tweakDb:resolve(tweakDbId) or { rng = true }
 	local itemId, itemCopy
 
@@ -246,7 +246,7 @@ function InventoryModule:addItem(itemSpec)
 	end
 
 	for _ = 1, itemCopy do
-		itemId = self.tweakDb:getItemId(tweakDbId, itemSpec.seed)
+		itemId = TweakDb.getItemId(tweakDbId, itemSpec.seed)
 
 		local itemEquip = itemSpec.equip == true or type(itemSpec.equip) == 'number'
 		local itemEquipIndex = itemSpec.equip and math.max(1, type(itemSpec.equip) == 'number' and itemSpec.equip or 1)
@@ -277,7 +277,7 @@ function InventoryModule:addItem(itemSpec)
 		-- Manage mods and attachments
 
 		for _, slotMeta in ipairs(self.partSlots) do
-			local slotId = self.tweakDb:getTweakDbId(slotMeta.type)
+			local slotId = TweakDb.getTweakId(slotMeta.type)
 
 			if itemData:HasPartInSlot(slotId) then
 				local partItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
@@ -301,7 +301,7 @@ function InventoryModule:addItem(itemSpec)
 				end
 
 				if slotSpec.slot and slotSpec.id then
-					local slotId = self.tweakDb:getSlotTweakDbId(slotSpec.slot, itemMeta)
+					local slotId = TweakDb.getTweakSlotId(slotSpec.slot, itemMeta)
 					local partItemId = self:addItem(slotSpec)
 
 					self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)

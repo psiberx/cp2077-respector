@@ -125,14 +125,13 @@ function CraftingModule:getRecipes()
 end
 
 function CraftingModule:isRecipeKnown(tweakDbId)
-	tweakDbId = self.tweakDb:getItemTweakDbId(tweakDbId)
+	tweakDbId = TweakDb.getTweakItemId(tweakDbId)
 
 	return self.craftingSystem:IsRecipeKnown(tweakDbId, self.playerCraftBook)
 end
 
 function CraftingModule:addRecipe(tweakDbId)
-	tweakDbId = self.tweakDb:getItemTweakDbId(tweakDbId)
-	print(tweakDbId)
+	tweakDbId = TweakDb.getTweakItemId(tweakDbId)
 
 	self.playerCraftBook:AddRecipe(tweakDbId, {}, 1)
 end

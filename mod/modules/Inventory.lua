@@ -186,7 +186,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 		-- When this happens, GetItemData() will return nil, so we have to check that.
 		if itemData ~= nil then
 			local itemKey = TweakDb.key(itemId.tdbid)
-			local itemMeta = self.tweakDb:resolve(itemId.tdbid)
+			local itemMeta = self.tweakDb:resolve(itemKey)
 			local itemQty = self.transactionSystem:GetItemQuantity(self.player, itemId)
 			local itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
 			local itemSkip = false
@@ -221,7 +221,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 				if itemMeta ~= nil then
 					if itemMeta.type == '' or specOptions.itemFormat == 'hash' then
-						itemSpec.id = self.tweakDb:extract(itemId.tdbid)
+						itemSpec.id = TweakDb.struct(itemKey)
 					else
 						itemSpec.id = str.without(itemMeta.type, 'Items.')
 					end
@@ -237,7 +237,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 					itemSpec._comment = self.tweakDb:describe(itemMeta, true)
 					itemSpec._order = self.tweakDb:order(itemMeta, true)
 				else
-					itemSpec.id = self.tweakDb:extract(itemId.tdbid)
+					itemSpec.id = TweakDb.struct(itemKey)
 					itemSpec.seed = itemId.rng_seed
 					itemSpec.upgrade = itemQuality
 					itemSpec._comment = '???'
@@ -271,7 +271,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 				if not itemMeta or (itemMeta.kind ~= 'Mod' and itemMeta.kind ~= 'Quickhack') then
 					for _, slotMeta in ipairs(self.attachmentSlots) do
-						local slotId = self.tweakDb:getSlotTweakDbId(slotMeta.type)
+						local slotId = TweakDb.getTweakSlotId(slotMeta.type)
 
 						if itemData:HasPartInSlot(slotId) then
 							if itemSpec.slots == nil then
@@ -291,7 +291,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 							if partMeta ~= nil then
 								if specOptions.itemFormat == 'hash' then
-									partSpec.id = self.tweakDb:extract(partId.tdbid)
+									partSpec.id = TweakDb.extract(partId.tdbid)
 								else
 									partSpec.id = str.without(partMeta.type, 'Items.')
 								end
@@ -306,7 +306,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 								partSpec._comment = self.tweakDb:describe(partMeta)
 							else
-								partSpec.id = self.tweakDb:extract(partId.tdbid)
+								partSpec.id = TweakDb.extract(partId.tdbid)
 								partSpec.seed = partId.rng_seed
 								partSpec.upgrade = partQuality
 								partSpec._comment = '???'
@@ -379,8 +379,8 @@ function InventoryModule:addItem(itemSpec)
 
 	-- Resolve item
 
-	local tweakDbId = self.tweakDb:getItemTweakDbId(itemSpec.id)
-	local itemMeta = self.tweakDb:resolve(tweakDbId) or { rng = true }
+	local tweakId = TweakDb.getTweakItemId(itemSpec.id)
+	local itemMeta = self.tweakDb:resolve(tweakId) or { rng = true }
 	local itemId, itemCopy
 
 	if itemMeta.stack then
@@ -402,7 +402,7 @@ function InventoryModule:addItem(itemSpec)
 	end
 
 	for _ = 1, itemCopy do
-		itemId = self.tweakDb:getItemId(tweakDbId, itemSpec.seed)
+		itemId = TweakDb.getItemId(tweakId, itemSpec.seed)
 
 		local itemEquip = itemSpec.equip == true or type(itemSpec.equip) == 'number'
 		local itemEquipIndex = itemSpec.equip and math.max(1, type(itemSpec.equip) == 'number' and itemSpec.equip or 1)
@@ -434,7 +434,7 @@ function InventoryModule:addItem(itemSpec)
 
 		if itemSpec.kind == 'Weapon' or itemSpec.kind == 'Clothing' or itemSpec.kind == 'Cyberware' then
 			for _, slotMeta in ipairs(self.attachmentSlots) do
-				local slotId = self.tweakDb:getTweakDbId(slotMeta.type)
+				local slotId = TweakDb.getTweakId(slotMeta.type)
 
 				if itemData:HasPartInSlot(slotId) then
 					local partItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
@@ -458,7 +458,7 @@ function InventoryModule:addItem(itemSpec)
 					end
 
 					if slotSpec.slot and slotSpec.id then
-						local slotId = self.tweakDb:getSlotTweakDbId(slotSpec.slot, itemMeta)
+						local slotId = TweakDb.getTweakSlotId(slotSpec.slot, itemMeta)
 						local partItemId = self:addItem(slotSpec)
 
 						self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)

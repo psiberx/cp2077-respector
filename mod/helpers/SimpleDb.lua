@@ -121,7 +121,7 @@ function SimpleDb:search(term, fields)
 				return nil
 			end
 
-			for field, weight in pairs(fields) do
+			for weight, field  in pairs(fields) do
 				if item[field] then
 					local position = dmp.match_main(item[field]:upper(), term, 1)
 

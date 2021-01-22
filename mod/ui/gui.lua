@@ -271,7 +271,9 @@ function gui.onDrawEvent()
 					userState.specOptions.rarity = rarityFilterList[viewData.rarityFilterIndex + 1]
 				elseif section.desc then
 					ImGui.SameLine()
-					ImGui.TextColored(0.5, 0.5, 0.5, 1, section.desc)
+					ImGui.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
+					ImGui.Text(section.desc)
+					ImGui.PopStyleColor()
 				end
 			end
 

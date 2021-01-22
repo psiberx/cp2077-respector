@@ -11,8 +11,9 @@ local tweakDb
 local persitentState
 
 local windowWidth = 440
-local windowHeight = 400
+local windowHeight = 426
 local windowPadding = 7.5
+local footerHeight = 32
 local openKey
 
 local viewData = {
@@ -81,7 +82,7 @@ function tweaker.onUpdateEvent()
 end
 
 function tweaker.onDrawEvent()
-	if not userState.showTweaker or not userState.showWindow then
+	if not userState.showTweaker then -- or not userState.showWindow
 		return
 	end
 
@@ -106,7 +107,7 @@ function tweaker.onDrawEvent()
 			tweaker.onTweakSearchChange()
 		end
 
-		ImGui.PushStyleColor(ImGuiCol.FrameBg, 0.16, 0.29, 0.48, 0.25)
+		ImGui.PushStyleColor(ImGuiCol.FrameBg, 0.1, 0.29, 0.48, 0.25)
 		ImGui.SetNextItemWidth(windowWidth)
 		local tweakIndex, tweakChanged = ImGui.ListBox('##TweakSearchResults', viewData.activeTweakIndex, viewData.tweakSearchPreviews, #viewData.tweakSearchPreviews, 5)
 		ImGui.PopStyleColor()
@@ -170,6 +171,12 @@ function tweaker.onDrawEvent()
 
 			ImGui.PopStyleColor()
 
+			if tweak.entryMeta.comment then
+				ImGui.PushStyleColor(ImGuiCol.Text, 0xff484ad5) -- 0xff484ad5 0xff484ae6 0xff3c3dbd
+				ImGui.TextWrapped(tweak.entryMeta.comment:gsub('%%', '%%%%'))
+				ImGui.PopStyleColor()
+			end
+
 			if tweak.entryMeta.desc then
 				ImGui.PushStyleColor(ImGuiCol.Text, 0xffcccccc)
 				ImGui.TextWrapped(tweak.entryMeta.desc:gsub('%%', '%%%%'))
@@ -178,35 +185,65 @@ function tweaker.onDrawEvent()
 
 			ImGui.PopStyleVar()
 
-			if tweak.entryMeta.comment then
-				ImGui.PushStyleColor(ImGuiCol.Text, 0xff484ad5) -- 0xff484ad5 0xff484ae6 0xff3c3dbd
-				ImGui.TextWrapped(tweak.entryMeta.comment:gsub('%%', '%%%%'))
-				ImGui.PopStyleColor()
-			end
-
 			ImGui.Spacing()
-			ImGui.Separator()
 
+			-- Facts
 			if tweak.entryMeta.kind == 'Fact' then
 
+
+			-- Vehicles
 			elseif tweak.entryMeta.kind == 'Vehicle' then
+				ImGui.Spacing()
+				if tweak.vehicleUnlocked then
+					ImGui.Text('You own this vehicle.')
+				else
+					ImGui.Text('You don\'t own this vehicle yet.')
+					ImGui.Spacing()
 
-			elseif tweak.entryMeta.kind == 'Money' then
+					if ImGui.Button('Add to garage', windowWidth, 21) then
+						tweaker.onUnlockVehicleClick()
+					end
+				end
 
-			else
-				--ImGui.Text('Spawn item')
+			-- Money / Ingredients
+			elseif tweak.entryMeta.kind == 'Money' or tweak.entryMeta.kind == 'Component' then
+				local halfWidth = windowWidth / 2 - 4
 
 				ImGui.BeginGroup()
 				ImGui.Spacing()
+				ImGui.Text(tweak.isMoney and 'Transaction amount:' or 'Transaction amount:')
+				ImGui.SetNextItemWidth(halfWidth)
+				tweak.transferAmount = ImGui.InputInt('##TransferAmount', tweak.transferAmount)
+				ImGui.EndGroup()
+
+				ImGui.SameLine()
+				ImGui.BeginGroup()
+				ImGui.Text(tweak.isMoney and 'Current balance:' or 'In backpack:')
+				ImGui.SetNextItemWidth(halfWidth)
+				ImGui.PushStyleColor(ImGuiCol.FrameBg, 0.16, 0.29, 0.48, 0.25)
+				ImGui.InputText('##CurrentAmount', tostring(tweak.currentAmount), 512, ImGuiInputTextFlags.ReadOnly)
+				ImGui.PopStyleColor()
+				ImGui.EndGroup()
+
+				ImGui.Spacing()
+
+				if ImGui.Button(tweak.isMoney and 'Transfer money' or 'Acquire components', windowWidth, 21) then
+					tweaker.onTransferGoodsClick()
+				end
+
+			-- Items
+			else
+				ImGui.BeginGroup()
+				ImGui.Spacing()
 				ImGui.Text('Qty:')
-				ImGui.SetNextItemWidth(120)
-				tweak.itemQty = ImGui.InputInt('##Item Qty', tweak.itemQty or 1)
+				ImGui.SetNextItemWidth(138)
+				tweak.itemQty = ImGui.InputInt('##ItemQty', tweak.itemQty or 1)
 				ImGui.EndGroup()
 
 				ImGui.SameLine()
 				ImGui.BeginGroup()
 				ImGui.Text('Rarity:')
-				ImGui.SetNextItemWidth(150)
+				ImGui.SetNextItemWidth(168)
 				if tweak.itemCanBeUpgraded then
 					local optionIndex, optionChanged = ImGui.Combo('##ItemQuality', viewData.qualityOptionIndex, viewData.qualityOptionList, viewData.qualityOptionCount)
 					if optionChanged then
@@ -223,7 +260,7 @@ function tweaker.onDrawEvent()
 				ImGui.SameLine()
 				ImGui.BeginGroup()
 				ImGui.Text('Quest mark:')
-				ImGui.SetNextItemWidth(100)
+				ImGui.SetNextItemWidth(118)
 				if tweak.itemCanBeMarked then
 					local optionIndex, optionChanged = ImGui.Combo('##ItemQuest', viewData.questOptionIndex, viewData.questOptionList, viewData.questOptionCount)
 					if optionChanged then
@@ -232,33 +269,36 @@ function tweaker.onDrawEvent()
 					end
 				else
 					ImGui.PushStyleColor(ImGuiCol.FrameBg, 0.16, 0.29, 0.48, 0.25)
-					ImGui.InputText('##ItemQuestFixed', 'NO', 512, ImGuiInputTextFlags.ReadOnly)
+					ImGui.InputText('##ItemQuestFixed', 'N/A', 512, ImGuiInputTextFlags.ReadOnly)
 					ImGui.PopStyleColor()
 				end
 				ImGui.EndGroup()
 
 				ImGui.Spacing()
 
-				if ImGui.Button('Add to inventory', windowWidth, 19) then
+				if ImGui.Button('Add to inventory', windowWidth, 21) then
 					tweaker.onSpawnItemClick()
 				end
 
 				if tweak.itemCanBeCrafted then
 					ImGui.Spacing()
-					ImGui.Separator()
 					ImGui.Spacing()
 
 					if tweak.itemRecipeKnown then
 						ImGui.Text('You have crafting recipe for this item.')
 					else
 						ImGui.Text('This item can be crafted.')
+						ImGui.Spacing()
 
-						if ImGui.Button('Unlock crafting recipe', windowWidth, 19) then
+						if ImGui.Button('Get crafting recipe', windowWidth, 21) then
 							tweaker.onUnlockRecipeClick()
 						end
 					end
 				end
 			end
+
+			local cursorX, _ = ImGui.GetCursorPos()
+			ImGui.SetCursorPos(cursorX, windowHeight - footerHeight)
 
 			ImGui.Spacing()
 			ImGui.Separator()
@@ -266,13 +306,13 @@ function tweaker.onDrawEvent()
 			ImGui.AlignTextToFramePadding()
 
 			ImGui.PushStyleColor(ImGuiCol.FrameBg, 0)
-			ImGui.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
+			ImGui.PushStyleColor(ImGuiCol.Text, 0xff555555)
 			--ImGui.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
 			--ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
 			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, 2, 0)
 			ImGui.Text('ID:')
 			ImGui.SameLine()
-			ImGui.SetNextItemWidth(292)
+			ImGui.SetNextItemWidth(296)
 			ImGui.InputText('##Tweak Hash Name', tweak.entryMeta.type or 'N/A', 512, ImGuiInputTextFlags.ReadOnly)
 			ImGui.PopStyleVar()
 			ImGui.SameLine()
@@ -307,7 +347,7 @@ function tweaker.onTweakSearchChange()
 			table.insert(searchResults, {
 				entryKey = entryKey,
 				entryMeta = entryMeta,
-				entryOrder = tweakDb:order(entryMeta, true, ('%03X'):format(entryPos)),
+				entryOrder = tweakDb:order(entryMeta, true, ('%04X'):format(entryPos)),
 			})
 		end
 	end
@@ -335,79 +375,89 @@ end
 function tweaker.onTweakSearchResultSelect()
 	local tweak = viewData.activeTweakData
 
-	-- Quantity
+	if tweak.entryMeta.kind == 'Fact' then
 
-	if tweak.entryMeta.kind == 'Money' then
-		tweak.itemQty = 100000
-	else
-		tweak.itemQty = 1
-	end
-
-	-- Quality
-
-	if tweak.entryMeta.quality then
-		tweak.itemCanBeUpgraded = false
-		tweak.itemQuality = tweak.entryMeta.quality
-	else
-		tweak.itemCanBeUpgraded = true
-
-		-- Set max quality by default
-		if tweakDb:match(tweak.entryMeta, { kind = 'Mod', group = { 'Clothing', 'Ranged', 'Scope' } }) then
-			tweak.itemQuality = 'Epic'
-		else
-			tweak.itemQuality = 'Legendary'
-		end
-	end
-
-	-- Quest Mark
-
-	if tweak.entryMeta.quest then
-		tweak.itemCanBeMarked = true
-		tweak.itemQuestMark = true
-	else
-		tweak.itemCanBeMarked = false
-		tweak.itemQuestMark = false
-	end
-
-	-- Crafting
-
-	if tweak.entryMeta.craft then
-		tweak.itemCanBeCrafted = true
-
-		if tweak.entryMeta.craft == true then
-			tweak.itemRecipeId = tweak.entryMeta.type
-		else
-			tweak.itemRecipeId = tweak.entryMeta.craft
-		end
-
-		tweak.itemRecipeKnown = respector:usingModule('crafting', function(craftingModule)
-			return craftingModule:isRecipeKnown(craftableId)
+	elseif tweak.entryMeta.kind == 'Vehicle' then
+		tweak.vehicleUnlocked = respector:usingModule('transport', function(transportModule)
+			return transportModule:isVehicleUnlocked(tweak.entryMeta.type)
 		end)
+
+	elseif tweak.entryMeta.kind == 'Money' or tweak.entryMeta.kind == 'Component' then
+		tweak.isMoney = tweak.entryMeta.kind == 'Money'
+		tweak.transferAmount = tweak.isMoney and 100000 or 1000
+		tweak.currentAmount = tweaker.getItemAmount(tweak.entryMeta.type)
+
 	else
-		tweak.itemCanBeCrafted = false
-		tweak.itemRecipeId = nil
-		tweak.itemRecipeKnown = false
+		-- Item Quantity
+
+		tweak.itemQty = 1
+
+		-- Item Quality
+
+		if tweak.entryMeta.quality then
+			tweak.itemCanBeUpgraded = false
+			tweak.itemQuality = tweak.entryMeta.quality
+		else
+			tweak.itemCanBeUpgraded = true
+
+			-- Set max quality by default
+			if tweakDb:match(tweak.entryMeta, { kind = 'Mod', group = { 'Clothing', 'Ranged', 'Scope' } }) then
+				tweak.itemQuality = 'Epic'
+			else
+				tweak.itemQuality = 'Legendary'
+			end
+		end
+
+		-- Item Quest Mark
+
+		if tweak.entryMeta.quest then
+			tweak.itemCanBeMarked = true
+			tweak.itemQuestMark = true
+		else
+			tweak.itemCanBeMarked = false
+			tweak.itemQuestMark = false
+		end
+
+		-- Item Crafting
+
+		if tweak.entryMeta.craft then
+			tweak.itemCanBeCrafted = true
+
+			if tweak.entryMeta.craft == true then
+				tweak.itemRecipeId = tweak.entryMeta.type
+			else
+				tweak.itemRecipeId = tweak.entryMeta.craft
+			end
+
+			tweak.itemRecipeKnown = respector:usingModule('crafting', function(craftingModule)
+				return craftingModule:isRecipeKnown(craftableId)
+			end)
+		else
+			tweak.itemCanBeCrafted = false
+			tweak.itemRecipeId = nil
+			tweak.itemRecipeKnown = false
+		end
+
+		-- Item View Data
+
+		if tweak.itemCanBeUpgraded then
+			viewData.qualityOptionList = Rarity.upTo(tweak.itemQuality)
+		else
+			viewData.qualityOptionList = { tweak.itemQuality }
+		end
+
+		viewData.qualityOptionCount = #viewData.qualityOptionList
+		viewData.qualityOptionIndex = viewData.qualityOptionCount - 1
+
+		if tweak.itemCanBeMarked then
+			viewData.questOptionList = { 'Yes', 'No' }
+		else
+			viewData.questOptionList = { 'N/A' }
+		end
+
+		viewData.questOptionCount = #viewData.questOptionList
+		viewData.questOptionIndex = 0
 	end
-
-	-- View Data
-
-	if tweak.itemCanBeUpgraded then
-		viewData.qualityOptionList = Rarity.upTo(tweak.itemQuality)
-	else
-		viewData.qualityOptionList = { tweak.itemQuality }
-	end
-
-	viewData.qualityOptionCount = #viewData.qualityOptionList
-	viewData.qualityOptionIndex = viewData.qualityOptionCount - 1
-
-	if tweak.itemCanBeMarked then
-		viewData.questOptionList = { 'Yes', 'No' }
-	else
-		viewData.questOptionList = { 'N/A' }
-	end
-
-	viewData.questOptionCount = #viewData.questOptionList
-	viewData.questOptionIndex = viewData.questOptionCount - 1
 end
 
 function tweaker.onSpawnItemClick()
@@ -438,10 +488,40 @@ function tweaker.onUnlockRecipeClick()
 	tweak.itemRecipeKnown = true
 end
 
+function tweaker.onUnlockVehicleClick()
+	local tweak = viewData.activeTweakData
+
+	respector:usingModule('crafting', function(craftingModule)
+		craftingModule:addRecipe(tweak.itemRecipeId)
+	end)
+
+	tweak.itemRecipeKnown = true
+end
+
+function tweaker.onTransferGoodsClick()
+	local tweak = viewData.activeTweakData
+
+	tweaker.addItemAmount(tweak.entryMeta.type, tweak.transferAmount)
+
+	tweak.currentAmount = tweaker.getItemAmount(tweak.entryMeta.type)
+end
+
 function tweaker.onQuickButtonClick()
 	userState.showTweaker = not userState.showTweaker
 
 	persitentState:flush()
+end
+
+function tweaker.getItemAmount(itemId)
+	itemId = TweakDb.getItemId(itemId, false)
+
+	return Game.GetTransactionSystem():GetItemQuantity(Game.GetPlayer(), itemId)
+end
+
+function tweaker.addItemAmount(itemId, itemAmount)
+	itemId = TweakDb.getItemId(itemId, false)
+
+	Game.GetTransactionSystem():GiveItem(Game.GetPlayer(), itemId, itemAmount)
 end
 
 return tweaker

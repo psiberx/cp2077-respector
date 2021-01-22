@@ -38,7 +38,7 @@ local FakeToTweakDBID = function (o) return o end
 
 function TweakDb:resolve(tweakDbId)
 	if mod.env.is183() then
-		tweakDbId = self:extract(tweakDbId)
+		tweakDbId = TweakDb.extract(tweakDbId)
 	end
 
 	return self.db and self.db[self.key(tweakDbId)] or nil
@@ -46,14 +46,14 @@ end
 
 function TweakDb:resolvable(tweakDbId)
 	if mod.env.is183() then
-		tweakDbId = self:extract(tweakDbId)
+		tweakDbId = TweakDb.extract(tweakDbId)
 	end
 
 	return self.db[self.key(tweakDbId)] ~= nil
 end
 
 function TweakDb:search(term)
-	return SimpleDb.search(self, term, { name = 1, tag = 2 })
+	return SimpleDb.search(self, term, { 'name', 'tag' })
 end
 
 function TweakDb:describe(itemMeta, extended, sets, ellipsis)
@@ -86,6 +86,7 @@ function TweakDb:describe(itemMeta, extended, sets, ellipsis)
 
 	if itemMeta.quality then
 		comment = comment .. ' / ' .. itemMeta.quality
+		--comment = comment:gsub('^' .. itemMeta.quality:upper() .. ' ', '') .. ' / ' .. itemMeta.quality
 	end
 
 	return comment
@@ -133,48 +134,51 @@ function TweakDb:getQualityIndex(qualityName)
 	return qualityIndices[qualityName] or 0
 end
 
-function TweakDb:getTweakDbId(data, prefix)
-	if type(data) == 'table' then
-		return TweakDBID.new(data.hash, data.length)
+function TweakDb.getTweakId(tweakId, prefix)
+	if type(tweakId) == 'number' then
+		tweakId = TweakDb.struct(tweakId)
 	end
 
-	if type(data) == 'number' then
-		data = TweakDb.struct(data)
-
-		return TweakDBID.new(data.hash, data.length)
+	if type(tweakId) == 'table' then
+		return TweakDBID.new(tweakId.hash, tweakId.length)
 	end
 
-	if type(data) == 'string' then
-		if prefix then
-			data = str.with(data, prefix)
-		end
-
-		return TweakDBID.new(data)
+	if type(tweakId) == 'string' then
+		return TweakDBID.new(str.with(tweakId, prefix))
 	end
 
-	if type(data) == 'userdata' then
-		return data
+	if type(tweakId) == 'userdata' then
+		return tweakId
 	end
 end
 
-function TweakDb:getItemTweakDbId(data)
-	return self:getTweakDbId(data, 'Items.')
-end
-
-function TweakDb:getItemId(tweakDbId, seed)
-	if type(tweakDbId) == 'string' then
-		tweakDbId = self:getItemTweakDbId(tweakDbId)
+function TweakDb.getItemId(tweakId, seed)
+	if type(tweakId) == 'string' then
+		tweakId = TweakDb.getTweakItemId(tweakId)
 	end
 
 	if seed then
-		return ItemID.new(tweakDbId, seed)
+		return ItemID.new(tweakId, seed)
+	elseif seed == false then
+		return ItemID.new(tweakId)
 	else
-		return GetSingleton('gameItemID'):FromTDBID(tweakDbId)
-		--return ItemID.new(tweakDbId, 1)
+		return GetSingleton('gameItemID'):FromTDBID(tweakId)
 	end
 end
 
-function TweakDb:getSlotTweakDbId(slotAlias, itemMeta)
+function TweakDb.getTweakItemId(itemId)
+	return TweakDb.getTweakId(itemId, 'Items.')
+end
+
+function TweakDb.getItemAliasId(itemId)
+	return TweakDb.getTweakId(itemId, 'Items.')
+end
+
+function TweakDb.getTweakVehicleId(vehicleId)
+	return TweakDb.getTweakId(vehicleId, 'Vehicle.')
+end
+
+function TweakDb.getTweakSlotId(slotAlias, itemMeta)
 	if slotAlias == 'Muzzle' then
 		slotAlias = 'PowerModule'
 	end
@@ -200,42 +204,27 @@ function TweakDb:getSlotTweakDbId(slotAlias, itemMeta)
 	return tweakDbId
 end
 
---function TweakDb:getSlotAlias(slotType, itemMeta)
---	if type(slotType) == 'userdata' then
---		local slotMeta = self:resolve(slotType)
---
---		if type(slotMeta) == 'string' then
---			slotType = slotMeta
---		elseif type(slotMeta) == 'table' then
---			return slotMeta.name
---		else
---			return ''
---		end
---	end
---
---	local slotAlias = str.without(slotType, 'AttachmentSlots.')
---
---	if slotAlias == 'PowerModule' then
---		slotAlias = 'Muzzle'
---	end
---
---	if itemMeta and itemMeta.mod then
---		if string.match(slotAlias, '^' .. itemMeta.mod) then
---			local uniquePart = string.sub(slotAlias, string.len(itemMeta.mod) + 1)
---			if string.match(uniquePart, '^%d$') then
---				slotAlias = 'Mod' .. uniquePart
---			else
---				slotAlias = uniquePart
---			end
---		elseif slotAlias == 'ArmsCyberwareGeneralSlot' and itemMeta.kind == 'Cyberware' and itemMeta.group == 'Arms' then
---			slotAlias = 'Mod'
---		end
---	end
---
---	return slotAlias
---end
+function TweakDb.key(data)
+	if type(data) == 'number' then
+		return data
+	end
 
-function TweakDb:extract(id)
+	if type(data) == 'string' then
+		data = TweakDb.getTweakId(data)
+	end
+
+	if type(data) == 'table' or type(data) == 'userdata' then
+		return (data.length << 32 | data.hash)
+	end
+
+	return 0
+end
+
+function TweakDb.struct(key)
+	return { hash = key & 0xFFFFFFFF, length = key >> 32 }
+end
+
+function TweakDb.extract(id)
 	if mod.env.is183() then
 		ToItemID = FakeToItemID
 		ToTweakDBID = FakeToTweakDBID
@@ -257,14 +246,6 @@ function TweakDb:extract(id)
 	end
 
 	return id
-end
-
-function TweakDb.key(struct)
-	return (struct.length << 32 | struct.hash)
-end
-
-function TweakDb.struct(key)
-	return { hash = key & 0xFFFFFFFF, length = key >> 32 }
 end
 
 return TweakDb

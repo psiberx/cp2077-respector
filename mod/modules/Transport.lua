@@ -33,7 +33,7 @@ end
 
 function TransportModule:applySpec(specData)
 	if specData.Vehicles then
-		self:setVehicles(specData.Vehicles)
+		self:unlockVehicles(specData.Vehicles)
 	end
 end
 
@@ -70,10 +70,28 @@ function TransportModule:getVehicles()
 	return vehicleSpecs
 end
 
-function TransportModule:setVehicles(vehicles)
+function TransportModule:unlockVehicle(vehicle)
+	self.vehicleSystem:EnablePlayerVehicle(str.with(vehicle, 'Vehicle.'), true, false)
+end
+
+function TransportModule:unlockVehicles(vehicles)
 	for _, vehicle in ipairs(vehicles) do
-		self.vehicleSystem:EnablePlayerVehicle(str.with(vehicle, 'Vehicle.', true, false))
+		self:unlockVehicle(vehicle)
 	end
+end
+
+function TransportModule:isVehicleUnlocked(vehicle)
+	local tweakDbId = TweakDb.getTweakId(str.with(vehicle, 'Vehicle.'))
+
+	local vehicles = self.vehicleSystem:GetPlayerUnlockedVehicles()
+
+	for _, vehicle in ipairs(vehicles) do
+		if tostring(tweakDbId) == tostring(vehicle.recordID) then
+			return true
+		end
+	end
+
+	return false
 end
 
 return TransportModule
