@@ -73,6 +73,8 @@ function CharacterModule:applySpec(specData)
 				self:setPoints(specData.Character.Points, specData.Character.Perks)
 			end)
 		end
+
+		--self:triggerAutoScaling()
 	end
 end
 
@@ -223,6 +225,17 @@ function CharacterModule:setPerks(perkSpecs)
 				end
 			end
 		end
+	end
+end
+
+function CharacterModule:triggerAutoScaling()
+	--local currentLevel = Game.GetStatsSystem():GetStatValue(Game.GetPlayer():GetEntityID(), 'Level')
+	local currentLevel = self.statsSystem:GetStatValue(self.playerId, 'Level')
+
+	Game.SetLevel('Level', currentLevel)
+
+	if mod.debug then
+		print(('[DEBUG] Respector: Auto-scale items updated to level %d.'):format(currentLevel))
 	end
 end
 

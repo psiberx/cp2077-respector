@@ -44,7 +44,7 @@ local viewData = {
 	rarityFilterCount = #rarityFilterList,
 
 	itemFormatIndex = 0,
-	itemFormatList = 'Use item name\0Use hash + length\0',
+	itemFormatList = 'Use hash name\0Use hash + length\0',
 	itemFormatCount = #itemFormatList,
 
 	keepSeedIndex = 0,
@@ -317,7 +317,12 @@ function gui.onDrawEvent()
 			-- Loading: Recent Specs
 			ImGui.Text('Recently saved / loaded specs:')
 			ImGui.SetNextItemWidth(340)
+			ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
+			ImGui.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
+			ImGui.PushStyleColor(ImGuiCol.FrameBg, 0) -- 0.16, 0.29, 0.48, 0.1
 			local lastSpecIndex = ImGui.ListBox('##Load Recent Specs', -1, viewData.specHistoryList, #viewData.specHistoryList, 14)
+			ImGui.PopStyleColor(2)
+			ImGui.PopStyleVar()
 			if lastSpecIndex >= 0 then
 				userState.specNameLoad = str.padnul(userState.specHistory[lastSpecIndex + 1].specName, maxInputLen)
 				lastSpecIndex = -1

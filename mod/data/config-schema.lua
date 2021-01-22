@@ -122,7 +122,7 @@ return {
 					name = "itemFormat",
 					comment = {
 						"The preferred ItemID format for use in item specs:",
-						"\"auto\" - Use item name whenever possible.",
+						"\"auto\" - Use hash name whenever possible.",
 						"\"hash\" - Always use a struct with hash and length values (eg. `{ hash = 0x026C324A, length = 27 }`).",
 					},
 					default = "auto",

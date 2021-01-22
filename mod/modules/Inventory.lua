@@ -1,5 +1,5 @@
 local mod = ...
-local str = mod.require('mod/utils/str')
+local Quality = mod.require('mod/enums/Quality')
 local RarityFilter = mod.require('mod/enums/RarityFilter')
 local TweakDb = mod.require('mod/helpers/TweakDb')
 local SimpleDb = mod.require('mod/helpers/SimpleDb')
@@ -74,18 +74,12 @@ function InventoryModule:fillSpec(specData, specOptions)
 end
 
 function InventoryModule:applySpec(specData)
-	local inventoryUpdated = false
 	local inventoryNodes = { 'Inventory', 'Equipment', 'Cyberware', 'Backpack' }
 
 	for _, inventoryNode in ipairs(inventoryNodes) do
 		if specData[inventoryNode] then
 			self:addItems(specData[inventoryNode])
-			inventoryUpdated = true
 		end
-	end
-
-	if inventoryUpdated then
-		self:updateAutoScalingItems()
 	end
 end
 
@@ -138,9 +132,8 @@ function InventoryModule:getBackpackItems(specOptions)
 
 		if extraCriteria then
 			if extraCriteria.quality ~= nil and not itemMatch then
-				local itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
-				local itemQualityIndex = self.tweakDb:getQualityIndex(itemQuality)
-				local criteriaQualityIndex = self.tweakDb:getQualityIndex(extraCriteria.quality)
+				local itemQualityIndex = Quality.toValue(self.gameRPGManager:GetItemDataQuality(itemData).value)
+				local criteriaQualityIndex = Quality.toValue(extraCriteria.quality)
 				if itemQualityIndex >= criteriaQualityIndex then
 					itemMatch = true
 				end
@@ -185,7 +178,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 		-- Sometimes equipment system bugs out and gives ItemID for an actually empty slot.
 		-- When this happens, GetItemData() will return nil, so we have to check that.
 		if itemData ~= nil then
-			local itemKey = TweakDb.key(itemId.tdbid)
+			local itemKey = TweakDb.toKey(itemId.tdbid)
 			local itemMeta = self.tweakDb:resolve(itemKey)
 			local itemQty = self.transactionSystem:GetItemQuantity(self.player, itemId)
 			local itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
@@ -221,9 +214,9 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 				if itemMeta ~= nil then
 					if itemMeta.type == '' or specOptions.itemFormat == 'hash' then
-						itemSpec.id = TweakDb.struct(itemKey)
+						itemSpec.id = TweakDb.toStruct(itemKey)
 					else
-						itemSpec.id = str.without(itemMeta.type, 'Items.')
+						itemSpec.id = TweakDb.toItemAlias(itemMeta.type)
 					end
 
 					if itemMeta.rng or specOptions.keepSeed == 'always' then
@@ -237,7 +230,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 					itemSpec._comment = self.tweakDb:describe(itemMeta, true)
 					itemSpec._order = self.tweakDb:order(itemMeta, true)
 				else
-					itemSpec.id = TweakDb.struct(itemKey)
+					itemSpec.id = TweakDb.toStruct(itemKey)
 					itemSpec.seed = itemId.rng_seed
 					itemSpec.upgrade = itemQuality
 					itemSpec._comment = '???'
@@ -271,7 +264,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 				if not itemMeta or (itemMeta.kind ~= 'Mod' and itemMeta.kind ~= 'Quickhack') then
 					for _, slotMeta in ipairs(self.attachmentSlots) do
-						local slotId = TweakDb.getTweakSlotId(slotMeta.type)
+						local slotId = self.tweakDb:toSlotTweakId(slotMeta.type)
 
 						if itemData:HasPartInSlot(slotId) then
 							if itemSpec.slots == nil then
@@ -291,9 +284,9 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 							if partMeta ~= nil then
 								if specOptions.itemFormat == 'hash' then
-									partSpec.id = TweakDb.extract(partId.tdbid)
+									partSpec.id = TweakDb.toStruct(partId.tdbid)
 								else
-									partSpec.id = str.without(partMeta.type, 'Items.')
+									partSpec.id = TweakDb.toItemAlias(partMeta.type)
 								end
 
 								if partMeta.rng or specOptions.keepSeed == 'always' then
@@ -306,7 +299,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 								partSpec._comment = self.tweakDb:describe(partMeta)
 							else
-								partSpec.id = TweakDb.extract(partId.tdbid)
+								partSpec.id = TweakDb.toStruct(partId.tdbid)
 								partSpec.seed = partId.rng_seed
 								partSpec.upgrade = partQuality
 								partSpec._comment = '???'
@@ -341,7 +334,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 				table.insert(itemSpecs, itemSpec)
 
-				itemSpecsByTweakDbId[TweakDb.key(itemId.tdbid)] = itemSpec
+				itemSpecsByTweakDbId[TweakDb.toKey(itemId.tdbid)] = itemSpec
 			end
 		end
 	end
@@ -363,13 +356,9 @@ function InventoryModule:appendStatsComment(itemSpec, itemMeta, itemData)
 end
 
 function InventoryModule:addItems(itemSpecs)
-	self.tweakDb:load('mod/data/tweakdb-meta')
-
 	for _, itemSpec in ipairs(itemSpecs) do
 		self:addItem(itemSpec)
 	end
-
-	self.tweakDb:unload()
 end
 
 function InventoryModule:addItem(itemSpec)
@@ -379,7 +368,7 @@ function InventoryModule:addItem(itemSpec)
 
 	-- Resolve item
 
-	local tweakId = TweakDb.getTweakItemId(itemSpec.id)
+	local tweakId = TweakDb.toItemTweakId(itemSpec.id)
 	local itemMeta = self.tweakDb:resolve(tweakId) or { rng = true }
 	local itemId, itemCopy
 
@@ -402,7 +391,7 @@ function InventoryModule:addItem(itemSpec)
 	end
 
 	for _ = 1, itemCopy do
-		itemId = TweakDb.getItemId(tweakId, itemSpec.seed)
+		itemId = TweakDb.toItemId(tweakId, itemSpec.seed)
 
 		local itemEquip = itemSpec.equip == true or type(itemSpec.equip) == 'number'
 		local itemEquipIndex = itemSpec.equip and math.max(1, type(itemSpec.equip) == 'number' and itemSpec.equip or 1)
@@ -432,9 +421,10 @@ function InventoryModule:addItem(itemSpec)
 
 		-- Manage mods and attachments
 
-		if itemSpec.kind == 'Weapon' or itemSpec.kind == 'Clothing' or itemSpec.kind == 'Cyberware' then
+		if itemMeta.kind == 'Weapon' or itemMeta.kind == 'Clothing' or itemMeta.kind == 'Cyberware' then
+
 			for _, slotMeta in ipairs(self.attachmentSlots) do
-				local slotId = TweakDb.getTweakId(slotMeta.type)
+				local slotId = TweakDb.toTweakId(slotMeta.type)
 
 				if itemData:HasPartInSlot(slotId) then
 					local partItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
@@ -458,7 +448,7 @@ function InventoryModule:addItem(itemSpec)
 					end
 
 					if slotSpec.slot and slotSpec.id then
-						local slotId = TweakDb.getTweakSlotId(slotSpec.slot, itemMeta)
+						local slotId = self.tweakDb:toSlotTweakId(slotSpec.slot, itemMeta)
 						local partItemId = self:addItem(slotSpec)
 
 						self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)
@@ -467,7 +457,11 @@ function InventoryModule:addItem(itemSpec)
 			end
 		end
 
-		-- Upgrade item
+		-- Keep item up to level
+
+		self.craftingSystem:SetItemLevel(itemData)
+
+		-- Upgrade item quality
 
 		if itemSpec.upgrade ~= nil and itemSpec.upgrade ~= false then
 			local itemQuality
@@ -478,7 +472,6 @@ function InventoryModule:addItem(itemSpec)
 				itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
 			end
 
-			self.craftingSystem:SetItemLevel(itemData)
 			self.forceItemQuality(self.player, itemData, CName.new(itemQuality))
 		end
 
@@ -550,17 +543,6 @@ end
 function InventoryModule:forceEquipItem(itemId, slotIndex)
 	self:unequipItem(itemId)
 	self:equipItem(itemId, slotIndex)
-end
-
-function InventoryModule:updateAutoScalingItems()
-	local currentLevel = Game.GetStatsSystem():GetStatValue(Game.GetPlayer():GetEntityID(), 'Level')
-
-	-- This triggers the items with auto-scaling feature to update to the current character level
-	Game.SetLevel('Level', currentLevel)
-
-	if mod.debug then
-		print(('[DEBUG] Respector: Auto-scale items updated to level %d.'):format(currentLevel))
-	end
 end
 
 return InventoryModule

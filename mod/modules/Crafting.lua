@@ -1,5 +1,4 @@
 local mod = ...
-local str = mod.require('mod/utils/str')
 local TweakDb = mod.require('mod/helpers/TweakDb')
 
 local CraftingModule = {}
@@ -103,7 +102,7 @@ function CraftingModule:getRecipes()
 			if itemMeta.type == '' then
 				recipeSpec[1] = itemKey
 			else
-				recipeSpec[1] = str.without(itemMeta.type, 'Items.')
+				recipeSpec[1] = TweakDb.toItemAlias(itemMeta.type)
 			end
 
 			recipeSpec._comment = self.tweakDb:describe(itemMeta)
@@ -124,16 +123,16 @@ function CraftingModule:getRecipes()
 	return recipeSpecs
 end
 
-function CraftingModule:isRecipeKnown(tweakDbId)
-	tweakDbId = TweakDb.getTweakItemId(tweakDbId)
+function CraftingModule:isRecipeKnown(tweakId)
+	tweakId = TweakDb.toItemTweakId(tweakId)
 
-	return self.craftingSystem:IsRecipeKnown(tweakDbId, self.playerCraftBook)
+	return self.craftingSystem:IsRecipeKnown(tweakId, self.playerCraftBook)
 end
 
-function CraftingModule:addRecipe(tweakDbId)
-	tweakDbId = TweakDb.getTweakItemId(tweakDbId)
+function CraftingModule:addRecipe(tweakId)
+	tweakId = TweakDb.toItemTweakId(tweakId)
 
-	self.playerCraftBook:AddRecipe(tweakDbId, {}, 1)
+	self.playerCraftBook:AddRecipe(tweakId, {}, 1)
 end
 
 function CraftingModule:addRecipes(recipeSpecs)

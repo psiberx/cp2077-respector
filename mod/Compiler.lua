@@ -1,6 +1,7 @@
 local mod = ...
 local str = mod.load('mod/utils/str')
 local crc32 = mod.load('mod/utils/crc32')
+local Quality = mod.load('mod/enums/Quality')
 
 local Compiler = {}
 Compiler.__index = Compiler
@@ -43,7 +44,7 @@ function Compiler:rehashTweakDbNames(namesListPath, hashNamesDbPath, hashNamesCs
 	for name in fin:lines() do
 		local hash = crc32.hash(name)
 		local length = string.len(name)
-		local key = TweakDb.key({ hash = hash, length = length })
+		local key = TweakDb.toKey({ hash = hash, length = length })
 
 		fdb:write(string.format('[0x%016X] = %q, -- { hash = 0x%X, length = %d }\n', key, name, hash, length))
 		fcsv:write(string.format('"0x%016X",%q\n', key, name))
@@ -100,7 +101,7 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 					--end
 				end
 
-				itemSpec.id = str.without(itemMeta.type, 'Items.')
+				itemSpec.id = TweakDb.toItemAlias(itemMeta.type)
 
 				if samplePack.items.kind == 'Cyberware' then
 					local itemSlots = {}
@@ -110,7 +111,7 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 							local matched = true
 
 							if itemMeta.group2 == 'Cyberdeck' then
-								local slotsNum = tweakDb:getQualityIndex(itemMeta.quality) + 1
+								local slotsNum = Quality.toValue(itemMeta.quality) + 1
 
 								if partSlot.index > slotsNum then
 									matched = false

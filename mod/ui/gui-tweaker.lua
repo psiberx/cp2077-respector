@@ -1,7 +1,7 @@
 local mod = ...
 local str = mod.require('mod/utils/str')
 local array = mod.require('mod/utils/array')
-local Rarity = mod.require('mod/enums/Rarity')
+local Quality = mod.require('mod/enums/Quality')
 local TweakDb = mod.require('mod/helpers/TweakDb')
 
 local tweaker = {}
@@ -11,14 +11,18 @@ local tweakDb
 local persitentState
 
 local windowWidth = 440
-local windowHeight = 426
+local windowHeightShort = 152
+local windowHeightFull = 426
 local windowPadding = 7.5
 local footerHeight = 32
 local openKey
 
 local viewData = {
+	justOpened = true,
+
 	tweakSearch = nil,
 	tweakSearchMaxLen = 32,
+	tweakSearchStarted = false,
 	tweakSearchMaxResults = 50,
 	tweakSearchResults = nil,
 	tweakSearchPreviews = nil,
@@ -60,13 +64,16 @@ function tweaker.initState(force)
 	if not userState.tweakSearch or force then
 		userState.showTweaker = false
 		userState.expandTweaker = true
-		viewData.tweakSearch = str.padnul('', viewData.tweakSearchMaxLen)
-	else
-		viewData.tweakSearch = userState.tweakSearch
+	--	viewData.tweakSearch = str.padnul('', viewData.tweakSearchMaxLen)
+	--else
+	--	viewData.tweakSearch = userState.tweakSearch
 	end
 
 	-- Trigger search
 	userState.tweakSearch = ''
+
+	viewData.tweakSearch = str.padnul('', viewData.tweakSearchMaxLen)
+	viewData.tweakSearchStarted = false
 
 	viewData.tweakSearchResults = {}
 	viewData.tweakSearchPreviews = {}
@@ -77,7 +84,7 @@ end
 
 function tweaker.onUpdateEvent()
 	if ImGui.IsKeyPressed(openKey, false) then
-		userState.showTweaker = not userState.showTweaker
+		tweaker.onQuickButtonClick()
 	end
 end
 
@@ -86,6 +93,8 @@ function tweaker.onDrawEvent()
 		return
 	end
 
+	local windowHeight = viewData.activeTweakData and windowHeightFull or windowHeightShort
+
 	ImGui.SetNextWindowPos(365, 400, ImGuiCond.FirstUseEver)
 	ImGui.SetNextWindowSize(windowWidth + (windowPadding * 2), windowHeight)
 	--ImGui.SetNextWindowCollapsed(false)
@@ -93,12 +102,21 @@ function tweaker.onDrawEvent()
 	userState.showTweaker, userState.expandTweaker = ImGui.Begin('Quick Tweaks', userState.showTweaker, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
 
 	if userState.showTweaker and userState.expandTweaker then
-		ImGui.Spacing()
+
+		if viewData.justOpened then
+			ImGui.SetKeyboardFocusHere()
+			viewData.justOpened = false
+		end
 
 		ImGui.SetNextItemWidth(windowWidth)
-		viewData.tweakSearch = ImGui.InputTextWithHint('##TweakSearch', 'Search database... (at least 2 characters)', viewData.tweakSearch, viewData.tweakSearchMaxLen)
+		ImGui.PushStyleColor(ImGuiCol.TextDisabled, 0xffaaaaaa)
+		viewData.tweakSearch = ImGui.InputTextWithHint('##TweakSearch', 'Search database...', viewData.tweakSearch, viewData.tweakSearchMaxLen)
+		--ImGui.SetItemDefaultFocus(0)
+		ImGui.PopStyleColor()
 
 		if viewData.tweakSearch ~= userState.tweakSearch then
+			viewData.tweakSearchResults = {}
+			viewData.tweakSearchPreviews = {}
 			viewData.activeTweakIndex = -1
 			viewData.activeTweakData = nil
 
@@ -107,21 +125,40 @@ function tweaker.onDrawEvent()
 			tweaker.onTweakSearchChange()
 		end
 
-		ImGui.PushStyleColor(ImGuiCol.FrameBg, 0.1, 0.29, 0.48, 0.25)
-		ImGui.SetNextItemWidth(windowWidth)
-		local tweakIndex, tweakChanged = ImGui.ListBox('##TweakSearchResults', viewData.activeTweakIndex, viewData.tweakSearchPreviews, #viewData.tweakSearchPreviews, 5)
-		ImGui.PopStyleColor()
+		ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
+		ImGui.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
+		ImGui.PushStyleColor(ImGuiCol.FrameBg, 0.16, 0.29, 0.48, 0) -- 0.16, 0.29, 0.48, 0.1
 
-		if tweakChanged then
-			viewData.activeTweakIndex = tweakIndex
-			viewData.activeTweakData = viewData.tweakSearchResults[tweakIndex + 1] or nil
+		if #viewData.tweakSearchResults > 0 then
+			ImGui.SetNextItemWidth(windowWidth)
+			local tweakIndex, tweakChanged = ImGui.ListBox('##TweakSearchResults', viewData.activeTweakIndex, viewData.tweakSearchPreviews, #viewData.tweakSearchPreviews, 5)
 
-			tweaker.onTweakSearchResultSelect()
+			if tweakChanged then
+				viewData.activeTweakIndex = tweakIndex
+				viewData.activeTweakData = viewData.tweakSearchResults[tweakIndex + 1] or nil
+
+				tweaker.onTweakSearchResultSelect()
+			end
+		else
+			ImGui.BeginChildFrame(1, windowWidth, 95) -- , ImGuiWindowFlags.NoBackgroun
+			ImGui.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
+
+			if viewData.tweakSearchStarted then
+				ImGui.TextWrapped('No results for your request.')
+			else
+				ImGui.TextWrapped('Start typing in the search bar (at least 2 characters) to find items, vehicles, valuables, quest facts, and more.')
+				ImGui.TextWrapped('Then select an entry to get the available tweaks.')
+			end
+
+			ImGui.PopStyleColor()
+			ImGui.EndChildFrame()
 		end
 
-		ImGui.SetCursorPos(8, 153) -- Fix for inconsistent height of ListBox
+		ImGui.PopStyleColor(2)
+		ImGui.PopStyleVar()
 
-		ImGui.Spacing()
+		ImGui.SetCursorPos(8, 152) -- Fix for inconsistent height of ListBox
+
 		ImGui.Separator()
 		ImGui.Spacing()
 
@@ -131,7 +168,7 @@ function tweaker.onDrawEvent()
 			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, 4, 2)
 
 			if tweak.entryMeta.quality then
-				ImGui.PushStyleColor(ImGuiCol.Text, Rarity.toColor(tweak.entryMeta.quality))
+				ImGui.PushStyleColor(ImGuiCol.Text, Quality.toColor(tweak.entryMeta.quality))
 			end
 
 			ImGui.Text(tweak.entryMeta.name)
@@ -191,7 +228,7 @@ function tweaker.onDrawEvent()
 			if tweak.entryMeta.kind == 'Fact' then
 
 
-			-- Vehicles
+				-- Vehicles
 			elseif tweak.entryMeta.kind == 'Vehicle' then
 				ImGui.Spacing()
 				if tweak.vehicleUnlocked then
@@ -205,7 +242,7 @@ function tweaker.onDrawEvent()
 					end
 				end
 
-			-- Money / Ingredients
+				-- Money / Ingredients
 			elseif tweak.entryMeta.kind == 'Money' or tweak.entryMeta.kind == 'Component' then
 				local halfWidth = windowWidth / 2 - 4
 
@@ -231,7 +268,7 @@ function tweaker.onDrawEvent()
 					tweaker.onTransferGoodsClick()
 				end
 
-			-- Items
+				-- Items
 			else
 				ImGui.BeginGroup()
 				ImGui.Spacing()
@@ -242,7 +279,7 @@ function tweaker.onDrawEvent()
 
 				ImGui.SameLine()
 				ImGui.BeginGroup()
-				ImGui.Text('Rarity:')
+				ImGui.Text('Quality:')
 				ImGui.SetNextItemWidth(168)
 				if tweak.itemCanBeUpgraded then
 					local optionIndex, optionChanged = ImGui.Combo('##ItemQuality', viewData.qualityOptionIndex, viewData.qualityOptionList, viewData.qualityOptionCount)
@@ -330,13 +367,16 @@ function tweaker.onDrawEvent()
 end
 
 function tweaker.onTweakSearchChange()
-	persitentState:flush()
+	--persitentState:flush()
 
 	local searchTerm = str.stripnul(userState.tweakSearch)
 
 	if searchTerm:len() < 2 then
+		viewData.tweakSearchStarted = false
 		return
 	end
+
+	viewData.tweakSearchStarted = true
 
 	tweakDb:load('mod/data/tweakdb-meta')
 
@@ -441,7 +481,7 @@ function tweaker.onTweakSearchResultSelect()
 		-- Item View Data
 
 		if tweak.itemCanBeUpgraded then
-			viewData.qualityOptionList = Rarity.upTo(tweak.itemQuality)
+			viewData.qualityOptionList = Quality.upTo(tweak.itemQuality)
 		else
 			viewData.qualityOptionList = { tweak.itemQuality }
 		end
@@ -473,9 +513,7 @@ function tweaker.onSpawnItemClick()
 		itemSpec.quest = false
 	end
 
-	respector:applySpecData({
-		Inventory = { itemSpec }
-	})
+	respector:applySpecData({ Backpack = { itemSpec } })
 end
 
 function tweaker.onUnlockRecipeClick()
@@ -491,11 +529,11 @@ end
 function tweaker.onUnlockVehicleClick()
 	local tweak = viewData.activeTweakData
 
-	respector:usingModule('crafting', function(craftingModule)
-		craftingModule:addRecipe(tweak.itemRecipeId)
+	respector:usingModule('transport', function(transportModule)
+		return transportModule:unlockVehicle(tweak.entryMeta.type)
 	end)
 
-	tweak.itemRecipeKnown = true
+	tweak.vehicleUnlocked = true
 end
 
 function tweaker.onTransferGoodsClick()
@@ -508,18 +546,19 @@ end
 
 function tweaker.onQuickButtonClick()
 	userState.showTweaker = not userState.showTweaker
+	viewData.justOpened = userState.showTweaker
 
 	persitentState:flush()
 end
 
 function tweaker.getItemAmount(itemId)
-	itemId = TweakDb.getItemId(itemId, false)
+	itemId = TweakDb.toItemId(itemId, false)
 
 	return Game.GetTransactionSystem():GetItemQuantity(Game.GetPlayer(), itemId)
 end
 
 function tweaker.addItemAmount(itemId, itemAmount)
-	itemId = TweakDb.getItemId(itemId, false)
+	itemId = TweakDb.toItemId(itemId, false)
 
 	Game.GetTransactionSystem():GiveItem(Game.GetPlayer(), itemId, itemAmount)
 end

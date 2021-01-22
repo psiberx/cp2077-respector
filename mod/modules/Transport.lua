@@ -52,7 +52,7 @@ function TransportModule:getVehicles()
 
 		local vehicleSpec = {}
 
-		vehicleSpec[1] = str.without(vehicleMeta.type, 'Vehicle.')
+		vehicleSpec[1] = TweakDb.toVehicleAlias(vehicleMeta.type)
 		vehicleSpec._comment = self.tweakDb:describe(vehicleMeta)
 		vehicleSpec._order = self.tweakDb:order(vehicleMeta)
 
@@ -71,7 +71,9 @@ function TransportModule:getVehicles()
 end
 
 function TransportModule:unlockVehicle(vehicle)
-	self.vehicleSystem:EnablePlayerVehicle(str.with(vehicle, 'Vehicle.'), true, false)
+	local vehicleType = TweakDb.toVehicleType(vehicle)
+
+	self.vehicleSystem:EnablePlayerVehicle(vehicleType, true, false)
 end
 
 function TransportModule:unlockVehicles(vehicles)
@@ -81,12 +83,12 @@ function TransportModule:unlockVehicles(vehicles)
 end
 
 function TransportModule:isVehicleUnlocked(vehicle)
-	local tweakDbId = TweakDb.getTweakId(str.with(vehicle, 'Vehicle.'))
+	local tweakId = TweakDb.toVehicleTweakId(vehicle)
 
 	local vehicles = self.vehicleSystem:GetPlayerUnlockedVehicles()
 
 	for _, vehicle in ipairs(vehicles) do
-		if tostring(tweakDbId) == tostring(vehicle.recordID) then
+		if tostring(tweakId) == tostring(vehicle.recordID) then
 			return true
 		end
 	end

@@ -1,19 +1,12 @@
 local mod = ...
 local str = mod.require('mod/utils/str')
+local Quality = mod.require('mod/enums/Quality')
 local SimpleDb = mod.require('mod/helpers/SimpleDb')
 
 local TweakDb = {}
 TweakDb.__index = TweakDb
 
 setmetatable(TweakDb, { __index = SimpleDb })
-
-local qualityIndices = {
-	['Common'] = 1,
-	['Uncommon'] = 2,
-	['Rare'] = 3,
-	['Epic'] = 4,
-	['Legendary'] = 5,
-}
 
 local kindOrders = {
 	['Weapon'] = 1,
@@ -36,20 +29,16 @@ local FakeToItemID = function (o) return o end
 local RealToTweakDBID = ToTweakDBID
 local FakeToTweakDBID = function (o) return o end
 
-function TweakDb:resolve(tweakDbId)
-	if mod.env.is183() then
-		tweakDbId = TweakDb.extract(tweakDbId)
-	end
+function TweakDb:resolve(tweakId)
+	local key = TweakDb.toKey(tweakId)
 
-	return self.db and self.db[self.key(tweakDbId)] or nil
+	return self.db and self.db[key] or nil
 end
 
-function TweakDb:resolvable(tweakDbId)
-	if mod.env.is183() then
-		tweakDbId = TweakDb.extract(tweakDbId)
-	end
+function TweakDb:resolvable(tweakId)
+	local key = TweakDb.toKey(tweakId)
 
-	return self.db[self.key(tweakDbId)] ~= nil
+	return self.db[key] ~= nil
 end
 
 function TweakDb:search(term)
@@ -114,29 +103,82 @@ function TweakDb:order(itemMeta, orderKind, orderPrefix)
 	end
 
 	if itemMeta.name then
-		order = order .. string.upper(itemMeta.name)
+		order = order .. itemMeta.name
 	else
-		order = order .. string.upper(str.without(itemMeta.type, 'Items.'))
+		order = order .. TweakDb.toItemAlias(itemMeta.type)
 	end
 
 	if itemMeta.quality then
-		order = order .. '|' .. self:getQualityIndex(itemMeta.quality)
+		order = order .. '|' .. Quality.toValue(itemMeta.quality)
+		--order = order .. '|' .. (Quality.maxValue() - Quality.toValue(itemMeta.quality))
 	end
 
-	return order
+	return string.upper(order)
 end
 
 function TweakDb:sort(items)
 	SimpleDb.sort(self, items, '_order')
 end
 
-function TweakDb:getQualityIndex(qualityName)
-	return qualityIndices[qualityName] or 0
+function TweakDb.toKey(data)
+	if type(data) == 'number' then
+		return data
+	end
+
+	if type(data) == 'string' then
+		data = TweakDb.toTweakId(data)
+	end
+
+	if type(data) == 'userdata' then
+		data = TweakDb.extract(data)
+	end
+
+	if type(data) == 'table' then
+		return (data.length << 32 | data.hash)
+	end
+
+	return 0
 end
 
-function TweakDb.getTweakId(tweakId, prefix)
+function TweakDb.toStruct(data)
+	if type(data) == 'table' then
+		return data
+	end
+
+	if type(data) == 'number' then
+		return { hash = data & 0xFFFFFFFF, length = data >> 32 }
+	end
+
+	if type(data) == 'string' then
+		data = TweakDb.toTweakId(data)
+	end
+
+	if type(data) == 'userdata' then
+		return TweakDb.extract(data)
+	end
+
+	return nil
+end
+
+function TweakDb.toType(tweakId, prefix)
+	if type(tweakId) == 'string' then
+		return str.with(tweakId, prefix)
+	end
+
+	return ''
+end
+
+function TweakDb.toAlias(tweakId, prefix)
+	if type(tweakId) == 'string' then
+		return str.without(tweakId, prefix)
+	end
+
+	return ''
+end
+
+function TweakDb.toTweakId(tweakId, prefix)
 	if type(tweakId) == 'number' then
-		tweakId = TweakDb.struct(tweakId)
+		tweakId = TweakDb.toStruct(tweakId)
 	end
 
 	if type(tweakId) == 'table' then
@@ -152,9 +194,9 @@ function TweakDb.getTweakId(tweakId, prefix)
 	end
 end
 
-function TweakDb.getItemId(tweakId, seed)
+function TweakDb.toItemId(tweakId, seed)
 	if type(tweakId) == 'string' then
-		tweakId = TweakDb.getTweakItemId(tweakId)
+		tweakId = TweakDb.toItemTweakId(tweakId)
 	end
 
 	if seed then
@@ -166,27 +208,39 @@ function TweakDb.getItemId(tweakId, seed)
 	end
 end
 
-function TweakDb.getTweakItemId(itemId)
-	return TweakDb.getTweakId(itemId, 'Items.')
+function TweakDb.toItemTweakId(tweakId)
+	return TweakDb.toTweakId(tweakId, 'Items.')
 end
 
-function TweakDb.getItemAliasId(itemId)
-	return TweakDb.getTweakId(itemId, 'Items.')
+function TweakDb.toItemType(alias)
+	return TweakDb.toType(alias, 'Items.')
 end
 
-function TweakDb.getTweakVehicleId(vehicleId)
-	return TweakDb.getTweakId(vehicleId, 'Vehicle.')
+function TweakDb.toItemAlias(type)
+	return TweakDb.toAlias(type, 'Items.')
 end
 
-function TweakDb.getTweakSlotId(slotAlias, itemMeta)
+function TweakDb.toVehicleTweakId(tweakId)
+	return TweakDb.toTweakId(tweakId, 'Vehicle.')
+end
+
+function TweakDb.toVehicleType(alias)
+	return TweakDb.toType(alias, 'Vehicle.')
+end
+
+function TweakDb.toVehicleAlias(type)
+	return TweakDb.toAlias(type, 'Vehicle.')
+end
+
+function TweakDb:toSlotTweakId(slotAlias, itemMeta)
 	if slotAlias == 'Muzzle' then
 		slotAlias = 'PowerModule'
 	end
 
 	local slotName = str.with(slotAlias, 'AttachmentSlots.')
-	local tweakDbId = TweakDBID.new(slotName)
+	local tweakId = TweakDBID.new(slotName)
 
-	if itemMeta and itemMeta.mod and not self:resolvable(tweakDbId) then
+	if itemMeta and itemMeta.mod and not self:resolvable(tweakId) then
 		if slotAlias == 'Mod' and itemMeta.kind == 'Cyberware' and itemMeta.group == 'Arms' then
 			slotName = 'AttachmentSlots.ArmsCyberwareGeneralSlot'
 		else
@@ -198,54 +252,34 @@ function TweakDb.getTweakSlotId(slotAlias, itemMeta)
 			end
 		end
 
-		tweakDbId = TweakDBID.new(slotName)
+		tweakId = TweakDBID.new(slotName)
 	end
 
-	return tweakDbId
+	return tweakId
 end
 
-function TweakDb.key(data)
-	if type(data) == 'number' then
-		return data
-	end
-
-	if type(data) == 'string' then
-		data = TweakDb.getTweakId(data)
-	end
-
-	if type(data) == 'table' or type(data) == 'userdata' then
-		return (data.length << 32 | data.hash)
-	end
-
-	return 0
-end
-
-function TweakDb.struct(key)
-	return { hash = key & 0xFFFFFFFF, length = key >> 32 }
-end
-
-function TweakDb.extract(id)
+function TweakDb.extract(data)
 	if mod.env.is183() then
 		ToItemID = FakeToItemID
 		ToTweakDBID = FakeToTweakDBID
 
-		local data = (load('return ' .. tostring(id)))()
+		local struct = (load('return ' .. tostring(data)))()
 
 		ToItemID = RealToItemID
 		ToTweakDBID = RealToTweakDBID
 
-		return data
+		return struct
 	end
 
-	if id.id then
-		return { id = { id.id.hash, length = id.id.length }, rng_seed = id.rng_seed }
+	if data.hash then
+		return { hash = data.hash, length = data.length }
 	end
 
-	if id.hash then
-		return { hash = id.hash, length = id.length }
+	if data.id then
+		return { id = { data.id.hash, length = data.id.length }, rng_seed = data.rng_seed }
 	end
 
-	return id
+	return data
 end
 
 return TweakDb
