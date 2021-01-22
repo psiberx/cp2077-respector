@@ -108,7 +108,6 @@ return {
 		-- Less effective against drones, mechs, and robots.
 		-- Targets affected by Burn from Overheat are unable to preform actions.
 		-- Burm from Overheat lasts significantly longer.
-		-- .
 		{ id = "OverheatLvl3Program" }, 
 
 		-- OVERHEAT / Quickhack / Legendary
