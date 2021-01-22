@@ -51,7 +51,7 @@ return {
 		-- ADVANCED REMON BOOSTKIT FIELD JACKET / Clothing / Outer Torso
 		{ id = "Jacket_04_rich_01" }, 
 
-		-- AKAI ONI TITANIUM BOOSTKNIT MENPō / Clothing / Face
+		-- AKAI ONI TITANIUM BOOSTKNIT MENPŌ / Clothing / Face
 		{ id = "Mask_03_rich_02" }, 
 
 		-- ALBA ESTIVA CROP SWEATER / Clothing / Outer Torso
@@ -59,9 +59,6 @@ return {
 
 		-- ALDECALDOS MOTORCYCLE JACKET / Clothing / Outer Torso
 		{ id = "Jacket_09_old_01" }, 
-
-		-- ALDECALDOS RALLY BOLERO JACKET / Clothing / Outer Torso / Legendary
-		{ id = "Q114_Aldecaldo_Jacket" }, 
 
 		-- AMBER-04 TITANIUM-PLATED BALLISTIC VEST / Clothing / Outer Torso
 		{ id = "Vest_03_rich_01" }, 
@@ -152,12 +149,6 @@ return {
 
 		-- ARASAKA REACTIVE LAYER OFFICE SKIRT / Clothing / Legs
 		{ id = "FormalSkirt_01_rich_03" }, 
-
-		-- ARASAKA SPACESUIT / Clothing / Special / Uncommon
-		{ id = "Q203_Spacesuit_Outfit_WithHelmet" }, 
-
-		-- ARASAKA SPACESUIT / Clothing / Special / Epic
-		{ id = "Q203_Spacesuit_Outfit_NoHelmet" }, 
 
 		-- ARASAKA TACTICAL HARNESS / Clothing / Outer Torso
 		{ id = "Vest_06_rich_03" }, 
@@ -387,18 +378,6 @@ return {
 		-- BURN CORPO SHIT DUOLAYER COAT / Clothing / Outer Torso
 		{ id = "Coat_01_old_03" }, 
 
-		-- BADGE SET: ANTI PUNCTURE NEOTAC PANTS WITH COMPOSITE LINING / Clothing / Legs / Legendary
-		{ id = "Cop_01_Set_Pants" }, 
-
-		-- BADGE SET: HEAVY DUTY ARAMID REINFORCED BADGE COAT / Clothing / Outer Torso / Legendary
-		{ id = "Cop_01_Set_Jacket" }, 
-
-		-- BADGE SET: HOLO TINTED BADGE GOGGLES / Clothing / Face / Legendary
-		{ id = "Cop_01_Set_Glasses" }, 
-
-		-- BADGE SET: WATERPROOF BADGE COMBAT BOOTS / Clothing / Feet / Legendary
-		{ id = "Cop_01_Set_Boots" }, 
-
 		-- CAMO ARAMID-WEAVE STEEL-TOES / Clothing / Feet
 		{ id = "Boots_07_basic_02" }, 
 
@@ -474,7 +453,7 @@ return {
 		-- CHIKURIN REINFORCES NANOWEAVE LOOSE FITS / Clothing / Legs
 		{ id = "Pants_02_rich_02" }, 
 
-		-- CHéNGSé ULTRALIGHT CARBON-FIBRE HELMET / Clothing / Head
+		-- CHÉNGSÉ ULTRALIGHT CARBON-FIBRE HELMET / Clothing / Head
 		{ id = "Helmet_02_rich_01" }, 
 
 		-- CLARET SHINE ARMORED LACELESS STEEL-TOES / Clothing / Feet
@@ -576,7 +555,7 @@ return {
 		-- COMPOSITE GEISHA COMBAT SHIRT / Clothing / Inner Torso
 		{ id = "Shirt_03_basic_02" }, 
 
-		-- COMPOSITE KO JAGā SILK THREADED HOTPANTS / Clothing / Legs
+		-- COMPOSITE KO JAGĀ SILK THREADED HOTPANTS / Clothing / Legs
 		{ id = "Shorts_02_rich_02" }, 
 
 		-- COMPOSITE LINED JEAN SHORTS / Clothing / Legs
@@ -656,21 +635,6 @@ return {
 
 		-- CYANO CAMO COMPOSITE THREADED CARGO PANTS / Clothing / Legs
 		{ id = "Pants_04_rich_03" }, 
-
-		-- CORPO SET: BREATHABE REINFORCED BIOCOTTON CORPORATE SLAPS / Clothing / Legs / Legendary
-		{ id = "Corporate_01_Set_Pants" }, 
-
-		-- CORPO SET: CARBONWEAVE SILK CORPORATE SHIRT / Clothing / Inner Torso / Legendary
-		{ id = "Corporate_01_Set_FormalShirt" }, 
-
-		-- CORPO SET: CORPORATE BLAZER WITH BULLETPROOF LININGS / Clothing / Outer Torso / Legendary
-		{ id = "Corporate_01_Set_FormalJacket" }, 
-
-		-- CORPO SET: ERGONOMIC REINFORCED CORPORATE PUMPS / Clothing / Feet / Legendary
-		{ id = "Corporate_01_Set_FormalShoes" }, 
-
-		-- CORPO SET: TACTICAL HYBRID CORPORATE GLASSES / Clothing / Face / Legendary
-		{ id = "Corporate_01_Set_Glasses" }, 
 
 		-- D43-M0N ASSAULT HELMET WITH POLYCARBONATE VISOR / Clothing / Head
 		{ id = "Helmet_02_rich_04" }, 
@@ -987,25 +951,6 @@ return {
 		-- FUCK YOU DURABLE WEAVE TANK TOP / Clothing / Inner Torso
 		{ id = "TShirt_10_basic_01" }, 
 
-		-- FIXER SET: ELASTIWEAVE FIXER PUMPS WITH REINFORCED SEAMS / Clothing / Feet / Legendary
-		{ id = "Fixer_01_Set_FormalShoes" }, 
-
-		-- FIXER SET: HEAT RESISTANT ARAMID WEAVE FIXER BUSTIER / Clothing / Inner Torso / Legendary
-		{ id = "Fixer_01_Set_TShirt" }, 
-
-		-- FIXER SET: PLYCARBONATE OPTI-ENHANCED FIXER GLASSES / Clothing / Face / Legendary
-		{ id = "Fixer_01_Set_Glasses" }, 
-
-		-- FIXER SET: PROTECTIVE LAYER FIXER SKIRT / Clothing / Legs / Legendary
-		{ id = "Fixer_01_Set_Pants" }, 
-
-		-- FIXER SET: TRYLAYER ARAMID WEAVE FIXER SKIRT WITH JACKET / Clothing / Outer Torso / Legendary
-		{ id = "Fixer_01_Set_Coat" }, 
-
-		-- GALAXY T-SHIRT / Clothing / Inner Torso / Rare
-		-- Find your place amongst the stars.
-		{ id = "GOG_Galaxy_TShirt" }, 
-
 		-- GATTO NERO EVENING JACKET WITH TUNGSTEN-STEEL MICROPLATES / Clothing / Outer Torso
 		{ id = "FormalJacket_04_rich_01" }, 
 
@@ -1222,53 +1167,8 @@ return {
 		-- INSULATED CAP WITH PROTECTIVE GOGGLES / Clothing / Head
 		{ id = "Cap_06_basic_02" }, 
 
-		-- JIGOKU NO ONI REINFORCED-COMPOSITE MENPō / Clothing / Face
+		-- JIGOKU NO ONI REINFORCED-COMPOSITE MENPŌ / Clothing / Face
 		{ id = "Mask_03_rich_01" }, 
-
-		-- JOHNNY'S AVIATORS / Clothing / Face / Rare
-		{ id = "Q005_Johnny_Glasses" }, 
-
-		-- JOHNNY'S AVIATORS / Clothing / Face / Epic
-		{ id = "Q005_Johnny_Glasses_Epic" }, 
-
-		-- JOHNNY'S AVIATORS / Clothing / Face / Legendary
-		{ id = "Q005_Johnny_Glasses_Legendary" }, 
-
-		-- JOHNNY'S PANTS / Clothing / Legs
-		-- Authentic leather for an authentic rockerboy.
-		{ id = "Q005_Johnny_Pants_Epic" }, 
-
-		-- JOHNNY'S PANTS / Clothing / Legs
-		-- Authentic leather for an authentic rockerboy.
-		{ id = "Q005_Johnny_Pants_Legendary" }, 
-
-		-- JOHNNY'S PANTS / Clothing / Legs
-		-- Authentic leather for an authentic rockerboy.
-		{ id = "Q005_Johnny_Pants" }, 
-
-		-- JOHNNY'S SHOES / Clothing / Feet
-		-- Oh, to spend a day in the shoes of a legend...
-		{ id = "Q005_Johnny_Shoes_Epic" }, 
-
-		-- JOHNNY'S SHOES / Clothing / Feet
-		-- Oh, to spend a day in the shoes of a legend...
-		{ id = "Q005_Johnny_Shoes_Legendary" }, 
-
-		-- JOHNNY'S SHOES / Clothing / Feet
-		-- Oh, to spend a day in the shoes of a legend...
-		{ id = "Q005_Johnny_Shoes" }, 
-
-		-- JOHNNY'S TANK TOP / Clothing / Inner Torso
-		-- Without the dog tags it looks like any other fanboy shirt.
-		{ id = "Q005_Johnny_Shirt_Epic" }, 
-
-		-- JOHNNY'S TANK TOP / Clothing / Inner Torso
-		-- Without the dog tags it looks like any other fanboy shirt.
-		{ id = "Q005_Johnny_Shirt" }, 
-
-		-- JOHNNY'S TANK TOP / Clothing / Inner Torso
-		-- Without the dog tags it looks like any other fanboy shirt.
-		{ id = "Q005_Johnny_Shirt_Legendary" }, 
 
 		-- JSHLX REINFORCED PUFFER JACKET / Clothing / Outer Torso
 		{ id = "Vest_17_basic_01" }, 
@@ -1417,7 +1317,7 @@ return {
 		-- LOOSE FITS WITH MICROMESH UNDERLAYER / Clothing / Legs
 		{ id = "Pants_02_old_03" }, 
 
-		-- LéZARD BEIGE LEATHER-COMPOSITE FORMAL PUMPS / Clothing / Feet
+		-- LÉZARD BEIGE LEATHER-COMPOSITE FORMAL PUMPS / Clothing / Feet
 		{ id = "FormalShoes_02_rich_02" }, 
 
 		-- M4RBL3 TITANIUM-PLEATED BALLISTIC VEST / Clothing / Outer Torso
@@ -1471,13 +1371,13 @@ return {
 		-- MELTING HOTTIE TANK TOP / Clothing / Inner Torso
 		{ id = "TShirt_01_basic_02" }, 
 
-		-- MENPō WITH DURABLE LINING / Clothing / Face
+		-- MENPŌ WITH DURABLE LINING / Clothing / Face
 		{ id = "Mask_03_basic_01" }, 
 
-		-- MENPō WITH PROTECTIVE PADDING / Clothing / Face
+		-- MENPŌ WITH PROTECTIVE PADDING / Clothing / Face
 		{ id = "Mask_03_basic_02" }, 
 
-		-- MENPō WITH REACTIVE LAYER / Clothing / Face
+		-- MENPŌ WITH REACTIVE LAYER / Clothing / Face
 		{ id = "Mask_03_old_02" }, 
 
 		-- MICROPLATE-LINED CAMO VEST / Clothing / Outer Torso
@@ -1600,24 +1500,6 @@ return {
 		-- MURASAKI TEAR-RESISTANT YUKATA / Clothing / Outer Torso
 		{ id = "Vest_19_rich_02" }, 
 
-		-- MEDIA SET: ANTI PIERCING TACTICAL MEDIA CARGO PANTS / Clothing / Legs / Legendary
-		{ id = "Media_01_Set_Pants" }, 
-
-		-- MEDIA SET: ARMORED MEDIA OCUSET WITH CAMERA / Clothing / Face / Legendary
-		{ id = "Media_01_Set_Tech" }, 
-
-		-- MEDIA SET: HEAT RESISTANT NANOWEAVE MEDIA SHIRT / Clothing / Inner Torso / Legendary
-		{ id = "Media_01_Set_Shirt" }, 
-
-		-- MEDIA SET: LAMINATED ARMOR MEDIA BALLISTIC VEST / Clothing / Outer Torso / Legendary
-		{ id = "Media_01_Set_Vest" }, 
-
-		-- MEDIA SET: LIGHTWEIGHT HARDENED RUBBER MEDIA STEEL TOES / Clothing / Feet / Legendary
-		{ id = "Media_01_Set_Shoes" }, 
-
-		-- MEDIA SET: MEDIA BASEBALL CAP WITH REACTIVE LAYER / Clothing / Head / Legendary
-		{ id = "Media_01_Set_Cap" }, 
-
 		-- N54 ATHLETIC SHORTS WITH THERMOACTIVE MESH / Clothing / Legs
 		{ id = "Shorts_03_basic_03" }, 
 
@@ -1645,7 +1527,7 @@ return {
 		-- NCPD REINFORCED BALLISTIC VEST / Clothing / Outer Torso
 		{ id = "Vest_03_basic_01" }, 
 
-		-- NEKITSCH PASIóN PúRPURA POLYAMIDE FOLDTOP / Clothing / Outer Torso
+		-- NEKITSCH PASIÓN PÚRPURA POLYAMIDE FOLDTOP / Clothing / Outer Torso
 		{ id = "Jacket_11_rich_01" }, 
 
 		-- NEOKITSCH BLOOMING AMBER RESISTANCE COATED TANK / Clothing / Inner Torso
@@ -1680,33 +1562,6 @@ return {
 
 		-- NUSA LEATHER VEST / Clothing / Outer Torso
 		{ id = "Vest_14_old_01" }, 
-
-		-- NETRUNNER SET: ANTISURGE ICE PROTECTED NETRUNNER INFOVISOR / Clothing / Face / Legendary
-		{ id = "Netrunner_01_Set_Visor" }, 
-
-		-- NETRUNNER SET: DURA MEMBRANE NETRUNNER PANTS / Clothing / Legs / Legendary
-		{ id = "Netrunner_01_Set_Pants" }, 
-
-		-- NETRUNNER SET: HARDENED NETRUNNER BOOTS WITH COMPOSITE INSERT / Clothing / Feet / Legendary
-		{ id = "Netrunner_01_Set_Shoes" }, 
-
-		-- NETRUNNER SET: HEAT RESISTANT HYBRIDWEAVE NETRUNNIG SUITE / Clothing / Inner Torso / Legendary
-		{ id = "Netrunner_01_Set_Jumpsuit" }, 
-
-		-- NOMAD SET: DUOLAYER MICROPLATE MESH NOMAD JACKET / Clothing / Outer Torso / Legendary
-		{ id = "Nomad_01_Set_Jacket" }, 
-
-		-- NOMAD SET: DURABLE BIOLEATHER NOMAD WESTERN BOOTS / Clothing / Feet / Legendary
-		{ id = "Nomad_01_Set_Boots" }, 
-
-		-- NOMAD SET: MANGANESE LAMINATE NOMAD GAS MASK / Clothing / Face / Legendary
-		{ id = "Nomad_01_Set_Mask" }, 
-
-		-- NOMAD SET: POLYCARBONATE NOMAD SHIRT WITH REINFORCED SEAMS / Clothing / Inner Torso / Legendary
-		{ id = "Nomad_01_Set_TShirt" }, 
-
-		-- NOMAD SET: ULTRALIGHT TEAR RESISTANT NOMAD PANTS / Clothing / Legs / Legendary
-		{ id = "Nomad_01_Set_Pants" }, 
 
 		-- OCEAN ARMOR ARAMID-WEAVE EDGERUNNER / Clothing / Outer Torso
 		{ id = "Jacket_03_rich_03" }, 
@@ -2083,18 +1938,6 @@ return {
 		-- REPAIRED ZOLOTOY PUKH SNOW BOOTS / Clothing / Feet
 		{ id = "Boots_11_old_02" }, 
 
-		-- REPLICA OF JOHNNY'S SAMURAI JACKET / Clothing / Outer Torso / Rare
-		-- A copy of the original from the days when Johnny still had a body.
-		{ id = "SQ031_Samurai_Jacket" }, 
-
-		-- REPLICA OF JOHNNY'S SAMURAI JACKET / Clothing / Outer Torso / Epic
-		-- A copy of the original from the days when Johnny still had a body.
-		{ id = "SQ031_Samurai_Jacket_Epic" }, 
-
-		-- REPLICA OF JOHNNY'S SAMURAI JACKET / Clothing / Outer Torso / Legendary
-		-- A copy of the original from the days when Johnny still had a body.
-		{ id = "SQ031_Samurai_Jacket_Legendary" }, 
-
 		-- REPURPOSED MILITARY BOOTS / Clothing / Feet
 		{ id = "Boots_08_old_01" }, 
 
@@ -2157,21 +2000,6 @@ return {
 
 		-- RYU ANTI-TEAR TRILAYER YOROS / Clothing / Legs
 		{ id = "Pants_14_rich_02" }, 
-
-		-- ROCKER SET: ARMORWEAVE ROCKER BRA / Clothing / Inner Torso / Legendary
-		{ id = "Rockerboy_01_Set_TShirt" }, 
-
-		-- ROCKER SET: ELASTIC FLAME RESISTANT ROCKER PANTS / Clothing / Legs / Legendary
-		{ id = "Rockerboy_01_Set_Pants" }, 
-
-		-- ROCKER SET: PUNCTURE RESISTANT ROCKER PLATFORM BOOTS / Clothing / Feet / Legendary
-		{ id = "Rockerboy_01_Set_Boots" }, 
-
-		-- ROCKER SET: REINFORCED COMPOSITE LINED ROCKER FOLDTOP / Clothing / Outer Torso / Legendary
-		{ id = "Rockerboy_01_Set_Jacket" }, 
-
-		-- ROCKER SET: SCRATCH RESISTANT POLARYZED ROCKER AVIATORS / Clothing / Face / Legendary
-		{ id = "Rockerboy_01_Set_Glasses" }, 
 
 		-- SABBY HOODED CUT-OFF / Clothing / Outer Torso
 		{ id = "Vest_15_old_02" }, 
@@ -2343,9 +2171,6 @@ return {
 		-- SOVIET MOSCOW DREAM ANTI-SHRAPNEL BOMBER / Clothing / Outer Torso
 		{ id = "Jacket_13_rich_01" }, 
 
-		-- SPACESUIT HELMET / Clothing / Head / Rare
-		{ id = "Q203_Spacesuit_Helmet" }, 
-
 		-- SPEED ADDICT HELMET WITH ANTI-IMPACT TECH / Clothing / Head
 		{ id = "Helmet_02_basic_02" }, 
 
@@ -2493,7 +2318,7 @@ return {
 		-- SUDO CLAWS POLYAMIDE COMPOSITE WINDBREAKER PANTS / Clothing / Legs
 		{ id = "Pants_12_rich_01" }, 
 
-		-- SUEñO SOLEADO HELMET WITH DUOLAYER REACTIVITY / Clothing / Head
+		-- SUEÑO SOLEADO HELMET WITH DUOLAYER REACTIVITY / Clothing / Head
 		{ id = "Helmet_02_rich_03" }, 
 
 		-- SUICHU YOGAN EXTRA-PROTECTION TACTICAL PANTS / Clothing / Legs
@@ -2535,21 +2360,6 @@ return {
 		-- SYNWEAVE ARMOR-LAYERED PSYCHO BOMBER / Clothing / Outer Torso
 		{ id = "Jacket_13_old_01" }, 
 
-		-- SOLO SET: ARMOR PLATED SYNLEATHER SOLO PANTS / Clothing / Legs / Legendary
-		{ id = "Solo_01_Set_Pants" }, 
-
-		-- SOLO SET: GOLD TIPPED MANGANESE STEEL SOLO BOOTS / Clothing / Feet / Legendary
-		{ id = "Solo_01_Set_Boots" }, 
-
-		-- SOLO SET: HEAVY SHOCK ABSORBENT SOLO JACKET / Clothing / Outer Torso / Legendary
-		{ id = "Solo_01_Set_Jacket" }, 
-
-		-- SOLO SET: TITANIUM SOLO TECHGOGS WITH TACTICAL SOFTWARE / Clothing / Face / Legendary
-		{ id = "Solo_01_Set_Visor" }, 
-
-		-- SOLO SET: ULTRATHIN COMPOSITE PRINT SOLO SHIRT / Clothing / Inner Torso / Legendary
-		{ id = "Solo_01_Set_TShirt" }, 
-
 		-- TACTI FIBER CAMO HIJAB / Clothing / Head
 		{ id = "Scarf_03_old_01" }, 
 
@@ -2568,10 +2378,10 @@ return {
 		-- TAMASHI COMPOSITE TANK TOP / Clothing / Inner Torso
 		{ id = "TShirt_07_old_02" }, 
 
-		-- TAMASHí ENHANCED SHORT PUFFER / Clothing / Outer Torso
+		-- TAMASHÍ ENHANCED SHORT PUFFER / Clothing / Outer Torso
 		{ id = "Vest_16_basic_01" }, 
 
-		-- TAMASHī STRETCH-LAMINATE RALLY BOLERO / Clothing / Outer Torso
+		-- TAMASHĪ STRETCH-LAMINATE RALLY BOLERO / Clothing / Outer Torso
 		{ id = "Jacket_10_rich_02" }, 
 
 		-- TAPED SQUARE GLASSES / Clothing / Face
@@ -2715,24 +2525,6 @@ return {
 		-- TYGER CLAWS REINFORCED TACTICAL HARNESS / Clothing / Outer Torso
 		{ id = "Vest_06_basic_02" }, 
 
-		-- TECHIE SET: CUSHIONED ARAMID SOLE TECHIE SHOES / Clothing / Feet / Legendary
-		{ id = "Techie_01_Set_Shoes" }, 
-
-		-- TECHIE SET: CUSHIONED TECHIE BASEBALL CAP / Clothing / Head / Legendary
-		{ id = "Techie_01_Set_Cap" }, 
-
-		-- TECHIE SET: LAMINATED ICE PROTECTED TECHIE OCUSET / Clothing / Face / Legendary
-		{ id = "Techie_01_Set_Tech" }, 
-
-		-- TECHIE SET: POLYCARBONATE NANOWEAVE TECHIE HARNESS / Clothing / Outer Torso / Legendary
-		{ id = "Techie_01_Set_Vest" }, 
-
-		-- TECHIE SET: REINFORCED DUOLAYER TECHIE CARGO PANTS / Clothing / Legs / Legendary
-		{ id = "Techie_01_Set_Pants" }, 
-
-		-- TECHIE SET: THERMOACTIVE TEAR RESISTANT TECHIE SHIRT / Clothing / Inner Torso / Legendary
-		{ id = "Techie_01_Set_TShirt" }, 
-
 		-- ULTIMATE PUNCH FIELD-GENERATING PROTECTIVE POZER-JACKET / Clothing / Outer Torso
 		{ id = "Jacket_17_rich_04" }, 
 
@@ -2796,41 +2588,8 @@ return {
 		-- V'S FAVORITE T-SHIRT / Clothing / Inner Torso / Common
 		{ id = "Q001_TShirt" }, 
 
-		-- V'S NOMAD BOOTS / Clothing / Feet / Common
-		{ id = "Q000_Nomad_Boots" }, 
-
-		-- V'S NOMAD PANTS / Clothing / Legs / Common
-		{ id = "Q000_Nomad_Pants" }, 
-
-		-- V'S OFFICE BLAZER / Clothing / Outer Torso / Common
-		{ id = "Q000_Corpo_FormalJacket" }, 
-
-		-- V'S OFFICE SHOES / Clothing / Feet / Common
-		{ id = "Q000_Corpo_FormalShoes" }, 
-
-		-- V'S OFFICE SLACKS / Clothing / Legs / Common
-		{ id = "Q000_Corpo_FormalPants" }, 
-
-		-- V'S OLD TANK TOP / Clothing / Inner Torso / Common
-		{ id = "Q000_Nomad_TShirt" }, 
-
-		-- V'S PANTS / Clothing / Legs / Common
-		{ id = "Q001_Pants" }, 
-
 		-- V'S SNEAKERS / Clothing / Feet / Common
 		{ id = "Q001_Shoes" }, 
-
-		-- V'S STAINED TANK TOP / Clothing / Inner Torso / Common
-		{ id = "Q000_StreetKid_TShirt" }, 
-
-		-- V'S STREET KICKS / Clothing / Feet / Common
-		{ id = "Q000_StreetKid_Shoes" }, 
-
-		-- V'S STREETWEAR PANTS / Clothing / Legs / Common
-		{ id = "Q000_StreetKid_Pants" }, 
-
-		-- V'S VEST (WITHOUT BAKKERS PATCH) / Clothing / Outer Torso / Common
-		{ id = "Q000_Nomad_noPatch_Vest" }, 
 
 		-- VALENTINO'S DUAL WEAVE EDGERUNNER / Clothing / Outer Torso
 		{ id = "Jacket_03_basic_04" }, 
@@ -2886,7 +2645,7 @@ return {
 		-- WEATHERED COMBAT BOOTS / Clothing / Feet
 		{ id = "Boots_03_old_01" }, 
 
-		-- WEATHERED MENPō / Clothing / Face
+		-- WEATHERED MENPŌ / Clothing / Face
 		{ id = "Mask_03_old_01" }, 
 
 		-- WELL-WORN 6TH STREET EDGERUNNER / Clothing / Outer Torso
@@ -2894,14 +2653,6 @@ return {
 
 		-- WESTERN STAR COWBOY BOOTS WITH THICK SYNTHETIC HEELS / Clothing / Feet
 		{ id = "Boots_10_basic_01" }, 
-
-		-- WOLF SCHOOL JACKET / Clothing / Outer Torso / Rare
-		-- Because the world in 2077 could still use a monster hunter.
-		{ id = "GOG_DLC_Jacket" }, 
-
-		-- WOLF SCHOOL T-SHIRT / Clothing / Inner Torso / Rare
-		-- When you have to choose between neokitsch and neomilitaristic but can't make up your mind.
-		{ id = "GOG_DLC_TShirt" }, 
 
 		-- WOODEN BREEZE DRESS WEDGES / Clothing / Feet
 		{ id = "FormalShoes_03_basic_02" }, 

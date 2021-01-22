@@ -1,7 +1,7 @@
 return {
 	{
 		name = "clothing",
-		items = { kind = "Clothing", tag = nil },
+		items = { kind = "Clothing", tag = false },
 	},
 	{
 		name = "clothing-mods",

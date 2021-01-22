@@ -93,12 +93,12 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 				itemSpec._comment = tweakDb:describe(itemMeta, true, true)
 				itemSpec._order = tweakDb:order(itemMeta)
 
+				if itemMeta.comment then
+					itemSpec._comment = itemSpec._comment .. '\n' .. itemMeta.comment:gsub('([.!?]) ', '%1\n')
+				end
+
 				if itemMeta.desc then
 					itemSpec._comment = itemSpec._comment .. '\n' .. itemMeta.desc:gsub('([.!?]) ', '%1\n')
-
-					--if not itemSpec._comment:find('%.$') then
-					--	itemSpec._comment = itemSpec._comment .. '.'
-					--end
 				end
 
 				itemSpec.id = TweakDb.toItemAlias(itemMeta.type)
