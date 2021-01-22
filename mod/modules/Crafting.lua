@@ -58,7 +58,7 @@ function CraftingModule:applySpec(specData)
 		end
 
 		if specData.Crafting.Recipes then
-			self:setRecipes(specData.Crafting.Recipes)
+			self:addRecipes(specData.Crafting.Recipes)
 		end
 	end
 end
@@ -77,15 +77,27 @@ function CraftingModule:getComponents()
 	return componentSpecs
 end
 
+function CraftingModule:setComponents(componentSpecs)
+	local components = mod.load('mod/data/crafting-components')
+
+	for componentAlias, componentQty in pairs(componentSpecs) do
+		local component = components[componentAlias]
+		local componentId = ItemID.new(TweakDBID.new(component.type))
+		local currentQty = self.transactionSystem:GetItemQuantity(self.player, componentId)
+
+		if currentQty ~= componentQty then
+			self.transactionSystem:GiveItem(self.player, componentId, componentQty - currentQty)
+		end
+	end
+end
+
 function CraftingModule:getRecipes()
 	self.tweakDb:load('mod/data/tweakdb-meta')
 
 	local recipeSpecs = {}
 
 	for itemKey, itemMeta in self.tweakDb:each() do
-		local itemId = self.tweakDb:getItemTweakDbId(itemKey)
-
-		if self.craftingSystem:IsRecipeKnown(itemId, self.playerCraftBook) then
+		if self:isRecipeKnown(itemKey) then
 			local recipeSpec = {}
 
 			if itemMeta.type == '' then
@@ -112,29 +124,22 @@ function CraftingModule:getRecipes()
 	return recipeSpecs
 end
 
-function CraftingModule:setComponents(componentSpecs)
-	local components = mod.load('mod/data/crafting-components')
+function CraftingModule:isRecipeKnown(tweakDbId)
+	tweakDbId = self.tweakDb:getItemTweakDbId(tweakDbId)
 
-	for componentAlias, componentQty in pairs(componentSpecs) do
-		local component = components[componentAlias]
-		local componentId = ItemID.new(TweakDBID.new(component.type))
-		local currentQty = self.transactionSystem:GetItemQuantity(self.player, componentId)
-
-		if currentQty ~= componentQty then
-			self.transactionSystem:GiveItem(self.player, componentId, componentQty - currentQty)
-		end
-	end
+	return self.craftingSystem:IsRecipeKnown(tweakDbId, self.playerCraftBook)
 end
 
-function CraftingModule:setRecipes(recipeSpecs)
-	for _, itemType in ipairs(recipeSpecs) do
-		if type(itemType) == 'string' then
-			itemType = str.with(itemType, 'Items.')
-		end
+function CraftingModule:addRecipe(tweakDbId)
+	tweakDbId = self.tweakDb:getItemTweakDbId(tweakDbId)
+	print(tweakDbId)
 
-		local itemId = self.tweakDb:getItemTweakDbId(itemType)
+	self.playerCraftBook:AddRecipe(tweakDbId, {}, 1)
+end
 
-		self.playerCraftBook:AddRecipe(itemId, {}, 1)
+function CraftingModule:addRecipes(recipeSpecs)
+	for _, itemId in ipairs(recipeSpecs) do
+		self:addRecipe(itemId)
 	end
 end
 

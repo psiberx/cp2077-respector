@@ -64,15 +64,45 @@ end
 function Respector:releaseModulesAsync(waitTime)
 	asyncWait = true
 
-	if not waitTime then
-		waitTime = 1.0
-	end
-
-	mod.defer(waitTime, function()
+	mod.defer(waitTime or 1.0, function()
 		self:releaseModules()
 
 		asyncWait = false
 	end)
+end
+
+function Respector:usingModule(moduleName, callback)
+	if not self[moduleName] then
+		return nil
+	end
+
+	self[moduleName]:prepare()
+
+	local result = callback(self[moduleName])
+
+	self[moduleName]:release()
+
+	return result
+end
+
+function Respector:usingModuleAsync(moduleName, waitTime, callback)
+	if not self[moduleName] then
+		return nil
+	end
+
+	self[moduleName]:prepare()
+
+	local result = callback(self[moduleName])
+
+	asyncWait = true
+
+	mod.defer(waitTime or 1.0, function()
+		self[moduleName]:release()
+
+		asyncWait = false
+	end)
+
+	return result
 end
 
 function Respector:saveSpec(specName, specOptions)

@@ -59,10 +59,14 @@ function tweaker.initState(force)
 	if not userState.tweakSearch or force then
 		userState.showTweaker = false
 		userState.expandTweaker = true
-		userState.tweakSearch = str.padnul('', viewData.tweakSearchMaxLen)
+		viewData.tweakSearch = str.padnul('', viewData.tweakSearchMaxLen)
+	else
+		viewData.tweakSearch = userState.tweakSearch
 	end
 
-	viewData.tweakSearch = str.padnul('', viewData.tweakSearchMaxLen)
+	-- Trigger search
+	userState.tweakSearch = ''
+
 	viewData.tweakSearchResults = {}
 	viewData.tweakSearchPreviews = {}
 
@@ -75,7 +79,6 @@ function tweaker.onUpdateEvent()
 		userState.showTweaker = not userState.showTweaker
 	end
 end
-
 
 function tweaker.onDrawEvent()
 	if not userState.showTweaker or not userState.showWindow then
@@ -240,13 +243,19 @@ function tweaker.onDrawEvent()
 					tweaker.onSpawnItemClick()
 				end
 
-				if tweak.entryMeta.craft then
+				if tweak.itemCanBeCrafted then
 					ImGui.Spacing()
 					ImGui.Separator()
 					ImGui.Spacing()
 
-					if ImGui.Button('Unlock crafting recipe', windowWidth, 19) then
-						tweaker.onUnlockRecipeClick()
+					if tweak.itemRecipeKnown then
+						ImGui.Text('You have crafting recipe for this item.')
+					else
+						ImGui.Text('This item can be crafted.')
+
+						if ImGui.Button('Unlock crafting recipe', windowWidth, 19) then
+							tweaker.onUnlockRecipeClick()
+						end
 					end
 				end
 			end
@@ -271,7 +280,7 @@ function tweaker.onDrawEvent()
 			ImGui.Text('Hash:')
 			ImGui.SameLine()
 			ImGui.SetNextItemWidth(78)
-			ImGui.InputText('##Tweak Hash Key', tweak.entryKey, 16, ImGuiInputTextFlags.ReadOnly)
+			ImGui.InputText('##Tweak Hash Key', tweak.entryHash, 16, ImGuiInputTextFlags.ReadOnly)
 			ImGui.PopStyleVar()
 			ImGui.PopStyleColor(2)
 		end
@@ -312,8 +321,9 @@ function tweaker.onTweakSearchChange()
 
 	viewData.tweakSearchResults = array.map(searchResults, function(result)
 		return {
-			entryKey = ('%010X'):format(result.entryKey),
+			entryKey = result.entryKey,
 			entryMeta = result.entryMeta,
+			entryHash = ('%010X'):format(result.entryKey),
 		}
 	end)
 
@@ -325,11 +335,15 @@ end
 function tweaker.onTweakSearchResultSelect()
 	local tweak = viewData.activeTweakData
 
+	-- Quantity
+
 	if tweak.entryMeta.kind == 'Money' then
 		tweak.itemQty = 100000
 	else
 		tweak.itemQty = 1
 	end
+
+	-- Quality
 
 	if tweak.entryMeta.quality then
 		tweak.itemCanBeUpgraded = false
@@ -345,12 +359,34 @@ function tweaker.onTweakSearchResultSelect()
 		end
 	end
 
+	-- Quest Mark
+
 	if tweak.entryMeta.quest then
 		tweak.itemCanBeMarked = true
 		tweak.itemQuestMark = true
 	else
 		tweak.itemCanBeMarked = false
 		tweak.itemQuestMark = false
+	end
+
+	-- Crafting
+
+	if tweak.entryMeta.craft then
+		tweak.itemCanBeCrafted = true
+
+		if tweak.entryMeta.craft == true then
+			tweak.itemRecipeId = tweak.entryMeta.type
+		else
+			tweak.itemRecipeId = tweak.entryMeta.craft
+		end
+
+		tweak.itemRecipeKnown = respector:usingModule('crafting', function(craftingModule)
+			return craftingModule:isRecipeKnown(craftableId)
+		end)
+	else
+		tweak.itemCanBeCrafted = false
+		tweak.itemRecipeId = nil
+		tweak.itemRecipeKnown = false
 	end
 
 	-- View Data
@@ -367,7 +403,7 @@ function tweaker.onTweakSearchResultSelect()
 	if tweak.itemCanBeMarked then
 		viewData.questOptionList = { 'Yes', 'No' }
 	else
-		viewData.questOptionList = { 'No' }
+		viewData.questOptionList = { 'N/A' }
 	end
 
 	viewData.questOptionCount = #viewData.questOptionList
@@ -393,7 +429,13 @@ function tweaker.onSpawnItemClick()
 end
 
 function tweaker.onUnlockRecipeClick()
+	local tweak = viewData.activeTweakData
 
+	respector:usingModule('crafting', function(craftingModule)
+		craftingModule:addRecipe(tweak.itemRecipeId)
+	end)
+
+	tweak.itemRecipeKnown = true
 end
 
 function tweaker.onQuickButtonClick()
