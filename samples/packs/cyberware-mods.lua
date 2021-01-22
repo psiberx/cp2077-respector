@@ -98,11 +98,15 @@ return {
 		{ id = "KiroshiOpticsFragment2" }, 
 
 		-- TARGET ANALYSIS / Mod / Cyberware / Kiroshi / Rare
-		-- All your weapons are non-leathal.
+		-- All weapons become non-lethal.
+		-- Headshots do not deal additional damage.
+		-- Smart Weapons primarily target limbs.
 		{ id = "KiroshiOpticsFragment1" }, 
 
 		-- TARGET ANALYSIS / Mod / Cyberware / Kiroshi / Rare
-		-- All your weapons are non-leathal.
+		-- All weapons become non-lethal.
+		-- Headshots do not deal additional damage.
+		-- Smart Weapons primarily target limbs.
 		{ id = "KiroshiOpticsFragment3" }, 
 
 		-- THREAT DETECTOR / Mod / Cyberware / Kiroshi / Rare
@@ -186,7 +190,7 @@ return {
 		{ id = "HighChargedWiresBattery" }, 
 
 		-- MONOWIRE BATTERY: LOW-CAPACITY / Mod / Cyberware / Monowire / Rare
-		-- increases charge damage by 10%.
+		-- Increases charge damage by 10%.
 		{ id = "LowChargedWiresBattery" }, 
 
 		-- MONOWIRE BATTERY: MEDIUM-CAPACITY / Mod / Cyberware / Monowire / Epic
@@ -222,7 +226,7 @@ return {
 		{ id = "MilitechProjectileLauncherRound1" }, 
 
 		-- NEOPLASTIC PLATING / Mod / Cyberware / Projectile Launch System / Rare
-		-- increases Crit Chance by 10%.
+		-- Increases Crit Chance by 10%.
 		{ id = "NeoplasticPlating" }, 
 
 		-- THERMAL ROUND / Mod / Cyberware / Projectile Launch System / Rare
@@ -257,7 +261,7 @@ return {
 		{ id = "SandevistanFragment3" }, 
 
 		-- SANDEVISTAN: OVERCLOCKED PROCESSOR / Mod / Cyberware / Sandevistan
-		-- increases duration by 0.5/0.7/0.9/1.1/1.3 sec.
+		-- Increases duration by 0.5/0.7/0.9/1.1/1.3 sec.
 		{ id = "SandevistanFragment1" }, 
 
 		-- SANDEVISTAN: PROTOTYPE CHIP / Mod / Cyberware / Sandevistan / Rare

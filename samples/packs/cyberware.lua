@@ -226,6 +226,8 @@ return {
 		{ id = "EnhancedBloodVesselsLegendary" }, 
 
 		-- BIOTECH Σ MK.1 / Cyberware / Operating System / Uncommon
+		-- Allows you to perform quickhacks on targets and devices while scanning.
+		-- Increases RAM recovery rate by 6 units per 60 seconds.
 		{
 			id = "BiotechUncommonMKI", 
 			slots = {
@@ -236,6 +238,9 @@ return {
 		},
 
 		-- BIOTECH Σ MK.2 / Cyberware / Operating System / Rare
+		-- Allows you to perform quickhacks on targets and devices while scanning.
+		-- Increases RAM recovery rate by 9 units per 60 seconds.
+		-- Quickhacks deal 10% more damage.
 		{
 			id = "BiotechRareMKII", 
 			slots = {
@@ -247,6 +252,9 @@ return {
 		},
 
 		-- BIOTECH Σ MK.3 / Cyberware / Operating System / Epic
+		-- Allows you to perform quickhacks on targets and devices while scanning.
+		-- Increases RAM recovery rate by 9 units per 60 seconds.
+		-- Quickhacks deal 20% more damage.
 		{
 			id = "BiotechEpicMKIII", 
 			slots = {
@@ -305,15 +313,15 @@ return {
 		{ id = "ResistancesBoosterLegendary" }, 
 
 		-- DENSE MARROW / Cyberware / Skeleton / Uncommon
-		-- Increases Stamina cost of melee attacks by 10%, but increase base damage of melee weapons by 7%.
+		-- Increases Stamina cost of melee attacks by 10%, but increases base damage of melee weapons by 7%.
 		{ id = "DenseMarrowUncommon" }, 
 
 		-- DENSE MARROW / Cyberware / Skeleton / Rare
-		-- Increases Stamina cost of melee attacks by 10%, but increase base damage of melee weapons by 15%.
+		-- Increases Stamina cost of melee attacks by 10%, but increases base damage of melee weapons by 15%.
 		{ id = "DenseMarrowRare" }, 
 
 		-- DENSE MARROW / Cyberware / Skeleton / Epic
-		-- Increases Stamina cost of melee attacks by 10%, but increase base damage of melee weapons by 25%.
+		-- Increases Stamina cost of melee attacks by 10%, but increases base damage of melee weapons by 25%.
 		{ id = "DenseMarrowEpic" }, 
 
 		-- DETOXIFIER / Cyberware / Immune System / Rare
@@ -374,15 +382,15 @@ return {
 		},
 
 		-- EX-DISK / Cyberware / Frontal Cortex / Rare
-		-- increases your cyberdeck's max Ram units by 1.
+		-- Increases your cyberdeck's max Ram units by 1.
 		{ id = "BrainCapacityBoosterRare" }, 
 
 		-- EX-DISK / Cyberware / Frontal Cortex / Epic
-		-- increases your cyberdeck's max Ram units by 3.
+		-- Increases your cyberdeck's max Ram units by 3.
 		{ id = "BrainCapacityBoosterEpic" }, 
 
 		-- EX-DISK / Cyberware / Frontal Cortex / Legendary
-		-- increases your cyberdeck's max Ram units by 5.
+		-- Increases your cyberdeck's max Ram units by 5.
 		{ id = "BrainCapacityBoosterLegendary" }, 
 
 		-- FEEDBACK CIRCUIT / Cyberware / Circulatory System / Rare
@@ -402,15 +410,16 @@ return {
 		{ id = "FireproofSkin" }, 
 
 		-- FORTIFIED ANKLES / Cyberware / Legs / Rare
-		-- Charged jump.
+		-- Hold "Jump" to charge the power of the jump, then release to jump.
 		{ id = "ReinforcedMusclesRare" }, 
 
 		-- FORTIFIED ANKLES / Cyberware / Legs / Epic
-		-- Reduces fall damage by 15%.
-		-- Hovers and Stablize movement.
+		-- Hold "Jump" to charge the power of the jump, then release to jump.
+		-- Enables you to perform hover jumps.
 		{ id = "ReinforcedMusclesEpic" }, 
 
 		-- FUYUTSUI ELECTRONICS MK.1 / Cyberware / Operating System / Common
+		-- Allows you to perform quickhacks on targets and devices while scanning.
 		{
 			id = "FuyutsuiCommonMKI", 
 			slots = {
@@ -420,6 +429,7 @@ return {
 		},
 
 		-- FUYUTSUI TINKERER MK.3 / Cyberware / Operating System / Legendary
+		-- Allows you to perform quickhacks on targets and devices while scanning.
 		-- Increases cyberdeck ram recovery rate by 9 unit(s) per 60 sec.
 		-- Increases combat quickhacks duration by 50%.
 		-- Increaces quickhacks spread distance by 40%.
@@ -661,23 +671,24 @@ return {
 		{ id = "ReverseMetabolicEnhancer" }, 
 
 		-- MICROGENERATOR / Cyberware / Circulatory System / Common
-		-- When your Health drops to 15%, Release an electroshock that deals damage equal to 20% of the target enemy's max Health.
+		-- When your Health drops to 15%, releases an electroshock that deals damage equal to 20% of the target enemy's max Health.
 		{ id = "MicroGeneratorCommon" }, 
 
 		-- MICROGENERATOR / Cyberware / Circulatory System / Uncommon
+		-- When your Health drops to 15%, releases an electroshock that deals damage equal to 30% of the target enemy's max Health.
 		{ id = "MicroGeneratorUncommon" }, 
 
 		-- MICROGENERATOR / Cyberware / Circulatory System / Rare
-		-- When your Health drops to 15%, Release an electroshock that deals damage equal to 30% of the target enemy's max Health.
+		-- When your Health drops to 15%, releases an electroshock that deals damage equal to 40% of the target enemy's max Health.
 		{ id = "MicroGeneratorRare" }, 
 
 		-- MICROGENERATOR / Cyberware / Circulatory System / Epic
-		-- When your Health drops to 15%, Release an electroshock that deals damage equal to 40% of the target enemy's max Health.
+		-- When your Health drops to 15%, releases an electroshock that deals damage equal to 40% of the target enemy's max Health.
 		-- Applies Shock to enemies.
 		{ id = "MicroGeneratorEpic" }, 
 
 		-- MICROGENERATOR / Cyberware / Circulatory System / Legendary
-		-- When your Health drops to 15%, Release an electroshock that deals damage equal to 50% of the target enemy's max Health.
+		-- When your Health drops to 15%, releases an electroshock that deals damage equal to 50% of the target enemy's max Health.
 		-- Applies Shock to enemies.
 		{ id = "MicroGeneratorLegendary" }, 
 
@@ -741,6 +752,7 @@ return {
 		},
 
 		-- MILITECH PARALINE / Cyberware / Operating System / Common
+		-- Allows you to perform quickhacks on targets and devices while scanning.
 		{
 			id = "MilitechParaline", 
 			slots = {
@@ -750,7 +762,9 @@ return {
 		},
 
 		-- MONOWIRE / Cyberware / Arms / Rare
-		-- Whiplike Monofilament wire with a cutting edge only a molecule wide.
+		-- The Monowire charges when equipped but not in combat.
+		-- Attacks with a charged wire deal bonus damage based on the charge level.
+		-- Charge level and bonus damage dealt decline with each attack.
 		{
 			id = "NanoWires", 
 			slots = {
@@ -761,7 +775,9 @@ return {
 		},
 
 		-- MONOWIRE / Cyberware / Arms / Epic
-		-- Whiplike Monofilament wire with a cutting edge only a molecule wide.
+		-- The Monowire charges when equipped but not in combat.
+		-- Attacks with a charged wire deal bonus damage based on the charge level.
+		-- Charge level and bonus damage dealt decline with each attack.
 		{
 			id = "NanoWiresEpic", 
 			slots = {
@@ -772,7 +788,9 @@ return {
 		},
 
 		-- MONOWIRE / Cyberware / Arms / Legendary
-		-- Whiplike Monofilament wire with a cutting edge only a molecule wide.
+		-- The Monowire charges when equipped but not in combat.
+		-- Attacks with a charged wire deal bonus damage based on the charge level.
+		-- Charge level and bonus damage dealt decline with each attack.
 		{
 			id = "NanoWiresLegendary", 
 			slots = {
@@ -1006,7 +1024,7 @@ return {
 		{ id = "ReflexRecorderLegendary" }, 
 
 		-- REINFORCED TENDONS / Cyberware / Legs / Rare
-		-- Double jump.
+		-- Press "Jump" while in midair to perform a double jump.
 		{ id = "BoostedTendonsRare" }, 
 
 		-- SECOND HEART / Cyberware / Circulatory System / Legendary
@@ -1074,6 +1092,7 @@ return {
 		{ id = "SmartLinkLegendary" }, 
 
 		-- STEPHENSON TECK MK. 2 / Cyberware / Operating System / Rare
+		-- Allows you to perform quickhacks on targets and devicese while scanning.
 		-- Quickhack cooldown reduced by 30% Increase combat quickhack duration by 30%.
 		{
 			id = "StephensonRareMKII", 
@@ -1086,6 +1105,7 @@ return {
 		},
 
 		-- STEPHENSON TECK MK. 3 / Cyberware / Operating System / Epic
+		-- Allows you to perform quickhacks on targets and devicese while scanning.
 		-- Quickhack cooldown reduced by 45% Increase combat quickhack duration by 40%.
 		{
 			id = "StephensonEpicMKIII", 
@@ -1099,6 +1119,7 @@ return {
 		},
 
 		-- STEPHENSON TECK MK. 4 / Cyberware / Operating System / Legendary
+		-- Allows you to perform quickhacks on targets and devicese while scanning.
 		-- Quickhack cooldown reduced by 45% Increase combat quickhack duration by 50%.
 		-- Reduces quickhack upload time by 25%.
 		{
@@ -1114,23 +1135,23 @@ return {
 		},
 
 		-- SUBDERMAL ARMOR / Cyberware / Integumentary System / Common
-		-- increases armor by 20.
+		-- Increases armor by 20.
 		{ id = "SubdermalArmorCommon" }, 
 
 		-- SUBDERMAL ARMOR / Cyberware / Integumentary System / Uncommon
-		-- increases armor by 50.
+		-- Increases armor by 50.
 		{ id = "SubdermalArmorUncommon" }, 
 
 		-- SUBDERMAL ARMOR / Cyberware / Integumentary System / Rare
-		-- increases armor by 90.
+		-- Increases armor by 90.
 		{ id = "SubdermalArmorRare" }, 
 
 		-- SUBDERMAL ARMOR / Cyberware / Integumentary System / Epic
-		-- increases armor by 140.
+		-- Increases armor by 140.
 		{ id = "SubdermalArmorEpic" }, 
 
 		-- SUBDERMAL ARMOR / Cyberware / Integumentary System / Legendary
-		-- increases armor by 200.
+		-- Increases armor by 200.
 		{ id = "SubdermalArmorLegendary" }, 
 
 		-- SUPRA-DERMAL WEAVE / Cyberware / Integumentary System / Rare
@@ -1207,30 +1228,64 @@ return {
 		-- Increases Health by 60%.
 		{ id = "EndoskeletonLegendary" }, 
 
-		-- TETRATRONIC MK. 1 / Cyberware / Cyberdeck / Uncommon
+		-- TETRATRONIC MK. 1 / Cyberware / Operating System / Uncommon
 		-- Allows you to perform quickhacks on targets and devicese while scanning.
 		-- Increase Damage dealt by quickhacks by 10%.
-		{ id = "TetratronicUncommonMKI" }, 
+		{
+			id = "TetratronicUncommonMKI", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+			},
+		},
 
-		-- TETRATRONIC MK. 2 / Cyberware / Cyberdeck / Rare
+		-- TETRATRONIC MK. 2 / Cyberware / Operating System / Rare
 		-- Allows you to perform quickhacks on targets and devicese while scanning.
 		-- Increase Damage dealt by quickhacks by 20%.
 		-- Reduces the RAM cost of Ultimate quickhacks by 1.
-		{ id = "TetratronicRareMKII" }, 
+		{
+			id = "TetratronicRareMKII", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+			},
+		},
 
-		-- TETRATRONIC MK. 3 / Cyberware / Cyberdeck / Epic
+		-- TETRATRONIC MK. 3 / Cyberware / Operating System / Epic
 		-- Allows you to perform quickhacks on targets and devicese while scanning.
 		-- Increase Damage dealt by quickhacks by 30%.
 		-- Reduces the RAM cost of Ultimate quickhacks by 2.
-		{ id = "TetratronicEpicMKIII" }, 
+		{
+			id = "TetratronicEpicMKIII", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+				{ slot = "Program5" }, 
+			},
+		},
 
-		-- TETRATRONIC RIPPLER MK. 4 / Cyberware / Cyberdeck / Legendary
+		-- TETRATRONIC RIPPLER MK. 4 / Cyberware / Operating System / Legendary
 		-- Allows you to perform quickhacks on targets and devicese while scanning.
 		-- Ultimate quickhacks can spread once.
 		-- Reduces the RAM cost of Ultimate quickhacks by 3.
 		-- Reduces quickhack upload time by 75%.
 		-- Quickhack cooldown reduced by 45%.
-		{ id = "TetratronicRipplerLegendaryMKIV" }, 
+		{
+			id = "TetratronicRipplerLegendaryMKIV", 
+			slots = {
+				{ slot = "Program1" }, 
+				{ slot = "Program2" }, 
+				{ slot = "Program3" }, 
+				{ slot = "Program4" }, 
+				{ slot = "Program5" }, 
+				{ slot = "Program6" }, 
+			},
+		},
 
 		-- TITANIUM BONES / Cyberware / Skeleton / Common
 		-- Increases carrying capacity by 20%.
