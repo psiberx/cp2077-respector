@@ -246,7 +246,32 @@ function tweaker.onDrawEvent()
 
 			-- Facts
 			if tweak.entryMeta.kind == 'Fact' then
+				ImGui.AlignTextToFramePadding()
+				ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, 5, 3)
+				ImGui.Text('Current state:')
+				ImGui.SameLine()
+				if tweak.factState then
+					ImGui.PushStyleColor(ImGuiCol.FrameBg, 0x9900ff00)
+					ImGui.SetNextItemWidth(32)
+					ImGui.InputText('##FactYES', 'YES', 3, ImGuiInputTextFlags.ReadOnly)
+					ImGui.PopStyleColor()
+				else
+					ImGui.PushStyleColor(ImGuiCol.FrameBg, 0x770000ee) -- 0xff484ad5
+					ImGui.SetNextItemWidth(24)
+					ImGui.InputText('##FactNO', 'NO', 2, ImGuiInputTextFlags.ReadOnly)
+					ImGui.PopStyleColor()
+				end
+				ImGui.PopStyleVar()
 
+				ImGui.Spacing()
+
+				if ImGui.Button(tweak.factState and 'Switch to NO' or 'Switch to YES', windowWidth, 21) then
+					tweaker.onSwitchFactClick()
+				end
+
+				ImGui.Spacing()
+
+				ImGui.TextWrapped('Be careful with manipulating facts.\nMake a manual save before making any changes.')
 
 			-- Vehicles
 			elseif tweak.entryMeta.kind == 'Vehicle' then
@@ -255,6 +280,7 @@ function tweaker.onDrawEvent()
 					ImGui.Text('You own this vehicle.')
 				else
 					ImGui.Text('You don\'t own this vehicle yet.')
+
 					ImGui.Spacing()
 
 					if ImGui.Button('Add to garage', windowWidth, 21) then
@@ -444,6 +470,7 @@ function tweaker.onTweakSearchResultSelect()
 	local tweak = viewData.activeTweakData
 
 	if tweak.entryMeta.kind == 'Fact' then
+		tweak.factState = tweaker.getFactState(tweak.entryMeta.type)
 
 	elseif tweak.entryMeta.kind == 'Vehicle' then
 		tweak.vehicleUnlocked = respector:usingModule('transport', function(transportModule)
@@ -576,6 +603,14 @@ function tweaker.onTransferGoodsClick()
 	tweak.currentAmount = tweaker.getItemAmount(tweak.entryMeta.type)
 end
 
+function tweaker.onSwitchFactClick()
+	local tweak = viewData.activeTweakData
+
+	tweak.factState = not tweak.factState
+
+	tweaker.setFactState(tweak.entryMeta.type, tweak.factState)
+end
+
 function tweaker.onQuickButtonClick()
 	userState.showTweaker = not userState.showTweaker
 	viewData.justOpened = userState.showTweaker
@@ -595,6 +630,12 @@ function tweaker.addItemAmount(itemId, itemAmount)
 	Game.GetTransactionSystem():GiveItem(Game.GetPlayer(), itemId, itemAmount)
 end
 
---print(Game.GetQuestsSystem():GetFactStr('q000_corpo_02_cut_short'))
+function tweaker.getFactState(factName)
+	return Game.GetQuestsSystem():GetFactStr(factName) == 1
+end
+
+function tweaker.setFactState(factName, state)
+	Game.GetQuestsSystem():SetFactStr(factName, state and 1 or 0)
+end
 
 return tweaker
