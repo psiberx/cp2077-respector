@@ -11,10 +11,8 @@ local tweakDb
 local persitentState
 
 local windowWidth = 440
-local windowHeightShort = 152
-local windowHeightFull = 426
-local windowPadding = 7.5
-local footerHeight = 32
+local windowPaddingX = 7.5
+local windowPaddingY = 6
 local openKey
 
 local viewData = {
@@ -93,12 +91,9 @@ function tweaker.onDrawEvent()
 		return
 	end
 
-	--local windowHeight = viewData.activeTweakData and windowHeightFull or windowHeightShort
-	local windowHeight = windowHeightFull
-
 	ImGui.SetNextWindowPos(365, 400, ImGuiCond.FirstUseEver)
-	ImGui.SetNextWindowSize(windowWidth + (windowPadding * 2), windowHeight)
-	--ImGui.SetNextWindowCollapsed(false)
+	ImGui.SetNextWindowSize(windowWidth + (windowPaddingX * 2), 0)
+	ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, windowPaddingX, windowPaddingY)
 
 	userState.showTweaker, userState.expandTweaker = ImGui.Begin('Quick Tweaks', userState.showTweaker, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
 
@@ -109,10 +104,10 @@ function tweaker.onDrawEvent()
 			viewData.justOpened = false
 		end
 
+		ImGui.Spacing()
 		ImGui.SetNextItemWidth(windowWidth)
 		ImGui.PushStyleColor(ImGuiCol.TextDisabled, 0xffaaaaaa)
 		viewData.tweakSearch = ImGui.InputTextWithHint('##TweakSearch', 'Search database...', viewData.tweakSearch, viewData.tweakSearchMaxLen)
-		--ImGui.SetItemDefaultFocus(0)
 		ImGui.PopStyleColor()
 
 		if viewData.tweakSearch ~= userState.tweakSearch then
@@ -126,12 +121,16 @@ function tweaker.onDrawEvent()
 			tweaker.onTweakSearchChange()
 		end
 
-		local tweakSearchResultsHeight = viewData.activeTweakData and 95 or 368
+		ImGui.Spacing()
 
-		ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
+		local searchResultHeight = 17
+		local searchResultsHeight = searchResultHeight * 6.5
+
+		ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 0)
+		ImGui.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
 		ImGui.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
 		ImGui.PushStyleColor(ImGuiCol.FrameBg, 0.16, 0.29, 0.48, 0) -- 0.16, 0.29, 0.48, 0.1
-		ImGui.BeginChildFrame(1, windowWidth, tweakSearchResultsHeight)
+		ImGui.BeginChildFrame(1, windowWidth, searchResultsHeight)
 
 		if #viewData.tweakSearchResults > 0 then
 			ImGui.SetNextItemWidth(windowWidth)
@@ -142,7 +141,7 @@ function tweaker.onDrawEvent()
 				viewData.activeTweakIndex,
 				viewData.tweakSearchPreviews,
 				#viewData.tweakSearchPreviews,
-				#viewData.tweakSearchPreviews -- viewData.activeTweakData and 5 or 21
+				#viewData.tweakSearchPreviews
 			)
 
 			ImGui.PopStyleVar(2)
@@ -152,15 +151,6 @@ function tweaker.onDrawEvent()
 				viewData.activeTweakData = viewData.tweakSearchResults[tweakIndex + 1] or nil
 
 				tweaker.onTweakSearchResultSelect()
-
-				-- Bring selected entry in the visible area
-				if tweakSearchResultsHeight > 95 then
-					local activeTweakY = 19 * viewData.activeTweakIndex
-
-					if activeTweakY > 95 - 19 then
-						ImGui.SetScrollY(activeTweakY - 4 * 19 + 5)
-					end
-				end
 			end
 		else
 			ImGui.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
@@ -168,8 +158,8 @@ function tweaker.onDrawEvent()
 			if viewData.tweakSearchStarted then
 				ImGui.TextWrapped('No results for your request.')
 			else
-				ImGui.TextWrapped('Start typing in the search bar (at least 2 characters) to find items, vehicles, valuables, quest facts, and more.')
-				ImGui.TextWrapped('Then select an entry to get the available tweaks.')
+				ImGui.TextWrapped('1. Start typing in the search bar (at least 2 characters)\n   to find items, vehicles, valuables, quest facts.')
+				ImGui.TextWrapped('2. Select entry to get the available tweaks.')
 			end
 
 			ImGui.PopStyleColor()
@@ -177,17 +167,18 @@ function tweaker.onDrawEvent()
 
 		ImGui.EndChildFrame()
 		ImGui.PopStyleColor(2)
-		ImGui.PopStyleVar()
+		ImGui.PopStyleVar(2)
 
 		if viewData.activeTweakData then
 			local tweak = viewData.activeTweakData
 
-			ImGui.SetCursorPos(8, 152) -- Fix for inconsistent height of ListBox
-
+			ImGui.Spacing()
 			ImGui.Separator()
 			ImGui.Spacing()
 
-			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, 4, 2)
+			local _, tweakPanelY = ImGui.GetCursorPos()
+
+			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, 5, 3)
 
 			if tweak.entryMeta.quality then
 				ImGui.PushStyleColor(ImGuiCol.Text, Quality.toColor(tweak.entryMeta.quality))
@@ -211,7 +202,7 @@ function tweaker.onDrawEvent()
 				ImGui.PopStyleColor()
 			end
 
-			ImGui.PushStyleColor(ImGuiCol.Text, 0xffbf9f9f) -- 0xff484ae6
+			ImGui.PushStyleColor(ImGuiCol.Text, 0xffbf9f9f)
 			ImGui.Text(tweak.entryMeta.kind)
 
 			if tweak.entryMeta.group then
@@ -226,12 +217,19 @@ function tweaker.onDrawEvent()
 					ImGui.SameLine()
 					ImGui.Text(tweak.entryMeta.group2)
 				end
+
+				if tweak.isTaggedAsSet then
+					ImGui.SameLine()
+					ImGui.Text('·')
+					ImGui.SameLine()
+					ImGui.Text(tweak.entryMeta.tag)
+				end
 			end
 
 			ImGui.PopStyleColor()
 
 			if tweak.entryMeta.comment then
-				ImGui.PushStyleColor(ImGuiCol.Text, 0xff484ad5) -- 0xff484ad5 0xff484ae6 0xff3c3dbd
+				ImGui.PushStyleColor(ImGuiCol.Text, 0xff484ad5)
 				ImGui.TextWrapped(tweak.entryMeta.comment:gsub('%%', '%%%%'))
 				ImGui.PopStyleColor()
 			end
@@ -250,7 +248,7 @@ function tweaker.onDrawEvent()
 			if tweak.entryMeta.kind == 'Fact' then
 
 
-				-- Vehicles
+			-- Vehicles
 			elseif tweak.entryMeta.kind == 'Vehicle' then
 				ImGui.Spacing()
 				if tweak.vehicleUnlocked then
@@ -264,7 +262,7 @@ function tweaker.onDrawEvent()
 					end
 				end
 
-				-- Money / Ingredients
+			-- Money / Ingredients
 			elseif tweak.entryMeta.kind == 'Money' or tweak.entryMeta.kind == 'Component' then
 				local halfWidth = windowWidth / 2 - 4
 
@@ -290,7 +288,7 @@ function tweaker.onDrawEvent()
 					tweaker.onTransferGoodsClick()
 				end
 
-				-- Items
+			-- Items
 			else
 				ImGui.BeginGroup()
 				ImGui.Spacing()
@@ -356,9 +354,6 @@ function tweaker.onDrawEvent()
 				end
 			end
 
-			local cursorX, _ = ImGui.GetCursorPos()
-			ImGui.SetCursorPos(cursorX, windowHeight - footerHeight)
-
 			ImGui.Spacing()
 			ImGui.Separator()
 
@@ -366,8 +361,6 @@ function tweaker.onDrawEvent()
 
 			ImGui.PushStyleColor(ImGuiCol.FrameBg, 0)
 			ImGui.PushStyleColor(ImGuiCol.Text, 0xff555555)
-			--ImGui.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
-			--ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
 			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, 2, 0)
 			ImGui.Text('ID:')
 			ImGui.SameLine()
@@ -382,10 +375,22 @@ function tweaker.onDrawEvent()
 			ImGui.InputText('##Tweak Hash Key', tweak.entryHash, 16, ImGuiInputTextFlags.ReadOnly)
 			ImGui.PopStyleVar()
 			ImGui.PopStyleColor(2)
+
+			local closeBtnSize = 18
+
+			ImGui.SetCursorPos(windowWidth - closeBtnSize + windowPaddingX, tweakPanelY)
+			ImGui.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
+			if ImGui.Button('X', closeBtnSize + 1, closeBtnSize) then
+				viewData.activeTweakIndex = -1
+				viewData.activeTweakData = nil
+			end
+			ImGui.PopStyleVar()
 		end
 	end
 
 	ImGui.End()
+
+	ImGui.PopStyleVar()
 end
 
 function tweaker.onTweakSearchChange()
@@ -425,12 +430,13 @@ function tweaker.onTweakSearchChange()
 		return {
 			entryKey = result.entryKey,
 			entryMeta = result.entryMeta,
-			entryHash = ('%010X'):format(result.entryKey),
+			entryHash = TweakDb.isRealKey(result.entryKey) and ('%010X'):format(result.entryKey) or 'N/A',
+			isTaggedAsSet = tweakDb:isTaggedAsSet(result.entryMeta),
 		}
 	end)
 
 	viewData.tweakSearchPreviews = array.map(searchResults, function(result)
-		return tweakDb:describe(result.entryMeta, true, false, 25)
+		return tweakDb:describe(result.entryMeta, true, false, 30)
 	end)
 end
 
@@ -522,6 +528,10 @@ function tweaker.onTweakSearchResultSelect()
 	end
 end
 
+function tweaker.onActiveTweakCloseClick()
+
+end
+
 function tweaker.onSpawnItemClick()
 	local tweak = viewData.activeTweakData
 
@@ -584,5 +594,7 @@ function tweaker.addItemAmount(itemId, itemAmount)
 
 	Game.GetTransactionSystem():GiveItem(Game.GetPlayer(), itemId, itemAmount)
 end
+
+--print(Game.GetQuestsSystem():GetFactStr('q000_corpo_02_cut_short'))
 
 return tweaker

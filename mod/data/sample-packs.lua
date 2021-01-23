@@ -9,7 +9,7 @@ return {
 	},
 	{
 		name = "clothing-sets",
-		items = { kind = "Clothing", tag = "Set" },
+		items = { kind = "Clothing", tag = { "Badge Set", "Corpo Set", "Fixer Set", "Media Set", "Netrunner Set", "Nomad Set", "Rocker Set", "Solo Set", "Techie Set" } },
 	},
 	{
 		name = "clothing-unique",

@@ -829,10 +829,10 @@ return {
 		{ id = "Glasses_02_basic_02" }, 
 
 		-- ELECTRIC MARBLE ULTRALIGHT ATHLETIC SHOES / Clothing / Feet
-		{ id = "Boots_01_basic_01" }, 
+		{ id = "CasualShoes_05_basic_01" }, 
 
 		-- ELECTRIC MARBLE ULTRALIGHT ATHLETIC SHOES / Clothing / Feet
-		{ id = "CasualShoes_05_basic_01" }, 
+		{ id = "Boots_01_basic_01" }, 
 
 		-- ELEGANT CARET CASSICO BLAZER WITH NANOTUBE STRIPES / Clothing / Outer Torso
 		{ id = "FormalJacket_02_rich_03" }, 
@@ -2584,12 +2584,6 @@ return {
 
 		-- UTILITARIUN BURN CORPO SHIT TSHIRT / Clothing / Inner Torso
 		{ id = "TShirt_02_basic_01" }, 
-
-		-- V'S FAVORITE T-SHIRT / Clothing / Inner Torso / Common
-		{ id = "Q001_TShirt" }, 
-
-		-- V'S SNEAKERS / Clothing / Feet / Common
-		{ id = "Q001_Shoes" }, 
 
 		-- VALENTINO'S DUAL WEAVE EDGERUNNER / Clothing / Outer Torso
 		{ id = "Jacket_03_basic_04" }, 

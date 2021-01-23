@@ -4,6 +4,10 @@ function str.trim(s)
 	return (s:gsub('^%s*(.-)%s*$', '%1'))
 end
 
+function str.rtrim(s)
+	return (s:gsub('^(.-)%s*$', '%1'))
+end
+
 function str.ucfirst(s)
     return (s:gsub('^%l', string.upper))
 end
@@ -56,7 +60,7 @@ function str.ellipsis(s, limit, ending)
 		return s
 	end
 
-	return s:sub(1, limit) .. ending
+	return str.rtrim(s:sub(1, limit)) .. ending
 end
 
 function str.padnul(s, len)

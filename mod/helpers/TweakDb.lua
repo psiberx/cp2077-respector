@@ -45,16 +45,19 @@ function TweakDb:search(term)
 	return SimpleDb.search(self, term, { 'name', 'tag' })
 end
 
+function TweakDb:isTaggedAsSet(itemMeta)
+	return itemMeta.tag and itemMeta.tag:find(' Set$')
+end
+
 function TweakDb:describe(itemMeta, extended, sets, ellipsis)
 	local comment = ''
 
 	if itemMeta.name then
 		comment = itemMeta.name
-		--comment = string.upper(itemMeta.name)
 	end
 
-	if sets and itemMeta.kind == 'Clothing' and itemMeta.tag == 'Set' then
-		comment = string.upper(itemMeta.group2) .. ': ' .. comment
+	if sets and self:isTaggedAsSet(itemMeta) then
+		comment = string.upper(itemMeta.tag) .. ': ' .. comment
 	end
 
 	if ellipsis then
@@ -98,8 +101,8 @@ function TweakDb:order(itemMeta, orderKind, orderPrefix)
 		if itemMeta.group == 'Cyberware' then
 			order = order .. itemMeta.group2 .. '|'
 		end
-	elseif itemMeta.kind == 'Clothing' and itemMeta.tag == 'Set' then
-		order = order .. itemMeta.group2 .. '|'
+	elseif self:isTaggedAsSet(itemMeta) then
+		order = order .. itemMeta.tag .. '|'
 	end
 
 	if itemMeta.name then

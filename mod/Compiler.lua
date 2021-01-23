@@ -79,6 +79,10 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 	local tweakDb = TweakDb:new('mod/data/tweakdb-meta')
 
 	for _, samplePack in ipairs(samplePacks) do
+		if mod.debug then
+			print(('[DEBUG] Respector: Creating sample pack %q...'):format(samplePack.name))
+		end
+
 		local specName = samplePack.name
 		local specData = {}
 
