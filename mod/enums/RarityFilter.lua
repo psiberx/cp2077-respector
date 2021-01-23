@@ -12,6 +12,17 @@ local values = {
 	'Legendary+Iconic'
 }
 
+local labels = {
+	'Any rarity',
+	'Iconic only',
+	'Rare and higher',
+	'Rare and higher or Iconic',
+	'Epic and higher',
+	'Epic and higher or Iconic',
+	'Legendary only',
+	'Legendary or Iconic',
+}
+
 function RarityFilter:new(value)
 	local this = { value = value }
 
@@ -40,6 +51,10 @@ end
 
 function RarityFilter.all()
 	return values
+end
+
+function RarityFilter.labels()
+	return labels
 end
 
 return RarityFilter

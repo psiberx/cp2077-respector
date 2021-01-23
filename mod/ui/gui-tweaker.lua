@@ -19,7 +19,7 @@ local viewData = {
 	justOpened = true,
 
 	tweakSearch = nil,
-	tweakSearchMaxLen = 32,
+	tweakSearchMaxLen = 16,
 	tweakSearchStarted = false,
 	tweakSearchMaxResults = 50,
 	tweakSearchResults = nil,
@@ -251,7 +251,7 @@ function tweaker.onDrawEvent()
 				ImGui.Text('Current state:')
 				ImGui.SameLine()
 				if tweak.factState then
-					ImGui.PushStyleColor(ImGuiCol.FrameBg, 0x9900ff00)
+					ImGui.PushStyleColor(ImGuiCol.FrameBg, 0x7700ff00)
 					ImGui.SetNextItemWidth(32)
 					ImGui.InputText('##FactYES', 'YES', 3, ImGuiInputTextFlags.ReadOnly)
 					ImGui.PopStyleColor()

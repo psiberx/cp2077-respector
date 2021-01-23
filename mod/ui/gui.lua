@@ -40,11 +40,11 @@ local keyCodes = mod.load('mod/data/virtual-key-codes')
 
 local viewData = {
 	rarityFilterIndex = 0,
-	rarityFilterList = 'Any rarity\0Iconic only\0Rare or higher\0Rare or higher + Iconic\0Epic or higher\0Epic or higher + Iconic\0Legendary only\0Legendary only + Iconic\0',
+	rarityFilterList = RarityFilter.labels(),
 	rarityFilterCount = #rarityFilterList,
 
 	itemFormatIndex = 0,
-	itemFormatList = 'Use hash name\0Use hash + length\0',
+	itemFormatList = 'Hash name\0Hash + length\0',
 	itemFormatCount = #itemFormatList,
 
 	keepSeedIndex = 0,
@@ -271,7 +271,7 @@ function gui.onDrawEvent()
 
 				if section.option == 'backpack' and userState.specOptions.backpack then
 					ImGui.SameLine()
-					ImGui.SetNextItemWidth(190)
+					ImGui.SetNextItemWidth(205)
 					viewData.rarityFilterIndex = ImGui.Combo('##Backpack Filter', viewData.rarityFilterIndex, viewData.rarityFilterList, viewData.rarityFilterCount)
 					userState.specOptions.rarity = rarityFilterList[viewData.rarityFilterIndex + 1]
 				elseif section.desc then

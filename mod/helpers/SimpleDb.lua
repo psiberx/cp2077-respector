@@ -147,8 +147,8 @@ function SimpleDb:search(term, fields)
 	local dmp = mod.require('mod/vendor/diff_match_patch')
 
 	dmp.settings({
-		Match_Threshold = 0.2,
-		Match_Distance = 256,
+		Match_Threshold = 0.1,
+		Match_Distance = 512,
 	})
 
 	term = term:upper()
@@ -163,7 +163,7 @@ function SimpleDb:search(term, fields)
 				return nil
 			end
 
-			for weight, field  in pairs(fields) do
+			for weight, field in pairs(fields) do
 				if item[field] then
 					local position = dmp.match_main(item[field]:upper(), term, 1)
 
