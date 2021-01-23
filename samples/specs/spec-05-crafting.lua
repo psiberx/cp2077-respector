@@ -26,7 +26,7 @@ return {
 			"SimpleFabricEnhancer01", -- ARMADILLO
 
 			-- If the mod doesn't know the textual item ID, then the hash value will be used.
-			0xBCFB0A1216, -- OZOB'S NOSE / Legendary
+			0x16BCFB0A12, -- OZOB'S NOSE / Legendary
 		},
 	},
 }

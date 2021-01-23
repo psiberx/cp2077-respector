@@ -39,14 +39,14 @@ return {
 		{ id = { hash = 0x73677016, length = 36 } },
 
 		-- 3. Item ID as numeric value.
-		{ id = 0x7367701624 },
+		{ id = 0x243677016 },
 
 		-- There is also a shorthand definition on an item,
 		-- when other properties are irrelevant:
 		 "Preset_Achilles_Nash_Legendary",
 
 		 -- Or with numeric value:
-		 0x7367701624,
+		 0x2473677016,
 
 		-- The next property is `seed`.
 		-- The seed is an integer that defines unique instance of the item.
