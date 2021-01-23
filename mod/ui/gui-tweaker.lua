@@ -18,7 +18,7 @@ local viewData = {
 	justOpened = true,
 
 	tweakSearch = nil,
-	tweakSearchMaxLen = 16,
+	tweakSearchMaxLen = 128,
 	tweakSearchStarted = false,
 	tweakSearchMaxResults = 50,
 	tweakSearchResults = nil,

@@ -148,10 +148,12 @@ function SimpleDb:search(term, fields)
 
 	dmp.settings({
 		Match_Threshold = 0.1,
-		Match_Distance = 512,
+		Match_Distance = 250,
 	})
 
 	term = term:upper()
+
+	local termRe = term:gsub('%s+', '.* ') .. '.*'
 
 	local key, item
 
@@ -163,24 +165,40 @@ function SimpleDb:search(term, fields)
 				return nil
 			end
 
-			for weight, field in pairs(fields) do
+			for weight, field in ipairs(fields) do
 				if item[field] then
-					local position = 0
+					local value = item[field]:upper()
 
-					if item[field] == term then
-						position = 1
-					else
-						position = item[field]:find(term)
+					if term == value then
+						return key, item, weight
+					end
+				end
+			end
 
-						if not position then
-							position = dmp.match_main(item[field]:upper(), term, 1)
-						end
+			for weight, field in ipairs(fields) do
+				if item[field] then
+					local value = item[field]:upper()
+					local position = value:find(term)
+
+					if not position then
+						position = value:find(termRe)
 					end
 
-					if position > 0 then
-						position = position * weight
+					if position then
+						return key, item, position * weight
+					end
+				end
+			end
 
-						return key, item, position
+			if term:len() < 8 then
+				for weight, field in ipairs(fields) do
+					if item[field] then
+						local value = item[field]:upper()
+						local position = dmp.match_main(value, term, 1)
+
+						if position > 0 then
+							return key, item, position * weight
+						end
 					end
 				end
 			end

@@ -51,6 +51,10 @@ function str.nonempty(...)
 	return nil
 end
 
+function str.limit(s, limit)
+	return s:len() > limit and str.rtrim(s:sub(1, limit)) or s
+end
+
 function str.ellipsis(s, limit, ending)
 	if not ending then
 		ending = '...'

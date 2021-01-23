@@ -37,7 +37,7 @@ function TweakDb:resolvable(tweakId)
 end
 
 function TweakDb:search(term)
-	return SimpleDb.search(self, term, { 'name', 'tag' })
+	return SimpleDb.search(self, term, { 'name', 'tag', 'type' })
 end
 
 function TweakDb:isTaggedAsSet(itemMeta)
@@ -102,7 +102,7 @@ function TweakDb:order(itemMeta, orderKind, orderPrefix)
 
 	if itemMeta.name then
 		order = order .. itemMeta.name
-	else
+	elseif itemMeta.type then
 		order = order .. TweakDb.toItemAlias(itemMeta.type)
 	end
 

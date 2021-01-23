@@ -101,9 +101,9 @@ if mod.config.useGui then
 		gui.onDrawEvent()
 	end)
 
-	registerHotkey('QuickSave', 'Quick Save (with current settings)', function()
-		gui.onQuickSaveHotkey()
-	end)
+	--registerHotkey('QuickSave', 'Quick Save (with current settings)', function()
+	--	gui.onQuickSaveHotkey()
+	--end)
 end
 
 registerForEvent('onUpdate', function(delta)
