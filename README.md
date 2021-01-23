@@ -233,7 +233,7 @@ You can choose the options for saving specs and see recent history.
 
 Here you can change where to store specs, and the default spec name.
 
-![Respector Options Tab](https://siberx.dev/cp2077-respector/respector-097-3-options.png)
+![Respector Options Tab](https://siberx.dev/cp2077-respector/respector-097-3-options-2.png)
 
 #### Quick Tweaks
 
