@@ -3,8 +3,10 @@ local mod = ...
 local SimpleDb = {}
 SimpleDb.__index = SimpleDb
 
+local shared = {}
+
 function SimpleDb:new(path)
-	local this = {}
+	local this = { path = nil, db = nil }
 
 	setmetatable(this, self)
 
@@ -16,10 +18,50 @@ function SimpleDb:new(path)
 end
 
 function SimpleDb:load(path)
-	self.db = mod.load(path)
+	if path == self.path then
+		return
+	end
+
+	if self.path ~= nil then
+		self:unload()
+	end
+
+	self.path = path
+
+	if not shared[self.path] then
+		shared[self.path] = {
+			data = mod.load(path),
+			refs = 1
+		}
+	else
+		shared[self.path].refs = shared[self.path].refs + 1
+	end
+
+	self.db = shared[self.path].data
+
+	if mod.debug then
+		print(('[DEBUG] Respector: Shared DB %q used by %d client(s).'):format(self.path, shared[self.path].refs))
+	end
 end
 
 function SimpleDb:unload()
+	if shared[self.path] then
+		shared[self.path].refs = shared[self.path].refs - 1
+
+		if shared[self.path].refs < 1 then
+			shared[self.path] = nil
+		end
+	end
+
+	if mod.debug then
+		if shared[self.path] then
+			print(('[DEBUG] Respector: Shared DB %q used by %d client(s).'):format(self.path, shared[self.path].refs))
+		else
+			print(('[DEBUG] Respector: Shared DB %q disposed.'):format(self.path))
+		end
+	end
+
+	self.path = nil
 	self.db = nil
 end
 
@@ -150,6 +192,11 @@ function SimpleDb:limit(items, limit)
 	while #items > limit do
 		table.remove(items)
 	end
+end
+
+function SimpleDb.unloadAll()
+	-- Not eloquent but ok for now
+	shared = {}
 end
 
 return SimpleDb

@@ -140,6 +140,10 @@ function TweakDb.toKey(data)
 	return 0
 end
 
+function TweakDb.isRealKey(key)
+	return key <= 0xFFFFFFFFFF
+end
+
 function TweakDb.toStruct(data)
 	if type(data) == 'table' then
 		return data
