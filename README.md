@@ -13,7 +13,7 @@ containing player experience, attributes, skills, perks, and equipment.
 
 ## Requirements
 
-- [CyberEngineTweaks](https://github.com/yamashi/CyberEngineTweaks) 1.9.1
+- [CyberEngineTweaks](https://github.com/yamashi/CyberEngineTweaks) 1.9.2
 - Cyberpunk 2077 1.10
 
 ## Installation
@@ -222,13 +222,45 @@ Has the same results as `Respector.SaveSpec(nil, { timestamp = true })` but is s
 
 ### GUI
 
-The mod has a simple GUI that allows you to save and load specs.
+#### Save / Load
 
-![CP2077 Respector GUI](https://siberx.dev/cp2077-respector/gui-095-1-save-spec.png) ![CP2077 Respector GUI](https://siberx.dev/cp2077-respector/gui-095-2-load-spec.png)
+The mod has a simple GUI that allows you to save and load specs. 
+You can choose the options for saving specs and see recent history. 
 
-Also, you can change where to store specs, and the default spec name.
+![Respector Save Tab](https://siberx.dev/cp2077-respector/respector-097-1-save.png) ![Respector Load Tab](https://siberx.dev/cp2077-respector/respector-097-2-load.png)
 
-![CP2077 Respector GUI](https://siberx.dev/cp2077-respector/gui-093-3-options.png)
+#### Options
+
+Here you can change where to store specs, and the default spec name.
+
+![Respector Options Tab](https://siberx.dev/cp2077-respector/respector-097-3-options.png)
+
+#### Quick Tweaks
+
+Hitting green button will open another window with Quick Tweaks.
+Just follow the first instructions:
+
+![Quick Tweaks](https://siberx.dev/cp2077-respector/respector-097-4-qt-start.png)
+
+You can find a different kind of things in the database. For example, weapons that you can produce right there or unlock for crafting. 
+
+![Quick Tweaks Weapon](https://siberx.dev/cp2077-respector/respector-097-5-qt-comrade.png)
+
+Another example is a vehicle that you can unlock for yourself if you haven't done so before:
+
+![Quick Tweaks Vehicle](https://siberx.dev/cp2077-respector/respector-097-6-qt-shion.png)
+
+Also, you can find game facts. They are indicate what you have done or can do. 
+
+![Quick Tweaks Fact](https://siberx.dev/cp2077-respector/respector-097-7-qt-judy.png)
+
+And of cource you can give yourself more money: 
+
+![Quick Tweaks Money](https://siberx.dev/cp2077-respector/respector-097-8-qt-money.png)
+
+Some items can be found by group tags. For example, to find all parts of the Corpo Set outfit you can use simple request:
+
+![Quick Tweaks Set](https://siberx.dev/cp2077-respector/respector-097-9-qt-corpo-set.png)
 
 ### Configuration
 
