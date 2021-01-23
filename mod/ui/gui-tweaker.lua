@@ -1,5 +1,4 @@
 local mod = ...
-local str = mod.require('mod/utils/str')
 local array = mod.require('mod/utils/array')
 local Quality = mod.require('mod/enums/Quality')
 local TweakDb = mod.require('mod/helpers/TweakDb')
@@ -13,7 +12,6 @@ local persitentState
 local windowWidth = 440
 local windowPaddingX = 7.5
 local windowPaddingY = 6
-local openKey
 
 local viewData = {
 	justOpened = true,
@@ -50,27 +48,18 @@ function tweaker.init(_respector, _userState, _persitentState)
 
 	tweakDb = TweakDb:new()
 
-	tweaker.initHotkeys()
 	tweaker.initState()
-end
-
-function tweaker.initHotkeys()
-	openKey = mod.config.openTweakerKey or 0x7B -- F12
 end
 
 function tweaker.initState(force)
 	if not userState.tweakSearch or force then
 		userState.showTweaker = false
 		userState.expandTweaker = true
-	--	viewData.tweakSearch = str.padnul('', viewData.tweakSearchMaxLen)
-	--else
-	--	viewData.tweakSearch = userState.tweakSearch
 	end
 
-	-- Trigger search
 	userState.tweakSearch = ''
 
-	viewData.tweakSearch = str.padnul('', viewData.tweakSearchMaxLen)
+	viewData.tweakSearch = ''
 	viewData.tweakSearchStarted = false
 
 	viewData.tweakSearchResults = {}
@@ -80,14 +69,8 @@ function tweaker.initState(force)
 	viewData.activeTweakData = nil
 end
 
-function tweaker.onUpdateEvent()
-	if ImGui.IsKeyPressed(openKey, false) then
-		tweaker.onQuickButtonClick()
-	end
-end
-
 function tweaker.onDrawEvent()
-	if not userState.showTweaker then -- or not userState.showWindow
+	if not userState.showTweaker then
 		return
 	end
 
@@ -99,8 +82,10 @@ function tweaker.onDrawEvent()
 
 	if userState.showTweaker and userState.expandTweaker then
 
+		-- Gain focus on opening
 		if viewData.justOpened then
 			ImGui.SetKeyboardFocusHere()
+
 			viewData.justOpened = false
 		end
 
@@ -129,7 +114,7 @@ function tweaker.onDrawEvent()
 		ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 0)
 		ImGui.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
 		ImGui.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
-		ImGui.PushStyleColor(ImGuiCol.FrameBg, 0.16, 0.29, 0.48, 0) -- 0.16, 0.29, 0.48, 0.1
+		ImGui.PushStyleColor(ImGuiCol.FrameBg, 0) -- 0.16, 0.29, 0.48, 0.1
 		ImGui.BeginChildFrame(1, windowWidth, searchResultsHeight)
 
 		if #viewData.tweakSearchResults > 0 then
@@ -422,7 +407,13 @@ end
 function tweaker.onTweakSearchChange()
 	--persitentState:flush()
 
-	local searchTerm = str.stripnul(userState.tweakSearch)
+	local searchTerm = userState.tweakSearch
+
+	if searchTerm == '`' then
+		userState.tweakSearch = ''
+		viewData.tweakSearch = ''
+		searchTerm = ''
+	end
 
 	if searchTerm:len() < 2 then
 		viewData.tweakSearchStarted = false
@@ -555,10 +546,6 @@ function tweaker.onTweakSearchResultSelect()
 	end
 end
 
-function tweaker.onActiveTweakCloseClick()
-
-end
-
 function tweaker.onSpawnItemClick()
 	local tweak = viewData.activeTweakData
 
@@ -611,7 +598,7 @@ function tweaker.onSwitchFactClick()
 	tweaker.setFactState(tweak.entryMeta.type, tweak.factState)
 end
 
-function tweaker.onQuickButtonClick()
+function tweaker.onToggleTweaker()
 	userState.showTweaker = not userState.showTweaker
 	viewData.justOpened = userState.showTweaker
 

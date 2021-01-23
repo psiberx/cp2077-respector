@@ -89,27 +89,26 @@ if mod.config.useGui then
 		gui.init(respector)
 	end)
 
+	registerForEvent('onOverlayOpen', function()
+		gui.onOverlayOpen()
+	end)
+
+	registerForEvent('onOverlayClose', function()
+		gui.onOverlayClose()
+	end)
+
 	registerForEvent('onDraw', function()
 		gui.onDrawEvent()
 	end)
 
-	registerForEvent('onConsoleOpen', function()
-		gui.onConsoleOpenEvent()
-	end)
-
-	registerForEvent('onConsoleClose', function()
-		gui.onConsoleCloseEvent()
-	end)
-
-	registerForEvent('onUpdate', function(delta)
-		mod.onUpdateEvent(delta)
-		gui.onUpdateEvent()
-	end)
-else
-	registerForEvent('onUpdate', function(delta)
-		mod.onUpdateEvent(delta)
+	registerHotkey('QuickSave', 'Quick Save (with current settings)', function()
+		gui.onQuickSaveHotkey()
 	end)
 end
+
+registerForEvent('onUpdate', function(delta)
+	mod.onUpdateEvent(delta)
+end)
 
 print(('Respector v%s %s.'):format(respector.version, (mod.start and 'loaded' or 'reloaded')))
 
@@ -119,11 +118,6 @@ end
 
 if mod.config.useGui then
 	print(('Respector: Console GUI enabled.'))
-end
-
-if mod.env.is183() then
-	print(('Respector: The mod\'s functions are limited and not guaranteed because Cyber Engine Tweaks 1.8.3 or lower is used.'))
-	print(('Respector: It\'s recommended to upgrade your Cyber Engine Tweaks to version 1.8.4 or higher.'))
 end
 
 return api

@@ -13,8 +13,8 @@ containing player experience, attributes, skills, perks, and equipment.
 
 ## Requirements
 
-- [CyberEngineTweaks](https://github.com/yamashi/CyberEngineTweaks) 1.8.4
-- Cyberpunk 2077 1.0.6
+- [CyberEngineTweaks](https://github.com/yamashi/CyberEngineTweaks) 1.9.1
+- Cyberpunk 2077 1.10
 
 ## Installation
 
@@ -226,12 +226,9 @@ The mod has a simple GUI that allows you to save and load specs.
 
 ![CP2077 Respector GUI](https://siberx.dev/cp2077-respector/gui-095-1-save-spec.png) ![CP2077 Respector GUI](https://siberx.dev/cp2077-respector/gui-095-2-load-spec.png)
 
-Also, you can change where to store specs, the default spec name, and hotkeys for use with GUI.
+Also, you can change where to store specs, and the default spec name.
 
 ![CP2077 Respector GUI](https://siberx.dev/cp2077-respector/gui-093-3-options.png)
-
-With Cyber Engine Tweaks 1.8.4 or higher the GUI will show up when opening the console, and hide when closing the console.
-For version 1.8.3 you have to use independant hotkey to open the GUI (default is F1).
 
 ### Configuration
 
@@ -243,13 +240,8 @@ The configuration is stored in the `config.lua` file in the mod directory.
 | `defaultSpec`      | `"V"`    | `string` | The defalt spec name. Used when saving and loading without specifying a spec name (aka quick saving an quick loading). |
 | `defaultOptions`   | [`{...}`](#spec-options)    | [`{...}`](#spec-options)    | Default options for saving specs. See [spec options](#spec-options) for details. |
 | `useGui`           | `true`   | `bool`   | Enables the GUI. |
-| `openGuiKey`       | `0x70`   | `int`    | Hotkey to open / close the Respector window. Default is F1. |
-| `openTweakerKey`   | `0x7B`   | `int`    | Hotkey to open / close the Quick Tweaks window. Default is F12. |
-| `saveSpecKey`      | `0x71`   | `int`    | Hotkey to save spec using current options. Default is F2. |
 | `useModApi`        | `true`   | `bool`   | Enables API access using `GetMod()`. |
 | `useGlobalApi`     | `true`   | `bool`   | Enables API access using global `Respector` object. |
-
-You can find key codes [here](https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes). 
 
 A copy of the config file with default values can be found at `samples/config/defaults.lua`.
 

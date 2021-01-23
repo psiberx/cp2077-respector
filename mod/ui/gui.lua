@@ -10,12 +10,10 @@ local gui = {}
 local respector
 
 local windowWidth = 340
-local windowHeight = 375
+local windowHeight = 373
 local windowPadding = 7.5
 local maxInputLen = 256
 local maxHistoryLen = 50
-local openKey
-local saveKey
 
 local specSections = {
 	{ option = 'character', label = 'Character', desc = '(attributes / skills / perks)' },
@@ -36,8 +34,6 @@ local textOptions = {
 	defaultSpec = 'V'
 }
 
-local keyCodes = mod.load('mod/data/virtual-key-codes')
-
 local viewData = {
 	rarityFilterIndex = 0,
 	rarityFilterList = RarityFilter.labels(),
@@ -51,17 +47,11 @@ local viewData = {
 	keepSeedList = 'Only if necessary\0For all items\0',
 	keepSeedCount = #keepSeedList,
 
-	openKeyIndex = 0,
-	tweakerKeyIndex = 0,
-	saveKeyIndex = 0,
-	keyCodeList = table.concat(array.map(keyCodes, 'desc'), '\0') .. '\0',
-	keyCodeCount = #keyCodes,
-
 	specHistoryList = {},
 }
 
 local userState = {
-	showWindow = false,
+	showWindow = true,
 	expandWindow = true,
 
 	specNameSave = nil,
@@ -78,7 +68,6 @@ local persitentState
 function gui.init(_respector)
 	respector = _respector
 
-	gui.initHotkeys()
 	gui.initHandlers()
 	gui.initPersistance()
 	gui.initState()
@@ -89,11 +78,6 @@ function gui.init(_respector)
 	end
 
 	tweaker.init(respector, userState, persitentState)
-end
-
-function gui.initHotkeys()
-	openKey = mod.config.openGuiKey or 0x70
-	saveKey = mod.config.saveSpecKey or 0x71
 end
 
 function gui.initHandlers()
@@ -124,8 +108,6 @@ function gui.initState(force)
 					if str.isempty(optionValue) then
 						optionValue = textOptions[optionName]
 					end
-
-					optionValue = str.padnul(optionValue or '', maxInputLen)
 				end
 
 				userState.globalOptions[optionName] = optionValue
@@ -146,69 +128,19 @@ function gui.initState(force)
 	viewData.itemFormatIndex = array.find(itemFormatList, userState.specOptions.itemFormat) - 1
 	viewData.keepSeedIndex = array.find(keepSeedList, userState.specOptions.keepSeed) - 1
 
-	for index, keyCode in ipairs(keyCodes) do
-		if keyCode.code == openKey then
-			viewData.openKeyIndex = index - 1
-		end
-
-		if keyCode.code == userState.globalOptions.openTweakerKey then
-			viewData.tweakerKeyIndex = index - 1
-		end
-
-		if keyCode.code == saveKey then
-			viewData.saveKeyIndex = index - 1
-		end
-	end
-	
 	viewData.specHistoryList = array.map(userState.specHistory, gui.formatHistoryEntry)
 end
 
 function gui.formatHistoryEntry(entryData)
-	return entryData.time .. ' ' .. (entryData.event == 'load' and '>' or '<') .. ' ' .. entryData.specName
+	return entryData.time .. ' ' .. (entryData.event == 'load' and 'L' or 'S') .. ' ' .. entryData.specName
 end
 
-function gui.onRespectorEvent(eventData)
-	for entryIndex, entryData in ipairs(userState.specHistory) do
-		if entryData.specName == eventData.specName then
-			table.remove(userState.specHistory, entryIndex)
-			table.remove(viewData.specHistoryList, entryIndex)
-			break
-		end
-	end
-
-	table.insert(userState.specHistory, 1, eventData)
-	table.insert(viewData.specHistoryList, 1, gui.formatHistoryEntry(eventData))
-
-	if #userState.specHistory > maxHistoryLen then
-		table.remove(userState.specHistory)
-		table.remove(viewData.specHistoryList)
-	end
-
-	persitentState:flush()
-end
-
-function gui.onConsoleOpenEvent()
+function gui.onOverlayOpen()
 	userState.showWindow = true
-
-	persitentState:flush()
 end
 
-function gui.onConsoleCloseEvent()
+function gui.onOverlayClose()
 	userState.showWindow = false
-
-	persitentState:flush()
-end
-
-function gui.onUpdateEvent()
-	if ImGui.IsKeyPressed(openKey, false) then
-		userState.showWindow = not userState.showWindow
-	end
-
-	if ImGui.IsKeyPressed(saveKey, false) then
-		gui.onSaveSnapHotkey()
-	end
-
-	tweaker.onUpdateEvent()
 end
 
 function gui.onDrawEvent()
@@ -230,7 +162,7 @@ function gui.onDrawEvent()
 		ImGui.PushStyleColor(ImGuiCol.Button, userState.showTweaker and 0xFF51A600 or 0xFF518900)
 		ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0xFF67BC16)
 		if ImGui.Button('Quick Tweaks', 100, 19) then
-			tweaker.onQuickButtonClick()
+			tweaker.onToggleTweaker()
 		end
 		ImGui.PopStyleColor(2)
 		ImGui.PopStyleVar()
@@ -321,15 +253,16 @@ function gui.onDrawEvent()
 
 			-- Loading: Recent Specs
 			ImGui.Text('Recently saved / loaded specs:')
+			ImGui.Spacing()
 			ImGui.SetNextItemWidth(340)
-			ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
-			ImGui.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
-			ImGui.PushStyleColor(ImGuiCol.FrameBg, 0) -- 0.16, 0.29, 0.48, 0.1
+			ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 0)
+			ImGui.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
+			ImGui.PushStyleColor(ImGuiCol.FrameBg, 0)
 			local lastSpecIndex = ImGui.ListBox('##Load Recent Specs', -1, viewData.specHistoryList, #viewData.specHistoryList, 14)
-			ImGui.PopStyleColor(2)
-			ImGui.PopStyleVar()
+			ImGui.PopStyleColor()
+			ImGui.PopStyleVar(2)
 			if lastSpecIndex >= 0 then
-				userState.specNameLoad = str.padnul(userState.specHistory[lastSpecIndex + 1].specName, maxInputLen)
+				userState.specNameLoad = userState.specHistory[lastSpecIndex + 1].specName
 				lastSpecIndex = -1
 			end
 
@@ -355,34 +288,10 @@ function gui.onDrawEvent()
 			ImGui.Separator()
 			ImGui.Spacing()
 
-			-- Saving: Open Respector Key
-			ImGui.Text('Hotkey to open / close Respector:')
-			ImGui.SetNextItemWidth(120)
-			viewData.openKeyIndex = ImGui.Combo('##OpenRespectorKey', viewData.openKeyIndex, viewData.keyCodeList, viewData.keyCodeCount)
-			userState.globalOptions.openGuiKey = keyCodes[viewData.openKeyIndex + 1].code
-
-			ImGui.Spacing()
-
-			-- Saving: Open Tweaker Key
-			ImGui.Text('Hotkey to open / close Quick Tweaks:')
-			ImGui.SetNextItemWidth(120)
-			viewData.tweakerKeyIndex = ImGui.Combo('##OpenTweakerKey', viewData.tweakerKeyIndex, viewData.keyCodeList, viewData.keyCodeCount)
-			userState.globalOptions.openTweakerKey = keyCodes[viewData.tweakerKeyIndex + 1].code
-
-			ImGui.Spacing()
-
-			-- Saving: Save Spec Key
-			ImGui.Text('Hotkey to save spec with current settings:')
-			ImGui.SetNextItemWidth(120)
-			viewData.saveKeyIndex = ImGui.Combo('##SaveSpecKey', viewData.saveKeyIndex, viewData.keyCodeList, viewData.keyCodeCount)
-			userState.globalOptions.saveSpecKey = keyCodes[viewData.saveKeyIndex + 1].code
-
-			ImGui.Spacing()
-			ImGui.Separator()
-			ImGui.Spacing()
-
 			-- Options: Saving Tip
-			ImGui.TextColored(0.5, 0.5, 0.5, 1, 'The changes will take effect after saving.')
+			ImGui.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
+			ImGui.Text('The changes will take effect after saving.')
+			ImGui.PopStyleColor()
 
 			ImGui.Spacing()
 
@@ -392,43 +301,41 @@ function gui.onDrawEvent()
 			end
 
 			-- Options: Reset Button
-			ImGui.SameLine(181)
+			ImGui.SameLine(179)
 			if ImGui.Button('Reset to defaults', 168, 19) then
 				gui.onResetConfigClick()
 			end
 
+			if mod.dev then
+				ImGui.Spacing()
+				ImGui.Separator()
+				ImGui.Spacing()
+
+				if ImGui.Button('Rehash TweakDB names', windowWidth, 19) then
+					gui.onRehashTweakDbClick()
+				end
+
+				ImGui.Spacing()
+
+				if ImGui.Button('Compile sample packs', windowWidth, 19) then
+					gui.onCompileSamplesClick()
+				end
+
+				ImGui.Spacing()
+
+				if ImGui.Button('Write default config', windowWidth, 19) then
+					gui.onWriteDefaultConfigClick()
+				end
+
+				ImGui.Spacing()
+
+				if ImGui.Button('Write default spec', windowWidth, 19) then
+					gui.onWriteDefaultSpecClick()
+				end
+			end
+
 			ImGui.EndTabItem()
 		end
-
-		--if mod.dev then
-		--	if ImGui.BeginTabItem('Developer') then
-		--		ImGui.Spacing()
-		--
-		--		if ImGui.Button('Rehash TweakDB names', 190, 19) then
-		--			gui.onRehashTweakDbClick()
-		--		end
-		--
-		--		ImGui.Spacing()
-		--
-		--		if ImGui.Button('Compile sample packs', 190, 19) then
-		--			gui.onCompileSamplesClick()
-		--		end
-		--
-		--		ImGui.Spacing()
-		--
-		--		if ImGui.Button('Write default config', 190, 19) then
-		--			gui.onWriteDefaultConfigClick()
-		--		end
-		--
-		--		ImGui.Spacing()
-		--
-		--		if ImGui.Button('Write default spec', 190, 19) then
-		--			gui.onWriteDefaultSpecClick()
-		--		end
-		--
-		--		ImGui.EndTabItem()
-		--	end
-		--end
 
 		ImGui.EndTabBar()
 	end
@@ -439,24 +346,13 @@ function gui.onDrawEvent()
 end
 
 function gui.onSaveSpecClick()
-	respector:saveSpec(str.stripnul(userState.specNameSave), userState.specOptions)
+	respector:saveSpec(userState.specNameSave, userState.specOptions)
 
 	persitentState:flush()
 end
 
 function gui.onLoadSpecClick()
-	respector:loadSpec(str.stripnul(userState.specNameLoad))
-
-	persitentState:flush()
-end
-
-function gui.onSaveSnapHotkey()
-	local timestamp = userState.specOptions.timestamp
-	userState.specOptions.timestamp = true
-
-	respector:saveSpec(str.stripnul(userState.specNameSave), userState.specOptions)
-
-	userState.specOptions.timestamp = timestamp
+	respector:loadSpec(userState.specNameLoad)
 
 	persitentState:flush()
 end
@@ -464,8 +360,6 @@ end
 function gui.onSaveConfigClick()
 	for optionName, optionValue in pairs(userState.globalOptions) do
 		if textOptions[optionName] then
-			optionValue = str.stripnul(optionValue)
-
 			if str.isempty(optionValue) then
 				optionValue = textOptions[optionName]
 			end
@@ -481,10 +375,6 @@ function gui.onSaveConfigClick()
 
 	respector:loadComponents()
 
-	gui.initHotkeys()
-
-	tweaker.initHotkeys()
-
 	print(('Respector: Configuration saved.'))
 end
 
@@ -498,10 +388,7 @@ function gui.onResetConfigClick()
 
 	respector:loadComponents()
 
-	gui.initHotkeys()
 	gui.initState(true)
-
-	tweaker.initHotkeys()
 	tweaker.initState(true)
 
 	print(('Respector: Configuration has been reset to defaults.'))
@@ -533,6 +420,37 @@ function gui.onWriteDefaultSpecClick()
 	local compiler = Compiler:new()
 
 	compiler:writeDefaultSpec()
+end
+
+function gui.onQuickSaveHotkey()
+	local timestamp = userState.specOptions.timestamp
+	userState.specOptions.timestamp = true
+
+	respector:saveSpec(userState.specNameSave, userState.specOptions)
+
+	userState.specOptions.timestamp = timestamp
+
+	persitentState:flush()
+end
+
+function gui.onRespectorEvent(eventData)
+	for entryIndex, entryData in ipairs(userState.specHistory) do
+		if entryData.specName == eventData.specName then
+			table.remove(userState.specHistory, entryIndex)
+			table.remove(viewData.specHistoryList, entryIndex)
+			break
+		end
+	end
+
+	table.insert(userState.specHistory, 1, eventData)
+	table.insert(viewData.specHistoryList, 1, gui.formatHistoryEntry(eventData))
+
+	if #userState.specHistory > maxHistoryLen then
+		table.remove(userState.specHistory)
+		table.remove(viewData.specHistoryList)
+	end
+
+	persitentState:flush()
 end
 
 return gui

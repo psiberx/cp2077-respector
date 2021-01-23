@@ -1,14 +1,3 @@
-local mod = ...
-
-local function keyCodeDesc(value)
-	local keyCodes = mod.load('mod/data/virtual-key-codes')
-	for _, keyCode in ipairs(keyCodes) do
-		if keyCode.code == value then
-			return keyCode.desc
-		end
-	end
-end
-
 return {
 	children = {
 		{
@@ -146,39 +135,6 @@ return {
 				"Enables the GUI.",
 			},
 			default = true,
-			margin = true,
-		},
-		{
-			name = "openGuiKey",
-			comment = {
-				"Hotkey to open / close the Respector window.",
-				"You can find key codes here: https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes",
-			},
-			comment2 = keyCodeDesc,
-			format = "0x%02X",
-			default = 0x70,
-			margin = true,
-		},
-		{
-			name = "openTweakerKey",
-			comment = {
-				"Hotkey to open / close the Quick Tweaks window.",
-				"You can find key codes here: https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes",
-			},
-			comment2 = keyCodeDesc,
-			format = "0x%02X",
-			default = 0x7B,
-			margin = true,
-		},
-		{
-			name = "saveSpecKey",
-			comment = {
-				"Hotkey to save spec using current settings.",
-				"You can find key codes here: https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes",
-			},
-			comment2 = keyCodeDesc,
-			format = "0x%02X",
-			default = 0x71,
 			margin = true,
 		},
 		{

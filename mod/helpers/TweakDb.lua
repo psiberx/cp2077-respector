@@ -24,11 +24,6 @@ local kindOrders = {
 	['Shard'] = 92,
 }
 
-local RealToItemID = ToItemID
-local FakeToItemID = function (o) return o end
-local RealToTweakDBID = ToTweakDBID
-local FakeToTweakDBID = function (o) return o end
-
 function TweakDb:resolve(tweakId)
 	local key = TweakDb.toKey(tweakId)
 
@@ -266,18 +261,6 @@ function TweakDb:toSlotTweakId(slotAlias, itemMeta)
 end
 
 function TweakDb.extract(data)
-	if mod.env.is183() then
-		ToItemID = FakeToItemID
-		ToTweakDBID = FakeToTweakDBID
-
-		local struct = (load('return ' .. tostring(data)))()
-
-		ToItemID = RealToItemID
-		ToTweakDBID = RealToTweakDBID
-
-		return struct
-	end
-
 	if data.hash then
 		return { hash = data.hash, length = data.length }
 	end

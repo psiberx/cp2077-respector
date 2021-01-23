@@ -1,5 +1,4 @@
 local mod = ...
-local str = mod.require('mod/utils/str')
 local TweakDb = mod.require('mod/helpers/TweakDb')
 
 local TransportModule = {}
@@ -38,10 +37,6 @@ function TransportModule:applySpec(specData)
 end
 
 function TransportModule:getVehicles()
-	if mod.env.is183() then
-		return nil
-	end
-
 	self.tweakDb:load('mod/data/tweakdb-meta')
 
 	local vehicleSpecs = {}

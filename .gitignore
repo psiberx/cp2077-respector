@@ -2,3 +2,4 @@
 /.idea
 /specs/*
 !/specs/V.lua
+/respector.log

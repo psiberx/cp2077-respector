@@ -422,20 +422,19 @@ function InventoryModule:addItem(itemSpec)
 		-- Manage mods and attachments
 
 		if itemMeta.kind == 'Weapon' or itemMeta.kind == 'Clothing' or itemMeta.kind == 'Cyberware' then
+			if itemSpec.slots then
+				for _, slotMeta in ipairs(self.attachmentSlots) do
+					local slotId = TweakDb.toTweakId(slotMeta.type)
 
-			for _, slotMeta in ipairs(self.attachmentSlots) do
-				local slotId = TweakDb.toTweakId(slotMeta.type)
+					if itemData:HasPartInSlot(slotId) then
+						local partItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
 
-				if itemData:HasPartInSlot(slotId) then
-					local partItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
-
-					if partItemId then
-						table.insert(removedParts, partItemId)
+						if partItemId then
+							table.insert(removedParts, partItemId)
+						end
 					end
 				end
-			end
 
-			if itemSpec.slots then
 				for key, slotSpec in pairs(itemSpec.slots) do
 					if type(slotSpec) == 'string' then
 						slotSpec = {

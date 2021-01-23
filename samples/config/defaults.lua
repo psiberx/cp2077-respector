@@ -60,18 +60,6 @@ return {
 	-- Enables the GUI.
 	useGui = true,
 
-	-- Hotkey to open / close the Respector window.
-	-- You can find key codes here: https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
-	openGuiKey = 0x70, -- F1
-
-	-- Hotkey to open / close the Quick Tweaks window.
-	-- You can find key codes here: https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
-	openTweakerKey = 0x7B, -- F12
-
-	-- Hotkey to save spec using current settings.
-	-- You can find key codes here: https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
-	saveSpecKey = 0x71, -- F2
-
 	-- Enables API access using `GetMod()`.
 	useModApi = true,
 

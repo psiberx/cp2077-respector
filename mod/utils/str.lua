@@ -63,12 +63,12 @@ function str.ellipsis(s, limit, ending)
 	return str.rtrim(s:sub(1, limit)) .. ending
 end
 
-function str.padnul(s, len)
-	return s .. string.rep('\0', len - s:len())
-end
+--function str.padnul(s, len)
+--	return s .. string.rep('\0', len - s:len())
+--end
 
-function str.stripnul(s)
-	return (string.gsub(s, '\0.+$', ''))
-end
+--function str.stripnul(s)
+--	return (string.gsub(s, '\0.+$', ''))
+--end
 
 return str

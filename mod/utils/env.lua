@@ -1,13 +1,9 @@
 local env = {}
-local win, cet183
+local win
 
-function env.is183()
-	if cet183 == nil then
-		cet183 = GetVersion == nil
-	end
-
-	return cet183
-end
+--function env.is(ver)
+--	return GetVersion() == ver
+--end
 
 function env.isWin()
 	if win == nil then
