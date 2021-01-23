@@ -93,7 +93,8 @@ function tweaker.onDrawEvent()
 		return
 	end
 
-	local windowHeight = viewData.activeTweakData and windowHeightFull or windowHeightShort
+	--local windowHeight = viewData.activeTweakData and windowHeightFull or windowHeightShort
+	local windowHeight = windowHeightFull
 
 	ImGui.SetNextWindowPos(365, 400, ImGuiCond.FirstUseEver)
 	ImGui.SetNextWindowSize(windowWidth + (windowPadding * 2), windowHeight)
@@ -125,22 +126,43 @@ function tweaker.onDrawEvent()
 			tweaker.onTweakSearchChange()
 		end
 
+		local tweakSearchResultsHeight = viewData.activeTweakData and 95 or 368
+
 		ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
 		ImGui.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
 		ImGui.PushStyleColor(ImGuiCol.FrameBg, 0.16, 0.29, 0.48, 0) -- 0.16, 0.29, 0.48, 0.1
+		ImGui.BeginChildFrame(1, windowWidth, tweakSearchResultsHeight)
 
 		if #viewData.tweakSearchResults > 0 then
 			ImGui.SetNextItemWidth(windowWidth)
-			local tweakIndex, tweakChanged = ImGui.ListBox('##TweakSearchResults', viewData.activeTweakIndex, viewData.tweakSearchPreviews, #viewData.tweakSearchPreviews, 5)
+			ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 0)
+			ImGui.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
+
+			local tweakIndex, tweakChanged = ImGui.ListBox('##TweakSearchResults',
+				viewData.activeTweakIndex,
+				viewData.tweakSearchPreviews,
+				#viewData.tweakSearchPreviews,
+				#viewData.tweakSearchPreviews -- viewData.activeTweakData and 5 or 21
+			)
+
+			ImGui.PopStyleVar(2)
 
 			if tweakChanged then
 				viewData.activeTweakIndex = tweakIndex
 				viewData.activeTweakData = viewData.tweakSearchResults[tweakIndex + 1] or nil
 
 				tweaker.onTweakSearchResultSelect()
+
+				-- Bring selected entry in the visible area
+				if tweakSearchResultsHeight > 95 then
+					local activeTweakY = 19 * viewData.activeTweakIndex
+
+					if activeTweakY > 95 - 19 then
+						ImGui.SetScrollY(activeTweakY - 4 * 19 + 5)
+					end
+				end
 			end
 		else
-			ImGui.BeginChildFrame(1, windowWidth, 95) -- , ImGuiWindowFlags.NoBackgroun
 			ImGui.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
 
 			if viewData.tweakSearchStarted then
@@ -151,19 +173,19 @@ function tweaker.onDrawEvent()
 			end
 
 			ImGui.PopStyleColor()
-			ImGui.EndChildFrame()
 		end
 
+		ImGui.EndChildFrame()
 		ImGui.PopStyleColor(2)
 		ImGui.PopStyleVar()
 
-		ImGui.SetCursorPos(8, 152) -- Fix for inconsistent height of ListBox
-
-		ImGui.Separator()
-		ImGui.Spacing()
-
 		if viewData.activeTweakData then
 			local tweak = viewData.activeTweakData
+
+			ImGui.SetCursorPos(8, 152) -- Fix for inconsistent height of ListBox
+
+			ImGui.Separator()
+			ImGui.Spacing()
 
 			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, 4, 2)
 
@@ -248,7 +270,7 @@ function tweaker.onDrawEvent()
 
 				ImGui.BeginGroup()
 				ImGui.Spacing()
-				ImGui.Text(tweak.isMoney and 'Transaction amount:' or 'Transaction amount:')
+				ImGui.Text(tweak.isMoney and 'Transaction amount:' or 'Required quantity:')
 				ImGui.SetNextItemWidth(halfWidth)
 				tweak.transferAmount = ImGui.InputInt('##TransferAmount', tweak.transferAmount)
 				ImGui.EndGroup()
@@ -272,7 +294,7 @@ function tweaker.onDrawEvent()
 			else
 				ImGui.BeginGroup()
 				ImGui.Spacing()
-				ImGui.Text('Qty:')
+				ImGui.Text('Quantity:')
 				ImGui.SetNextItemWidth(138)
 				tweak.itemQty = ImGui.InputInt('##ItemQty', tweak.itemQty or 1)
 				ImGui.EndGroup()

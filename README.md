@@ -243,10 +243,13 @@ The configuration is stored in the `config.lua` file in the mod directory.
 | `defaultSpec`      | `"V"`    | `string` | The defalt spec name. Used when saving and loading without specifying a spec name (aka quick saving an quick loading). |
 | `defaultOptions`   | [`{...}`](#spec-options)    | [`{...}`](#spec-options)    | Default options for saving specs. See [spec options](#spec-options) for details. |
 | `useGui`           | `true`   | `bool`   | Enables the GUI. |
-| `openGuiKey`       | `0x70`   | `int`    | Hotkey to open / close the GUI. Default is F1. You can find key codes [here](https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes). |
-| `saveSpecKey`      | `0x71`   | `int`    | Hotkey to save spec with currently selected options in the GUI. Default is F2. You can find key codes [here](https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes). |
+| `openGuiKey`       | `0x70`   | `int`    | Hotkey to open / close the Respector window. Default is F1. |
+| `openTweakerKey`   | `0x7B`   | `int`    | Hotkey to open / close the Quick Tweaks window. Default is F12. |
+| `saveSpecKey`      | `0x71`   | `int`    | Hotkey to save spec using current options. Default is F2. |
 | `useModApi`        | `true`   | `bool`   | Enables API access using `GetMod()`. |
 | `useGlobalApi`     | `true`   | `bool`   | Enables API access using global `Respector` object. |
+
+You can find key codes [here](https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes). 
 
 A copy of the config file with default values can be found at `samples/config/defaults.lua`.
 

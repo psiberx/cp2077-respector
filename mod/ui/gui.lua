@@ -14,8 +14,8 @@ local windowHeight = 375
 local windowPadding = 7.5
 local maxInputLen = 256
 local maxHistoryLen = 50
-local openKey = 0x70
-local saveKey = 0x71
+local openKey
+local saveKey
 
 local specSections = {
 	{ option = 'character', label = 'Character', desc = '(attributes / skills / perks)' },
@@ -52,6 +52,7 @@ local viewData = {
 	keepSeedCount = #keepSeedList,
 
 	openKeyIndex = 0,
+	tweakerKeyIndex = 0,
 	saveKeyIndex = 0,
 	keyCodeList = table.concat(array.map(keyCodes, 'desc'), '\0') .. '\0',
 	keyCodeCount = #keyCodes,
@@ -91,8 +92,8 @@ function gui.init(_respector)
 end
 
 function gui.initHotkeys()
-	openKey = mod.config.openGuiKey
-	saveKey = mod.config.saveSpecKey
+	openKey = mod.config.openGuiKey or 0x70
+	saveKey = mod.config.saveSpecKey or 0x71
 end
 
 function gui.initHandlers()
@@ -148,6 +149,10 @@ function gui.initState(force)
 	for index, keyCode in ipairs(keyCodes) do
 		if keyCode.code == openKey then
 			viewData.openKeyIndex = index - 1
+		end
+
+		if keyCode.code == userState.globalOptions.openTweakerKey then
+			viewData.tweakerKeyIndex = index - 1
 		end
 
 		if keyCode.code == saveKey then
@@ -350,18 +355,26 @@ function gui.onDrawEvent()
 			ImGui.Separator()
 			ImGui.Spacing()
 
-			-- Saving: Open GUI Key
-			ImGui.Text('Hotkey to open / close the GUI:')
-			ImGui.SetNextItemWidth(170)
-			viewData.openKeyIndex = ImGui.Combo('##Open GUI Key', viewData.openKeyIndex, viewData.keyCodeList, viewData.keyCodeCount)
+			-- Saving: Open Respector Key
+			ImGui.Text('Hotkey to open / close Respector:')
+			ImGui.SetNextItemWidth(120)
+			viewData.openKeyIndex = ImGui.Combo('##OpenRespectorKey', viewData.openKeyIndex, viewData.keyCodeList, viewData.keyCodeCount)
 			userState.globalOptions.openGuiKey = keyCodes[viewData.openKeyIndex + 1].code
 
 			ImGui.Spacing()
 
+			-- Saving: Open Tweaker Key
+			ImGui.Text('Hotkey to open / close Quick Tweaks:')
+			ImGui.SetNextItemWidth(120)
+			viewData.tweakerKeyIndex = ImGui.Combo('##OpenTweakerKey', viewData.tweakerKeyIndex, viewData.keyCodeList, viewData.keyCodeCount)
+			userState.globalOptions.openTweakerKey = keyCodes[viewData.tweakerKeyIndex + 1].code
+
+			ImGui.Spacing()
+
 			-- Saving: Save Spec Key
-			ImGui.Text('Hotkey to save spec with current options:')
-			ImGui.SetNextItemWidth(170)
-			viewData.saveKeyIndex = ImGui.Combo('##Save Spec Key', viewData.saveKeyIndex, viewData.keyCodeList, viewData.keyCodeCount)
+			ImGui.Text('Hotkey to save spec with current settings:')
+			ImGui.SetNextItemWidth(120)
+			viewData.saveKeyIndex = ImGui.Combo('##SaveSpecKey', viewData.saveKeyIndex, viewData.keyCodeList, viewData.keyCodeCount)
 			userState.globalOptions.saveSpecKey = keyCodes[viewData.saveKeyIndex + 1].code
 
 			ImGui.Spacing()
@@ -470,6 +483,8 @@ function gui.onSaveConfigClick()
 
 	gui.initHotkeys()
 
+	tweaker.initHotkeys()
+
 	print(('Respector: Configuration saved.'))
 end
 
@@ -485,6 +500,9 @@ function gui.onResetConfigClick()
 
 	gui.initHotkeys()
 	gui.initState(true)
+
+	tweaker.initHotkeys()
+	tweaker.initState(true)
 
 	print(('Respector: Configuration has been reset to defaults.'))
 end

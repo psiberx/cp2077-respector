@@ -151,7 +151,7 @@ return {
 		{
 			name = "openGuiKey",
 			comment = {
-				"Hotkey to open / close the GUI.",
+				"Hotkey to open / close the Respector window.",
 				"You can find key codes here: https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes",
 			},
 			comment2 = keyCodeDesc,
@@ -160,9 +160,20 @@ return {
 			margin = true,
 		},
 		{
+			name = "openTweakerKey",
+			comment = {
+				"Hotkey to open / close the Quick Tweaks window.",
+				"You can find key codes here: https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes",
+			},
+			comment2 = keyCodeDesc,
+			format = "0x%02X",
+			default = 0x7B,
+			margin = true,
+		},
+		{
 			name = "saveSpecKey",
 			comment = {
-				"Hotkey to save spec with currently selected options in the GUI.",
+				"Hotkey to save spec using current settings.",
 				"You can find key codes here: https://docs.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes",
 			},
 			comment2 = keyCodeDesc,
