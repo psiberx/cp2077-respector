@@ -373,11 +373,11 @@ function tweaker.onDrawEvent()
 
 			ImGui.PushStyleColor(ImGuiCol.FrameBg, 0)
 			ImGui.PushStyleColor(ImGuiCol.Text, 0xff555555)
-			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, 2, 0)
+			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, 1, 0)
 			ImGui.Text('ID:')
 			ImGui.SameLine()
 			ImGui.SetNextItemWidth(296)
-			ImGui.InputText('##Tweak Hash Name', tweak.entryMeta.type or 'N/A', 512, ImGuiInputTextFlags.ReadOnly)
+			ImGui.InputText('##Tweak Hash Name', tweak.entryType, 512, ImGuiInputTextFlags.ReadOnly)
 			ImGui.PopStyleVar()
 			ImGui.SameLine()
 			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, 2, 0)
@@ -448,6 +448,7 @@ function tweaker.onTweakSearchChange()
 		return {
 			entryKey = result.entryKey,
 			entryMeta = result.entryMeta,
+			entryType = str.nonempty(result.entryMeta.type, 'N/A'),
 			entryHash = TweakDb.isRealKey(result.entryKey) and ('%010X'):format(result.entryKey) or 'N/A',
 			isTaggedAsSet = tweakDb:isTaggedAsSet(result.entryMeta),
 		}
