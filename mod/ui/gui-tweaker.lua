@@ -1,4 +1,5 @@
 local mod = ...
+local str = mod.require('mod/utils/str')
 local array = mod.require('mod/utils/array')
 local Quality = mod.require('mod/enums/Quality')
 local TweakDb = mod.require('mod/helpers/TweakDb')
@@ -407,7 +408,7 @@ end
 function tweaker.onTweakSearchChange()
 	--persitentState:flush()
 
-	local searchTerm = userState.tweakSearch
+	local searchTerm = str.trim(userState.tweakSearch)
 
 	if searchTerm == '`' then
 		userState.tweakSearch = ''

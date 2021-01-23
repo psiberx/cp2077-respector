@@ -165,7 +165,17 @@ function SimpleDb:search(term, fields)
 
 			for weight, field in pairs(fields) do
 				if item[field] then
-					local position = dmp.match_main(item[field]:upper(), term, 1)
+					local position = 0
+
+					if item[field] == term then
+						position = 1
+					else
+						position = item[field]:find(term)
+
+						if not position then
+							position = dmp.match_main(item[field]:upper(), term, 1)
+						end
+					end
 
 					if position > 0 then
 						position = position * weight
