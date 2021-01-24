@@ -48,7 +48,7 @@ end
 function mod.path(path)
 	local result = path
 
-	if not result:find('%.(%w+)$') then
+	if not result:find('[^/]%.(%w?%w?%w?%w?)$') then
 		result = result .. '.lua'
 	end
 
