@@ -389,7 +389,7 @@ return {
 					scope = "Points",
 					margin = true,
 					children = {
-						{ name = "Attribute" },
+						--{ name = "Attribute" },
 						{ name = "Perk" },
 					},
 				},

@@ -21,7 +21,9 @@ function CharacterModule:prepare()
 	self.playerDevData = playerDevSystem:GetDevelopmentData(player)
 
 	self.aliases = mod.load('mod/data/dev-type-aliases')
-	self.perksDb = mod.load('mod/data/perks')
+	self.attributes = mod.load('mod/data/attributes')
+	self.skills = mod.load('mod/data/skills')
+	self.perks = mod.load('mod/data/perks')
 end
 
 function CharacterModule:release()
@@ -30,7 +32,9 @@ function CharacterModule:release()
 	self.playerDevData = nil
 
 	self.aliases = nil
-	self.perksDb = nil
+	self.attributes = nil
+	self.skills = nil
+	self.perks = nil
 end
 
 function CharacterModule:fillSpec(specData, specOptions)
@@ -55,6 +59,8 @@ function CharacterModule:applySpec(specData)
 
 		if specData.Character.Skills then
 			self:setSkills(specData.Character.Skills)
+		elseif specData.Character.Attributes then
+			self:setSkills({}) -- Enforce legit levels of skills 
 		end
 
 		if specData.Character.Progression then
@@ -70,7 +76,7 @@ function CharacterModule:applySpec(specData)
 
 		if specData.Character.Points then
 			mod.defer(0.5, function()
-				self:setPoints(specData.Character.Points, specData.Character.Perks)
+				self:setPoints(specData.Character.Points)
 			end)
 		end
 
@@ -91,7 +97,7 @@ function CharacterModule:getExpirience(schema, specOptions)
 			end
 		elseif node.name then
 			if schema.scope == 'Perks' then
-				local perk = self.perksDb[node.name]
+				local perk = self.perks[node.name]
 				local perkType = perk.type
 				local perkLevel
 				if perk.trait then
@@ -104,18 +110,18 @@ function CharacterModule:getExpirience(schema, specOptions)
 					count = count + 1
 				end
 			elseif schema.scope == 'Progression' then
-				local statType = self.aliases[node.name] or node.name
+				local statType = self:getStatType(node.name)
 				local statLevel = self.playerDevData:GetCurrentLevelProficiencyExp(statType)
 				if statLevel > 0 then
 					data[node.name] = math.floor(statLevel)
 					count = count + 1
 				end
 			elseif schema.scope == 'Points' then
-				local statType = self.aliases[node.name] or node.name
+				local statType = self:getStatType(node.name)
 				data[node.name] = math.floor(self.playerDevData:GetDevPoints(statType))
 				count = count + 1
 			else
-				local statType = self.aliases[node.name] or node.name
+				local statType = self:getStatType(node.name)
 				data[node.name] = math.floor(self.statsSystem:GetStatValue(self.playerId, statType))
 				count = count + 1
 			end
@@ -129,66 +135,67 @@ function CharacterModule:getExpirience(schema, specOptions)
 	return data
 end
 
-function CharacterModule:setLevels(levels)
-	for stat, level in pairs(levels) do
-		if level then
-			local type = self.aliases[stat] or stat
-			local current = math.floor(self.statsSystem:GetStatValue(self.playerId, type))
+function CharacterModule:setLevels(levelsSpec)
+	for _, statType in ipairs({ 'Level', 'StreetCred' }) do
+		if levelsSpec[statType] then
+			local statLevel = levelsSpec[statType]
+			local playerStatLevel = self:getStatValue(statType)
 
-			if current ~= level then
-				self.playerDevData:SetLevel(type, level, 'Gameplay')
+			if statLevel ~= playerStatLevel then
+				self.playerDevData:SetLevel(statType, statLevel, 'Gameplay')
+
 				--Game.SetLevel(type, level)
 			end
 		end
 	end
 end
 
-function CharacterModule:setAttributes(attributes)
-	for attribute, level in pairs(attributes) do
-		local type = self.aliases[attribute] or attribute
-		local current = math.floor(self.statsSystem:GetStatValue(self.playerId, type))
+function CharacterModule:setAttributes(attributesSpec)
+	for _, attribute in pairs(self.attributes) do
+		local attrLevel = attributesSpec[attribute.alias] or attribute.default
+		local playerAttrLevel = self:getStatValue(attribute.type)
 
-		if current ~= level then
-			self.playerDevData:SetAttribute(type, level)
-			self.playerDevData:AddDevelopmentPoints(-(level - current), type)
+		if attrLevel ~= playerAttrLevel then
+			self.playerDevData:SetAttribute(attribute.type, attrLevel)
+			self.playerDevData:AddDevelopmentPoints(-(attrLevel - playerAttrLevel), attribute.type)
+
 			--Game.SetAtt(type, level)
 			--Game.GiveDevPoints('Attribute', -(level - current))
 		end
 	end
 end
 
-function CharacterModule:setSkills(skills)
-	for skill, level in pairs(skills) do
-		local type = self.aliases[skill] or skill
-		local current = math.floor(self.statsSystem:GetStatValue(self.playerId, type))
-		
-		if current ~= level then
-			self.playerDevData:SetLevel(type, level, 'Gameplay')
+function CharacterModule:setSkills(skillsSpec)
+	for _, skill in pairs(self.skills) do
+		local playerAttrLevel = self:getStatValue(skill.attr)
+		local playerSkillLevel = self:getStatValue(skill.type)
+
+		local skillLevel = skillsSpec[skill.alias] or skill.default
+
+		if skillLevel > playerAttrLevel then
+			skillLevel = playerAttrLevel
+		end
+
+		if skillLevel ~= playerSkillLevel then
+			self.playerDevData:SetLevel(skill.type, skillLevel, 'Gameplay')
+
 			--Game.SetLevel(type, level)
 		end
 	end
 end
 
-function CharacterModule:setProgression(progression)
-	for skill, exp in pairs(progression) do
-		local type = self.aliases[skill] or skill
-		local current = math.floor(self.playerDevData:GetCurrentLevelProficiencyExp(type))
+function CharacterModule:setProgression(progressionSpec)
+	for skillAlias, skillExp in pairs(progressionSpec) do
+		local skill = self.skills[skillAlias]
 
-		if current ~= exp then
-			self.playerDevData:AddExperience((exp - current), type, 'Gameplay')
-			--Game.AddExp(type, (exp - current))
-		end
-	end
-end
+		if skill then
+			local playerSkillExp = self:getProficiencyExp(skill.type)
 
-function CharacterModule:setPoints(points)
-	for stat, amount in pairs(points) do
-		local type = self.aliases[stat] or stat
-		local current = math.floor(self.playerDevData:GetDevPoints(type))
+			if skillExp ~= playerSkillExp then
+				self.playerDevData:AddExperience((skillExp - playerSkillExp), skill.type, 'Gameplay')
 
-		if current ~= amount then
-			self.playerDevData:AddDevelopmentPoints((amount - current), type)
-			--Game.GiveDevPoints(type, (amount - current))
+				--Game.AddExp(type, (exp - current))
+			end
 		end
 	end
 end
@@ -196,47 +203,87 @@ end
 function CharacterModule:setPerks(perkSpecs)
 	self.playerDevData:RemoveAllPerks()
 
-	local havePerkPoints = self.playerDevData:GetDevPoints('Primary')
+	local purchasePerks = {}
+	local purchaseTraits = {}
 	local needPerkPoints = 0
 
 	for _, skillPerkSpecs in pairs(perkSpecs) do
-		for _, perkLevel in pairs(skillPerkSpecs) do
-			needPerkPoints = needPerkPoints + perkLevel
+		for perkAlias, perkLevel in pairs(skillPerkSpecs) do
+			local perk = self.perks[perkAlias]
+
+			if perk and perkLevel > 0 then
+				local attrLevel = self:getStatValue(perk.attr)
+
+				if attrLevel >= perk.req then
+					perkLevel = math.min(perkLevel, perk.max)
+
+					if perk.trait then
+						purchaseTraits[perk.type] = perkLevel
+					else
+						purchasePerks[perk.type] = perkLevel
+					end
+
+					needPerkPoints = needPerkPoints + perkLevel
+				end
+			end
 		end
 	end
+
+	local havePerkPoints = self.playerDevData:GetDevPoints('Primary')
 
 	if needPerkPoints > havePerkPoints then
 		self.playerDevData:AddDevelopmentPoints(needPerkPoints - havePerkPoints, 'Primary')
 	end
 
-	for _, skillPerkSpecs in pairs(perkSpecs) do
-		for perkAlias, perkLevel in pairs(skillPerkSpecs) do
-			if perkLevel > 0 then
-				local perk = self.perksDb[perkAlias]
+	for perkType, perkLevel in pairs(purchasePerks) do
+		for _ = 1, perkLevel do
+			self.playerDevData:BuyPerk(perkType)
+		end
+	end
 
-				perkLevel = math.min(perkLevel, perk.max)
+	for traitType, traitLevel in pairs(purchaseTraits) do
+		for _ = 1, traitLevel do
+			self.playerDevData:IncreaseTraitLevel(traitType)
+		end
+	end
+end
 
-				for _ = 1, perkLevel do
-					if perk.trait then
-						self.playerDevData:IncreaseTraitLevel(perk.type)
-					else
-						self.playerDevData:BuyPerk(perk.type)
-					end
-				end
+function CharacterModule:setPoints(pointsSpec)
+	for _, pointAlias in ipairs({ 'Perk', --[[ 'Attribute' ]] }) do
+		if pointsSpec[pointAlias] then
+			local pointType = self:getStatType(pointAlias)
+			local requestedPoints = pointsSpec[pointAlias]
+			local playerPoints = math.floor(self.playerDevData:GetDevPoints(pointType))
+
+			if requestedPoints ~= playerPoints then
+				self.playerDevData:AddDevelopmentPoints((requestedPoints - playerPoints), pointType)
+
+				--Game.GiveDevPoints(pointType, (wantPoints - playerPoints))
 			end
 		end
 	end
 end
 
 function CharacterModule:triggerAutoScaling()
-	--local currentLevel = Game.GetStatsSystem():GetStatValue(Game.GetPlayer():GetEntityID(), 'Level')
-	local currentLevel = self.statsSystem:GetStatValue(self.playerId, 'Level')
+	local playerLevel = self:getStatValue('Level')
 
-	Game.SetLevel('Level', currentLevel)
+	Game.SetLevel('Level', playerLevel)
 
 	if mod.debug then
-		print(('[DEBUG] Respector: Auto-scale items updated to level %d.'):format(currentLevel))
+		print(('[DEBUG] Respector: Auto-scaled items to level %d.'):format(playerLevel))
 	end
+end
+
+function CharacterModule:getStatValue(statAlias)
+	return math.floor(self.statsSystem:GetStatValue(self.playerId, self:getStatType(statAlias)))
+end
+
+function CharacterModule:getProficiencyExp(statAlias)
+	return math.floor(self.playerDevData:GetCurrentLevelProficiencyExp(self:getStatType(statAlias)))
+end
+
+function CharacterModule:getStatType(alias)
+	return self.aliases[alias] or alias
 end
 
 return CharacterModule
