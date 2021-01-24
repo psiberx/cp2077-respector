@@ -1,7 +1,7 @@
 return {
-	Body = { alias = "Body", type = "Strength", default = 3, skills = { "Athletics", "Annihilation", "StreetBrawler" } },
-	Reflexes = { alias = "Reflexes", type = "Reflexes", default = 3, skills = { "Assault", "Handguns", "Blades" } },
-	TechnicalAbility = { alias = "TechnicalAbility", type = "TechnicalAbility", default = 3, skills = { "Crafting", "Engineering" } },
-	Intelligence = { alias = "Intelligence", type = "Intelligence", default = 3, skills = { "BreachProtocol", "Quickhacking" } },
-	Cool = { alias = "Cool", type = "Cool", default = 3, skills = { "Stealth", "ColdBlood" } },
+	{ alias = "Body", type = "Strength", min = 3, max = 20, skills = { "Athletics", "Annihilation", "StreetBrawler" } },
+	{ alias = "Reflexes", type = "Reflexes", min = 3, max = 20, skills = { "Assault", "Handguns", "Blades" } },
+	{ alias = "TechnicalAbility", type = "TechnicalAbility", min = 3, max = 20, skills = { "Crafting", "Engineering" } },
+	{ alias = "Intelligence", type = "Intelligence", min = 3, max = 20, skills = { "BreachProtocol", "Quickhacking" } },
+	{ alias = "Cool", type = "Cool", min = 3, max = 20, skills = { "Stealth", "ColdBlood" } },
 }

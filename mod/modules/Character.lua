@@ -11,6 +11,18 @@ function CharacterModule:new()
 	return this
 end
 
+local playerLevelMin = 1
+local playerLevelMax = 50
+
+local attrBonus = 7
+local attrLevelMin = 3
+local attrLevelMax = 20
+local attrTotalMin = attrLevelMin * 5
+local attrStartMax = attrTotalMin + attrBonus - playerLevelMin
+
+local skillLevelMin = 1
+local skillLevelMax = 20
+
 function CharacterModule:prepare()
 	local player = Game.GetPlayer()
 	local scriptableSystemsContainer = Game.GetScriptableSystemsContainer()
@@ -48,6 +60,9 @@ end
 
 function CharacterModule:applySpec(specData)
 	if specData.Character then
+		local attrsApplied = false
+		local skillsApplied = false
+
 		self:setLevels({
 			Level = specData.Character.Level,
 			StreetCred = specData.Character.StreetCred
@@ -55,12 +70,18 @@ function CharacterModule:applySpec(specData)
 
 		if specData.Character.Attributes then
 			self:setAttributes(specData.Character.Attributes)
+			attrsApplied = true
+		elseif specData.Character.Level then
+			self:setAttributes({}, true) -- Enforce legit attributes levels
+			attrsApplied = true
 		end
 
 		if specData.Character.Skills then
 			self:setSkills(specData.Character.Skills)
-		elseif specData.Character.Attributes then
+			skillsApplied = true
+		elseif attrsApplied then
 			self:setSkills({}) -- Enforce legit skills levels
+			skillsApplied = true
 		end
 
 		if specData.Character.Progression then
@@ -72,7 +93,7 @@ function CharacterModule:applySpec(specData)
 			mod.defer(0.25, function()
 				self:setPerks(specData.Character.Perks)
 			end)
-		elseif specData.Character.Attributes then
+		elseif skillsApplied then
 			mod.defer(0.25, function()
 				self:setPerks({}, true) -- Enforce legit perks
 			end)
@@ -142,39 +163,84 @@ end
 function CharacterModule:setLevels(levelsSpec)
 	for _, statType in ipairs({ 'Level', 'StreetCred' }) do
 		if levelsSpec[statType] then
-			local statLevel = levelsSpec[statType]
+			local statLevel = math.max(playerLevelMin, math.min(playerLevelMax, levelsSpec[statType]))
 			local playerStatLevel = self:getStatValue(statType)
 
 			if statLevel ~= playerStatLevel then
 				self.playerDevData:SetLevel(statType, statLevel, 'Gameplay')
 
-				--Game.SetLevel(type, level)
+				--Game.SetLevel(statType, statLevel)
+
+				if statType == 'Level' then
+					-- Fix attribute points
+					local playerAttrPoints = self.playerDevData:GetDevPoints('Attribute')
+					local playerAttrTotalLevel = 0
+
+					for _, attribute in pairs(self.attributes) do
+						playerAttrTotalLevel = playerAttrTotalLevel + self:getStatValue(attribute.type)
+					end
+
+					local correctAttrPoins = (statLevel + attrBonus - playerLevelMin) - (playerAttrTotalLevel - attrTotalMin)
+
+					if correctAttrPoins ~= playerAttrPoints then
+						self.playerDevData:AddDevelopmentPoints(correctAttrPoins - playerAttrPoints, 'Attribute')
+					end
+
+					-- Fix perk points
+					self.playerDevData:AddDevelopmentPoints(-statLevel, 'Primary')
+				end
 			end
 		end
 	end
 end
 
-function CharacterModule:setAttributes(attributesSpec)
+function CharacterModule:setAttributes(attributesSpec, mergeAttrs)
+	local playerLevel = math.tointeger(self:getStatValue('Level'))
+	local attrExtraLevelMax = playerLevel + attrStartMax - attrTotalMin
+
 	for _, attribute in pairs(self.attributes) do
-		local attrLevel = attributesSpec[attribute.alias] or attribute.default
-		local playerAttrLevel = self:getStatValue(attribute.type)
+		local playerAttrLevel = math.tointeger(self:getStatValue(attribute.type))
+
+		local attrLevel = math.tointeger(attributesSpec[attribute.alias])
+
+		if attrLevel ~= nil then
+			attrLevel = math.max(attrLevel, attrLevelMin)
+			attrLevel = math.min(attrLevel, attrLevelMax)
+		elseif mergeAttrs then
+			attrLevel = playerAttrLevel
+		else
+			attrLevel = attrLevelMin
+		end
+
+		attrLevel = math.min(attrLevel, attrExtraLevelMax + attrLevelMin)
 
 		if attrLevel ~= playerAttrLevel then
 			self.playerDevData:SetAttribute(attribute.type, attrLevel)
-			self.playerDevData:AddDevelopmentPoints(-(attrLevel - playerAttrLevel), attribute.type)
+			self.playerDevData:AddDevelopmentPoints(-(attrLevel - playerAttrLevel), 'Attribute')
 
 			--Game.SetAtt(type, level)
 			--Game.GiveDevPoints('Attribute', -(level - current))
 		end
+
+		attrExtraLevelMax = math.max(0, attrExtraLevelMax - attrLevel + attrLevelMin)
 	end
 end
 
-function CharacterModule:setSkills(skillsSpec)
+function CharacterModule:setSkills(skillsSpec, mergeSkills)
 	for _, skill in pairs(self.skills) do
 		local playerAttrLevel = self:getStatValue(skill.attr)
 		local playerSkillLevel = self:getStatValue(skill.type)
 
-		local skillLevel = skillsSpec[skill.alias] or skill.default
+		local skillLevel = skillsSpec[skill.alias]
+
+		if skillLevel ~= nil then
+			skillLevel = math.max(skillLevel, skillLevelMin)
+			skillLevel = math.min(skillLevel, skillLevelMax)
+		elseif mergeSkills then
+			skillLevel = playerSkillLevel
+		else
+			skillLevel = skillLevelMin
+		end
 
 		if skillLevel > playerAttrLevel then
 			skillLevel = playerAttrLevel
@@ -233,9 +299,12 @@ function CharacterModule:setPerks(perkSpecs, mergePerks)
 
 		if playerAttrLevel >= perk.req then
 			if perkLevel ~= nil then
-				perkLevel = math.min(perk.max, perkLevel)
+				perkLevel = math.max(perkLevel, 0)
+				perkLevel = math.min(perkLevel, perk.max)
 			elseif mergePerks then
 				perkLevel = playerPerkLevel
+			else
+				perkLevel = 0
 			end
 		else
 			perkLevel = 0
