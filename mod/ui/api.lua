@@ -27,4 +27,12 @@ function api.SaveSnap()
 	return respector:saveSpec(nil, { timestamp = true })
 end
 
+function api.ExecSpec(specData, _)
+	if specData == api then
+		specData = _
+	end
+
+	return respector:execSpec(specData)
+end
+
 return api

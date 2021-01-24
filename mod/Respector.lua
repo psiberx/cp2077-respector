@@ -175,7 +175,7 @@ function Respector:loadSpec(specName)
 	return true
 end
 
-function Respector:applySpecData(specData)
+function Respector:execSpec(specData)
 	if asyncWait then
 		return false
 	end
@@ -193,7 +193,7 @@ function Respector:applySpecData(specData)
 	self:releaseModulesAsync()
 
 	if mod.debug then
-		print(('[DEBUG] Respector: Applied custom spec data.'))
+		print(('[DEBUG] Respector: Quick spec applied.'))
 	end
 
 	return true
