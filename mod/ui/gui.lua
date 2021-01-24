@@ -13,29 +13,7 @@ local rarityFilters = RarityFilter.all()
 local itemFormatOptions = { 'auto', 'hash' }
 local keepSeedOptions = { 'auto', 'always' }
 
-local fontSize = ImGui.GetFontSize()
-local viewScale = fontSize / 13
-
 local viewData = {
-	windowWidth = 340 * viewScale,
-	windowHeight = 373 * viewScale,
-	windowPadding = 7.5,
-	windowOffsetX = 8,
-	windowOffsetY = math.ceil(fontSize * 1.3846) + 9,
-
-	gridGutter = 6,
-	gridFullWidth = 340 * viewScale, -- windowWidth
-	gridHalfWidth = 167 * viewScale,
-	gridOneThirdWidth = 109 * viewScale,
-	gridTwoThirdsWidth = 225 * viewScale,
-
-	tabRounding = math.floor(fontSize * 0.35),
-	tweaksButtonWidth = 100 * viewScale,
-	tweaksButtonHeight = 19 * viewScale,
-	defaultInputHeight = 19 * viewScale,
-	--specNameInputWidth = 233 * viewScale,
-	--specActionButtonWidth = 100 * viewScale,
-
 	maxInputLen = 256,
 
 	specSections = {
@@ -89,7 +67,8 @@ function gui.init(_respector)
 
 	gui.initHandlers()
 	gui.initPersistance()
-	gui.initState()
+	gui.initUserState()
+	gui.initViewData()
 
 	-- Detect the console state
 	if mod.start then
@@ -116,7 +95,7 @@ function gui.initPersistance()
 	end
 end
 
-function gui.initState(force)
+function gui.initUserState(force)
 	-- Init default state
 	if not userState.globalOptions or force then
 		userState.globalOptions = {}
@@ -142,6 +121,28 @@ function gui.initState(force)
 		userState.specOptions = respector:getSpecOptions()
 		userState.specOptions.timestamp = false
 	end
+end
+
+function gui.initViewData()
+	viewData.fontSize = ImGui.GetFontSize()
+	viewData.viewScale = viewData.fontSize / 13
+
+	viewData.windowWidth = 340 * viewData.viewScale
+	viewData.windowHeight = 373 * viewData.viewScale
+	viewData.windowPadding = 7.5
+	viewData.windowOffsetX = 8
+	viewData.windowOffsetY = math.ceil(viewData.fontSize * 1.3846) + 9
+
+	viewData.gridGutter = 6
+	viewData.gridFullWidth = viewData.windowWidth
+	viewData.gridHalfWidth = (viewData.gridFullWidth - viewData.gridGutter) / 2
+	viewData.gridOneThirdWidth = math.floor((viewData.gridFullWidth - viewData.gridGutter * 2) / 3 + 0.5)
+	viewData.gridTwoThirdsWidth = math.floor((viewData.gridFullWidth - viewData.gridGutter * 2) / 3 * 2 + 0.5)
+
+	viewData.tabRounding = math.floor(viewData.fontSize * 0.35)
+	viewData.tweaksButtonWidth = 100 * viewData.viewScale
+	viewData.tweaksButtonHeight = 19 * viewData.viewScale
+	viewData.defaultInputHeight = 19 * viewData.viewScale
 
 	viewData.rarityFilterIndex = array.find(rarityFilters, userState.specOptions.rarity) - 1
 	viewData.itemFormatIndex = array.find(itemFormatOptions, userState.specOptions.itemFormat) - 1
@@ -429,7 +430,7 @@ function gui.onResetConfigClick()
 
 	respector:loadComponents()
 
-	gui.initState(true)
+	gui.initUserState(true)
 	tweaksGui.initState(true)
 
 	print(('Respector: Configuration has been reset to defaults.'))

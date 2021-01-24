@@ -7,16 +7,12 @@ local TweakDb = mod.require('mod/helpers/TweakDb')
 local tweaksGui = {}
 
 local respector
-local tweakDb
 local persitentState
-
-local windowWidth = 440
-local windowPaddingX = 7.5
-local windowPaddingY = 6
+local tweakDb
 
 local viewData = {
 	justOpened = true,
-
+	
 	tweakSearch = nil,
 	tweakSearchMaxLen = 128,
 	tweakSearchStarted = false,
@@ -49,16 +45,45 @@ function tweaksGui.init(_respector, _userState, _persitentState)
 
 	tweakDb = TweakDb:new()
 
-	tweaksGui.initState()
+	tweaksGui.initUserState()
+	tweaksGui.initViewData()
 end
 
-function tweaksGui.initState(force)
+function tweaksGui.initUserState(force)
 	if not userState.tweakSearch or force then
 		userState.showTweaker = false
 		userState.expandTweaker = true
 	end
 
 	userState.tweakSearch = ''
+end
+
+function tweaksGui.initViewData()
+	viewData.fontSize = ImGui.GetFontSize()
+	viewData.viewScale = viewData.fontSize / 13
+
+	viewData.windowWidth = 440 * viewData.viewScale
+	viewData.windowHeight = 0 -- Auto Height
+	viewData.windowPaddingX = 7.5
+	viewData.windowPaddingY = 6
+	viewData.windowOffsetX = 6
+
+	viewData.gridGutter = 8
+	viewData.gridFullWidth = viewData.windowWidth
+	viewData.gridHalfWidth = (viewData.gridFullWidth - viewData.gridGutter) / 2
+
+	viewData.buttonHeight = 21 * viewData.viewScale
+
+	viewData.searchResultsHeight = (viewData.fontSize + 4) * 6.5
+
+	viewData.tweakCloseBtnSize = 18 * viewData.viewScale
+	viewData.tweakFactStateYesWidth = 32 * viewData.viewScale
+	viewData.tweakFactStateNoWidth = 24 * viewData.viewScale
+	viewData.tweakQtyInputWidth = 138 * viewData.viewScale
+	viewData.tweakQualityInputWidth = 168 * viewData.viewScale
+	viewData.tweakQuestInputWidth = 118 * viewData.viewScale
+	viewData.tweakHashNameInputWidth = 296 * viewData.viewScale
+	viewData.tweakHashHexInputWidth = 78 * viewData.viewScale
 
 	viewData.tweakSearch = ''
 	viewData.tweakSearchStarted = false
@@ -76,8 +101,8 @@ function tweaksGui.onDrawEvent()
 	end
 
 	ImGui.SetNextWindowPos(365, 400, ImGuiCond.FirstUseEver)
-	ImGui.SetNextWindowSize(windowWidth + (windowPaddingX * 2), 0)
-	ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, windowPaddingX, windowPaddingY)
+	ImGui.SetNextWindowSize(viewData.windowWidth + (viewData.windowPaddingX * 2), viewData.windowHeight)
+	ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, viewData.windowPaddingX, viewData.windowPaddingY)
 
 	userState.showTweaker, userState.expandTweaker = ImGui.Begin('Quick Tweaks', userState.showTweaker, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
 
@@ -91,7 +116,7 @@ function tweaksGui.onDrawEvent()
 		end
 
 		ImGui.Spacing()
-		ImGui.SetNextItemWidth(windowWidth)
+		ImGui.SetNextItemWidth(viewData.gridFullWidth)
 		ImGui.PushStyleColor(ImGuiCol.TextDisabled, 0xffaaaaaa)
 		viewData.tweakSearch = ImGui.InputTextWithHint('##TweakSearch', 'Search database...', viewData.tweakSearch, viewData.tweakSearchMaxLen)
 		ImGui.PopStyleColor()
@@ -109,19 +134,16 @@ function tweaksGui.onDrawEvent()
 
 		ImGui.Spacing()
 
-		local searchResultHeight = 17
-		local searchResultsHeight = searchResultHeight * 6.5
-
 		ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 0)
 		ImGui.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
 		ImGui.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
-		ImGui.PushStyleColor(ImGuiCol.FrameBg, 0) -- 0.16, 0.29, 0.48, 0.1
-		ImGui.BeginChildFrame(1, windowWidth, searchResultsHeight)
+		ImGui.PushStyleColor(ImGuiCol.FrameBg, 0)
+		ImGui.BeginChildFrame(1, viewData.gridFullWidth, viewData.searchResultsHeight)
 
 		if #viewData.tweakSearchResults > 0 then
-			ImGui.SetNextItemWidth(windowWidth)
 			ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 0)
 			ImGui.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
+			ImGui.SetNextItemWidth(viewData.gridFullWidth)
 
 			local tweakIndex, tweakChanged = ImGui.ListBox('##TweakSearchResults',
 				viewData.activeTweakIndex,
@@ -204,7 +226,7 @@ function tweaksGui.onDrawEvent()
 					ImGui.Text(tweak.entryMeta.group2)
 				end
 
-				if tweak.isTaggedAsSet then
+				if tweak.showEntryTag then
 					ImGui.SameLine()
 					ImGui.Text('·')
 					ImGui.SameLine()
@@ -238,12 +260,12 @@ function tweaksGui.onDrawEvent()
 				ImGui.SameLine()
 				if tweak.factState then
 					ImGui.PushStyleColor(ImGuiCol.FrameBg, 0x7700ff00)
-					ImGui.SetNextItemWidth(32)
+					ImGui.SetNextItemWidth(viewData.tweakFactStateYesWidth)
 					ImGui.InputText('##FactYES', 'YES', 3, ImGuiInputTextFlags.ReadOnly)
 					ImGui.PopStyleColor()
 				else
 					ImGui.PushStyleColor(ImGuiCol.FrameBg, 0x770000ee) -- 0xff484ad5
-					ImGui.SetNextItemWidth(24)
+					ImGui.SetNextItemWidth(viewData.tweakFactStateNoWidth)
 					ImGui.InputText('##FactNO', 'NO', 2, ImGuiInputTextFlags.ReadOnly)
 					ImGui.PopStyleColor()
 				end
@@ -251,7 +273,7 @@ function tweaksGui.onDrawEvent()
 
 				ImGui.Spacing()
 
-				if ImGui.Button(tweak.factState and 'Switch to NO' or 'Switch to YES', windowWidth, 21) then
+				if ImGui.Button(tweak.factState and 'Switch to NO' or 'Switch to YES', viewData.gridFullWidth, viewData.buttonHeight) then
 					tweaksGui.onSwitchFactClick()
 				end
 
@@ -269,34 +291,32 @@ function tweaksGui.onDrawEvent()
 
 					ImGui.Spacing()
 
-					if ImGui.Button('Add to garage', windowWidth, 21) then
+					if ImGui.Button('Add to garage', viewData.gridFullWidth, viewData.buttonHeight) then
 						tweaksGui.onUnlockVehicleClick()
 					end
 				end
 
 			-- Money / Ingredients
 			elseif tweak.entryMeta.kind == 'Money' or tweak.entryMeta.kind == 'Component' then
-				local halfWidth = windowWidth / 2 - 4
-
 				ImGui.BeginGroup()
 				ImGui.Spacing()
 				ImGui.Text(tweak.isMoney and 'Transaction amount:' or 'Required quantity:')
-				ImGui.SetNextItemWidth(halfWidth)
+				ImGui.SetNextItemWidth(viewData.gridHalfWidth)
 				tweak.transferAmount = ImGui.InputInt('##TransferAmount', tweak.transferAmount)
 				ImGui.EndGroup()
 
 				ImGui.SameLine()
 				ImGui.BeginGroup()
 				ImGui.Text(tweak.isMoney and 'Current balance:' or 'In backpack:')
-				ImGui.SetNextItemWidth(halfWidth)
+				ImGui.SetNextItemWidth(viewData.gridHalfWidth)
 				ImGui.PushStyleColor(ImGuiCol.FrameBg, 0.16, 0.29, 0.48, 0.25)
-				ImGui.InputText('##CurrentAmount', tostring(tweak.currentAmount), 512, ImGuiInputTextFlags.ReadOnly)
+				ImGui.InputText('##CurrentAmount', tostring(tweak.currentAmount), 32, ImGuiInputTextFlags.ReadOnly)
 				ImGui.PopStyleColor()
 				ImGui.EndGroup()
 
 				ImGui.Spacing()
 
-				if ImGui.Button(tweak.isMoney and 'Transfer money' or 'Acquire components', windowWidth, 21) then
+				if ImGui.Button(tweak.isMoney and 'Transfer money' or 'Acquire components', viewData.gridFullWidth, viewData.buttonHeight) then
 					tweaksGui.onTransferGoodsClick()
 				end
 
@@ -305,14 +325,14 @@ function tweaksGui.onDrawEvent()
 				ImGui.BeginGroup()
 				ImGui.Spacing()
 				ImGui.Text('Quantity:')
-				ImGui.SetNextItemWidth(138)
+				ImGui.SetNextItemWidth(viewData.tweakQtyInputWidth)
 				tweak.itemQty = ImGui.InputInt('##ItemQty', tweak.itemQty or 1)
 				ImGui.EndGroup()
 
 				ImGui.SameLine()
 				ImGui.BeginGroup()
 				ImGui.Text('Quality:')
-				ImGui.SetNextItemWidth(168)
+				ImGui.SetNextItemWidth(viewData.tweakQualityInputWidth)
 				if tweak.itemCanBeUpgraded then
 					local optionIndex, optionChanged = ImGui.Combo('##ItemQuality', viewData.qualityOptionIndex, viewData.qualityOptionList, viewData.qualityOptionCount)
 					if optionChanged then
@@ -329,7 +349,7 @@ function tweaksGui.onDrawEvent()
 				ImGui.SameLine()
 				ImGui.BeginGroup()
 				ImGui.Text('Quest mark:')
-				ImGui.SetNextItemWidth(118)
+				ImGui.SetNextItemWidth(viewData.tweakQuestInputWidth)
 				if tweak.itemCanBeMarked then
 					local optionIndex, optionChanged = ImGui.Combo('##ItemQuest', viewData.questOptionIndex, viewData.questOptionList, viewData.questOptionCount)
 					if optionChanged then
@@ -345,7 +365,7 @@ function tweaksGui.onDrawEvent()
 
 				ImGui.Spacing()
 
-				if ImGui.Button('Add to inventory', windowWidth, 21) then
+				if ImGui.Button('Add to inventory', viewData.gridFullWidth, viewData.buttonHeight) then
 					tweaksGui.onSpawnItemClick()
 				end
 
@@ -359,7 +379,7 @@ function tweaksGui.onDrawEvent()
 						ImGui.Text('This item can be crafted.')
 						ImGui.Spacing()
 
-						if ImGui.Button('Get crafting recipe', windowWidth, 21) then
+						if ImGui.Button('Get crafting recipe', viewData.gridFullWidth, viewData.buttonHeight) then
 							tweaksGui.onUnlockRecipeClick()
 						end
 					end
@@ -376,23 +396,21 @@ function tweaksGui.onDrawEvent()
 			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, 1, 0)
 			ImGui.Text('ID:')
 			ImGui.SameLine()
-			ImGui.SetNextItemWidth(296)
+			ImGui.SetNextItemWidth(viewData.tweakHashNameInputWidth)
 			ImGui.InputText('##Tweak Hash Name', tweak.entryType, 512, ImGuiInputTextFlags.ReadOnly)
 			ImGui.PopStyleVar()
 			ImGui.SameLine()
 			ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, 2, 0)
 			ImGui.Text('Hash:')
 			ImGui.SameLine()
-			ImGui.SetNextItemWidth(78)
+			ImGui.SetNextItemWidth(viewData.tweakHashHexInputWidth)
 			ImGui.InputText('##Tweak Hash Key', tweak.entryHash, 16, ImGuiInputTextFlags.ReadOnly)
 			ImGui.PopStyleVar()
 			ImGui.PopStyleColor(2)
 
-			local closeBtnSize = 18
-
-			ImGui.SetCursorPos(windowWidth - closeBtnSize + windowPaddingX, tweakPanelY)
+			ImGui.SetCursorPos(viewData.windowOffsetX + viewData.gridFullWidth - viewData.tweakCloseBtnSize, tweakPanelY)
 			ImGui.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
-			if ImGui.Button('X', closeBtnSize + 1, closeBtnSize) then
+			if ImGui.Button('X', viewData.tweakCloseBtnSize + 1, viewData.tweakCloseBtnSize) then
 				viewData.activeTweakIndex = -1
 				viewData.activeTweakData = nil
 			end
@@ -450,7 +468,7 @@ function tweaksGui.onTweakSearchChange()
 			entryMeta = result.entryMeta,
 			entryType = str.nonempty(result.entryMeta.type, 'N/A'),
 			entryHash = TweakDb.isRealKey(result.entryKey) and ('%010X'):format(result.entryKey) or 'N/A',
-			isTaggedAsSet = tweakDb:isTaggedAsSet(result.entryMeta),
+			showEntryTag = tweakDb:isTaggedAsSet(result.entryMeta),
 		}
 	end)
 
