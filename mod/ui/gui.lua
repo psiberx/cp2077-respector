@@ -3,51 +3,70 @@ local str = mod.require('mod/utils/str')
 local array = mod.require('mod/utils/array')
 local RarityFilter = mod.require('mod/enums/RarityFilter')
 local PersistentState = mod.require('mod/helpers/PersistentState')
-local tweaker = mod.require('mod/ui/gui-tweaker')
+local tweaksGui = mod.require('mod/ui/gui.tweaks')
 
 local gui = {}
 
 local respector
 
-local windowWidth = 340
-local windowHeight = 373
-local windowPadding = 7.5
-local maxInputLen = 256
-local maxHistoryLen = 50
+local rarityFilters = RarityFilter.all()
+local itemFormatOptions = { 'auto', 'hash' }
+local keepSeedOptions = { 'auto', 'always' }
 
-local specSections = {
-	{ option = 'character', label = 'Character', desc = '(attributes / skills / perks)' },
-	{ option = 'equipment', label = 'Equipped gear', desc = '(weapons / clothing / quick)' },
-	{ option = 'cyberware', label = 'Equipped cyberware' },
-	{ option = 'backpack', label = 'Backpack items' },
-	{ option = 'components', label = 'Crafting components' },
-	{ option = 'recipes', label = 'Crafting recipes' },
-	{ option = 'vehicles', label = 'Own vehicles' },
-}
-
-local rarityFilterList = RarityFilter.all()
-local itemFormatList = { 'auto', 'hash' }
-local keepSeedList = { 'auto', 'always' }
-
-local textOptions = {
-	specsDir = 'specs/',
-	defaultSpec = 'V'
-}
+local fontSize = ImGui.GetFontSize()
+local viewScale = fontSize / 13
 
 local viewData = {
+	windowWidth = 340 * viewScale,
+	windowHeight = 373 * viewScale,
+	windowPadding = 7.5,
+	windowOffsetX = 8,
+	windowOffsetY = math.ceil(fontSize * 1.3846) + 9,
+
+	gridGutter = 6,
+	gridFullWidth = 340 * viewScale, -- windowWidth
+	gridHalfWidth = 167 * viewScale,
+	gridOneThirdWidth = 109 * viewScale,
+	gridTwoThirdsWidth = 225 * viewScale,
+
+	tabRounding = math.floor(fontSize * 0.35),
+	tweaksButtonWidth = 100 * viewScale,
+	tweaksButtonHeight = 19 * viewScale,
+	defaultInputHeight = 19 * viewScale,
+	--specNameInputWidth = 233 * viewScale,
+	--specActionButtonWidth = 100 * viewScale,
+
+	maxInputLen = 256,
+
+	specSections = {
+		{ option = 'character', label = 'Character', desc = { 'Attributes', 'Skills', 'Perks' } },
+		{ option = 'equipment', label = 'Equipped gear', desc = { 'Weapons', 'Clothing', 'Quick use' } },
+		{ option = 'cyberware', label = 'Equipped cyberware' },
+		{ option = 'backpack', label = 'Backpack items' },
+		{ option = 'components', label = 'Crafting components' },
+		{ option = 'recipes', label = 'Crafting recipes' },
+		{ option = 'vehicles', label = 'Own vehicles' },
+	},
+
 	rarityFilterIndex = 0,
 	rarityFilterList = RarityFilter.labels(),
-	rarityFilterCount = #rarityFilterList,
+	rarityFilterCount = #rarityFilters,
 
 	itemFormatIndex = 0,
-	itemFormatList = 'Hash name\0Hash + length\0',
-	itemFormatCount = #itemFormatList,
+	itemFormatList = { 'Hash name', 'Hash + length' },
+	itemFormatCount = #itemFormatOptions,
 
 	keepSeedIndex = 0,
-	keepSeedList = 'Only if necessary\0For all items\0',
-	keepSeedCount = #keepSeedList,
+	keepSeedList = { 'Only if necessary', 'For all item' },
+	keepSeedCount = #keepSeedOptions,
 
 	specHistoryList = {},
+	specHistoryMaxLen = 50,
+
+	defaultOptions = {
+		specsDir = 'specs/',
+		defaultSpec = 'V'
+	},
 }
 
 local userState = {
@@ -77,7 +96,7 @@ function gui.init(_respector)
 		userState.showWindow = false
 	end
 
-	tweaker.init(respector, userState, persitentState)
+	tweaksGui.init(respector, userState, persitentState)
 end
 
 function gui.initHandlers()
@@ -85,7 +104,7 @@ function gui.initHandlers()
 end
 
 function gui.initPersistance()
-	persitentState = PersistentState:new(mod.path('specs/.state.lua'))
+	persitentState = PersistentState:new(mod.path('specs/.state'))
 
 	if persitentState:isEmpty() then
 		persitentState:setState({
@@ -124,15 +143,11 @@ function gui.initState(force)
 		userState.specOptions.timestamp = false
 	end
 
-	viewData.rarityFilterIndex = array.find(rarityFilterList, userState.specOptions.rarity) - 1
-	viewData.itemFormatIndex = array.find(itemFormatList, userState.specOptions.itemFormat) - 1
-	viewData.keepSeedIndex = array.find(keepSeedList, userState.specOptions.keepSeed) - 1
+	viewData.rarityFilterIndex = array.find(rarityFilters, userState.specOptions.rarity) - 1
+	viewData.itemFormatIndex = array.find(itemFormatOptions, userState.specOptions.itemFormat) - 1
+	viewData.keepSeedIndex = array.find(keepSeedOptions, userState.specOptions.keepSeed) - 1
 
 	viewData.specHistoryList = array.map(userState.specHistory, gui.formatHistoryEntry)
-end
-
-function gui.formatHistoryEntry(entryData)
-	return entryData.time .. ' ' .. (entryData.event == 'load' and 'L' or 'S') .. ' ' .. entryData.specName
 end
 
 function gui.onOverlayOpen()
@@ -149,25 +164,33 @@ function gui.onDrawEvent()
 	end
 
 	ImGui.SetNextWindowPos(0, 400, ImGuiCond.FirstUseEver)
-	ImGui.SetNextWindowSize(windowWidth + (windowPadding * 2), windowHeight)
+	ImGui.SetNextWindowSize(viewData.windowWidth + (viewData.windowPadding * 2), viewData.windowHeight)
 
 	userState.showWindow, userState.expandWindow = ImGui.Begin('Respector', true, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
 
 	if userState.showWindow and userState.expandWindow then
 		-- Quick Tweaks Button
-		ImGui.SetCursorPos(windowWidth - 100 + windowPadding, 28)
-		local clipX, clipY = ImGui.GetItemRectMin()
-		ImGui.PushClipRect(clipX, clipY, clipX + 400, clipY + 28 + 17, false)
-		ImGui.PushStyleVar(ImGuiStyleVar.FrameRounding, 4) -- Tab: ImGui.GetFontSize() * 0.35
-		ImGui.PushStyleColor(ImGuiCol.Button, userState.showTweaker and 0xFF51A600 or 0xFF518900)
-		ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0xFF67BC16)
-		if ImGui.Button('Quick Tweaks', 100, 19) then
-			tweaker.onToggleTweaker()
+
+		ImGui.SetCursorPos(viewData.windowOffsetX + viewData.windowWidth - viewData.tweaksButtonWidth , viewData.windowOffsetY + 1)
+
+		local windowX, windowY = ImGui.GetItemRectMin()
+
+		ImGui.PushClipRect(windowX, windowY, windowX + viewData.windowOffsetX + viewData.windowWidth, windowY + viewData.windowOffsetY + viewData.tweaksButtonHeight - 1, false)
+		ImGui.PushStyleVar(ImGuiStyleVar.FrameRounding, viewData.tabRounding)
+		ImGui.PushStyleColor(ImGuiCol.Button, userState.showTweaker and 0xff51a600 or 0xff518900)
+		ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0xff67bc16)
+
+		if ImGui.Button('Quick Tweaks', viewData.tweaksButtonWidth, viewData.tweaksButtonHeight) then
+			tweaksGui.onToggleTweaker()
 		end
+
 		ImGui.PopStyleColor(2)
 		ImGui.PopStyleVar()
 		ImGui.PopClipRect()
-		ImGui.SetCursorPos(8, 27)
+
+		ImGui.SetCursorPos(viewData.windowOffsetX, viewData.windowOffsetY)
+
+		-- Main Tabs
 
 		ImGui.BeginTabBar('Respector Tabs')
 
@@ -176,12 +199,12 @@ function gui.onDrawEvent()
 
 			-- Saving: Spec Name
 			ImGui.Text('Spec name:')
-			ImGui.SetNextItemWidth(233)
-			userState.specNameSave = ImGui.InputText('##Save Spec Name', userState.specNameSave, maxInputLen)
+			ImGui.SetNextItemWidth(viewData.gridTwoThirdsWidth)
+			userState.specNameSave = ImGui.InputText('##Save Spec Name', userState.specNameSave, viewData.maxInputLen)
 
 			-- Saving: Save Button
-			ImGui.SameLine(248)
-			if ImGui.Button('Save', 100, 19) then
+			ImGui.SameLine(viewData.windowOffsetX + viewData.gridTwoThirdsWidth + viewData.gridGutter)
+			if ImGui.Button('Save', viewData.gridOneThirdWidth, viewData.defaultInputHeight) then
 				gui.onSaveSpecClick()
 			end
 
@@ -197,38 +220,58 @@ function gui.onDrawEvent()
 			-- Saving: Sections
 			ImGui.Text('Include in the spec:')
 			ImGui.Spacing()
-			for _, section in ipairs(specSections) do
+			for _, section in ipairs(viewData.specSections) do
 				--ImGui.Spacing()
 				userState.specOptions[section.option] = ImGui.Checkbox(section.label, userState.specOptions[section.option])
 
 				if section.option == 'backpack' and userState.specOptions.backpack then
 					ImGui.SameLine()
-					ImGui.SetNextItemWidth(205)
+					ImGui.SetNextItemWidth(viewData.windowOffsetX + viewData.gridFullWidth - ImGui.GetCursorPosX())
 					viewData.rarityFilterIndex = ImGui.Combo('##Backpack Filter', viewData.rarityFilterIndex, viewData.rarityFilterList, viewData.rarityFilterCount)
-					userState.specOptions.rarity = rarityFilterList[viewData.rarityFilterIndex + 1]
+					userState.specOptions.rarity = rarityFilters[viewData.rarityFilterIndex + 1]
 				elseif section.desc then
 					ImGui.SameLine()
 					ImGui.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
-					ImGui.Text(section.desc)
+					ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, 3, 5)
+					if type(section.desc) == 'table' then
+						for i, item in ipairs(section.desc) do
+							if i > 1 then
+								ImGui.SameLine()
+								ImGui.Text('/')
+								ImGui.SameLine()
+							else
+								ImGui.SameLine(ImGui.GetCursorPosX() - 2)
+							end
+							ImGui.Text(item)
+						end
+					else
+						ImGui.SameLine()
+						ImGui.Text(section.desc)
+					end
+					ImGui.PopStyleVar()
 					ImGui.PopStyleColor()
 				end
 			end
 
 			ImGui.Spacing()
 			ImGui.Separator()
-			ImGui.Spacing()
 
 			-- Saving: Item Format & Keep Seed
+			ImGui.BeginGroup()
+			ImGui.Spacing()
 			ImGui.Text('Item format:')
-			ImGui.SameLine(181)
-			ImGui.Text('Keep seed:')
-			ImGui.SetNextItemWidth(167)
+			ImGui.SetNextItemWidth(viewData.gridHalfWidth)
 			viewData.itemFormatIndex = ImGui.Combo('##Item Format', viewData.itemFormatIndex, viewData.itemFormatList, viewData.itemFormatCount)
-			userState.specOptions.itemFormat = itemFormatList[viewData.itemFormatIndex + 1]
-			ImGui.SameLine(181)
-			ImGui.SetNextItemWidth(167)
+			userState.specOptions.itemFormat = itemFormatOptions[viewData.itemFormatIndex + 1]
+			ImGui.EndGroup()
+
+			ImGui.SameLine(viewData.windowOffsetX + viewData.gridHalfWidth + viewData.gridGutter)
+			ImGui.BeginGroup()
+			ImGui.Text('Keep seed:')
+			ImGui.SetNextItemWidth(viewData.gridHalfWidth)
 			viewData.keepSeedIndex = ImGui.Combo('##Keep Seed', viewData.keepSeedIndex, viewData.keepSeedList, viewData.keepSeedCount)
-			userState.specOptions.keepSeed = keepSeedList[viewData.keepSeedIndex + 1]
+			userState.specOptions.keepSeed = keepSeedOptions[viewData.keepSeedIndex + 1]
+			ImGui.EndGroup()
 
 			ImGui.EndTabItem()
 		end
@@ -238,12 +281,12 @@ function gui.onDrawEvent()
 
 			-- Loading: Spec Name
 			ImGui.Text('Spec name:')
-			ImGui.SetNextItemWidth(233)
-			userState.specNameLoad = ImGui.InputText('##Load Spec Name', userState.specNameLoad, maxInputLen)
+			ImGui.SetNextItemWidth(viewData.gridTwoThirdsWidth)
+			userState.specNameLoad = ImGui.InputText('##Load Spec Name', userState.specNameLoad, viewData.maxInputLen)
 
 			-- Loading: Load Button
-			ImGui.SameLine(248)
-			if ImGui.Button('Load', 100, 19) then
+			ImGui.SameLine(viewData.windowOffsetX + viewData.gridTwoThirdsWidth + viewData.gridGutter)
+			if ImGui.Button('Load', viewData.gridOneThirdWidth, viewData.defaultInputHeight) then
 				gui.onLoadSpecClick()
 			end
 
@@ -254,16 +297,16 @@ function gui.onDrawEvent()
 			-- Loading: Recent Specs
 			ImGui.Text('Recently saved / loaded specs:')
 			ImGui.Spacing()
-			ImGui.SetNextItemWidth(340)
+			ImGui.SetNextItemWidth(viewData.gridFullWidth)
 			ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 0)
 			ImGui.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
 			ImGui.PushStyleColor(ImGuiCol.FrameBg, 0)
-			local lastSpecIndex = ImGui.ListBox('##Load Recent Specs', -1, viewData.specHistoryList, #viewData.specHistoryList, 14)
+			local recentSpecIndex = ImGui.ListBox('##Load Recent Specs', -1, viewData.specHistoryList, #viewData.specHistoryList, 14)
 			ImGui.PopStyleColor()
 			ImGui.PopStyleVar(2)
-			if lastSpecIndex >= 0 then
-				userState.specNameLoad = userState.specHistory[lastSpecIndex + 1].specName
-				lastSpecIndex = -1
+			if recentSpecIndex >= 0 then
+				userState.specNameLoad = userState.specHistory[recentSpecIndex + 1].specName
+				recentSpecIndex = -1
 			end
 
 			ImGui.EndTabItem()
@@ -274,15 +317,15 @@ function gui.onDrawEvent()
 
 			-- Options: Specs Dir
 			ImGui.Text('Specs location:')
-			ImGui.SetNextItemWidth(340)
-			userState.globalOptions.specsDir = ImGui.InputText('##Specs Location', userState.globalOptions.specsDir, maxInputLen)
+			ImGui.SetNextItemWidth(viewData.gridFullWidth)
+			userState.globalOptions.specsDir = ImGui.InputText('##Specs Location', userState.globalOptions.specsDir, viewData.maxInputLen)
 
 			ImGui.Spacing()
 
 			-- Options: Default Spec
 			ImGui.Text('Default spec name:')
-			ImGui.SetNextItemWidth(340)
-			userState.globalOptions.defaultSpec = ImGui.InputText('##Default Spec', userState.globalOptions.defaultSpec, maxInputLen)
+			ImGui.SetNextItemWidth(viewData.gridFullWidth)
+			userState.globalOptions.defaultSpec = ImGui.InputText('##Default Spec', userState.globalOptions.defaultSpec, viewData.maxInputLen)
 
 			ImGui.Spacing()
 			ImGui.Separator()
@@ -296,13 +339,13 @@ function gui.onDrawEvent()
 			ImGui.Spacing()
 
 			-- Options: Save Button
-			if ImGui.Button('Save options', 168, 19) then
+			if ImGui.Button('Save options', viewData.gridHalfWidth, viewData.defaultInputHeight) then
 				gui.onSaveConfigClick()
 			end
 
 			-- Options: Reset Button
-			ImGui.SameLine(179)
-			if ImGui.Button('Reset to defaults', 168, 19) then
+			ImGui.SameLine(viewData.windowOffsetX + viewData.gridHalfWidth + viewData.gridGutter)
+			if ImGui.Button('Reset to defaults', viewData.gridHalfWidth, viewData.defaultInputHeight) then
 				gui.onResetConfigClick()
 			end
 
@@ -311,25 +354,25 @@ function gui.onDrawEvent()
 				ImGui.Separator()
 				ImGui.Spacing()
 
-				if ImGui.Button('Rehash TweakDB names', windowWidth, 19) then
+				if ImGui.Button('Rehash TweakDB names', viewData.windowWidth, viewData.defaultInputHeight) then
 					gui.onRehashTweakDbClick()
 				end
 
 				ImGui.Spacing()
 
-				if ImGui.Button('Compile sample packs', windowWidth, 19) then
+				if ImGui.Button('Compile sample packs', viewData.windowWidth, viewData.defaultInputHeight) then
 					gui.onCompileSamplesClick()
 				end
 
 				ImGui.Spacing()
 
-				if ImGui.Button('Write default config', windowWidth, 19) then
+				if ImGui.Button('Write default config', viewData.windowWidth, viewData.defaultInputHeight) then
 					gui.onWriteDefaultConfigClick()
 				end
 
 				ImGui.Spacing()
 
-				if ImGui.Button('Write default spec', windowWidth, 19) then
+				if ImGui.Button('Write default spec', viewData.windowWidth, viewData.defaultInputHeight) then
 					gui.onWriteDefaultSpecClick()
 				end
 			end
@@ -342,7 +385,7 @@ function gui.onDrawEvent()
 
 	ImGui.End()
 
-	tweaker.onDrawEvent()
+	tweaksGui.onDrawEvent()
 end
 
 function gui.onSaveSpecClick()
@@ -359,10 +402,8 @@ end
 
 function gui.onSaveConfigClick()
 	for optionName, optionValue in pairs(userState.globalOptions) do
-		if textOptions[optionName] then
-			if str.isempty(optionValue) then
-				optionValue = textOptions[optionName]
-			end
+		if str.isempty(optionValue) and viewData.defaultOptions[optionName] then
+			optionValue = viewData.defaultOptions[optionName]
 		end
 
 		mod.config[optionName] = optionValue
@@ -389,7 +430,7 @@ function gui.onResetConfigClick()
 	respector:loadComponents()
 
 	gui.initState(true)
-	tweaker.initState(true)
+	tweaksGui.initState(true)
 
 	print(('Respector: Configuration has been reset to defaults.'))
 end
@@ -445,12 +486,18 @@ function gui.onRespectorEvent(eventData)
 	table.insert(userState.specHistory, 1, eventData)
 	table.insert(viewData.specHistoryList, 1, gui.formatHistoryEntry(eventData))
 
-	if #userState.specHistory > maxHistoryLen then
+	if #userState.specHistory > viewData.specHistoryMaxLen then
 		table.remove(userState.specHistory)
 		table.remove(viewData.specHistoryList)
 	end
 
 	persitentState:flush()
+end
+
+-- Helpers
+
+function gui.formatHistoryEntry(entryData)
+	return entryData.time .. ' ' .. (entryData.event == 'load' and 'L' or 'S') .. ' ' .. entryData.specName
 end
 
 return gui

@@ -4,7 +4,7 @@ local array = mod.require('mod/utils/array')
 local Quality = mod.require('mod/enums/Quality')
 local TweakDb = mod.require('mod/helpers/TweakDb')
 
-local tweaker = {}
+local tweaksGui = {}
 
 local respector
 local tweakDb
@@ -42,17 +42,17 @@ local userState = {
 	tweakSearch = nil,
 }
 
-function tweaker.init(_respector, _userState, _persitentState)
+function tweaksGui.init(_respector, _userState, _persitentState)
 	respector = _respector
 	userState = _userState
 	persitentState = _persitentState
 
 	tweakDb = TweakDb:new()
 
-	tweaker.initState()
+	tweaksGui.initState()
 end
 
-function tweaker.initState(force)
+function tweaksGui.initState(force)
 	if not userState.tweakSearch or force then
 		userState.showTweaker = false
 		userState.expandTweaker = true
@@ -70,7 +70,7 @@ function tweaker.initState(force)
 	viewData.activeTweakData = nil
 end
 
-function tweaker.onDrawEvent()
+function tweaksGui.onDrawEvent()
 	if not userState.showTweaker then
 		return
 	end
@@ -104,7 +104,7 @@ function tweaker.onDrawEvent()
 
 			userState.tweakSearch = viewData.tweakSearch
 
-			tweaker.onTweakSearchChange()
+			tweaksGui.onTweakSearchChange()
 		end
 
 		ImGui.Spacing()
@@ -136,7 +136,7 @@ function tweaker.onDrawEvent()
 				viewData.activeTweakIndex = tweakIndex
 				viewData.activeTweakData = viewData.tweakSearchResults[tweakIndex + 1] or nil
 
-				tweaker.onTweakSearchResultSelect()
+				tweaksGui.onTweakSearchResultSelect()
 			end
 		else
 			ImGui.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
@@ -252,7 +252,7 @@ function tweaker.onDrawEvent()
 				ImGui.Spacing()
 
 				if ImGui.Button(tweak.factState and 'Switch to NO' or 'Switch to YES', windowWidth, 21) then
-					tweaker.onSwitchFactClick()
+					tweaksGui.onSwitchFactClick()
 				end
 
 				ImGui.Spacing()
@@ -270,7 +270,7 @@ function tweaker.onDrawEvent()
 					ImGui.Spacing()
 
 					if ImGui.Button('Add to garage', windowWidth, 21) then
-						tweaker.onUnlockVehicleClick()
+						tweaksGui.onUnlockVehicleClick()
 					end
 				end
 
@@ -297,7 +297,7 @@ function tweaker.onDrawEvent()
 				ImGui.Spacing()
 
 				if ImGui.Button(tweak.isMoney and 'Transfer money' or 'Acquire components', windowWidth, 21) then
-					tweaker.onTransferGoodsClick()
+					tweaksGui.onTransferGoodsClick()
 				end
 
 			-- Items
@@ -346,7 +346,7 @@ function tweaker.onDrawEvent()
 				ImGui.Spacing()
 
 				if ImGui.Button('Add to inventory', windowWidth, 21) then
-					tweaker.onSpawnItemClick()
+					tweaksGui.onSpawnItemClick()
 				end
 
 				if tweak.itemCanBeCrafted then
@@ -360,7 +360,7 @@ function tweaker.onDrawEvent()
 						ImGui.Spacing()
 
 						if ImGui.Button('Get crafting recipe', windowWidth, 21) then
-							tweaker.onUnlockRecipeClick()
+							tweaksGui.onUnlockRecipeClick()
 						end
 					end
 				end
@@ -405,7 +405,7 @@ function tweaker.onDrawEvent()
 	ImGui.PopStyleVar()
 end
 
-function tweaker.onTweakSearchChange()
+function tweaksGui.onTweakSearchChange()
 	--persitentState:flush()
 
 	local searchTerm = str.trim(userState.tweakSearch)
@@ -459,11 +459,11 @@ function tweaker.onTweakSearchChange()
 	end)
 end
 
-function tweaker.onTweakSearchResultSelect()
+function tweaksGui.onTweakSearchResultSelect()
 	local tweak = viewData.activeTweakData
 
 	if tweak.entryMeta.kind == 'Fact' then
-		tweak.factState = tweaker.getFactState(tweak.entryMeta.type)
+		tweak.factState = tweaksGui.getFactState(tweak.entryMeta.type)
 
 	elseif tweak.entryMeta.kind == 'Vehicle' then
 		tweak.vehicleUnlocked = respector:usingModule('transport', function(transportModule)
@@ -473,7 +473,7 @@ function tweaker.onTweakSearchResultSelect()
 	elseif tweak.entryMeta.kind == 'Money' or tweak.entryMeta.kind == 'Component' then
 		tweak.isMoney = tweak.entryMeta.kind == 'Money'
 		tweak.transferAmount = tweak.isMoney and 100000 or 1000
-		tweak.currentAmount = tweaker.getItemAmount(tweak.entryMeta.type)
+		tweak.currentAmount = tweaksGui.getItemAmount(tweak.entryMeta.type)
 
 	else
 		-- Item Quantity
@@ -548,7 +548,7 @@ function tweaker.onTweakSearchResultSelect()
 	end
 end
 
-function tweaker.onSpawnItemClick()
+function tweaksGui.onSpawnItemClick()
 	local tweak = viewData.activeTweakData
 
 	local itemSpec = {
@@ -561,10 +561,10 @@ function tweaker.onSpawnItemClick()
 		itemSpec.quest = false
 	end
 
-	respector:applySpecData({ Backpack = { itemSpec } })
+	respector:execSpec({ Backpack = { itemSpec } })
 end
 
-function tweaker.onUnlockRecipeClick()
+function tweaksGui.onUnlockRecipeClick()
 	local tweak = viewData.activeTweakData
 
 	respector:usingModule('crafting', function(craftingModule)
@@ -574,7 +574,7 @@ function tweaker.onUnlockRecipeClick()
 	tweak.itemRecipeKnown = true
 end
 
-function tweaker.onUnlockVehicleClick()
+function tweaksGui.onUnlockVehicleClick()
 	local tweak = viewData.activeTweakData
 
 	respector:usingModule('transport', function(transportModule)
@@ -584,47 +584,47 @@ function tweaker.onUnlockVehicleClick()
 	tweak.vehicleUnlocked = true
 end
 
-function tweaker.onTransferGoodsClick()
+function tweaksGui.onTransferGoodsClick()
 	local tweak = viewData.activeTweakData
 
-	tweaker.addItemAmount(tweak.entryMeta.type, tweak.transferAmount)
+	tweaksGui.addItemAmount(tweak.entryMeta.type, tweak.transferAmount)
 
-	tweak.currentAmount = tweaker.getItemAmount(tweak.entryMeta.type)
+	tweak.currentAmount = tweaksGui.getItemAmount(tweak.entryMeta.type)
 end
 
-function tweaker.onSwitchFactClick()
+function tweaksGui.onSwitchFactClick()
 	local tweak = viewData.activeTweakData
 
 	tweak.factState = not tweak.factState
 
-	tweaker.setFactState(tweak.entryMeta.type, tweak.factState)
+	tweaksGui.setFactState(tweak.entryMeta.type, tweak.factState)
 end
 
-function tweaker.onToggleTweaker()
+function tweaksGui.onToggleTweaker()
 	userState.showTweaker = not userState.showTweaker
 	viewData.justOpened = userState.showTweaker
 
 	persitentState:flush()
 end
 
-function tweaker.getItemAmount(itemId)
+function tweaksGui.getItemAmount(itemId)
 	itemId = TweakDb.toItemId(itemId, false)
 
 	return Game.GetTransactionSystem():GetItemQuantity(Game.GetPlayer(), itemId)
 end
 
-function tweaker.addItemAmount(itemId, itemAmount)
+function tweaksGui.addItemAmount(itemId, itemAmount)
 	itemId = TweakDb.toItemId(itemId, false)
 
 	Game.GetTransactionSystem():GiveItem(Game.GetPlayer(), itemId, itemAmount)
 end
 
-function tweaker.getFactState(factName)
+function tweaksGui.getFactState(factName)
 	return Game.GetQuestsSystem():GetFactStr(factName) == 1
 end
 
-function tweaker.setFactState(factName, state)
+function tweaksGui.setFactState(factName, state)
 	Game.GetQuestsSystem():SetFactStr(factName, state and 1 or 0)
 end
 
-return tweaker
+return tweaksGui
