@@ -61,7 +61,7 @@ return {
 	Thrash = { type = "Brawling_Area_07_Perk_2", max = 1, attr = "Body", req = 15, skill = "StreetBrawler", name = "Thrash", desc = "Strong Attacks with Blunt Weapons reduce the target's Armor by 30% for 10 sec." },
 	BidingTime = { type = "Brawling_Area_08_Perk_1", max = 3, attr = "Body", req = 18, skill = "StreetBrawler", name = "Biding Time", desc = "Blocking attacks with a Blunt Weapon restores 5/10/15% Health." },
 	Unshakeable = { type = "Brawling_Area_08_Perk_2", max = 3, attr = "Body", req = 18, skill = "StreetBrawler", name = "Unshakeable", desc = "Successful attacks with Blunt Weapons against enemies affected by Stun restore 5/10/15% Health and 5/10/15% Stamina." },
-	Guerrilla = { type = "BrawlingTrait01", max = 999, trait = true, req = 20, skill = "Street Brawler", name = "Guerrilla", desc = "Increases Crit Damage for 10 sec. after entering combat. +2% per Perk level." },
+	Guerrilla = { type = "BrawlingTrait01", max = 999, trait = true, req = 20, attr = "Body", skill = "StreetBrawler", name = "Guerrilla", desc = "Increases Crit Damage for 10 sec. after entering combat. +2% per Perk level." },
 
 	-- Assault
 	Bulletjock = { type = "Assault_Area_01_Perk_1", max = 3, attr = "Reflexes", req = 3, skill = "Assault", name = "Bulletjock", desc = "Increases damage with rifles by 3/6/10%." },
@@ -188,7 +188,7 @@ return {
 	HeadStart = { type = "Hacking_Area_09_Perk_2", max = 1, attr = "Intelligence", req = 18, skill = "BreachProtocol", name = "Head Start", desc = "Automatically uploads the first daemon in the list at the start of Breach Protocol." },
 	Compression = { type = "Hacking_Area_10_Perk_1", max = 1, attr = "Intelligence", req = 20, skill = "BreachProtocol", name = "Compression", desc = "Reduces the lengths of the sequences required to upload daemons by 1. Cannot be reduced below 2." },
 	BufferOptimization = { type = "Hacking_Area_10_Perk_2", max = 1, attr = "Intelligence", req = 20, skill = "BreachProtocol", name = "Buffer Optimization", desc = "Increases the duration of daemon effects by 100%." },
-	Transmigration = { type = "HackingTrait01", max = 999, trait = true, req = 16, skill = "Breach Protocol", name = "Transmigration", desc = "Increases the breach time of Breach Protocol by 50%. +5% per Perk level." },
+	Transmigration = { type = "HackingTrait01", max = 999, trait = true, req = 16, attr = "Intelligence", skill = "BreachProtocol", name = "Transmigration", desc = "Increases the breach time of Breach Protocol by 50%. +5% per Perk level." },
 
 	-- Quickhacking
 	Biosynergy = { type = "CombatHacking_Area_01_Perk_1", max = 3, attr = "Intelligence", req = 3, skill = "Quickhacking", name = "Biosynergy", desc = "Allows RAM to recover during combat. Recover 4/8/12 RAM unit(s) every 60 sec." },
@@ -257,5 +257,5 @@ return {
 	Unbreakable = { type = "ColdBlood_Area_08_Perk_2", max = 1, attr = "Cool", req = 16, skill = "ColdBlood", name = "Unbreakable", desc = "Increases max stack amount for Cold Blood by 1." },
 	PainIsAnIllusion = { type = "ColdBlood_Area_09_Perk_1", max = 1, attr = "Cool", req = 18, skill = "ColdBlood", name = "Pain Is An Illusion", desc = "While Cold Blood is active, reduces damage taken by 5%." },
 	Immunity = { type = "ColdBlood_Area_10_Perk_1", max = 1, attr = "Cool", req = 20, skill = "ColdBlood", name = "Immunity", desc = "While Cold Blood is active, you are immune to Bleeding, Poison, Burn and Shock." },
-	Merciless = { type = "ColdBloodTrait01", max = 999, trait = true, req = 20, skill = "Cold Blood", name = "Merciless", desc = "While Cold Blood is active, increases Crit Chance by 10% and Crit Damage by 25%. +1% Crit Chance and +3% Crit Damage per Perk level." },
+	Merciless = { type = "ColdBloodTrait01", max = 999, trait = true, attr = "Cool", req = 20, skill = "ColdBlood", name = "Merciless", desc = "While Cold Blood is active, increases Crit Chance by 10% and Crit Damage by 25%. +1% Crit Chance and +3% Crit Damage per Perk level." },
 }

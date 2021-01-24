@@ -60,7 +60,7 @@ function CharacterModule:applySpec(specData)
 		if specData.Character.Skills then
 			self:setSkills(specData.Character.Skills)
 		elseif specData.Character.Attributes then
-			self:setSkills({}) -- Enforce legit levels of skills 
+			self:setSkills({}) -- Enforce legit skills levels
 		end
 
 		if specData.Character.Progression then
@@ -71,6 +71,10 @@ function CharacterModule:applySpec(specData)
 			-- Need to wait after updating character level
 			mod.defer(0.25, function()
 				self:setPerks(specData.Character.Perks)
+			end)
+		elseif specData.Character.Attributes then
+			mod.defer(0.25, function()
+				self:setPerks({}, true) -- Enforce legit perks
 			end)
 		end
 
@@ -200,32 +204,53 @@ function CharacterModule:setProgression(progressionSpec)
 	end
 end
 
-function CharacterModule:setPerks(perkSpecs)
-	self.playerDevData:RemoveAllPerks()
+function CharacterModule:setPerks(perkSpecs, mergePerks)
+	if not mergePerks then
+		self.playerDevData:RemoveAllPerks()
+	end
 
-	local purchasePerks = {}
-	local purchaseTraits = {}
+	local adjustPerks = {}
+	local adjustTraits = {}
 	local needPerkPoints = 0
 
-	for _, skillPerkSpecs in pairs(perkSpecs) do
-		for perkAlias, perkLevel in pairs(skillPerkSpecs) do
-			local perk = self.perks[perkAlias]
+	for perkAlias, perk in pairs(self.perks) do
+		local perkLevel = perkSpecs[perkAlias]
 
-			if perk and perkLevel > 0 then
-				local attrLevel = self:getStatValue(perk.attr)
+		if not perkLevel and perkSpecs[perk.skill] then
+			perkLevel = perkSpecs[perk.skill][perkAlias]
+		end
 
-				if attrLevel >= perk.req then
-					perkLevel = math.min(perkLevel, perk.max)
+		local playerAttrLevel = self:getStatValue(perk.attr)
+		local playerPerkLevel
 
-					if perk.trait then
-						purchaseTraits[perk.type] = perkLevel
-					else
-						purchasePerks[perk.type] = perkLevel
-					end
+		if perk.trait then
+			playerPerkLevel = self.playerDevData:GetTraitLevel(perk.type)
+		else
+			playerPerkLevel = self.playerDevData:GetPerkLevel(perk.type)
+		end
 
-					needPerkPoints = needPerkPoints + perkLevel
-				end
+		playerPerkLevel = math.max(0, playerPerkLevel)
+
+		if playerAttrLevel >= perk.req then
+			if perkLevel ~= nil then
+				perkLevel = math.min(perk.max, perkLevel)
+			elseif mergePerks then
+				perkLevel = playerPerkLevel
 			end
+		else
+			perkLevel = 0
+		end
+
+		local perkDiff = perkLevel - playerPerkLevel
+
+		if perkDiff ~= 0 then
+			if perk.trait then
+				adjustTraits[perk.type] = perkDiff
+			else
+				adjustPerks[perk.type] = perkDiff
+			end
+
+			needPerkPoints = needPerkPoints + perkDiff
 		end
 	end
 
@@ -235,15 +260,27 @@ function CharacterModule:setPerks(perkSpecs)
 		self.playerDevData:AddDevelopmentPoints(needPerkPoints - havePerkPoints, 'Primary')
 	end
 
-	for perkType, perkLevel in pairs(purchasePerks) do
-		for _ = 1, perkLevel do
-			self.playerDevData:BuyPerk(perkType)
+	for perkType, perkLevel in pairs(adjustPerks) do
+		if perkLevel > 0 then
+			for _ = 1, perkLevel do
+				self.playerDevData:BuyPerk(perkType)
+			end
+		else
+			for _ = perkLevel, 0 do
+				self.playerDevData:RemovePerk(perkType)
+			end
 		end
 	end
 
-	for traitType, traitLevel in pairs(purchaseTraits) do
-		for _ = 1, traitLevel do
-			self.playerDevData:IncreaseTraitLevel(traitType)
+	for traitType, traitLevel in pairs(adjustTraits) do
+		if traitLevel > 0 then
+			for _ = 1, traitLevel do
+				self.playerDevData:IncreaseTraitLevel(traitType)
+			end
+		else
+			for _ = traitLevel, 0 do
+				self.playerDevData:RemoveTrait(traitType)
+			end
 		end
 	end
 end
