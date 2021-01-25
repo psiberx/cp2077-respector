@@ -7,7 +7,7 @@ with useful extra features.
 - **New Game Plus:** Transfer your character and equipment between playthroughs. 
   You can try each life path while keeping the experience gained from other playthroughs, 
   replay the same mission with different abilities and equipment, etc.
-- **In-Game Respec:** Respec your Attributes and restore all spent Perk Points to redistribute them.
+- **Character Respec:** Respec your Attributes and restore all spent Perk Points to redistribute them.
 - **Build Management:** Try different builds switching them on the fly while playing, share builds with others.
 - **Item Management:** Create item packs (eg. "Stash Wall Weapons", "Legendary Outfits").
 - **Quick Tweaks:** Get items and currencies, unlock vehicles, manipulate facts with ease 
