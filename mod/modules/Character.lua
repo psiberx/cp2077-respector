@@ -80,7 +80,7 @@ function CharacterModule:applySpec(specData)
 			self:setSkills(specData.Character.Skills)
 			skillsApplied = true
 		elseif attrsApplied then
-			self:setSkills({}) -- Enforce legit skills levels
+			self:setSkills({}, true) -- Enforce legit skills levels
 			skillsApplied = true
 		end
 
@@ -160,9 +160,31 @@ function CharacterModule:getExpirience(schema, specOptions)
 	return data
 end
 
+function CharacterModule:getLevel()
+	return math.tointeger(self:getStatValue('Level'))
+end
+
+function CharacterModule:getAttributes()
+	local attributesSpec = {}
+
+	for _, attribute in pairs(self.attributes) do
+		attributesSpec[attribute.alias] = self:getStatValue(attribute.type)
+	end
+
+	return attributesSpec
+end
+
+function CharacterModule:getTotalAttributePoints()
+	return self:getLevel() + attrStartMax
+end
+
+function CharacterModule:getPerkPoints()
+	return math.tointeger(self.playerDevData:GetDevPoints('Primary'))
+end
+
 function CharacterModule:setLevels(levelsSpec)
 	for _, statType in ipairs({ 'Level', 'StreetCred' }) do
-		if levelsSpec[statType] then
+		if type(levelsSpec[statType]) == 'number' then
 			local statLevel = math.max(playerLevelMin, math.min(playerLevelMax, levelsSpec[statType]))
 			local playerStatLevel = self:getStatValue(statType)
 
@@ -203,7 +225,7 @@ function CharacterModule:setAttributes(attributesSpec, mergeAttrs)
 
 		local attrLevel = math.tointeger(attributesSpec[attribute.alias])
 
-		if attrLevel ~= nil then
+		if type(attrLevel) == 'number' then
 			attrLevel = math.max(attrLevel, attrLevelMin)
 			attrLevel = math.min(attrLevel, attrLevelMax)
 		elseif mergeAttrs then
@@ -227,15 +249,19 @@ function CharacterModule:setAttributes(attributesSpec, mergeAttrs)
 end
 
 function CharacterModule:setSkills(skillsSpec, mergeSkills)
+	local perkPointsBefore = self:getPerkPoints()
+
 	for _, skill in pairs(self.skills) do
 		local playerAttrLevel = self:getStatValue(skill.attr)
 		local playerSkillLevel = self:getStatValue(skill.type)
 
 		local skillLevel = skillsSpec[skill.alias]
 
-		if skillLevel ~= nil then
+		if type(skillLevel) == 'number' then
 			skillLevel = math.max(skillLevel, skillLevelMin)
 			skillLevel = math.min(skillLevel, skillLevelMax)
+		elseif skillLevel == true then
+			skillLevel = playerAttrLevel
 		elseif mergeSkills then
 			skillLevel = playerSkillLevel
 		else
@@ -252,13 +278,22 @@ function CharacterModule:setSkills(skillsSpec, mergeSkills)
 			--Game.SetLevel(type, level)
 		end
 	end
+
+	mod.defer(0.05, function()
+		local perkPointsAfter = self:getPerkPoints()
+
+		-- Fix perk points
+		if perkPointsAfter ~= perkPointsBefore then
+			self.playerDevData:AddDevelopmentPoints(-(perkPointsAfter - perkPointsBefore), 'Primary')
+		end
+	end)
 end
 
 function CharacterModule:setProgression(progressionSpec)
 	for skillAlias, skillExp in pairs(progressionSpec) do
 		local skill = self.skills[skillAlias]
 
-		if skill then
+		if skill and type(skillExp) == 'number' then
 			local playerSkillExp = self:getProficiencyExp(skill.type)
 
 			if skillExp ~= playerSkillExp then
@@ -298,9 +333,11 @@ function CharacterModule:setPerks(perkSpecs, mergePerks)
 		playerPerkLevel = math.max(0, playerPerkLevel)
 
 		if playerAttrLevel >= perk.req then
-			if perkLevel ~= nil then
+			if type(perkLevel) == 'number' then
 				perkLevel = math.max(perkLevel, 0)
 				perkLevel = math.min(perkLevel, perk.max)
+			elseif perkLevel == true then
+				perkLevel = perk.max
 			elseif mergePerks then
 				perkLevel = playerPerkLevel
 			else

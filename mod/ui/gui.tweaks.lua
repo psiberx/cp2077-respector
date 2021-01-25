@@ -104,7 +104,16 @@ function tweaksGui.onDrawEvent()
 	ImGui.SetNextWindowSize(viewData.windowWidth + (viewData.windowPaddingX * 2), viewData.windowHeight)
 	ImGui.PushStyleVar(ImGuiStyleVar.WindowPadding, viewData.windowPaddingX, viewData.windowPaddingY)
 
-	userState.showTweaker, userState.expandTweaker = ImGui.Begin('Quick Tweaks', userState.showTweaker, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
+	local showTweaker, expandTweaker = ImGui.Begin('Quick Tweaks', userState.showTweaker, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
+
+	if expandTweaker ~= userState.expandTweaker then
+		userState.expandTweaker = expandTweaker
+	end
+
+	if showTweaker ~= userState.showTweaker then
+		userState.showTweaker = showTweaker
+		persitentState:flush()
+	end
 
 	if userState.showTweaker and userState.expandTweaker then
 
