@@ -4,6 +4,9 @@ local RarityFilter = mod.require('mod/enums/RarityFilter')
 local TweakDb = mod.require('mod/helpers/TweakDb')
 local SimpleDb = mod.require('mod/helpers/SimpleDb')
 
+-- ME-THRILL
+local slotBlocker = { hash = 0x4C882AC5, length = 25 }
+
 local InventoryModule = {}
 InventoryModule.__index = InventoryModule
 
@@ -419,39 +422,51 @@ function InventoryModule:addItem(itemSpec)
 
 		local itemData = self.transactionSystem:GetItemData(self.player, itemId)
 
+		-- Guarantee max number of slots
+
+		if itemSpec.slots == 'max' and itemMeta.kind == 'Clothing' then
+			for _, part in ipairs(itemData:GetItemParts()) do
+				local slotId = part:GetSlotID(part)
+				local partItemId = part:GetItemID(part)
+
+				if partItemId.tdbid.hash == slotBlocker.hash and partItemId.tdbid.length == slotBlocker.length then
+					self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
+					table.insert(removedParts, partItemId)
+				end
+			end
+		end
+
 		-- Manage mods and attachments
 
-		if itemMeta.kind == 'Weapon' or itemMeta.kind == 'Clothing' or itemMeta.kind == 'Cyberware' then
-			if itemSpec.slots then
-				for _, slotMeta in ipairs(self.attachmentSlots) do
-					local slotId = TweakDb.toTweakId(slotMeta.type)
+		if type(itemSpec.slots) == 'table' and (itemMeta.kind == 'Weapon' or itemMeta.kind == 'Clothing' or itemMeta.kind == 'Cyberware') then
+			for _, slotMeta in ipairs(self.attachmentSlots) do
+				local slotId = TweakDb.toTweakId(slotMeta.type)
 
-					if itemData:HasPartInSlot(slotId) then
-						local partItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
+				if itemData:HasPartInSlot(slotId) then
+					local partItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
 
-						if partItemId then
-							table.insert(removedParts, partItemId)
-						end
+					if partItemId then
+						table.insert(removedParts, partItemId)
 					end
 				end
+			end
 
-				for key, slotSpec in pairs(itemSpec.slots) do
-					if type(slotSpec) == 'string' then
-						slotSpec = {
-							id = slotSpec
-						}
-					end
+			for key, slotSpec in pairs(itemSpec.slots) do
+				if type(slotSpec) == 'string' then
+					slotSpec = {
+						id = slotSpec
+					}
+				end
 
-					if type(key) == 'string' then
-						slotSpec.slot = key
-					end
+				if type(key) == 'string' then
+					slotSpec.slot = key
+				end
 
-					if slotSpec.slot and slotSpec.id then
-						local slotId = self.tweakDb:toSlotTweakId(slotSpec.slot, itemMeta)
-						local partItemId = self:addItem(slotSpec)
+				if slotSpec.slot and slotSpec.id then
+					local slotId = self.tweakDb:toSlotTweakId(slotSpec.slot, itemMeta)
+					local partItemId = self:addItem(slotSpec)
 
-						self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)
-					end
+					self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)
 				end
 			end
 		end
@@ -462,7 +477,7 @@ function InventoryModule:addItem(itemSpec)
 
 		-- Upgrade item quality
 
-		if itemSpec.upgrade ~= nil and itemSpec.upgrade ~= false then
+		if itemSpec.upgrade then
 			local itemQuality
 
 			if type(itemSpec.upgrade) == 'string' then

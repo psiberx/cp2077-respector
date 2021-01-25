@@ -372,6 +372,14 @@ function tweaksGui.onDrawEvent()
 				end
 				ImGui.EndGroup()
 
+				if tweak.itemCanRngSlots then
+					ImGui.Spacing()
+					ImGui.NewLine()
+					ImGui.SameLine(153 * viewData.viewScale) -- 115 153
+					tweak.itemMaxSlots = ImGui.Checkbox('Get max mod slots', tweak.itemMaxSlots)
+					--tweak.itemMaxSlots = ImGui.Checkbox('Get max slots for the quality', tweak.itemMaxSlots) -- 115 153
+				end
+
 				ImGui.Spacing()
 
 				if ImGui.Button('Add to inventory', viewData.gridFullWidth, viewData.buttonHeight) then
@@ -527,10 +535,20 @@ function tweaksGui.onTweakSearchResultSelect()
 
 		if tweak.entryMeta.quest then
 			tweak.itemCanBeMarked = true
-			tweak.itemQuestMark = true
+			tweak.itemQuestMark = false
 		else
 			tweak.itemCanBeMarked = false
 			tweak.itemQuestMark = false
+		end
+
+		-- Item Slots
+
+		if tweak.entryMeta.kind == 'Clothing' then
+			tweak.itemCanRngSlots = true
+			tweak.itemMaxSlots = true
+		else
+			tweak.itemCanRngSlots = false
+			tweak.itemMaxSlots = false
 		end
 
 		-- Item Crafting
@@ -571,7 +589,7 @@ function tweaksGui.onTweakSearchResultSelect()
 		end
 
 		viewData.questOptionCount = #viewData.questOptionList
-		viewData.questOptionIndex = 0
+		viewData.questOptionIndex = tweak.itemQuestMark and 0 or 1
 	end
 end
 
@@ -584,7 +602,11 @@ function tweaksGui.onSpawnItemClick()
 		qty = tweak.itemQty
 	}
 
-	if not tweak.itemQuestMark then
+	if tweak.itemMaxSlots == true then
+		itemSpec.slots = 'max'
+	end
+
+	if tweak.itemQuestMark == false then
 		itemSpec.quest = false
 	end
 

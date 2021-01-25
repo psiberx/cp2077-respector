@@ -175,6 +175,12 @@ return {
 			}
 		},
 
+		-- For the clothing items there is an extra option for `slots` property to get
+		-- the max number of mod slots:
+
+		-- TACTICAL HYBRID CORPORATE GLASSES / Clothing / Face / Legendary
+		{ id = "Corporate_01_Set_Glasses", slots = "max" },
+
 		-- The next property is `equip`.
 		-- This property is used to assign the item to the equipment slot. There is no need
 		-- to specify particular equipment area, like "Weapon" or "Head", it's resolved by
