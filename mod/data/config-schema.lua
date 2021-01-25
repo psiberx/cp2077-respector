@@ -4,7 +4,6 @@ return {
 			name = "specsDir",
 			comment = {
 				"The directory for storing spec files.",
-				"Can be any location outside of the mod.",
 				"If empty then the \"specs\" dir of the mod is used.",
 			},
 			default = "",
@@ -145,13 +144,13 @@ return {
 			default = true,
 			margin = true,
 		},
-		{
-			name = "useGlobalApi",
-			comment = {
-				"Enables API access using global `Respector` object.",
-			},
-			default = true,
-			margin = true,
-		},
+		--{
+		--	name = "useGlobalApi",
+		--	comment = {
+		--		"Enables API access using global `Respector` object.",
+		--	},
+		--	default = true,
+		--	margin = true,
+		--},
 	}
 }

@@ -112,9 +112,9 @@ end)
 
 print(('Respector v%s %s.'):format(respector.version, (mod.start and 'loaded' or 'reloaded')))
 
-if mod.config.useGlobalApi then
-	print(('Respector: Global API enabled.'))
-end
+--if mod.config.useGlobalApi then
+--	print(('Respector: Global API enabled.'))
+--end
 
 if mod.config.useGui then
 	print(('Respector: Console GUI enabled.'))

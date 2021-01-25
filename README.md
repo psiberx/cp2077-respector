@@ -169,10 +169,13 @@ All items have in-game names, and many of them even have full descriptions and s
 
 ### Console
 
-There are two ways to access mod functions:
+To access the mod from the console you have to use `GetMod()`:
 
-1. Using global `Respector` object.
-2. Using `GetMod("respector")`.
+```
+Respector = GetMod("respector")
+```
+
+Then you can call mod functions using the `Respector` global object.
 
 #### `Respector.LoadSpec(specName)`
 
@@ -227,13 +230,14 @@ Has the same results as `Respector.SaveSpec(nil, { timestamp = true })` but is s
 The mod has a simple GUI that allows you to save and load specs. 
 You can choose the options for saving specs and see recent history. 
 
-![Respector Save Tab](https://siberx.dev/cp2077-respector/respector-097-1-save.png) ![Respector Load Tab](https://siberx.dev/cp2077-respector/respector-097-2-load.png)
+![Respector Save Tab](https://siberx.dev/cp2077-respector/respector-100-1-save.png) ![Respector Load Tab](https://siberx.dev/cp2077-respector/respector-100-2-load.png)
 
-#### Options
+#### Respec
 
-Here you can change where to store specs, and the default spec name.
+Here you can reset Perk Points, like with the TABULA E-RASA shard, and respec the Attributes.
+Lowering an Attribute will lower the corresponding Skills and reset the Perks, which requirements are no longer met. 
 
-![Respector Options Tab](https://siberx.dev/cp2077-respector/respector-097-3-options-2.png)
+![Respector Respec Tab](https://siberx.dev/cp2077-respector/respector-100-3-respec.png)
 
 #### Quick Tweaks
 
@@ -254,7 +258,7 @@ Also, you can find game facts. They are indicate what you have done or can do.
 
 ![Quick Tweaks Fact](https://siberx.dev/cp2077-respector/respector-097-7-qt-judy.png)
 
-And of cource you can give yourself more money: 
+The classic cheat is also there: 
 
 ![Quick Tweaks Money](https://siberx.dev/cp2077-respector/respector-097-8-qt-money.png)
 
@@ -268,19 +272,13 @@ The configuration is stored in the `config.lua` file in the mod directory.
 
 | Parameter | Default | Options | Description |
 | :--- | :---: | :---: | :--- |
-| `specsDir`         | `""`     | `string` | The directory for storing spec files. Can be any location outside of the mod (eg. `D:\Games\Cyberpunk 2077\Specs`). If empty then the `specs` dir of the mod is used. |
+| `specsDir`         | `""`     | `string` | The directory for storing spec files. If empty then the `specs` dir of the mod is used. |
 | `defaultSpec`      | `"V"`    | `string` | The defalt spec name. Used when saving and loading without specifying a spec name (aka quick saving an quick loading). |
 | `defaultOptions`   | [`{...}`](#spec-options)    | [`{...}`](#spec-options)    | Default options for saving specs. See [spec options](#spec-options) for details. |
 | `useGui`           | `true`   | `bool`   | Enables the GUI. |
 | `useModApi`        | `true`   | `bool`   | Enables API access using `GetMod()`. |
-| `useGlobalApi`     | `true`   | `bool`   | Enables API access using global `Respector` object. |
 
 A copy of the config file with default values can be found at `samples/config/defaults.lua`.
-
-## Known Issues
-
-- Loading the spec in the character menu will play a sound effect for each purchased perk at the same time, 
-  causing one overloaded, distorted and unpleasant sound. This depends on the number of perks acquired. 
 
 ## TODO
 
@@ -288,6 +286,6 @@ A copy of the config file with default values can be found at `samples/config/de
 
 ## Credits
 
-- [yamashi](https://github.com/yamashi) and [Cyber Engine Tweaks](https://github.com/yamashi/CyberEngineTweaks) team
+- [yamashi](https://github.com/yamashi), [WSSDude420](https://github.com/WSSDude420) and [Cyber Engine Tweaks](https://github.com/yamashi/CyberEngineTweaks) team
 - [WolvenKit](https://github.com/WolvenKit), [WopsS](https://github.com/WopsS), [rfuzzo](https://github.com/rfuzzo), [Rick Gibbed](https://github.com/gibbed), [PixelRick](https://github.com/PixelRick) and all researchers
 - [NLDW#1337](https://docs.google.com/spreadsheets/d/1aVeMGOg7mhrz-vgs5fFTrr72bh0kudK0jQmtSDYPjBQ/edit?usp=sharing), [clairepliz4647](https://docs.google.com/spreadsheets/d/1RGy4O_jqIPp9k9wokJP-wr8uZPTquxNDKwLs1em6EUU/edit?usp=sharing), all contributors to public spreadsheets and wikis

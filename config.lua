@@ -1,6 +1,5 @@
 return {
 	-- The directory for storing spec files.
-	-- Can be any location outside of the mod.
 	-- If empty then the "specs" dir of the mod is used.
 	specsDir = "",
 
@@ -62,7 +61,4 @@ return {
 
 	-- Enables API access using `GetMod()`.
 	useModApi = true,
-
-	-- Enables API access using global `Respector` object.
-	useGlobalApi = true,
 }

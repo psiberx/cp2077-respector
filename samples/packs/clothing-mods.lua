@@ -65,7 +65,7 @@ return {
 		{ id = "SimpleFabricEnhancer07" }, 
 
 		-- SOFT-SOLE / Mod / Clothing / Epic
-		-- Land Silently.
+		-- Land silently.
 		{ id = "PowerfulFabricEnhancer05" }, 
 
 		-- SUPERINSULATOR / Mod / Clothing / Epic
