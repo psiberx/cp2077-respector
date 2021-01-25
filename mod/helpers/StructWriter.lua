@@ -160,6 +160,8 @@ function StructWriter:writeNodeData(structFile, nodeSchema, nodeData, depth, inl
 				end
 			end
 			structFile:write('}')
+		elseif nodeSchema.nullable and nodeSchema.children then
+			structFile:write('{}')
 		else
 			self:writeScalarValue(structFile, nodeSchema, nodeData)
 		end

@@ -35,10 +35,10 @@ function InventoryModule:prepare()
 	self.forceItemQuality = Game['gameRPGManager::ForceItemQuality;GameObjectgameItemDataCName']
 	self.itemModSystem = scriptableSystemsContainer:Get(CName.new('ItemModificationSystem'))
 
-	self.attachmentSlots = mod.load('mod/data/attachment-slots')
-
 	self.tweakDb:load('mod/data/tweakdb-meta')
 	self.equipAreaDb:load('mod/data/equipment-areas')
+
+	self.attachmentSlots = mod.load('mod/data/attachment-slots')
 
 	self.playerEquipmentData['EquipItemInSlot'] = self.playerEquipmentData['EquipItem;ItemIDInt32BoolBoolBool']
 	self.playerEquipmentData['GetItemInEquipSlotArea'] = self.playerEquipmentData['GetItemInEquipSlot;gamedataEquipmentAreaInt32']
@@ -56,10 +56,10 @@ function InventoryModule:release()
 	self.forceItemQuality = nil
 	self.itemModSystem = nil
 
-	self.attachmentSlots = nil
-
 	self.tweakDb:unload()
 	self.equipAreaDb:unload()
+
+	self.attachmentSlots = nil
 end
 
 function InventoryModule:fillSpec(specData, specOptions)
@@ -77,12 +77,31 @@ function InventoryModule:fillSpec(specData, specOptions)
 end
 
 function InventoryModule:applySpec(specData)
-	local inventoryNodes = { 'Inventory', 'Equipment', 'Cyberware', 'Backpack' }
+	local updateSlots = false
+	local equipedSlots = {}
 
-	for _, inventoryNode in ipairs(inventoryNodes) do
-		if specData[inventoryNode] then
-			self:addItems(specData[inventoryNode])
-		end
+	if specData.Equipment then
+		self:addItems(specData.Equipment, equipedSlots)
+		updateSlots = true
+	end
+
+	if specData.Cyberware then
+		self:addItems(specData.Cyberware, equipedSlots)
+		updateSlots = true
+	end
+
+	if specData.Backpack then
+		self:addItems(specData.Backpack, equipedSlots)
+	end
+
+	if specData.Inventory then
+		self:addItems(specData.Inventory, equipedSlots)
+	end
+
+	if updateSlots then
+		mod.defer(0.1, function()
+			self:unequipItems(equipedSlots)
+		end)
 	end
 end
 
@@ -358,13 +377,27 @@ function InventoryModule:appendStatsComment(itemSpec, itemMeta, itemData)
 	end
 end
 
-function InventoryModule:addItems(itemSpecs)
-	for _, itemSpec in ipairs(itemSpecs) do
-		self:addItem(itemSpec)
+function InventoryModule:unequipItems(equipedSlots)
+	for _, equipArea in self.equipAreaDb:each() do
+		for slotIndex = 1, equipArea.max do
+			if not equipedSlots or not equipedSlots[equipArea.type] or not equipedSlots[equipArea.type][slotIndex] then
+				local equipedItemId = self.playerEquipmentData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
+
+				if equipedItemId.tdbid.hash ~= 0 then
+					self:unequipItem(equipedItemId)
+				end
+			end
+		end
 	end
 end
 
-function InventoryModule:addItem(itemSpec)
+function InventoryModule:addItems(itemSpecs, equipedSlots)
+	for _, itemSpec in ipairs(itemSpecs) do
+		self:addItem(itemSpec, equipedSlots)
+	end
+end
+
+function InventoryModule:addItem(itemSpec, equipedSlots)
 	self:completeSpec(itemSpec)
 
 	local removedParts = {}
@@ -494,6 +527,17 @@ function InventoryModule:addItem(itemSpec)
 		if itemEquip then
 			if not self:isEquipped(itemId) then
 				self:equipItem(itemId, itemEquipIndex)
+			end
+
+			if equipedSlots then
+				local itemEquipAreaData = self.playerEquipmentData:GetEquipAreaFromItemID(itemId)
+				local itemEquipArea = self.equipAreaDb:find({ type = itemEquipAreaData.areaType.value })
+
+				if not equipedSlots[itemEquipArea.type] then
+					equipedSlots[itemEquipArea.type] = {}
+				end
+
+				equipedSlots[itemEquipArea.type][itemEquipIndex] = itemId
 			end
 		end
 

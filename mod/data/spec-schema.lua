@@ -54,6 +54,7 @@ return {
 				{
 					name = "Perks",
 					margin = true,
+					nullable = true,
 					children = {
 						{
 							name = "Athletics",

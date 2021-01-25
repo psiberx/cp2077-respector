@@ -162,8 +162,6 @@ function respecGui.onResetPerksClick()
 			Perks = {}
 		}
 	})
-
-	respecGui.initViewState()
 end
 
 function respecGui.onRespecAttrsClick()
