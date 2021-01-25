@@ -307,16 +307,25 @@ function tweaksGui.onDrawEvent()
 
 			-- Money / Ingredients
 			elseif tweak.entryMeta.kind == 'Money' or tweak.entryMeta.kind == 'Component' then
+				local transactionLabel = tweak.isMoney and 'Transaction amount:' or 'Required quantity:'
+				local transactionStep = tweak.isMoney and 1000 or 100
+				local transactionStepFast = tweak.isMoney and 10000 or 1000
+				local balanceLabel = tweak.isMoney and 'Current balance:' or 'In backpack:'
+				local buttonLabel = tweak.isMoney and 'Transfer money' or 'Acquire components'
+
 				ImGui.BeginGroup()
 				ImGui.Spacing()
-				ImGui.Text(tweak.isMoney and 'Transaction amount:' or 'Required quantity:')
+				ImGui.Text(transactionLabel)
 				ImGui.SetNextItemWidth(viewData.gridHalfWidth)
-				tweak.transferAmount = ImGui.InputInt('##TransferAmount', tweak.transferAmount)
+				tweak.transferAmount = ImGui.InputInt('##TransferAmount', tweak.transferAmount, transactionStep, transactionStepFast)
 				ImGui.EndGroup()
+
+				tweak.transferAmount = math.max(tweak.transferAmount, 0)
+				tweak.transferAmount = math.min(tweak.transferAmount, 9999999)
 
 				ImGui.SameLine()
 				ImGui.BeginGroup()
-				ImGui.Text(tweak.isMoney and 'Current balance:' or 'In backpack:')
+				ImGui.Text(balanceLabel)
 				ImGui.SetNextItemWidth(viewData.gridHalfWidth)
 				ImGui.PushStyleColor(ImGuiCol.FrameBg, 0.16, 0.29, 0.48, 0.25)
 				ImGui.InputText('##CurrentAmount', tostring(tweak.currentAmount), 32, ImGuiInputTextFlags.ReadOnly)
@@ -325,7 +334,7 @@ function tweaksGui.onDrawEvent()
 
 				ImGui.Spacing()
 
-				if ImGui.Button(tweak.isMoney and 'Transfer money' or 'Acquire components', viewData.gridFullWidth, viewData.buttonHeight) then
+				if ImGui.Button(buttonLabel, viewData.gridFullWidth, viewData.buttonHeight) then
 					tweaksGui.onTransferGoodsClick()
 				end
 
@@ -507,7 +516,7 @@ function tweaksGui.onTweakSearchResultSelect()
 
 	elseif tweak.entryMeta.kind == 'Money' or tweak.entryMeta.kind == 'Component' then
 		tweak.isMoney = tweak.entryMeta.kind == 'Money'
-		tweak.transferAmount = tweak.isMoney and 100000 or 1000
+		tweak.transferAmount = tweak.isMoney and 10000 or 1000
 		tweak.currentAmount = tweaksGui.getItemAmount(tweak.entryMeta.type)
 
 	else

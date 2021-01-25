@@ -163,7 +163,7 @@ And [here](https://github.com/psiberx/cp2077-respector/blob/main/samples/V.lua) 
 ### Packs
 
 Every section of the spec file is optional and can be omitted. 
-For example, it's possible create the spec containing only items, 
+For example, it's possible to create the spec containing only items, 
 thus allowing creation of item packs.
 
 In the [`samples/packs`](https://github.com/psiberx/cp2077-respector/tree/main/samples/packs)
@@ -187,7 +187,7 @@ Then you can call mod functions using the `Respector` global object.
 Loads spec named `specName`.
 
 Calling without parameters `Respector.LoadSpec()` will load spec with 
-a default name from the [configuration](#configuration) is used.
+a default name from the [configuration](#configuration).
 
 #### `Respector.SaveSpec(specName, specOptions)`
 
@@ -230,8 +230,8 @@ Has the same results as `Respector.SaveSpec(nil, { timestamp = true })` but is s
 
 #### `Respector.ExecSpec(specData)`
 
-Applies spec defined by `specData`. 
-The format of the spec is the same as for spec files. 
+Applies spec defined by `specData`. The format of the spec data is the same as for spec files. 
+
 For example, this useful snippet `Respector.ExecSpec({ Character = { Perks = {} } })` 
 will reset all purchased Perks and restore spent Perk Points. 
 
@@ -266,7 +266,7 @@ Another example is a vehicle that you can unlock for yourself if you haven't don
 
 ![Quick Tweaks Vehicle](https://siberx.dev/cp2077-respector/respector-097-6-qt-shion.png)
 
-Also, you can find game facts. They are indicate what you have done or can do. 
+Also, you can find game facts. They indicate what you have done or can do. 
 
 ![Quick Tweaks Fact](https://siberx.dev/cp2077-respector/respector-097-7-qt-judy.png)
 
