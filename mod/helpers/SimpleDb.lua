@@ -109,7 +109,7 @@ function SimpleDb:filter(criteria)
 			local match = self:match(item, criteria)
 
 			if match then
-				return item
+				return key, item
 			end
 		end
 	end

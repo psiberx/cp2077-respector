@@ -108,7 +108,7 @@ end
 function InventoryModule:getEquipmentItems(specOptions)
 	local equipmentItemIds = {}
 
-	for equipArea in self.equipAreaDb:filter({ kind = { 'Weapon', 'Clothing', 'Grenade', 'Consumable' } }) do
+	for _, equipArea in self.equipAreaDb:filter({ kind = { 'Weapon', 'Clothing', 'Grenade', 'Consumable' } }) do
 		for slotIndex = 1, equipArea.max do
 			local itemId = self.playerEquipmentData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
 
@@ -124,7 +124,7 @@ end
 function InventoryModule:getCyberwareItems(specOptions)
 	local cyberwareItemIds = {}
 
-	for equipArea in self.equipAreaDb:filter({ kind = 'Cyberware' }) do
+	for _, equipArea in self.equipAreaDb:filter({ kind = 'Cyberware' }) do
 		for slotIndex = 1, equipArea.max do
 			local itemId = self.playerEquipmentData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
 

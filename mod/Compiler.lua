@@ -91,7 +91,7 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 		if samplePack.items then
 			local itemSpecs = {}
 
-			for itemMeta in tweakDb:filter(samplePack.items) do
+			for _, itemMeta in tweakDb:filter(samplePack.items) do
 				local itemSpec = {}
 
 				itemSpec._comment = tweakDb:describe(itemMeta, true, true)
@@ -150,7 +150,7 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 		if samplePack.vehicles then
 			local vehicleSpecs = {}
 
-			for vehicleMeta in tweakDb:filter(samplePack.vehicles) do
+			for _, vehicleMeta in tweakDb:filter(samplePack.vehicles) do
 				local vehicleSpec = {}
 
 				vehicleSpec[1] = str.without(vehicleMeta.type, 'Vehicle.')

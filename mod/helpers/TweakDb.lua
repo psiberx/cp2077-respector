@@ -24,6 +24,14 @@ local kindOrders = {
 	['Shard'] = 92,
 }
 
+function TweakDb:load(path)
+	if not path or path == true then
+		path = 'mod/data/tweakdb-meta'
+	end
+
+	SimpleDb.load(self, path)
+end
+
 function TweakDb:resolve(tweakId)
 	local key = TweakDb.toKey(tweakId)
 
