@@ -1,5 +1,6 @@
 /.dev
 /.idea
+/dist
 /specs/*
 !/specs/V.lua
 /respector.log

@@ -1,7 +1,7 @@
 -- -------------------------------------------------------------------------- --
 -- Base Directory
 -- -------------------------------------------------------------------------- --
--- Can be an absolute path or relative to the CET mods directory.
+-- Can be an absolute path or relative path viable for CET.
 -- Change it if you renamed the directory of the mod.
 -- -------------------------------------------------------------------------- --
 
@@ -116,8 +116,8 @@ print(('Respector v%s %s.'):format(respector.version, (mod.start and 'loaded' or
 --	print(('Respector: Global API enabled.'))
 --end
 
-if mod.config.useGui then
-	print(('Respector: Console GUI enabled.'))
-end
+--if mod.config.useGui then
+--	print(('Respector: Overlay GUI enabled.'))
+--end
 
 return api
