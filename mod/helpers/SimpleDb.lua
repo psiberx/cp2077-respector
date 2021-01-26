@@ -144,12 +144,12 @@ function SimpleDb:match(item, criteria)
 end
 
 function SimpleDb:search(term, fields)
-	local dmp = mod.require('mod/vendor/diff_match_patch')
-
-	dmp.settings({
-		Match_Threshold = 0.1,
-		Match_Distance = 250,
-	})
+	--local dmp = mod.require('mod/vendor/diff_match_patch')
+	--
+	--dmp.settings({
+	--	Match_Threshold = 0.1,
+	--	Match_Distance = 250,
+	--})
 
 	term = term:upper()
 
@@ -190,18 +190,18 @@ function SimpleDb:search(term, fields)
 				end
 			end
 
-			if term:len() < 8 then
-				for weight, field in ipairs(fields) do
-					if item[field] then
-						local value = item[field]:upper()
-						local position = dmp.match_main(value, term, 1)
-
-						if position > 0 then
-							return key, item, position * weight
-						end
-					end
-				end
-			end
+			--if term:len() < 8 then
+			--	for weight, field in ipairs(fields) do
+			--		if item[field] then
+			--			local value = item[field]:upper()
+			--			local position = dmp.match_main(value, term, 1)
+			--
+			--			if position > 0 then
+			--				return key, item, position * weight
+			--			end
+			--		end
+			--	end
+			--end
 		end
 	end
 end
