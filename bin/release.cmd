@@ -35,7 +35,6 @@
 	-x!"%ModPath%\mod\data\tweakdb-names.*" ^
 	-x!"%ModPath%\specs\*" ^
 	-x!"%ModPath%\.gitignore" ^
-	-x!"%ModPath%\*.cmd" ^
 	-x!"%ModPath%\respector.log" ^
 	"%ReleaseZip%" ^
 	"%ModPath%" ^
