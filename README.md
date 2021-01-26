@@ -20,7 +20,7 @@ with useful extra features.
 
 ## Installation
 
-1. Download the release archive from [here](https://github.com/psiberx/cp2077-respector/releases). 
+1. Download [the release archive](https://github.com/psiberx/cp2077-respector/releases). 
 2. Extract it into the Cyberpunk 2077 installation folder.
 
 You should have `<Cyberpunk 2077>/bin/x64/plugins/cyber_engine_tweaks/mods/respector` directory now. 
