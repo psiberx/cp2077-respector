@@ -33,11 +33,12 @@
 	-x!"%ModPath%\dist\" ^
 	-x!"%ModPath%\mod\data\*.xlsm" ^
 	-x!"%ModPath%\mod\data\tweakdb-names.*" ^
-	-x!"%ModPath%\specs\*" ^
+	-x!"%ModPath%\specs\??*.lua" ^
 	-x!"%ModPath%\.gitignore" ^
 	-x!"%ModPath%\respector.log" ^
 	"%ReleaseZip%" ^
 	"%ModPath%" ^
+	"%ModPath%\specs\V.lua" ^
 	> nul
 
 @echo Done.
