@@ -1,6 +1,6 @@
 --
 -- Scripting example:
--- Spawn copies of the Corpo Glasses each filled with every legendary mod to test mod stacking.
+-- For every legendary clothing mod creates a Corpo Glasses with that mod in each slot.
 --
 
 -- This opens access to the mod functions
