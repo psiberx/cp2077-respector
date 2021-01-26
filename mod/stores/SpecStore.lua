@@ -1,6 +1,7 @@
 local mod = ...
-local str = mod.load('mod/utils/str')
-local StructWriter = mod.load('mod/helpers/StructWriter')
+local fs = mod.require('mod/utils/fs')
+local str = mod.require('mod/utils/str')
+local StructWriter = mod.require('mod/helpers/StructWriter')
 
 local SpecStore = {}
 SpecStore.__index = SpecStore
@@ -22,8 +23,14 @@ function SpecStore:new(specsDir, defaultSpec)
 	return this
 end
 
-function SpecStore:getSpecList()
-	return { self.defaultSpec }
+function SpecStore:hasSpec(specName)
+	if not specName or specName == '' then
+		specName = self.defaultSpec
+	end
+
+	local specPath = mod.path(self.specsDir .. specName)
+
+	return fs.isfile(specPath)
 end
 
 function SpecStore:readSpec(specName)

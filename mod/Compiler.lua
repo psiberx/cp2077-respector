@@ -1,7 +1,7 @@
 local mod = ...
-local str = mod.load('mod/utils/str')
-local crc32 = mod.load('mod/utils/crc32')
-local Quality = mod.load('mod/enums/Quality')
+local str = mod.require('mod/utils/str')
+local crc32 = mod.require('mod/utils/crc32')
+local Quality = mod.require('mod/enums/Quality')
 
 local Compiler = {}
 Compiler.__index = Compiler

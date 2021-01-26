@@ -1,7 +1,7 @@
 local fs = {}
 
 function fs.isfile(path)
-	local f = io.open(path, 'r')
+	local f = io.open(path)
 
 	if f == nil then
 		return false

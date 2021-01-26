@@ -128,6 +128,14 @@ function gui.initViewData()
 	viewData.itemFormatIndex = array.find(itemFormatOptions, userState.specOptions.itemFormat) - 1
 	viewData.keepSeedIndex = array.find(keepSeedOptions, userState.specOptions.keepSeed) - 1
 
+	for entryIndex = #userState.specHistory, 1, -1 do
+		local entryData = userState.specHistory[entryIndex]
+
+		if not respector.specStore:hasSpec(entryData.specName) then
+			table.remove(userState.specHistory, entryIndex)
+		end
+	end
+
 	viewData.specHistoryList = array.map(userState.specHistory, gui.formatHistoryEntry)
 end
 
