@@ -7,7 +7,7 @@ with useful extra features.
 - **New Game Plus:** Transfer your character and equipment between playthroughs. 
   You can try each life path while keeping the experience gained from other playthroughs, 
   replay the same mission with different abilities and equipment, etc.
-- **Character Respec:** Respec your Attributes and restore all spent Perk Points to redistribute them.
+- **Character Respec:** Adjust your Attributes and restore all spent Perk Points to redistribute them.
 - **Build Management:** Try different builds switching them on the fly while playing, share builds with others.
 - **Item Management:** Create item packs (eg. "Stash Wall Weapons", "Legendary Outfits").
 - **Quick Tweaks:** Get items and currencies, unlock vehicles, manipulate facts with ease 
@@ -286,7 +286,7 @@ Some items can be found by group tags. For example, to find all parts of the Cor
 
 ![Quick Tweaks Corpo Set](https://siberx.dev/cp2077-respector/respector-100-9-qt-corpo-set.png)
 
-For clothing items there is an extra option to get the max mod slots.  
+For clothing items there is an extra option to always get the max mod slots.  
 
 ### Configuration
 

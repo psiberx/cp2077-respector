@@ -94,8 +94,8 @@ end
 
 function gui.initUserState()
 	if not userState.specOptions then
-		userState.specNameSave = userState.globalOptions.defaultSpec
-		userState.specNameLoad = userState.globalOptions.defaultSpec
+		userState.specNameSave = mod.config.defaultSpec
+		userState.specNameLoad = mod.config.defaultSpec
 
 		userState.specOptions = respector:getSpecOptions()
 		userState.specOptions.timestamp = false
