@@ -39,7 +39,7 @@ function SpecStore:readSpec(specName)
 		return false, specName
 	end
 
-	return specChunk(), specName
+	return specChunk(mod), specName
 end
 
 function SpecStore:writeSpec(specName, specData, timestamped)
