@@ -1,6 +1,6 @@
 local mod = ...
 
-local Respector = { version = '1.0.2' }
+local Respector = { version = '1.0.3' }
 Respector.__index = Respector
 
 local asyncWait = false
@@ -64,7 +64,7 @@ end
 function Respector:releaseModulesAsync(waitTime)
 	asyncWait = true
 
-	mod.defer(waitTime or 1.0, function()
+	mod.after(waitTime or 1.0, function()
 		self:releaseModules()
 
 		asyncWait = false
@@ -96,7 +96,7 @@ function Respector:usingModuleAsync(moduleName, waitTime, callback)
 
 	asyncWait = true
 
-	mod.defer(waitTime or 1.0, function()
+	mod.after(waitTime or 1.0, function()
 		self[moduleName]:release()
 
 		asyncWait = false

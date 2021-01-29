@@ -90,17 +90,17 @@ function CharacterModule:applySpec(specData)
 
 		if specData.Character.Perks then
 			-- Need to wait after updating character level
-			mod.defer(0.25, function()
+			mod.after(0.25, function()
 				self:setPerks(specData.Character.Perks)
 			end)
 		elseif skillsApplied then
-			mod.defer(0.25, function()
+			mod.after(0.25, function()
 				self:setPerks({}, true) -- Enforce legit perks
 			end)
 		end
 
 		if specData.Character.Points then
-			mod.defer(0.5, function()
+			mod.after(0.5, function()
 				self:setPoints(specData.Character.Points)
 			end)
 		end
@@ -279,7 +279,7 @@ function CharacterModule:setSkills(skillsSpec, mergeSkills)
 		end
 	end
 
-	mod.defer(0.05, function()
+	mod.after(0.05, function()
 		local perkPointsAfter = self:getPerkPoints()
 
 		-- Fix perk points

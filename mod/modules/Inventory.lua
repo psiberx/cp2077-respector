@@ -99,7 +99,7 @@ function InventoryModule:applySpec(specData)
 	end
 
 	if updateSlots then
-		mod.defer(0.1, function()
+		mod.after(0.1, function()
 			self:unequipItems(equipedSlots)
 		end)
 	end
@@ -557,7 +557,7 @@ function InventoryModule:addItem(itemSpec, equipedSlots)
 	end
 
 	if #removedParts > 0 then
-		mod.defer(0.8, function()
+		mod.after(0.8, function()
 			for _, partItemId in ipairs(removedParts) do
 				if self.playerEquipmentData:HasItemInInventory(partItemId) then
 					self.transactionSystem:RemoveItem(self.player, partItemId, 1)
@@ -592,7 +592,7 @@ function InventoryModule:unequipItem(itemId)
 end
 
 function InventoryModule:equipItem(itemId, slotIndex)
-	mod.defer(0.15, function()
+	mod.after(0.15, function()
 		self.playerEquipmentData:EquipItemInSlot(itemId, slotIndex - 1, false, false, false)
 		--self.playerEquipmentData:UpdateEquipAreaActiveIndex(itemId)
 	end)

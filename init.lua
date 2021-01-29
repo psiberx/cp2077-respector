@@ -22,31 +22,31 @@ local debugMode = false
 -- 2. Recalculates hashes of known TweakDB names on every mod load.
 -- 3. Recompiles the samples on every mod load.
 -- 4. Recreates default confing file on every mod load.
--- 5. Enables Developer menu in th GUI.
+-- 5. Enables Developer menu in the GUI.
 -- -------------------------------------------------------------------------- --
 
 local devMode = false
 
 -- -------------------------------------------------------------------------- --
 
-local corePath = baseDir .. '/mod/mod'
+local coreReq = baseDir .. '/mod'
 
-if package.loaded[corePath] ~= nil then
-	package.loaded[corePath] = nil
+if package.loaded[coreReq] ~= nil then
+	package.loaded[coreReq] = nil
 
 	if devMode then
-		package.loaded[corePath .. '-state'] = nil
+		package.loaded[coreReq .. '-state'] = nil
 	end
 
 	if debugMode then
-		print(('[DEBUG] Respector: Reloaded module %q.'):format(corePath))
+		print(('[DEBUG] Respector: Reloaded module %q.'):format(coreReq))
 	end
 end
 
 local api = {}
-local mod = require(corePath)
+local mod = require(coreReq)
 
-mod.init(devMode, debugMode)
+mod.init(debugMode)
 
 if devMode then
 	local Compiler = mod.require('mod/Compiler')
@@ -102,7 +102,9 @@ if mod.config.useGui then
 	end)
 
 	--registerHotkey('QuickSave', 'Quick Save (with current settings)', function()
-	--	gui.onQuickSaveHotkey()
+	--	mod.after(0.05, function()
+	--		gui.onQuickSaveHotkey()
+	--	end)
 	--end)
 end
 
