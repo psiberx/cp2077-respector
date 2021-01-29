@@ -15,10 +15,8 @@ function mod.init(debugMode)
 
 	mod.configure()
 
-	local state = require(mod.baseReq .. '/mod-state')
-
-	mod.start = state.start
-	state.start = false
+	mod.start = package.loaded[mod.baseReq .. '/mod-state'] == nil
+	package.loaded[mod.baseReq .. '/mod-state'] = true
 end
 
 function mod.configure()
