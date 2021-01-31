@@ -1,9 +1,8 @@
 local mod = {
-	baseReq = string.gsub(({...})[1], '[/.]mod$', ''),
-	baseDir = string.gsub(({...})[2], '/mod%.lua$', ''):gsub('\\', '/') .. '/',
+	baseReq = (...) and string.gsub(({...})[1], '[/.]mod$', '') or '',
+	baseDir = (...) and string.gsub(({...})[2], '/mod%.lua$', ''):gsub('\\', '/') .. '/' or '',
 	config = {},
 	debug = false,
-	start = true,
 }
 
 local loaded = {}
@@ -14,9 +13,6 @@ function mod.init(debugMode)
 	mod.debug = debugMode
 
 	mod.configure()
-
-	mod.start = package.loaded[mod.baseReq .. '/mod-state'] == nil
-	package.loaded[mod.baseReq .. '/mod-state'] = true
 end
 
 function mod.configure()

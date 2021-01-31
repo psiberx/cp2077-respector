@@ -1,11 +1,10 @@
 -- -------------------------------------------------------------------------- --
--- Base Directory
--- -------------------------------------------------------------------------- --
--- Can be an absolute path or relative path viable for CET.
--- Change it if you renamed the directory of the mod.
+-- Cyber Engine Tweaks Version
 -- -------------------------------------------------------------------------- --
 
-local baseDir = 'plugins/cyber_engine_tweaks/mods/respector'
+local cetVer = tonumber((GetVersion():gsub('^v([0-9]+)%.([0-9]+)%.([0-9]+)(.*)', function(major, minor, patch, wip)
+	return ('%d.%02d%02d%d'):format(major, minor, patch, (wip == '' and 0 or 1))
+end)))
 
 -- -------------------------------------------------------------------------- --
 -- Debug Mode
@@ -29,17 +28,21 @@ local devMode = false
 
 -- -------------------------------------------------------------------------- --
 
-local coreReq = baseDir .. '/mod'
+local coreReq = 'mod.lua'
 
-if package.loaded[coreReq] ~= nil then
-	package.loaded[coreReq] = nil
+if cetVer <= 1.0906 then
+	coreReq = 'plugins/cyber_engine_tweaks/mods/respector/mod'
 
-	if devMode then
-		package.loaded[coreReq .. '-state'] = nil
-	end
+	if package.loaded[coreReq] ~= nil then
+		package.loaded[coreReq] = nil
 
-	if debugMode then
-		print(('[DEBUG] Respector: Reloaded module %q.'):format(coreReq))
+		if devMode then
+			package.loaded[coreReq .. '-state'] = nil
+		end
+
+		if debugMode then
+			print(('[DEBUG] Respector: Reloaded module %q.'):format(coreReq))
+		end
 	end
 end
 
@@ -66,12 +69,6 @@ if mod.config.useModApi or mod.config.useGlobalApi then
 	local cli = mod.require('mod/ui/cli')
 
 	cli.init(respector)
-
-	if mod.config.useGlobalApi then
-		cli.registerGlobalApi()
-	else
-		cli.unregisterGlobalApi()
-	end
 
 	if mod.config.useModApi then
 		api = cli.getModApi()

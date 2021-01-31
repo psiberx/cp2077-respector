@@ -66,11 +66,6 @@ function gui.init(_respector)
 	gui.initUserState()
 	gui.initViewData()
 
-	-- Detect the console state
-	if mod.start then
-		userState.showWindow = false
-	end
-
 	respecGui.init(respector, viewData)
 	tweaksGui.init(respector, userState, persitentState)
 end
