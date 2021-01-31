@@ -346,9 +346,13 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 					end
 				end
 
-				--if itemData:HasTag('Quest') then
-				--	itemSpec.quest = true
-				--end
+				if itemMeta and itemMeta.quest then
+					itemSpec.quest = itemData:HasTag('Quest')
+				else
+					if itemData:HasTag('Quest') then
+						itemSpec.quest = true
+					end
+				end
 
 				if itemQty > 1 then
 					itemSpec.qty = itemQty
