@@ -2,7 +2,7 @@
 -- Cyber Engine Tweaks Version
 -- -------------------------------------------------------------------------- --
 
-local cetVer = tonumber((GetVersion():gsub('^v([0-9]+)%.([0-9]+)%.([0-9]+)(.*)', function(major, minor, patch, wip)
+local cetVer = tonumber((GetVersion():gsub('^v(%d+)%.(%d+)%.(%d+)(.*)', function(major, minor, patch, wip)
 	return ('%d.%02d%02d%d'):format(major, minor, patch, (wip == '' and 0 or 1))
 end)))
 
