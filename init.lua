@@ -109,7 +109,7 @@ registerForEvent('onUpdate', function(delta)
 	mod.onUpdateEvent(delta)
 end)
 
-print(('Respector v%s %s.'):format(respector.version, (mod.start and 'loaded' or 'reloaded')))
+print(('Respector v%s loaded.'):format(respector.version))
 
 --if mod.config.useGlobalApi then
 --	print(('Respector: Global API enabled.'))

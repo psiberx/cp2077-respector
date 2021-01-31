@@ -15,6 +15,7 @@ local keepSeedOptions = { 'auto', 'always' }
 
 local viewData = {
 	justOpened = true,
+	showWindow = false,
 	selectedTab = nil,
 
 	maxInputLen = 256,
@@ -46,7 +47,6 @@ local viewData = {
 }
 
 local userState = {
-	showWindow = true,
 	expandWindow = true,
 
 	specNameSave = nil,
@@ -137,16 +137,16 @@ end
 -- GUI Event Handlers
 
 function gui.onOverlayOpen()
-	userState.showWindow = true
+	viewData.showWindow = true
 	viewData.justOpened = true
 end
 
 function gui.onOverlayClose()
-	userState.showWindow = false
+	viewData.showWindow = false
 end
 
 function gui.onDrawEvent()
-	if not userState.showWindow then
+	if not viewData.showWindow then
 		return
 	end
 
@@ -159,13 +159,13 @@ function gui.onDrawEvent()
 		userState.expandWindow = expandWindow
 	end
 
-	if showWindow ~= userState.showWindow then
+	if showWindow ~= viewData.showWindow then
 		viewData.justOpened = true
-		userState.showWindow = showWindow
+		viewData.showWindow = showWindow
 		persitentState:flush()
 	end
 
-	if userState.showWindow and userState.expandWindow then
+	if viewData.showWindow and userState.expandWindow then
 		-- Quick Tweaks Button
 
 		ImGui.SetCursorPos(viewData.windowOffsetX + viewData.windowWidth - viewData.tweaksButtonWidth , viewData.windowOffsetY + 1)
