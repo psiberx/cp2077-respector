@@ -8,9 +8,6 @@ return {
 		Level = 1,
 		StreetCred = 1,
 
-		--
-		-- Attribute levels.
-		--
 		Attributes = {
 			Body = 3,
 			Reflexes = 3,
@@ -19,9 +16,6 @@ return {
 			Cool = 3,
 		},
 
-		--
-		-- Skill levels.
-		--
 		Skills = {
 			Athletics = 1,
 			Annihilation = 1,
@@ -37,9 +31,7 @@ return {
 			ColdBlood = 1,
 		},
 
-		--
 		-- Progression in each skill for curren skill level (not from the level 1).
-		--
 		Progression = {
 			Athletics = 0,
 			Annihilation = 0,
@@ -55,16 +47,11 @@ return {
 			ColdBlood = 0,
 		},
 
-		--
 		-- For perks see "samples/specs/spec-03-perks.lua".
-		--
 		Perks = {...},
 
-		--
 		-- Unused points.
-		--
 		Points = {
-			Attribute = 0,
 			Perk = 0,
 		},
 	},

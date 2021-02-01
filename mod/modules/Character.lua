@@ -384,9 +384,9 @@ function CharacterModule:setPerks(perkSpecs, mergePerks)
 				self.playerDevData:IncreaseTraitLevel(traitType)
 			end
 		else
-			for _ = traitLevel, 0 do
-				self.playerDevData:RemoveTrait(traitType)
-			end
+			--for _ = traitLevel, 0 do
+			self.playerDevData:RemoveTrait(traitType)
+			--end
 		end
 	end
 end
