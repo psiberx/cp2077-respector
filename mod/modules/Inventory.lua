@@ -175,6 +175,7 @@ function InventoryModule:getBackpackItems(specOptions)
 			local itemId = itemData:GetID()
 			local itemMeta = self.tweakDb:resolve(itemId.tdbid)
 
+			--if not itemMeta or self.tweakDb:match(itemMeta, baseCriteria) then
 			if itemMeta and self.tweakDb:match(itemMeta, baseCriteria) then
 				table.insert(itemIds, itemData:GetID())
 			end
@@ -235,10 +236,12 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 				end
 
 				if itemMeta ~= nil then
-					if itemMeta.type == '' or specOptions.itemFormat == 'hash' then
+					if itemMeta.type ~= '' and specOptions.itemFormat == 'auto' then
+						itemSpec.id = TweakDb.toItemAlias(itemMeta.type)
+					elseif specOptions.itemFormat == 'struct' then
 						itemSpec.id = TweakDb.toStruct(itemKey)
 					else
-						itemSpec.id = TweakDb.toItemAlias(itemMeta.type)
+						itemSpec.id = itemKey
 					end
 
 					if itemMeta.rng or specOptions.keepSeed == 'always' then
@@ -252,11 +255,17 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 					itemSpec._comment = self.tweakDb:describe(itemMeta, true)
 					itemSpec._order = self.tweakDb:order(itemMeta, true)
 				else
-					itemSpec.id = TweakDb.toStruct(itemKey)
+					if specOptions.itemFormat == 'struct' then
+						itemSpec.id = TweakDb.toStruct(itemKey)
+					else
+						itemSpec.id = itemKey
+					end
+
 					itemSpec.seed = itemId.rng_seed
 					itemSpec.upgrade = itemQuality
+
 					itemSpec._comment = '???'
-					itemSpec._order = '99'
+					itemSpec._order = self.tweakDb:orderLast()
 
 					if itemEquipArea then
 						itemSpec._comment = itemSpec._comment .. ' / ' .. itemEquipArea.name
@@ -305,10 +314,12 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 							partSpec.slot = slotMeta.slot
 
 							if partMeta ~= nil then
-								if specOptions.itemFormat == 'hash' then
+								if partMeta.type ~= '' and specOptions.itemFormat == 'auto' then
+									partSpec.id = TweakDb.toItemAlias(partMeta.type)
+								elseif specOptions.itemFormat == 'struct' then
 									partSpec.id = TweakDb.toStruct(partId.tdbid)
 								else
-									partSpec.id = TweakDb.toItemAlias(partMeta.type)
+									partSpec.id = TweakDb.toKey(partId.tdbid)
 								end
 
 								if partMeta.rng or specOptions.keepSeed == 'always' then
@@ -321,9 +332,15 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 								partSpec._comment = self.tweakDb:describe(partMeta)
 							else
-								partSpec.id = TweakDb.toStruct(partId.tdbid)
+								if specOptions.itemFormat == 'struct' then
+									partSpec.id = TweakDb.toStruct(partId.tdbid)
+								else
+									partSpec.id = TweakDb.toKey(partId.tdbid)
+								end
+
 								partSpec.seed = partId.rng_seed
 								partSpec.upgrade = partQuality
+
 								partSpec._comment = '???'
 							end
 
@@ -402,7 +419,7 @@ function InventoryModule:addItems(itemSpecs, equipedSlots)
 end
 
 function InventoryModule:addItem(itemSpec, equipedSlots)
-	self:completeSpec(itemSpec)
+	itemSpec = self:completeSpec(itemSpec)
 
 	local removedParts = {}
 
@@ -582,6 +599,8 @@ function InventoryModule:completeSpec(itemSpec)
 	if type(itemSpec.id) ~= 'table' and type(itemSpec.id) ~= 'string' then
 		itemSpec.id = tostring(itemSpec.id)
 	end
+
+	return itemSpec
 end
 
 function InventoryModule:isEquipped(itemId)

@@ -214,8 +214,8 @@ Available options for `specOptions` are: <a name="spec-options"></a>
 | `components` | `bool` | `true`   | If enabled, crafting components will be added to the spec. |
 | `recipes`    | `bool` | `true`   | If enabled, crafting recipes will be added to the spec. |
 | `vehicles`   | `bool` | `true`   | If enabled, own vehicles will be added to the spec. |
-| `itemFormat` | `"auto"`, `"hash"` | `"auto"` | The preferred ItemID format for use in item specs:<br>`"auto"` &ndash; Use hash name whenever possible.<br>`"hash"` &ndash; Always use a struct with hash and length values (eg. `{ hash = 0x026C324A, length = 27 }`). |
-| `keepSeed`   | `"auto"`, `"always"` | `"auto"` | How to save the RNG seed in item specs:<br>`"auto"` &ndash; Save the seed only for items that can be randomized.<br>`"always"` &ndash; Always write the seed for all items. |
+| `itemFormat` | `"auto"`,<br>`"hash"`,<br>`"struct"` | `"auto"` | The preferred ItemID format for use in item specs:<br>`"auto"` &ndash; Use hash name whenever possible.<br>`"hash"` &ndash; Always use a raw hash value (eg. `0x00000018026C324A`).<br>`"struct"` &ndash; Always use a struct with hash and length (eg. `{ hash = 0x026C324A, length = 27 }`). |
+| `keepSeed`   | `"auto"`,<br>`"always"` | `"auto"` | How to save the RNG seed in item specs:<br>`"auto"` &ndash; Save the seed only for items that can be randomized.<br>`"always"` &ndash; Always save the seed for all items. |
 | `timestamp`  | `bool` | `false`  | If enabled, saves the spec with a name appended with the current date and time (eg. `V-201210-042037`). Useful to never overwrite existing spec files, only create new ones. |
 
 Any particular option and `specOptions` parameter itself can be omitted. 

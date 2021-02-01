@@ -122,6 +122,10 @@ function TweakDb:order(itemMeta, orderKind, orderPrefix)
 	return string.upper(order)
 end
 
+function TweakDb:orderLast()
+	return '99'
+end
+
 function TweakDb:sort(items)
 	SimpleDb.sort(self, items, '_order')
 end

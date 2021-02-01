@@ -10,7 +10,7 @@ local gui = {}
 local respector
 
 local rarityFilters = RarityFilter.all()
-local itemFormatOptions = { 'auto', 'hash' }
+local itemFormatOptions = { 'auto', 'hash', 'struct' }
 local keepSeedOptions = { 'auto', 'always' }
 
 local viewData = {
@@ -35,7 +35,7 @@ local viewData = {
 	rarityFilterCount = #rarityFilters,
 
 	itemFormatIndex = 0,
-	itemFormatList = { 'Hash name', 'Hash + length' },
+	itemFormatList = { 'Hash name', 'Hash value', 'Hash struct' },
 	itemFormatCount = #itemFormatOptions,
 
 	keepSeedIndex = 0,
