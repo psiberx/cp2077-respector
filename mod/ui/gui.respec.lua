@@ -1,3 +1,6 @@
+local mod = ...
+local ImGuiX = mod.require('mod/ui/imguix')
+
 local respecGui = {}
 
 local respector
@@ -45,9 +48,9 @@ function respecGui.onDrawEvent(justOpened)
 
 	-- Reset Perks
 	ImGui.Text('Reset Perks')
-	ImGui.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
+	ImGuiX.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
 	ImGui.TextWrapped('Restore all spent Perk Points, allowing you to redistribute them. Has the same effect as from buying the TABULA E-RASA shard.')
-	ImGui.PopStyleColor()
+	ImGuiX.PopStyleColor()
 	ImGui.Spacing()
 
 	if ImGui.Button('Reset Perks', viewData.gridFullWidth, viewData.buttonHeight) then
@@ -60,9 +63,9 @@ function respecGui.onDrawEvent(justOpened)
 
 	-- Respec Attributes
 	ImGui.Text('Respec Attributes')
-	ImGui.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
+	ImGuiX.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
 	ImGui.TextWrapped('Adjust Attributes levels. Lowering an Attribute will lower corresponding Skills and reset Perks, which requirements are no longer met.')
-	ImGui.PopStyleColor()
+	ImGuiX.PopStyleColor()
 
 	local respecAttrUnusedPoints = viewData.respecAttrPoints
 
@@ -93,10 +96,10 @@ function respecGui.onDrawEvent(justOpened)
 		end
 
 		ImGui.BeginGroup()
-		ImGui.PushStyleVar(ImGuiStyleVar.FrameRounding, 8)
-		ImGui.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 2)
+		ImGuiX.PushStyleVar(ImGuiStyleVar.FrameRounding, 8)
+		ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 2)
 		ImGui.BeginChildFrame(i, viewData.respecAttrGroupWidth, viewData.respecAttrGroupHeight)
-		ImGui.PopStyleVar(2)
+		ImGuiX.PopStyleVar(2)
 
 		ImGui.Spacing()
 
@@ -105,7 +108,7 @@ function respecGui.onDrawEvent(justOpened)
 
 		ImGui.SetCursorPos((viewData.respecAttrGroupWidth / 2) - (valueWidth / 2), ImGui.GetCursorPosY())
 		ImGui.SetNextItemWidth(valueWidth)
-		ImGui.PushStyleColor(ImGuiCol.FrameBg, 0)
+		ImGuiX.PushStyleColor(ImGuiCol.FrameBg, 0)
 		if viewData.respecAttrsActive then
 			local attrNewLevel, attrChanged = ImGui.InputInt('##Respec' .. respecAttr.attr, attrLevel, 1, 3)
 
@@ -123,7 +126,7 @@ function respecGui.onDrawEvent(justOpened)
 		else
 			ImGui.InputText('##Respec' .. respecAttr.attr, tostring(attrLevel), 2, ImGuiInputTextFlags.ReadOnly)
 		end
-		ImGui.PopStyleColor()
+		ImGuiX.PopStyleColor()
 
 		ImGui.EndChildFrame()
 		ImGui.EndGroup()
@@ -132,21 +135,21 @@ function respecGui.onDrawEvent(justOpened)
 	ImGui.Spacing()
 
 	if viewData.respecAttrsActive then
-		ImGui.PushStyleColor(ImGuiCol.Button, 0xaa60ae27)
-		ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0xee60ae27)
+		ImGuiX.PushStyleColor(ImGuiCol.Button, 0xaa60ae27)
+		ImGuiX.PushStyleColor(ImGuiCol.ButtonHovered, 0xee60ae27)
 		if ImGui.Button('Save Attributes', viewData.gridHalfWidth, viewData.buttonHeight) then
 			respecGui.onSaveAttrsClick()
 		end
-		ImGui.PopStyleColor(2)
+		ImGuiX.PopStyleColor(2)
 
 		ImGui.SameLine()
 
-		ImGui.PushStyleColor(ImGuiCol.Button, 0xaa3c4ce7)
-		ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0xee3c4ce7)
+		ImGuiX.PushStyleColor(ImGuiCol.Button, 0xaa3c4ce7)
+		ImGuiX.PushStyleColor(ImGuiCol.ButtonHovered, 0xee3c4ce7)
 		if ImGui.Button('Discard Changes', viewData.gridHalfWidth, viewData.buttonHeight) then
 			respecGui.onDiscardAttrsClick()
 		end
-		ImGui.PopStyleColor(2)
+		ImGuiX.PopStyleColor(2)
 	else
 		if ImGui.Button('Respec Attributes', viewData.gridFullWidth, viewData.buttonHeight) then
 			respecGui.onRespecAttrsClick()

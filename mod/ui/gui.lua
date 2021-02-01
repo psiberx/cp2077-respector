@@ -1,4 +1,5 @@
 local mod = ...
+local ImGuiX = mod.require('mod/ui/imguix')
 local array = mod.require('mod/utils/array')
 local RarityFilter = mod.require('mod/enums/RarityFilter')
 local PersistentState = mod.require('mod/helpers/PersistentState')
@@ -150,6 +151,8 @@ function gui.onDrawEvent()
 		return
 	end
 
+	ImGuiX.RestoreStyleStack()
+
 	ImGui.SetNextWindowPos(0, 400, ImGuiCond.FirstUseEver)
 	ImGui.SetNextWindowSize(viewData.windowWidth + (viewData.windowPadding * 2), viewData.windowHeight)
 
@@ -172,18 +175,18 @@ function gui.onDrawEvent()
 
 		local windowX, windowY = ImGui.GetItemRectMin()
 
-		ImGui.PushClipRect(windowX, windowY, windowX + viewData.windowOffsetX + viewData.windowWidth, windowY + viewData.windowOffsetY + viewData.tweaksButtonHeight - 1, false)
-		ImGui.PushStyleVar(ImGuiStyleVar.FrameRounding, viewData.tabRounding)
-		ImGui.PushStyleColor(ImGuiCol.Button, userState.showTweaker and 0xff51a600 or 0xff518900)
-		ImGui.PushStyleColor(ImGuiCol.ButtonHovered, 0xff67bc16)
+		ImGuiX.PushClipRect(windowX, windowY, windowX + viewData.windowOffsetX + viewData.windowWidth, windowY + viewData.windowOffsetY + viewData.tweaksButtonHeight - 1, false)
+		ImGuiX.PushStyleVar(ImGuiStyleVar.FrameRounding, viewData.tabRounding)
+		ImGuiX.PushStyleColor(ImGuiCol.Button, userState.showTweaker and 0xff51a600 or 0xff518900)
+		ImGuiX.PushStyleColor(ImGuiCol.ButtonHovered, 0xff67bc16)
 
 		if ImGui.Button('Quick Tweaks', viewData.tweaksButtonWidth, viewData.tweaksButtonHeight) then
 			tweaksGui.onToggleTweaker()
 		end
 
-		ImGui.PopStyleColor(2)
-		ImGui.PopStyleVar()
-		ImGui.PopClipRect()
+		ImGuiX.PopStyleColor(2)
+		ImGuiX.PopStyleVar()
+		ImGuiX.PopClipRect()
 
 		ImGui.SetCursorPos(viewData.windowOffsetX, viewData.windowOffsetY)
 
@@ -228,8 +231,8 @@ function gui.onDrawEvent()
 					userState.specOptions.rarity = rarityFilters[viewData.rarityFilterIndex + 1]
 				elseif section.desc then
 					ImGui.SameLine()
-					ImGui.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
-					ImGui.PushStyleVar(ImGuiStyleVar.ItemSpacing, 3, 5)
+					ImGuiX.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
+					ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, 3, 5)
 					if type(section.desc) == 'table' then
 						for i, item in ipairs(section.desc) do
 							if i > 1 then
@@ -245,8 +248,8 @@ function gui.onDrawEvent()
 						ImGui.SameLine()
 						ImGui.Text(section.desc)
 					end
-					ImGui.PopStyleVar()
-					ImGui.PopStyleColor()
+					ImGuiX.PopStyleVar()
+					ImGuiX.PopStyleColor()
 				end
 			end
 
@@ -297,12 +300,12 @@ function gui.onDrawEvent()
 			ImGui.Text('Recently saved / loaded specs:')
 			ImGui.Spacing()
 			ImGui.SetNextItemWidth(viewData.gridFullWidth)
-			ImGui.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 0)
-			ImGui.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
-			ImGui.PushStyleColor(ImGuiCol.FrameBg, 0)
+			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 0)
+			ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
+			ImGuiX.PushStyleColor(ImGuiCol.FrameBg, 0)
 			local recentSpecIndex = ImGui.ListBox('##RecentSpecs', -1, viewData.specHistoryList, #viewData.specHistoryList, 14)
-			ImGui.PopStyleColor()
-			ImGui.PopStyleVar(2)
+			ImGuiX.PopStyleColor()
+			ImGuiX.PopStyleVar(2)
 			if recentSpecIndex >= 0 then
 				userState.specNameLoad = userState.specHistory[recentSpecIndex + 1].specName
 				recentSpecIndex = -1
