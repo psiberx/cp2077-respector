@@ -209,7 +209,7 @@ function CharacterModule:setLevels(levelsSpec)
 					end
 
 					-- Fix perk points
-					self.playerDevData:AddDevelopmentPoints(-statLevel, 'Primary')
+					self.playerDevData:AddDevelopmentPoints(-(statLevel - 1), 'Primary')
 				end
 			end
 		end
