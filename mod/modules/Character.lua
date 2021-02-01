@@ -317,7 +317,7 @@ function CharacterModule:setPerks(perkSpecs, mergePerks)
 	for perkAlias, perk in pairs(self.perks) do
 		local perkLevel = perkSpecs[perkAlias]
 
-		if not perkLevel and perkSpecs[perk.skill] then
+		if type(perkLevel) ~= 'number' and perkSpecs[perk.skill] then
 			perkLevel = perkSpecs[perk.skill][perkAlias]
 		end
 
