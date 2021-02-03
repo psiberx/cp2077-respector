@@ -16,7 +16,7 @@ function Tweaker:spawnVehicle(vehicleTweakId, spawnDistance, unlockDoors)
 	vehicleTweakId = TweakDb.toVehicleTweakId(vehicleTweakId)
 
 	if spawnDistance == nil then
-		spawnDistance = 5
+		spawnDistance = 7
 	end
 
 	if unlockDoors == nil then
