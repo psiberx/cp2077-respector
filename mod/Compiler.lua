@@ -1,6 +1,5 @@
 local mod = ...
 local str = mod.require('mod/utils/str')
-local crc32 = mod.require('mod/utils/crc32')
 local Quality = mod.require('mod/enums/Quality')
 
 local Compiler = {}
@@ -20,34 +19,55 @@ function Compiler:run()
 	self:writeDefaultConfig()
 end
 
-function Compiler:rehashTweakDbNames(namesListPath, hashNamesDbPath, hashNamesCsvPath)
-	if not namesListPath then
-		namesListPath = mod.path('mod/data/tweakdb-names.txt')
+function Compiler:rehashTweakDbNames(stringsListPath, hashNamesDbPath, hashNamesCsvPath)
+	if not stringsListPath then
+		stringsListPath = mod.path('mod/data/tweakdb-strings.txt')
+	end
+
+	local fin = io.open(stringsListPath, 'r')
+
+	if not fin then
+		return
 	end
 
 	if not hashNamesDbPath then
-		hashNamesDbPath = namesListPath:gsub('%.txt$', '.lua')
+		hashNamesDbPath = mod.path('mod/data/tweakdb-names.lua')
 	end
 
 	if not hashNamesCsvPath then
-		hashNamesCsvPath = namesListPath:gsub('%.txt$', '.csv')
+		hashNamesCsvPath = mod.path('mod/data/tweakdb-names.csv')
 	end
 
-	local TweakDb = mod.require('mod/helpers/TweakDb')
-
-	local fin = io.open(namesListPath)
 	local fdb = io.open(hashNamesDbPath, 'w')
 	local fcsv = io.open(hashNamesCsvPath, 'w')
 
 	fdb:write('return {\n')
 
-	for name in fin:lines() do
-		local hash = crc32.hash(name)
-		local length = string.len(name)
-		local key = TweakDb.toKey({ hash = hash, length = length })
+	local allowedGroups = {
+		Ammo = true,
+		AttachmentSlots = true,
+		Items = true,
+		Vehicle = true,
+	}
 
-		fdb:write(string.format('[0x%016X] = %q, -- { hash = 0x%X, length = %d }\n', key, name, hash, length))
-		fcsv:write(string.format('"0x%016X",%q\n', key, name))
+	for line in fin:lines() do
+		local group, name, hash = line:match('^(%w+)%.(.+),(%d+)$')
+		local pass = false
+
+		if allowedGroups[group] and not name:find('%.') and not name:find('_inline%d+$') then
+			if group == 'Vehicle' then
+				pass = name:find('^v_')
+			else
+				pass = true
+			end
+		end
+
+		if pass then
+			name = group .. '.' .. name
+
+			fdb:write(string.format('[0x%016X] = %q,\n', hash, name))
+			fcsv:write(string.format('%s,0x%016X\n', name, hash))
+		end
 	end
 
 	fdb:write('}')
@@ -57,7 +77,7 @@ function Compiler:rehashTweakDbNames(namesListPath, hashNamesDbPath, hashNamesCs
 	fcsv:close()
 
 	if mod.debug then
-		print(('[DEBUG] Respector: Rehashed TweakDB names using list %q.'):format(namesListPath))
+		print(('[DEBUG] Respector: Rehashed TweakDB names using list %q.'):format(stringsListPath))
 	end
 end
 
