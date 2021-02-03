@@ -142,6 +142,7 @@ function TweakDb:order(itemMeta, orderKind, orderPrefix)
 		if itemMeta.group == 'Cyberware' then
 			order = order .. itemMeta.group2 .. '|'
 		end
+
 	elseif self:isTaggedAsSet(itemMeta) then
 		order = order .. itemMeta.tag .. '|'
 	end
@@ -155,6 +156,10 @@ function TweakDb:order(itemMeta, orderKind, orderPrefix)
 	if itemMeta.quality then
 		order = order .. '|' .. Quality.toValue(itemMeta.quality)
 		--order = order .. '|' .. (Quality.maxValue() - Quality.toValue(itemMeta.quality))
+	end
+
+	if itemMeta.name and itemMeta.type then
+		order = order .. '|' .. TweakDb.toItemAlias(itemMeta.type)
 	end
 
 	return string.upper(order)
