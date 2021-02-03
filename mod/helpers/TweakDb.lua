@@ -24,6 +24,44 @@ local kindOrders = {
 	['Shard'] = 92,
 }
 
+local itemModPrefixes = {
+	['Clo_Face'] = 'FaceFabricEnhancer',
+	['Clo_Feet'] = 'FootFabricEnhancer',
+	['Clo_Head'] = 'HeadFabricEnhancer',
+	['Clo_InnerChest'] = 'InnerChestFabricEnhancer',
+	['Clo_Legs'] = 'LegsFabricEnhancer',
+	['Clo_OuterChest'] = 'OuterChestFabricEnhancer',
+	--['Cyb_Ability'] = 'ModPrefix',
+	['Cyb_Launcher'] = 'ProjectileLauncher',
+	['Cyb_MantisBlades'] = 'MantisBlades',
+	['Cyb_NanoWires'] = 'NanoWires',
+	['Cyb_StrongArms'] = 'StrongArms',
+	--['Fla_Launcher'] = 'ModPrefix',
+	--['Fla_Rifle'] = 'ModPrefix',
+	--['Fla_Shock'] = 'ModPrefix',
+	--['Fla_Support'] = 'ModPrefix',
+	['Wea_AssaultRifle'] = 'GenericWeaponMod',
+	['Wea_Fists'] = 'GenericWeaponMod',
+	['Wea_Hammer'] = 'GenericWeaponMod',
+	['Wea_Handgun'] = 'GenericWeaponMod',
+	['Wea_HeavyMachineGun'] = 'GenericWeaponMod',
+	['Wea_Katana'] = 'GenericWeaponMod',
+	['Wea_Knife'] = 'GenericWeaponMod',
+	['Wea_LightMachineGun'] = 'GenericWeaponMod',
+	['Wea_LongBlade'] = 'GenericWeaponMod',
+	['Wea_Melee'] = 'GenericWeaponMod',
+	['Wea_OneHandedClub'] = 'GenericWeaponMod',
+	['Wea_PrecisionRifle'] = 'GenericWeaponMod',
+	['Wea_Revolver'] = 'GenericWeaponMod',
+	['Wea_Rifle'] = 'GenericWeaponMod',
+	['Wea_ShortBlade'] = 'GenericWeaponMod',
+	['Wea_Shotgun'] = 'GenericWeaponMod',
+	['Wea_ShotgunDual'] = 'GenericWeaponMod',
+	['Wea_SniperRifle'] = 'GenericWeaponMod',
+	['Wea_SubmachineGun'] = 'GenericWeaponMod',
+	['Wea_TwoHandedClub'] = 'GenericWeaponMod',
+}
+
 function TweakDb:load(path)
 	if not path or path == true then
 		path = 'mod/data/tweakdb-meta'
@@ -254,19 +292,36 @@ function TweakDb:toSlotTweakId(slotAlias, itemMeta)
 	local slotName = str.with(slotAlias, 'AttachmentSlots.')
 	local tweakId = TweakDBID.new(slotName)
 
-	if itemMeta and itemMeta.mod and not self:resolvable(tweakId) then
-		if slotAlias == 'Mod' and itemMeta.kind == 'Cyberware' and itemMeta.group == 'Arms' then
-			slotName = 'AttachmentSlots.ArmsCyberwareGeneralSlot'
-		else
-			local index = string.match(slotAlias, '%d$')
-			if index ~= nil then
-				slotName = 'AttachmentSlots.' .. itemMeta.mod .. index
+	if not self:resolvable(tweakId) then
+		if type(itemMeta) == 'table' and itemMeta.mod then
+			if slotAlias == 'Mod' and itemMeta.kind == 'Cyberware' and itemMeta.group == 'Arms' then
+				slotName = 'AttachmentSlots.ArmsCyberwareGeneralSlot'
 			else
-				slotName = 'AttachmentSlots.' .. itemMeta.mod .. slotAlias
+				local index = string.match(slotAlias, '%d$')
+
+				if index ~= nil then
+					slotName = 'AttachmentSlots.' .. itemMeta.mod .. index
+				else
+					slotName = 'AttachmentSlots.' .. itemMeta.mod .. slotAlias
+				end
+			end
+
+			tweakId = TweakDBID.new(slotName)
+		elseif type(itemMeta) == 'string' then
+			local modPrefix = itemModPrefixes[itemMeta]
+
+			if modPrefix then
+				local index = string.match(slotAlias, '%d$')
+
+				if index ~= nil then
+					slotName = 'AttachmentSlots.' .. modPrefix .. index
+				else
+					slotName = 'AttachmentSlots.' .. modPrefix .. slotAlias
+				end
+
+				tweakId = TweakDBID.new(slotName)
 			end
 		end
-
-		tweakId = TweakDBID.new(slotName)
 	end
 
 	return tweakId

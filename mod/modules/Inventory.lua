@@ -476,102 +476,106 @@ function InventoryModule:addItem(itemSpec, equipedSlots)
 
 		local itemData = self.transactionSystem:GetItemData(self.player, itemId)
 
-		-- Guarantee max number of slots
+		if itemData ~= nil then
+			local itemType = itemData:GetItemType().value
 
-		if itemSpec.slots == 'max' and itemMeta.kind == 'Clothing' then
-			for _, part in ipairs(itemData:GetItemParts()) do
-				local slotId = part:GetSlotID(part)
-				local partItemId = part:GetItemID(part)
+			-- Guarantee max number of slots
 
-				if partItemId.tdbid.hash == slotBlocker.hash and partItemId.tdbid.length == slotBlocker.length then
-					self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
-					table.insert(removedParts, partItemId)
-				end
-			end
-		end
+			if itemSpec.slots == 'max' then -- and itemMeta.kind == 'Clothing'
+				for _, part in ipairs(itemData:GetItemParts()) do
+					local slotId = part:GetSlotID(part)
+					local partItemId = part:GetItemID(part)
 
-		-- Manage mods and attachments
-
-		if type(itemSpec.slots) == 'table' and (itemMeta.kind == 'Weapon' or itemMeta.kind == 'Clothing' or itemMeta.kind == 'Cyberware') then
-			for _, slotMeta in ipairs(self.attachmentSlots) do
-				local slotId = TweakDb.toTweakId(slotMeta.type)
-
-				if itemData:HasPartInSlot(slotId) then
-					local partItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
-
-					if partItemId then
+					if partItemId.tdbid.hash == slotBlocker.hash and partItemId.tdbid.length == slotBlocker.length then
+						self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
 						table.insert(removedParts, partItemId)
 					end
 				end
 			end
 
-			for key, slotSpec in pairs(itemSpec.slots) do
-				if type(slotSpec) == 'string' then
-					slotSpec = {
-						id = slotSpec
-					}
+			-- Manage mods and attachments
+
+			if type(itemSpec.slots) == 'table' then -- and (itemMeta.kind == 'Weapon' or itemMeta.kind == 'Clothing' or itemMeta.kind == 'Cyberware')
+				for _, slotMeta in ipairs(self.attachmentSlots) do
+					local slotId = TweakDb.toTweakId(slotMeta.type)
+
+					if itemData:HasPartInSlot(slotId) then
+						local partItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
+
+						if partItemId then
+							table.insert(removedParts, partItemId)
+						end
+					end
 				end
 
-				if type(key) == 'string' then
-					slotSpec.slot = key
-				end
+				for key, slotSpec in pairs(itemSpec.slots) do
+					if type(slotSpec) == 'string' then
+						slotSpec = {
+							id = slotSpec
+						}
+					end
 
-				if slotSpec.slot and slotSpec.id then
-					local slotId = self.tweakDb:toSlotTweakId(slotSpec.slot, itemMeta)
-					local partItemId = self:addItem(slotSpec)
+					if type(key) == 'string' then
+						slotSpec.slot = key
+					end
 
-					self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)
+					if slotSpec.slot and slotSpec.id then
+						local slotId = self.tweakDb:toSlotTweakId(slotSpec.slot, itemMeta.mod and itemMeta or itemType)
+						local partItemId = self:addItem(slotSpec)
+
+						self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)
+					end
 				end
 			end
-		end
 
-		-- Keep item up to level
+			-- Keep item up to level
 
-		self.craftingSystem:SetItemLevel(itemData)
+			self.craftingSystem:SetItemLevel(itemData)
 
-		-- Upgrade item quality
+			-- Upgrade item quality
 
-		if itemSpec.upgrade then
-			local itemQuality
+			if itemSpec.upgrade then
+				local itemQuality
 
-			if type(itemSpec.upgrade) == 'string' then
-				itemQuality = itemSpec.upgrade
-			else
-				itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
-			end
-
-			self.forceItemQuality(self.player, itemData, CName.new(itemQuality))
-		end
-
-		-- Equip item
-
-		if itemEquip then
-			if not self:isEquipped(itemId) then
-				self:equipItem(itemId, itemEquipIndex)
-			end
-
-			if equipedSlots then
-				local itemEquipAreaData = self.playerEquipmentData:GetEquipAreaFromItemID(itemId)
-				local itemEquipArea = self.equipAreaDb:find({ type = itemEquipAreaData.areaType.value })
-
-				if not equipedSlots[itemEquipArea.type] then
-					equipedSlots[itemEquipArea.type] = {}
+				if type(itemSpec.upgrade) == 'string' then
+					itemQuality = itemSpec.upgrade
+				else
+					itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
 				end
 
-				equipedSlots[itemEquipArea.type][itemEquipIndex] = itemId
+				self.forceItemQuality(self.player, itemData, CName.new(itemQuality))
 			end
-		end
 
-		-- Force quest flag
+			-- Equip item
 
-		if itemSpec.quest ~= nil then
-			if itemSpec.quest then
-				if not itemData:HasTag('Quest') then
-					itemData:SetDynamicTag('Quest')
+			if itemEquip then
+				if not self:isEquipped(itemId) then
+					self:equipItem(itemId, itemEquipIndex)
 				end
-			else
-				if itemData:HasTag('Quest') then
-					itemData:RemoveDynamicTag('Quest')
+
+				if equipedSlots then
+					local itemEquipAreaData = self.playerEquipmentData:GetEquipAreaFromItemID(itemId)
+					local itemEquipArea = self.equipAreaDb:find({ type = itemEquipAreaData.areaType.value })
+
+					if not equipedSlots[itemEquipArea.type] then
+						equipedSlots[itemEquipArea.type] = {}
+					end
+
+					equipedSlots[itemEquipArea.type][itemEquipIndex] = itemId
+				end
+			end
+
+			-- Force quest flag
+
+			if itemSpec.quest ~= nil then
+				if itemSpec.quest then
+					if not itemData:HasTag('Quest') then
+						itemData:SetDynamicTag('Quest')
+					end
+				else
+					if itemData:HasTag('Quest') then
+						itemData:RemoveDynamicTag('Quest')
+					end
 				end
 			end
 		end
@@ -594,10 +598,6 @@ end
 function InventoryModule:completeSpec(itemSpec)
 	if type(itemSpec) ~= 'table' then
 		itemSpec = { id = itemSpec }
-	end
-
-	if type(itemSpec.id) ~= 'table' and type(itemSpec.id) ~= 'string' then
-		itemSpec.id = tostring(itemSpec.id)
 	end
 
 	return itemSpec
