@@ -21,8 +21,8 @@ return {
 	{ type = "ArmsCW", max = 1, name = "Cyberware / Arms", kind = "Cyberware" },
 	{ type = "LegsCW", max = 1, name = "Cyberware / Legs", kind = "Cyberware" },
 
-	{ type = "QuickSlot", max = 3, name = "Grenade", kind = "Grenade" },
-	{ type = "Consumable", max = 3, name = "Consumable", kind = "Consumable" },
+	{ type = "QuickSlot", index = 17, max = 3, name = "Grenade", kind = "Grenade" },
+	{ type = "Consumable", index = 14, max = 3, name = "Consumable", kind = "Consumable" },
 
 	--{ type = "AbilityCW", max = 6, name = "?" },
 	--{ type = "Gadget", max = 1, name = "?" },

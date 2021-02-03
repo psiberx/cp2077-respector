@@ -77,17 +77,18 @@ function InventoryModule:fillSpec(specData, specOptions)
 end
 
 function InventoryModule:applySpec(specData)
-	local updateSlots = false
 	local equipedSlots = {}
+	local updateEquipment = false
+	local updateCyberware = false
 
 	if specData.Equipment then
 		self:addItems(specData.Equipment, equipedSlots)
-		updateSlots = true
+		updateEquipment = true
 	end
 
 	if specData.Cyberware then
 		self:addItems(specData.Cyberware, equipedSlots)
-		updateSlots = true
+		updateCyberware = true
 	end
 
 	if specData.Backpack then
@@ -98,9 +99,15 @@ function InventoryModule:applySpec(specData)
 		self:addItems(specData.Inventory, equipedSlots)
 	end
 
-	if updateSlots then
-		mod.after(0.1, function()
-			self:unequipItems(equipedSlots)
+	if updateEquipment or updateCyberware then
+		mod.after(0.5, function()
+			if updateEquipment then
+				self:unequipUnusedSlots({ kind = { 'Weapon', 'Clothing', 'Grenade', 'Consumable' } }, equipedSlots)
+			end
+
+			if updateCyberware then
+				self:unequipUnusedSlots({ kind = 'Cyberware' }, equipedSlots)
+			end
 		end)
 	end
 end
@@ -398,8 +405,8 @@ function InventoryModule:appendStatsComment(itemSpec, itemMeta, itemData)
 	end
 end
 
-function InventoryModule:unequipItems(equipedSlots)
-	for _, equipArea in self.equipAreaDb:each() do
+function InventoryModule:unequipUnusedSlots(slotCriteria, equipedSlots)
+	for _, equipArea in self.equipAreaDb:filter(slotCriteria) do
 		for slotIndex = 1, equipArea.max do
 			if not equipedSlots or not equipedSlots[equipArea.type] or not equipedSlots[equipArea.type][slotIndex] then
 				local equipedItemId = self.playerEquipmentData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
@@ -609,8 +616,8 @@ end
 
 function InventoryModule:unequipItem(itemId)
 	if self.playerEquipmentData:IsEquipped(itemId) then
-		self.playerEquipmentData:RemoveItemFromEquipSlot(itemId)
 		self.playerEquipmentData:UnequipItem(itemId)
+		--self.playerEquipmentData:RemoveItemFromEquipSlot(itemId)
 	end
 end
 
