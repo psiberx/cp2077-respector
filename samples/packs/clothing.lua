@@ -829,10 +829,10 @@ return {
 		{ id = "Glasses_02_basic_02" }, 
 
 		-- ELECTRIC MARBLE ULTRALIGHT ATHLETIC SHOES / Clothing / Feet
-		{ id = "CasualShoes_05_basic_01" }, 
+		{ id = "Boots_01_basic_01" }, 
 
 		-- ELECTRIC MARBLE ULTRALIGHT ATHLETIC SHOES / Clothing / Feet
-		{ id = "Boots_01_basic_01" }, 
+		{ id = "CasualShoes_05_basic_01" }, 
 
 		-- ELEGANT CARET CASSICO BLAZER WITH NANOTUBE STRIPES / Clothing / Outer Torso
 		{ id = "FormalJacket_02_rich_03" }, 
@@ -1485,9 +1485,6 @@ return {
 		-- MUDDY FLEETS / Clothing / Feet
 		{ id = "Boots_05_old_01" }, 
 
-		-- MUDDY NCPD VEST / Clothing / Outer Torso
-		{ id = "Vest_11_old_01" }, 
-
 		-- MULTILAYER CUSTOM-PRINT PANTS / Clothing / Legs
 		{ id = "FormalPants_03_old_01" }, 
 
@@ -1514,18 +1511,6 @@ return {
 
 		-- NC PYTHON ULTRARESISTANT HYBRID WEAVE RACING SUIT / Clothing / Outer Torso
 		{ id = "Jumpsuit_02_rich_01" }, 
-
-		-- NCPD ARAMID COLLAR / Clothing / Outer Torso
-		{ id = "Vest_12_old_02" }, 
-
-		-- NCPD CHEM RESISTANT HAZMAT SUIT / Clothing / Special
-		{ id = "Jumpsuit_03_old_02" }, 
-
-		-- NCPD ICE-PROTECTED OCUSET / Clothing / Face
-		{ id = "Tech_01_rich_02" }, 
-
-		-- NCPD REINFORCED BALLISTIC VEST / Clothing / Outer Torso
-		{ id = "Vest_03_basic_01" }, 
 
 		-- NEKITSCH PASIÓN PÚRPURA POLYAMIDE FOLDTOP / Clothing / Outer Torso
 		{ id = "Jacket_11_rich_01" }, 
@@ -1695,6 +1680,11 @@ return {
 		-- PENGUIN DRESS SHIRT & VEST / Clothing / Inner Torso
 		{ id = "FormalShirt_01_old_03" }, 
 
+		-- PERALEZ CAMPAIGN SHIRT / Clothing / Inner Torso
+		-- He'll fight for you!
+		-- Currently unobtainable in the gameplay.
+		{ id = "SQ012_Shirt_VoteForPeralez" }, 
+
 		-- PERFORMANCE BOOSTED UTILITY PANTS / Clothing / Legs
 		{ id = "Pants_09_old_02" }, 
 
@@ -1721,12 +1711,6 @@ return {
 
 		-- PLASTIC ZUNARI KABUTO WITH ABSORBANT LINING / Clothing / Head
 		{ id = "Helmet_04_old_01" }, 
-
-		-- POLICE BALLISTIC VEST / Clothing / Outer Torso
-		{ id = "Vest_04_basic_02" }, 
-
-		-- POLICE HELMET WITH ANTI-SHRAPNEL VISOR / Clothing / Head
-		{ id = "Helmet_02_basic_01" }, 
 
 		-- POLKA DOT TRENCH COAT WITH PUNCTURE-RESISTANT LINING / Clothing / Outer Torso
 		{ id = "Coat_04_basic_02" }, 
@@ -2735,6 +2719,10 @@ return {
 		-- WRAITHS EXTRA COTTON UTILITY PANTS / Clothing / Legs
 		{ id = "Pants_09_old_01" }, 
 
+		-- WRAITHS GAS MASK / Clothing / Face
+		-- Currently unobtainable in the gameplay.
+		{ id = "SQ004_RaffenShiv_Mask" }, 
+
 		-- WRAITHS HEAVY IMPACT-ABSORBING MOTORCYCLE JACKET / Clothing / Outer Torso
 		{ id = "Jacket_09_rich_02" }, 
 
@@ -2761,6 +2749,14 @@ return {
 
 		-- YELLOW COBRA CARBON-REINFORCED RACING SUIT / Clothing / Outer Torso
 		{ id = "Jumpsuit_02_basic_01" }, 
+
+		-- YORINOBU'S FORMAL SHIRT / Clothing / Inner Torso
+		-- Surprisingly modest for corporate royalty.
+		{ id = "Q005_Yorinobu_FormalShirt" }, 
+
+		-- YORINOBU'S SLACKS / Clothing / Legs
+		-- Expertly crafted with cherry biosilk.
+		{ id = "Q005_Yorinobu_FormalPants" }, 
 
 		-- YORU NO SAMURAI ARMORED KNEE PAD REACERS / Clothing / Legs
 		{ id = "Pants_05_rich_02" }, 

@@ -4,8 +4,8 @@ return {
 		"v_sport1_rayfield_aerondight_player", -- AERONDIGHT "GUINEVERE"
 		"v_sport2_villefort_alvarado_valentinos_player", -- ALVARADO "VATO"
 		"v_sport2_villefort_alvarado_player", -- ALVARADO V4F 570 DELEGATE
-		"v_sportbike3_brennan_apollo_player", -- APOLLO
 		"v_sportbike3_brennan_apollo_nomad_player", -- APOLLO "SCORPION"
+		"v_sportbike3_brennan_apollo_player", -- APOLLO
 		"v_sportbike2_arch_player", -- ARCH NAZARÉ
 		"v_sport1_rayfield_caliburn_02_player", -- CALIBURN (BLACK)
 		"v_sport1_rayfield_caliburn_player", -- CALIBURN (WHITE)
@@ -15,12 +15,15 @@ return {
 		"v_standard25_thorton_colby_pickup_02_player", -- COLBY CX410 BUTTE (RED)
 		"v_standard25_villefort_columbus_player", -- COLUMBUS V340-F FREIGHT
 		"v_standard2_villefort_cortes_player", -- CORTES V5000 VALOR
+		"v_standard2_villefort_cortes_police_siren", -- CORTES V6000 NCPD OVERLORD
 		"v_standard2_villefort_cortes_delamain_player", -- DELAMAIN NO.21
 		"v_standard3_chevalier_emperor_player", -- EMPEROR 620 RAGNAR
+		"v_standard3_chevalier_emperor_police_siren", -- EMPEROR 720 NCPD IRONCLAD
 		"v_standard2_thorton_galena_nomad_player", -- GALENA "GECKO"
 		"v_standard2_thorton_galena_bobas_player", -- GALENA "RATTLER"
 		"v_standard2_thorton_galena_player", -- GALENA G240
 		"v_standard2_archer_hella_player", -- HELLA EC-D I360
+		"v_standard2_archer_hella_police_siren", -- HELLA EC-H I860 ENFORCER
 		"v_sportbike2_arch_jackie_player", -- JACKIE'S ARCH
 		"v_sportbike2_arch_jackie_tuned_player", -- JACKIE'S TUNED ARCH
 		"v_sportbike1_yaiba_kusanagi_tyger_player", -- KUSANAGI "MIZUCHI"
@@ -31,8 +34,8 @@ return {
 		"v_sportbike2_arch_tyger_player", -- NAZARÉ "ITSUMADE"
 		"v_sport1_herrera_outlaw_player", -- OUTLAW GTS
 		"v_standard2_archer_quartz_player", -- QUARTZ EC-T2 R660
-		"v_sport2_mizutani_shion_nomad_player", -- SHION "COYOTE"
 		"v_sport2_mizutani_shion_nomad_02_player", -- SHION "COYOTE" (RED)
+		"v_sport2_mizutani_shion_nomad_player", -- SHION "COYOTE"
 		"v_sport2_mizutani_shion_player", -- SHION MZ2
 		"v_standard25_mahir_supron_player", -- SUPRON FS3
 		"v_standard2_chevalier_thrax_player", -- THRAX 388 JEFFERSON
