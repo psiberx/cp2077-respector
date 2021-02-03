@@ -3,8 +3,8 @@ local api = mod.require('mod/ui/api')
 
 local cli = {}
 
-function cli.init(respector)
-	api.init(respector)
+function cli.init(respector, tweaker)
+	api.init(respector, tweaker)
 end
 
 function cli.getModApi()

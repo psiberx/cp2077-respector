@@ -8,7 +8,7 @@ local respecGui = mod.require('mod/ui/gui.respec')
 
 local gui = {}
 
-local respector
+local respector, tweaker
 
 local rarityFilters = RarityFilter.all()
 local itemFormatOptions = { 'auto', 'hash', 'struct' }
@@ -59,8 +59,9 @@ local userState = {
 
 local persitentState
 
-function gui.init(_respector)
+function gui.init(_respector, _tweaker)
 	respector = _respector
+	tweaker = _tweaker
 
 	gui.initHandlers()
 	gui.initPersistance()
@@ -68,7 +69,7 @@ function gui.init(_respector)
 	gui.initViewData()
 
 	respecGui.init(respector, viewData)
-	tweaksGui.init(respector, userState, persitentState)
+	tweaksGui.init(respector, tweaker, userState, persitentState)
 end
 
 function gui.initHandlers()

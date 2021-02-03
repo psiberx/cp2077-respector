@@ -61,6 +61,9 @@ end
 local Respector = mod.require('mod/Respector')
 local respector = Respector:new()
 
+local Tweaker = mod.require('mod/Tweaker')
+local tweaker = Tweaker:new()
+
 if mod.config.useModApi or mod.config.useGlobalApi then
 	if mod.debug then
 		print(('[DEBUG] Respector: Initializing CLI...'))
@@ -68,7 +71,7 @@ if mod.config.useModApi or mod.config.useGlobalApi then
 
 	local cli = mod.require('mod/ui/cli')
 
-	cli.init(respector)
+	cli.init(respector, tweaker)
 
 	if mod.config.useModApi then
 		api = cli.getModApi()
@@ -83,40 +86,17 @@ if mod.config.useGui then
 	local gui = mod.require('mod/ui/gui')
 
 	registerForEvent('onInit', function()
-		gui.init(respector)
+		gui.init(respector, tweaker)
 	end)
 
-	registerForEvent('onOverlayOpen', function()
-		gui.onOverlayOpen()
-	end)
+	registerForEvent('onOverlayOpen', gui.onOverlayOpen)
+	registerForEvent('onOverlayClose', gui.onOverlayClose)
 
-	registerForEvent('onOverlayClose', function()
-		gui.onOverlayClose()
-	end)
-
-	registerForEvent('onDraw', function()
-		gui.onDrawEvent()
-	end)
-
-	--registerHotkey('QuickSave', 'Quick Save (with current settings)', function()
-	--	mod.after(0.05, function()
-	--		gui.onQuickSaveHotkey()
-	--	end)
-	--end)
+	registerForEvent('onDraw', gui.onDrawEvent)
 end
 
-registerForEvent('onUpdate', function(delta)
-	mod.onUpdateEvent(delta)
-end)
+registerForEvent('onUpdate', mod.onUpdateEvent)
 
 print(('Respector v%s loaded.'):format(respector.version))
-
---if mod.config.useGlobalApi then
---	print(('Respector: Global API enabled.'))
---end
-
---if mod.config.useGui then
---	print(('Respector: Overlay GUI enabled.'))
---end
 
 return api

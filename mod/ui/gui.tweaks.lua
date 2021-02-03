@@ -7,9 +7,7 @@ local TweakDb = mod.require('mod/helpers/TweakDb')
 
 local tweaksGui = {}
 
-local respector
-local persitentState
-local tweakDb
+local respector, tweaker, tweakDb, persitentState
 
 local viewData = {
 	justOpened = true,
@@ -66,8 +64,9 @@ local userState = {
 	tweakSearch = nil,
 }
 
-function tweaksGui.init(_respector, _userState, _persitentState)
+function tweaksGui.init(_respector, _tweaker, _userState, _persitentState)
 	respector = _respector
+	tweaker = _tweaker
 	userState = _userState
 	persitentState = _persitentState
 
@@ -321,16 +320,32 @@ function tweaksGui.onDrawEvent()
 			-- Vehicles
 			elseif tweak.entryMeta.kind == 'Vehicle' then
 				ImGui.Spacing()
-				if tweak.vehicleUnlocked then
-					ImGui.Text('You own this vehicle.')
+
+				if tweak.vehicleUnlockable then
+					if tweak.vehicleUnlocked then
+						ImGui.Text('You own this vehicle.')
+					else
+						ImGui.Text('You don\'t own this vehicle yet.')
+
+						ImGui.Spacing()
+
+						if ImGui.Button('Add to garage', viewData.gridFullWidth, viewData.buttonHeight) then
+							tweaksGui.onUnlockVehicleClick()
+						end
+					end
 				else
-					ImGui.Text('You don\'t own this vehicle yet.')
+					ImGui.Text('Make sure there is space in front of you for a vehicle.')
+					ImGui.TextWrapped('If it doesn\'t appear immediately, look in the other direction for a moment.')
 
 					ImGui.Spacing()
 
-					if ImGui.Button('Add to garage', viewData.gridFullWidth, viewData.buttonHeight) then
-						tweaksGui.onUnlockVehicleClick()
+					if ImGui.Button('Spawn vehicle', viewData.gridFullWidth, viewData.buttonHeight) then
+						tweaksGui.onSpawnVehicleClick()
 					end
+
+					ImGui.Spacing()
+
+					ImGui.Text('This vehicle cannot be added to the garage.')
 				end
 
 			-- Money / Ingredients
@@ -496,7 +511,7 @@ function tweaksGui.onTweakSearchChange()
 	local searchResults = {}
 
 	for entryKey, entryMeta, entryPos in tweakDb:search(searchTerm) do
-		if entryMeta.name and entryMeta.kind ~= 'Slot' then
+		if entryMeta.name and entryMeta.tweak ~= false and entryMeta.kind ~= 'Slot' then
 			table.insert(searchResults, {
 				entryKey = entryKey,
 				entryMeta = entryMeta,
@@ -534,6 +549,7 @@ function tweaksGui.onTweakSearchResultSelect()
 		tweak.factState = tweaksGui.getFactState(tweak.entryMeta.type)
 
 	elseif tweak.entryMeta.kind == 'Vehicle' then
+		tweak.vehicleUnlockable = (tweak.entryMeta.type):find('_player$')
 		tweak.vehicleUnlocked = respector:usingModule('transport', function(transportModule)
 			return transportModule:isVehicleUnlocked(tweak.entryMeta.type)
 		end)
@@ -663,6 +679,12 @@ function tweaksGui.onUnlockVehicleClick()
 	end)
 
 	tweak.vehicleUnlocked = true
+end
+
+function tweaksGui.onSpawnVehicleClick()
+	local tweak = viewData.activeTweakData
+
+	tweaker:spawnVehicle(tweak.entryMeta.type)
 end
 
 function tweaksGui.onTransferGoodsClick()

@@ -1,10 +1,10 @@
-local mod = ...
-
 local api = {}
-local respector
 
-function api.init(_respector)
+local respector, tweaker
+
+function api.init(_respector, _tweaker)
 	respector = _respector
+	tweaker = _tweaker
 end
 
 function api.LoadSpec(specName, _)
@@ -33,6 +33,16 @@ function api.ExecSpec(specData, _)
 	end
 
 	return respector:execSpec(specData)
+end
+
+function api.SpawnVehicle(vehicleTweakId, spawnDistance, unlockDoors, _)
+	if vehicleTweakId == api then
+		vehicleTweakId = spawnDistance
+		spawnDistance = unlockDoors
+		unlockDoors = _
+	end
+
+	return tweaker:spawnVehicle(vehicleTweakId, spawnDistance, unlockDoors)
 end
 
 return api
