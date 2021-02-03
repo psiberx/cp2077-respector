@@ -47,7 +47,8 @@ return {
 
 		-- The preferred ItemID format for use in item specs:
 		-- "auto" - Use hash name whenever possible.
-		-- "hash" - Always use a struct with hash and length values (eg. `{ hash = 0x026C324A, length = 27 }`).
+		-- "hash" - Always use a raw hash value (eg. `0x00000018026C324A`).
+		-- "struct" - Always use a struct with hash and length (eg. `{ hash = 0x026C324A, length = 27 }`).
 		itemFormat = "auto",
 
 		-- How to save the RNG seed in the item spec:
