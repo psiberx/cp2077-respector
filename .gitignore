@@ -1,6 +1,7 @@
 /.dev
 /.idea
 /dist
+/mod/data/tweakdb-strings.txt
 /specs/*
 !/specs/V.lua
 /db.sqlite3
