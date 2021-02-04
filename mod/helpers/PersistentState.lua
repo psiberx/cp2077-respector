@@ -45,7 +45,7 @@ function PersistentState:flush()
 	local stateFile = io.open(self.path, 'w')
 
 	if stateFile ~= nil then
-		stateFile:write('return ' .. debug.exportTable(self.state))
+		stateFile:write('return ' .. debug.table(self.state))
 		stateFile:close()
 
 		if mod.debug then

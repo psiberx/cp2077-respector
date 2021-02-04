@@ -5,9 +5,9 @@ function debug.dump(t, keys)
 
 	if type(t) == 'table' then
 		if keys then
-			dump = debug.exportKeys(t)
+			dump = debug.keys(t)
 		else
-			dump = debug.exportTable(t)
+			dump = debug.table(t)
 		end
 	elseif type(t) == 'string' then
 		dump = DumpType(t)
@@ -20,7 +20,7 @@ function debug.dump(t, keys)
 	return dump
 end
 
-function debug.exportTable(t, depth)
+function debug.table(t, depth)
 	if type(t) ~= 'table' then
 		return ''
 	end
@@ -40,7 +40,7 @@ function debug.exportTable(t, depth)
 		if type(v) == 'string' then
 			vstr = string.format('\'%s\'', tostring(v))
 		elseif type(v) == 'table' then
-			vstr = debug.exportTable(v, depth + 1)
+			vstr = debug.table(v, depth + 1)
 		end
 
 		dumpStr = string.format('%s\t%s%s%s,\n', dumpStr, indent, kstr, vstr)
@@ -49,7 +49,7 @@ function debug.exportTable(t, depth)
 	return string.format('%s%s}', dumpStr, indent)
 end
 
-function debug.exportKeys(t, depth)
+function debug.keys(t, depth)
 	if type(t) ~= 'table' then
 		return ''
 	end
@@ -67,7 +67,7 @@ function debug.exportKeys(t, depth)
 
 		local vstr = ''
 		if type(v) == 'table' then
-			vstr = ' = ' .. debug.exportKeys(v, depth + 1)
+			vstr = ' = ' .. debug.keys(v, depth + 1)
 		end
 
 		dumpStr = string.format('%s\t%s%s%s,\n', dumpStr, indent, kstr, vstr)
