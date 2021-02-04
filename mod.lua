@@ -64,9 +64,9 @@ end
 ---@param timeout number
 ---@param recurring boolean
 ---@param callback function
----@param data
+---@param args
 ---@return any
-local function addTimer(timeout, recurring, callback, data)
+local function addTimer(timeout, recurring, callback, args)
 	if type(timeout) ~= 'number' then
 		return
 	end
@@ -83,6 +83,10 @@ local function addTimer(timeout, recurring, callback, data)
 		return
 	end
 
+	if type(args) ~= 'table' then
+		args = { arg = args }
+	end
+
 	counter = counter + 1
 
 	local timer = {
@@ -91,8 +95,12 @@ local function addTimer(timeout, recurring, callback, data)
 		recurring = recurring,
 		timeout = timeout,
 		delay = timeout,
-		data = data,
+		args = args,
 	}
+
+	if args.id == nil then
+		args.id = timer.id
+	end
 
 	table.insert(timers, timer)
 
@@ -141,7 +149,7 @@ function mod.onUpdateEvent(delta)
 					i = i - 1
 				end
 
-				timer.callback(timer)
+				timer.callback(timer.args)
 			end
 		end
 	end
