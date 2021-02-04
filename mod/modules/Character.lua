@@ -160,28 +160,6 @@ function CharacterModule:getExpirience(schema, specOptions)
 	return data
 end
 
-function CharacterModule:getLevel()
-	return math.tointeger(self:getStatValue('Level'))
-end
-
-function CharacterModule:getAttributes()
-	local attributesSpec = {}
-
-	for _, attribute in pairs(self.attributes) do
-		attributesSpec[attribute.alias] = self:getStatValue(attribute.type)
-	end
-
-	return attributesSpec
-end
-
-function CharacterModule:getTotalAttributePoints()
-	return self:getLevel() + attrStartMax
-end
-
-function CharacterModule:getPerkPoints()
-	return math.tointeger(self.playerDevData:GetDevPoints('Primary'))
-end
-
 function CharacterModule:setLevels(levelsSpec)
 	for _, statType in ipairs({ 'Level', 'StreetCred' }) do
 		if type(levelsSpec[statType]) == 'number' then
@@ -417,16 +395,38 @@ function CharacterModule:triggerAutoScaling()
 	end
 end
 
+function CharacterModule:getLevel()
+	return math.tointeger(self:getStatValue('Level'))
+end
+
+function CharacterModule:getAttributeLevels()
+	local attributesSpec = {}
+
+	for _, attribute in pairs(self.attributes) do
+		attributesSpec[attribute.alias] = self:getStatValue(attribute.type)
+	end
+
+	return attributesSpec
+end
+
+function CharacterModule:getAttributeTotalPoints()
+	return self:getLevel() + attrStartMax
+end
+
+function CharacterModule:getPerkPoints()
+	return math.tointeger(self.playerDevData:GetDevPoints('Primary'))
+end
+
+function CharacterModule:getStatType(alias)
+	return self.aliases[alias] or alias
+end
+
 function CharacterModule:getStatValue(statAlias)
 	return math.floor(self.statsSystem:GetStatValue(self.playerId, self:getStatType(statAlias)))
 end
 
 function CharacterModule:getProficiencyExp(statAlias)
 	return math.floor(self.playerDevData:GetCurrentLevelProficiencyExp(self:getStatType(statAlias)))
-end
-
-function CharacterModule:getStatType(alias)
-	return self.aliases[alias] or alias
 end
 
 return CharacterModule
