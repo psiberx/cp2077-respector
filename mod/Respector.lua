@@ -64,7 +64,7 @@ end
 function Respector:releaseModulesAsync(waitTime)
 	asyncWait = true
 
-	mod.after(waitTime or 1.0, function()
+	mod.after(waitTime or 2.0, function()
 		self:releaseModules()
 
 		asyncWait = false
@@ -124,7 +124,7 @@ function Respector:saveSpec(specName, specOptions)
 		self[module.name]:fillSpec(specData, specOptions)
 	end
 
-	self:releaseModulesAsync(1.5)
+	self:releaseModulesAsync()
 
 	if not specData then
 		print(('Respector: Failed to create spec.'))

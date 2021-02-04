@@ -92,7 +92,7 @@ function InventoryModule:applySpec(specData)
 	end
 
 	if specData.Backpack then
-		self:addItems(specData.Backpack, equipedSlots)
+		self:addItems(specData.Backpack)
 	end
 
 	if specData.Inventory then
@@ -100,6 +100,8 @@ function InventoryModule:applySpec(specData)
 	end
 
 	if updateEquipment or updateCyberware then
+		self:equipUsedSlots(equipedSlots)
+
 		mod.after(0.5, function()
 			if updateEquipment then
 				self:unequipUnusedSlots({ kind = { 'Weapon', 'Clothing', 'Grenade', 'Consumable' } }, equipedSlots)
@@ -147,7 +149,8 @@ end
 function InventoryModule:getBackpackItems(specOptions)
 	local itemIds = {}
 
-	local baseCriteria = { kind = { 'Weapon', 'Clothing', 'Cyberware', 'Mod', 'Grenade', 'Consumable', 'Progression Shard', 'Quickhack' } }
+	-- 'Progression Shard' -- It's a bug that it's stored?
+	local baseCriteria = { kind = { 'Weapon', 'Clothing', 'Cyberware', 'Mod', 'Grenade', 'Consumable', 'Quickhack' } }
 	local extraCriteria
 
 	if specOptions.rarity then
@@ -405,20 +408,6 @@ function InventoryModule:appendStatsComment(itemSpec, itemMeta, itemData)
 	end
 end
 
-function InventoryModule:unequipUnusedSlots(slotCriteria, equipedSlots)
-	for _, equipArea in self.equipAreaDb:filter(slotCriteria) do
-		for slotIndex = 1, equipArea.max do
-			if not equipedSlots or not equipedSlots[equipArea.type] or not equipedSlots[equipArea.type][slotIndex] then
-				local equipedItemId = self.playerEquipmentData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
-
-				if equipedItemId.tdbid.hash ~= 0 then
-					self:unequipItem(equipedItemId)
-				end
-			end
-		end
-	end
-end
-
 function InventoryModule:addItems(itemSpecs, equipedSlots)
 	for _, itemSpec in ipairs(itemSpecs) do
 		self:addItem(itemSpec, equipedSlots)
@@ -462,6 +451,7 @@ function InventoryModule:addItem(itemSpec, equipedSlots)
 
 		-- Add item to inventory
 
+		local skipCopy = false
 		local currentQty = self.transactionSystem:GetItemQuantity(self.player, itemId)
 		local currentEquipIndex = self.playerEquipmentData:GetSlotIndex(itemId) + 1
 
@@ -472,10 +462,16 @@ function InventoryModule:addItem(itemSpec, equipedSlots)
 			if currentQty == 0 then
 				self.transactionSystem:GiveItem(self.player, itemId, 1)
 			else
-				-- Need to be delicate with equipping / unequipping armor
 				if self:isEquipped(itemId) then
-					if not itemEquip or itemEquipIndex ~= currentEquipIndex or itemMeta.kind == 'Clothing' then
-						self:unequipItem(itemId)
+					if not equipedSlots then
+						skipCopy = true
+					else
+						if itemMeta.kind == 'Clothing' or itemMeta.group == 'Operating System' then
+							self.playerEquipmentData:RemoveItemFromEquipSlot(itemId)
+							self:unequipItem(itemId)
+						elseif not itemEquip or itemEquipIndex ~= currentEquipIndex then
+							self:unequipItem(itemId)
+						end
 					end
 				end
 			end
@@ -483,7 +479,7 @@ function InventoryModule:addItem(itemSpec, equipedSlots)
 
 		local itemData = self.transactionSystem:GetItemData(self.player, itemId)
 
-		if itemData ~= nil then
+		if itemData ~= nil and not skipCopy then
 			local itemType = itemData:GetItemType().value
 
 			-- Guarantee max number of slots
@@ -556,10 +552,6 @@ function InventoryModule:addItem(itemSpec, equipedSlots)
 			-- Equip item
 
 			if itemEquip then
-				if not self:isEquipped(itemId) then
-					self:equipItem(itemId, itemEquipIndex)
-				end
-
 				if equipedSlots then
 					local itemEquipAreaData = self.playerEquipmentData:GetEquipAreaFromItemID(itemId)
 					local itemEquipArea = self.equipAreaDb:find({ type = itemEquipAreaData.areaType.value })
@@ -589,7 +581,7 @@ function InventoryModule:addItem(itemSpec, equipedSlots)
 	end
 
 	if #removedParts > 0 then
-		mod.after(0.8, function()
+		mod.after(1.5, function()
 			for _, partItemId in ipairs(removedParts) do
 				if self.playerEquipmentData:HasItemInInventory(partItemId) then
 					self.transactionSystem:RemoveItem(self.player, partItemId, 1)
@@ -614,23 +606,48 @@ function InventoryModule:isEquipped(itemId)
 	return self.playerEquipmentData:IsEquipped(itemId)
 end
 
-function InventoryModule:unequipItem(itemId)
-	if self.playerEquipmentData:IsEquipped(itemId) then
-		self.playerEquipmentData:UnequipItem(itemId)
-		--self.playerEquipmentData:RemoveItemFromEquipSlot(itemId)
+function InventoryModule:equipItem(itemId, slotIndex)
+	if not self.playerEquipmentData:IsEquipped(itemId) then
+		self.playerEquipmentData:EquipItemInSlot(itemId, slotIndex - 1, false, false, false)
 	end
 end
 
-function InventoryModule:equipItem(itemId, slotIndex)
-	mod.after(0.15, function()
-		self.playerEquipmentData:EquipItemInSlot(itemId, slotIndex - 1, false, false, false)
-		--self.playerEquipmentData:UpdateEquipAreaActiveIndex(itemId)
-	end)
+function InventoryModule:unequipItem(itemId)
+	if self.playerEquipmentData:IsEquipped(itemId) then
+		self.playerEquipmentData:UnequipItem(itemId)
+	end
 end
 
-function InventoryModule:forceEquipItem(itemId, slotIndex)
-	self:unequipItem(itemId)
-	self:equipItem(itemId, slotIndex)
+function InventoryModule:equipUsedSlots(equipedSlots)
+	for equipAreaType, equipedItems in pairs(equipedSlots) do
+		for slotIndex, itemId in pairs(equipedItems) do
+			local equipArea = self.equipAreaDb:find({ type = equipAreaType })
+
+			if not self:isEquipped(itemId) then
+				if equipArea.kind == 'Clothing' or equipArea.type == 'SystemReplacementCW' then
+					mod.after(0.15, function()
+						self:equipItem(itemId, slotIndex)
+					end)
+				else
+					self:equipItem(itemId, slotIndex)
+				end
+			end
+		end
+	end
+end
+
+function InventoryModule:unequipUnusedSlots(slotCriteria, equipedSlots)
+	for _, equipArea in self.equipAreaDb:filter(slotCriteria) do
+		for slotIndex = 1, equipArea.max do
+			if not equipedSlots or not equipedSlots[equipArea.type] or not equipedSlots[equipArea.type][slotIndex] then
+				local equipedItemId = self.playerEquipmentData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
+
+				if equipedItemId and equipedItemId.tdbid.hash ~= 0 then
+					self:unequipItem(equipedItemId)
+				end
+			end
+		end
+	end
 end
 
 return InventoryModule
