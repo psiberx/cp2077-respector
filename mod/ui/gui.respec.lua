@@ -33,7 +33,7 @@ function respecGui.initViewState()
 
 	respector:usingModule('character', function(character)
 		viewData.respecAttrsData = character:getAttributeLevels()
-		viewData.respecAttrPoints = character:getAttributeTotalPoints()
+		viewData.respecAttrPoints = character:getAttributeEarnedPoints()
 	end)
 end
 

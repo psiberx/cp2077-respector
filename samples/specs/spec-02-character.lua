@@ -47,12 +47,11 @@ return {
 			ColdBlood = 0,
 		},
 
-		-- For perks see "samples/specs/spec-03-perks.lua".
+		-- For fulle Perk list see "samples/specs/spec-03-perks.lua".
 		Perks = {...},
 
-		-- Unused points.
-		Points = {
-			Perk = 0,
-		},
+		-- Extra Perk Points earned from Perk Shards.
+		-- There are currently 9 known Perk Shard locations in the game.
+		PerkShards = 9,
 	},
 }

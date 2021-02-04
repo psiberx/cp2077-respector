@@ -28,6 +28,13 @@ return {
 			ColdBlood = 3,
 		},
 
+		Progression = {
+			StreetBrawler = 1361,
+			Blades = 10580,
+			Crafting = 27132,
+			BreachProtocol = 1644,
+		},
+
 		Perks = {
 			Athletics = {
 				Regeneration = 1, -- Max: 1 / Health slowly regenerates during combat.
@@ -117,17 +124,7 @@ return {
 			},
 		},
 
-		Progression = {
-			StreetBrawler = 1361,
-			Blades = 10580,
-			Crafting = 27132,
-			BreachProtocol = 1644,
-		},
-
-		Points = {
-			Attribute = 0,
-			Perk = 11,
-		},
+		PerkShards = 7,
 	},
 
 	Equipment = {
