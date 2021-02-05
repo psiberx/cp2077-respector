@@ -4,10 +4,11 @@ local str = mod.require('mod/utils/str')
 local array = mod.require('mod/utils/array')
 local Quality = mod.require('mod/enums/Quality')
 local TweakDb = mod.require('mod/helpers/TweakDb')
+local SimpleDb = mod.require('mod/helpers/SimpleDb')
 
 local tweaksGui = {}
 
-local respector, tweaker, tweakDb, persitentState
+local respector, tweaker, tweakDb, equipAreaDb, persitentState
 
 local viewData = {
 	justOpened = true,
@@ -71,6 +72,7 @@ function tweaksGui.init(_respector, _tweaker, _userState, _persitentState)
 	persitentState = _persitentState
 
 	tweakDb = TweakDb:new()
+	equipAreaDb = SimpleDb:new()
 
 	tweaksGui.initUserState()
 	tweaksGui.initViewData()
@@ -420,12 +422,32 @@ function tweaksGui.onDrawEvent()
 				end
 				ImGui.EndGroup()
 
-				if tweak.itemCanRngSlots then
+				if tweak.itemCanBeEquipped then
+					ImGui.BeginGroup()
 					ImGui.Spacing()
-					ImGui.NewLine()
-					ImGui.SameLine(153 * viewData.viewScale) -- 115 153
-					tweak.itemMaxSlots = ImGui.Checkbox('Get max mod slots', tweak.itemMaxSlots)
-					--tweak.itemMaxSlots = ImGui.Checkbox('Get max slots for the quality', tweak.itemMaxSlots) -- 115 153
+					ImGui.Text('Equip:')
+					ImGui.SetNextItemWidth(viewData.tweakQtyInputWidth)
+
+					local optionIndex, optionChanged = ImGui.Combo('##ItemEquip', viewData.equipOptionIndex, viewData.equipOptionList, viewData.equipOptionCount)
+					if optionChanged then
+						tweak.itemEquipSlot = optionIndex
+						viewData.equipOptionIndex = optionIndex
+					end
+					ImGui.EndGroup()
+
+					if tweak.itemCanRandomize then
+						ImGui.SameLine()
+						ImGui.BeginGroup()
+						ImGui.Text('Random:')
+						ImGui.SetNextItemWidth(viewData.tweakQualityInputWidth)
+
+						local optionIndex, optionChanged = ImGui.Combo('##ItemRandomize', viewData.randomizeOptionIndex, viewData.randomizeOptionList, viewData.randomizeOptionCount)
+						if optionChanged then
+							tweak.itemMaxSlots = optionIndex == 1
+							viewData.randomizeOptionIndex = optionIndex
+						end
+						ImGui.EndGroup()
+					end
 				end
 
 				ImGui.Spacing()
@@ -571,7 +593,6 @@ function tweaksGui.onTweakSearchResultSelect()
 		else
 			tweak.itemCanBeUpgraded = true
 
-			-- if tweakDb:match(tweak.entryMeta, { kind = 'Mod', group = { 'Clothing', 'Ranged', 'Scope' } }) then
 			if type(tweak.entryMeta.max) == 'string' and not userState.cheatMode then
 				tweak.itemQuality = tweak.entryMeta.max
 			else
@@ -589,15 +610,56 @@ function tweaksGui.onTweakSearchResultSelect()
 			tweak.itemQuestMark = false
 		end
 
+		-- Item Equip
+
+		tweak.itemEquipSlot = 0
+
+		if tweakDb:match(tweak.entryMeta, { kind = { 'Weapon', 'Clothing', 'Cyberware', 'Consumable', 'Grenade' } }) then
+			tweak.itemCanBeEquipped = true
+
+			equipAreaDb:load('mod/data/equipment-areas')
+
+			local equipAreaCriteria = { kind = tweak.entryMeta.kind }
+
+			if tweak.entryMeta.kind == 'Cyberware' then
+				equipAreaCriteria.group = tweak.entryMeta.group
+			end
+
+			local equipArea = equipAreaDb:find(equipAreaCriteria)
+
+			viewData.equipOptionList = { 'No', 'Yes' }
+
+			if equipArea.max > 1 then
+				for slotIndex = 1, equipArea.max do
+					viewData.equipOptionList[slotIndex + 1] = 'Slot ' .. slotIndex
+				end
+			end
+
+			equipAreaDb:unload()
+		else
+			tweak.itemCanBeEquipped = false
+			viewData.equipOptionList = {}
+		end
+
+		viewData.equipOptionCount = #viewData.equipOptionList
+		viewData.equipOptionIndex = 0
+
 		-- Item Slots
 
 		if tweak.entryMeta.kind == 'Clothing' then
-			tweak.itemCanRngSlots = true
+			tweak.itemCanRandomize = true
 			tweak.itemMaxSlots = true
+
+			viewData.randomizeOptionList = { 'Get random slots', 'Get maximum slots' }
 		else
-			tweak.itemCanRngSlots = false
+			tweak.itemCanRandomize = false
 			tweak.itemMaxSlots = false
+
+			viewData.randomizeOptionList = { 'N/A' }
 		end
+
+		viewData.randomizeOptionCount = #viewData.randomizeOptionList
+		viewData.randomizeOptionIndex = viewData.randomizeOptionCount - 1
 
 		-- Item Crafting
 
@@ -658,7 +720,11 @@ function tweaksGui.onSpawnItemClick()
 		itemSpec.quest = false
 	end
 
-	respector:execSpec({ Backpack = { itemSpec } }, userState.specOptions)
+	if tweak.itemEquipSlot ~= 0 then
+		itemSpec.equip = tweak.itemEquipSlot
+	end
+
+	respector:execSpec({ Inventory = { itemSpec } }, userState.specOptions)
 end
 
 function tweaksGui.onUnlockRecipeClick()

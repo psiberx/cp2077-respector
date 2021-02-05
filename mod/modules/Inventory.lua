@@ -80,6 +80,7 @@ function InventoryModule:applySpec(specData, specOptions)
 	local equipedSlots = {}
 	local updateEquipment = false
 	local updateCyberware = false
+	local updateInventory = false
 
 	if specData.Equipment then
 		self:applyItemSpecs(specData.Equipment, specOptions, equipedSlots)
@@ -97,9 +98,10 @@ function InventoryModule:applySpec(specData, specOptions)
 
 	if specData.Inventory then
 		self:applyItemSpecs(specData.Inventory, specOptions, equipedSlots)
+		updateInventory = true
 	end
 
-	if updateEquipment or updateCyberware then
+	if updateEquipment or updateCyberware or updateInventory then
 		self:equipUsedSlots(equipedSlots)
 
 		mod.after(0.5, function()
