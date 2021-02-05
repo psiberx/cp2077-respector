@@ -1797,7 +1797,7 @@ return {
 [0x0000003350E6625D] = { type = "Vehicle.v_standard25_thorton_colby_pickup_02_player", name = "COLBY CX410 BUTTE (RED)", kind = "Vehicle", group = "Car", },
 [0x0000002EED4DEC7A] = { type = "Vehicle.v_standard25_villefort_columbus_player", name = "COLUMBUS V340-F FREIGHT", kind = "Vehicle", group = "Car", },
 [0x0000002BE7ACBEDF] = { type = "Vehicle.v_standard2_villefort_cortes_player", name = "CORTES V5000 VALOR", kind = "Vehicle", group = "Car", },
-[0x0000002B9BC99DE3] = { type = "Vehicle.v_standard2_villefort_cortes_police_siren", name = "CORTES V6000 NCPD OVERLORD", kind = "Vehicle", group = "Car", group2 = "Police", tag = "NCPD", },
+[0x0000003112F62A84] = { type = "Vehicle.v_standard2_villefort_cortes_police_siren", name = "CORTES V6000 NCPD OVERLORD", kind = "Vehicle", group = "Car", group2 = "Police", tag = "NCPD", },
 [0x00000034F74C2EA3] = { type = "Vehicle.v_standard2_villefort_cortes_delamain_player", name = "DELAMAIN NO.21", kind = "Vehicle", group = "Car", },
 [0x0000002C2A8005F1] = { type = "Vehicle.v_standard3_chevalier_emperor_player", name = "EMPEROR 620 RAGNAR", kind = "Vehicle", group = "Car", },
 [0x0000002C56E526CD] = { type = "Vehicle.v_standard3_chevalier_emperor_police", name = "EMPEROR 720 NCPD IRONCLAD", kind = "Vehicle", group = "Car", group2 = "Police", tag = "NCPD", },
@@ -2120,4 +2120,6 @@ return {
 [0x0000001FA2F7FC61] = { type = "Items.Preset_Achilles_Nash_Epic", name = "WIDOW MAKER", quality = "Epic", kind = "Weapon", group = "Tech", group2 = "Precision Rifle", iconic = 2, rng = true, area = "Weapon", mod = "GenericWeaponMod", desc = "Nash's rifle - looks like he won't be needing it anymore. Fires two projectiles per shot and deals Chemical damage wih an increased chance to apply Poison. Charged shots deal more damage.", comment = "A rifle that belonged to a cagey Raffen. Wasn't cagey enough, as it turns out.", },
 [0x0000002473677016] = { type = "Items.Preset_Achilles_Nash_Legendary", name = "WIDOW MAKER", quality = "Legendary", kind = "Weapon", group = "Tech", group2 = "Precision Rifle", iconic = 3, rng = true, area = "Weapon", mod = "GenericWeaponMod", desc = "Nash's rifle - looks like he won't be needing it anymore. Fires two projectiles per shot and deals Chemical damage wih an increased chance to apply Poison. Charged shots deal more damage.", comment = "A rifle that belonged to a cagey Raffen. Wasn't cagey enough, as it turns out.", },
 [0x0000001A74B67BF8] = { type = "Items.Preset_Dian_Yinglong", name = "YINGLONG", quality = "Legendary", kind = "Weapon", group = "Smart", group2 = "SMG", iconic = 1, rng = true, craft = true, area = "Weapon", mod = "GenericWeaponMod", desc = "Deals Additional Electrical damage with a small chance to apply EMP on impact.", comment = "A genius among smartguns.", },
+[0x0000D50000000000] = { type = "UnlockAllSlots", name = "UNLOCK ALL SLOTS", kind = "Hack", group = "Equipment", desc = "Unlocks all slots for the equipped clothing.", },
+[0x0000D60000000000] = { type = "UnmarkQuestItems", name = "UNMARK QUEST ITEMS", kind = "Hack", group = "Equipment", desc = "Removes quest mark from the equipped items.", },
 }

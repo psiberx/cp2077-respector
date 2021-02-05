@@ -290,8 +290,14 @@ function tweaksGui.onDrawEvent()
 
 			ImGui.Spacing()
 
+			-- Hacks
+			if tweak.entryMeta.kind == 'Hack' then
+				if ImGui.Button('Execute tweak hack', viewData.gridFullWidth, viewData.buttonHeight) then
+					tweaksGui.onExecuteHackClick()
+				end
+
 			-- Facts
-			if tweak.entryMeta.kind == 'Fact' then
+			elseif tweak.entryMeta.kind == 'Fact' then
 				ImGui.AlignTextToFramePadding()
 				ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, 5, 3)
 				ImGui.Text('Current state:')
@@ -319,7 +325,7 @@ function tweaksGui.onDrawEvent()
 
 				ImGui.TextWrapped('Be careful with manipulating facts.\nMake a manual save before making any changes.')
 
-			-- Vehicles
+				-- Vehicles
 			elseif tweak.entryMeta.kind == 'Vehicle' then
 				ImGui.Spacing()
 
@@ -350,7 +356,7 @@ function tweaksGui.onDrawEvent()
 					ImGui.Text('This vehicle cannot be added to the garage.')
 				end
 
-			-- Money / Ingredients
+				-- Money / Ingredients
 			elseif tweak.entryMeta.kind == 'Money' or tweak.entryMeta.kind == 'Component' or tweak.entryMeta.kind == 'Ammo' then
 				local form = viewData.resourceForm[tweak.entryMeta.kind]
 
@@ -379,7 +385,7 @@ function tweaksGui.onDrawEvent()
 					tweaksGui.onTransferGoodsClick()
 				end
 
-			-- Items
+				-- Items
 			else
 				ImGui.BeginGroup()
 				ImGui.Spacing()
@@ -412,7 +418,7 @@ function tweaksGui.onDrawEvent()
 				if tweak.itemCanBeMarked then
 					local optionIndex, optionChanged = ImGui.Combo('##ItemQuest', viewData.questOptionIndex, viewData.questOptionList, viewData.questOptionCount)
 					if optionChanged then
-						tweak.itemQuestMark = viewData.questOptionList[optionIndex + 1] == 'YES'
+						tweak.itemQuestMark = viewData.questOptionList[optionIndex + 1] == 'Yes'
 						viewData.questOptionIndex = optionIndex
 					end
 				else
@@ -567,7 +573,10 @@ end
 function tweaksGui.onTweakSearchResultSelect()
 	local tweak = viewData.activeTweakData
 
-	if tweak.entryMeta.kind == 'Fact' then
+	if tweak.entryMeta.kind == 'Hack' then
+		--
+
+	elseif tweak.entryMeta.kind == 'Fact' then
 		tweak.factState = tweaksGui.getFactState(tweak.entryMeta.type)
 
 	elseif tweak.entryMeta.kind == 'Vehicle' then
@@ -750,7 +759,7 @@ end
 function tweaksGui.onSpawnVehicleClick()
 	local tweak = viewData.activeTweakData
 
-	tweaker:spawnVehicle(tweak.entryMeta.type)
+	tweaker:execHack('SpawnVehicle', tweak.entryMeta.type)
 end
 
 function tweaksGui.onTransferGoodsClick()
@@ -767,6 +776,12 @@ function tweaksGui.onSwitchFactClick()
 	tweak.factState = not tweak.factState
 
 	tweaksGui.setFactState(tweak.entryMeta.type, tweak.factState)
+end
+
+function tweaksGui.onExecuteHackClick()
+	local tweak = viewData.activeTweakData
+
+	tweaker:execHack(tweak.entryMeta.type)
 end
 
 function tweaksGui.onToggleTweaker()
