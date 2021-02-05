@@ -3,12 +3,12 @@ local ImGuiX = mod.require('mod/ui/imguix')
 
 local respecGui = {}
 
-local respector
-local viewData
+local respector, viewData, userState
 
-function respecGui.init(_respector, _viewData)
+function respecGui.init(_respector, _viewData, _userState)
 	respector = _respector
 	viewData = _viewData
+	userState = _userState
 
 	respecGui.initViewData()
 	respecGui.initViewState()
@@ -33,7 +33,7 @@ function respecGui.initViewState()
 
 	respector:usingModule('character', function(character)
 		viewData.respecAttrsData = character:getAttributeLevels()
-		viewData.respecAttrPoints = character:getAttributeEarnedPoints()
+		viewData.respecAttrPoints = character:getAttributeEarnedPoints(userState.cheatMode)
 	end)
 end
 
@@ -160,11 +160,7 @@ end
 -- GUI Action Handlers
 
 function respecGui.onResetPerksClick()
-	respector:execSpec({
-		Character = {
-			Perks = {}
-		}
-	})
+	respector:execSpec({ Character = { Perks = {} }	}, userState.specOptions)
 end
 
 function respecGui.onRespecAttrsClick()
@@ -174,11 +170,7 @@ function respecGui.onRespecAttrsClick()
 end
 
 function respecGui.onSaveAttrsClick()
-	respector:execSpec({
-		Character = {
-			Attributes = viewData.respecAttrsData
-		}
-	})
+	respector:execSpec({ Character = { Attributes = viewData.respecAttrsData } }, userState.specOptions)
 
 	viewData.respecAttrsActive = false
 end

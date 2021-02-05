@@ -76,27 +76,27 @@ function InventoryModule:fillSpec(specData, specOptions)
 	end
 end
 
-function InventoryModule:applySpec(specData)
+function InventoryModule:applySpec(specData, specOptions)
 	local equipedSlots = {}
 	local updateEquipment = false
 	local updateCyberware = false
 
 	if specData.Equipment then
-		self:addItems(specData.Equipment, equipedSlots)
+		self:applyItemSpecs(specData.Equipment, specOptions, equipedSlots)
 		updateEquipment = true
 	end
 
 	if specData.Cyberware then
-		self:addItems(specData.Cyberware, equipedSlots)
+		self:applyItemSpecs(specData.Cyberware, specOptions, equipedSlots)
 		updateCyberware = true
 	end
 
 	if specData.Backpack then
-		self:addItems(specData.Backpack)
+		self:applyItemSpecs(specData.Backpack, specOptions)
 	end
 
 	if specData.Inventory then
-		self:addItems(specData.Inventory, equipedSlots)
+		self:applyItemSpecs(specData.Inventory, specOptions, equipedSlots)
 	end
 
 	if updateEquipment or updateCyberware then
@@ -408,13 +408,13 @@ function InventoryModule:appendStatsComment(itemSpec, itemMeta, itemData)
 	end
 end
 
-function InventoryModule:addItems(itemSpecs, equipedSlots)
+function InventoryModule:applyItemSpecs(itemSpecs, specOptions, equipedSlots)
 	for _, itemSpec in ipairs(itemSpecs) do
-		self:addItem(itemSpec, equipedSlots)
+		self:applyItemSpec(itemSpec, specOptions, equipedSlots)
 	end
 end
 
-function InventoryModule:addItem(itemSpec, equipedSlots)
+function InventoryModule:applyItemSpec(itemSpec, specOptions, equipedSlots)
 	itemSpec = self:completeSpec(itemSpec)
 
 	local removedParts = {}
@@ -524,7 +524,7 @@ function InventoryModule:addItem(itemSpec, equipedSlots)
 
 					if slotSpec.slot and slotSpec.id then
 						local slotId = self.tweakDb:toSlotTweakId(slotSpec.slot, itemMeta.mod and itemMeta or itemType)
-						local partItemId = self:addItem(slotSpec)
+						local partItemId = self:applyItemSpec(slotSpec, specOptions)
 
 						self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)
 					end
@@ -542,6 +542,10 @@ function InventoryModule:addItem(itemSpec, equipedSlots)
 
 				if type(itemSpec.upgrade) == 'string' then
 					itemQuality = itemSpec.upgrade
+
+					if itemMeta and type(itemMeta.max) == 'string' and not specOptions.cheat then
+						itemQuality = Quality.min(itemQuality, itemMeta.max)
+					end
 				else
 					itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
 				end

@@ -1,10 +1,13 @@
 local mod = ...
+local SimpleDb = mod.require('mod/helpers/SimpleDb')
 
 local CharacterModule = {}
 CharacterModule.__index = CharacterModule
 
 function CharacterModule:new()
-	local this = {}
+	local this = {
+		perksDb = SimpleDb:new()
+	}
 
 	setmetatable(this, self)
 
@@ -18,12 +21,13 @@ local attrBonus = 7
 local attrLevelMin = 3
 local attrLevelMax = 20
 local attrTotalMin = attrLevelMin * 5
+local attrTotalMax = attrLevelMax * 5
 local attrStartMax = attrTotalMin + attrBonus - playerLevelMin
 
 local skillLevelMin = 1
 local skillLevelMax = 20
 
-local perkPointExtraMax = 9
+local perkExtraPointsMax = 9
 
 ---@public
 function CharacterModule:prepare()
@@ -38,7 +42,8 @@ function CharacterModule:prepare()
 	self.aliases = mod.load('mod/data/dev-type-aliases')
 	self.attributes = mod.load('mod/data/attributes')
 	self.skills = mod.load('mod/data/skills')
-	self.perks = mod.load('mod/data/perks')
+
+	self.perksDb:load('mod/data/perks', 'alias')
 end
 
 ---@public
@@ -50,7 +55,8 @@ function CharacterModule:release()
 	self.aliases = nil
 	self.attributes = nil
 	self.skills = nil
-	self.perks = nil
+
+	self.perksDb:unload()
 end
 
 ---@public
@@ -64,7 +70,7 @@ function CharacterModule:fillSpec(specData, specOptions)
 end
 
 ---@public
-function CharacterModule:applySpec(specData)
+function CharacterModule:applySpec(specData, specOptions)
 	if specData.Character then
 		self:compatSpec(specData)
 
@@ -72,9 +78,9 @@ function CharacterModule:applySpec(specData)
 		local attrsApplied = false
 		local skillsApplied = false
 
-		local perkExtraPoints = self:getPerkExtraPoints()
+		local perkExtraPoints = self:getPerkExtraPoints(specOptions.cheat)
 
-		-- Apply player level
+		-- Apply player levelw
 		if specData.Character.Level then
 			self:applyLevel(specData.Character.Level)
 			levelApplied = true
@@ -87,19 +93,19 @@ function CharacterModule:applySpec(specData)
 
 		-- Apply attributes
 		if specData.Character.Attributes then
-			self:applyAttributes(specData.Character.Attributes)
+			self:applyAttributes(specData.Character.Attributes, specOptions)
 			attrsApplied = true
 		elseif levelApplied then
-			self:applyAttributes({}, true) -- Enforce legit attributes levels
+			self:applyAttributes({}, specOptions, true) -- Enforce legit attributes levels
 			attrsApplied = true
 		end
 
 		-- Apply skills
 		if specData.Character.Skills then
-			self:applySkills(specData.Character.Skills)
+			self:applySkills(specData.Character.Skills, specOptions)
 			skillsApplied = true
 		elseif attrsApplied then
-			self:applySkills({}, true) -- Enforce legit skills levels
+			self:applySkills({}, specOptions, true) -- Enforce legit skills levels
 			skillsApplied = true
 		end
 
@@ -110,19 +116,23 @@ function CharacterModule:applySpec(specData)
 
 		-- Determine perk extra points
 		if specData.Character.PerkShards then
-			perkExtraPoints = math.min(specData.Character.PerkShards, perkPointExtraMax)
+			perkExtraPoints = specData.Character.PerkShards
+
+			if not specOptions.cheat then
+				perkExtraPoints = math.min(perkExtraPoints, perkExtraPointsMax)
+			end
 		end
 
 		-- Apply perks
 		if specData.Character.Perks then
 			mod.after(0.25, function()
-				self:applyPerks(specData.Character.Perks)
-				self:enforePerkPoints(perkExtraPoints)
+				self:applyPerks(specData.Character.Perks, specOptions, perkExtraPoints)
+				self:enforcePerkPoints(perkExtraPoints, specOptions.cheat)
 			end)
 		elseif skillsApplied then
 			mod.after(0.25, function()
-				self:applyPerks({}, true) -- Enforce legit perks
-				self:enforePerkPoints(perkExtraPoints)
+				self:applyPerks({}, specOptions, perkExtraPoints, true) -- Enforce legit perks
+				self:enforcePerkPoints(perkExtraPoints, specOptions.cheat)
 			end)
 		end
 	end
@@ -191,12 +201,16 @@ function CharacterModule:getAttributePoints()
 end
 
 ---@public
-function CharacterModule:getAttributeEarnedPoints()
+function CharacterModule:getAttributeEarnedPoints(cheatMode)
+	if cheatMode then
+		return attrTotalMax
+	end
+
 	return self:getLevel() + attrStartMax
 end
 
 ---@public
-function CharacterModule:getAttributePointsUsage()
+function CharacterModule:getAttributePointsUsage(cheatMode)
 	local usage = {}
 
 	local playerLevel = self:getLevel()
@@ -205,7 +219,11 @@ function CharacterModule:getAttributePointsUsage()
 	usage.levelPoints = playerLevel - playerLevelMin
 
 	-- Attribute points earned from the start of the game
-	usage.earnedPoints = playerLevel + attrStartMax
+	if not cheatMode then
+		usage.earnedPoints = playerLevel + attrStartMax
+	else
+		usage.earnedPoints = attrTotalMax
+	end
 
 	-- Attribute points spent on perks
 	usage.usedPoints = 0
@@ -215,7 +233,11 @@ function CharacterModule:getAttributePointsUsage()
 	end
 
 	-- Available attribute points
-	usage.unusedPoints = (playerLevel + attrBonus - playerLevelMin) - (usage.usedPoints - attrTotalMin)
+	if not cheatMode then
+		usage.unusedPoints = (playerLevel + attrBonus - playerLevelMin) - (usage.usedPoints - attrTotalMin)
+	else
+		usage.unusedPoints = (attrTotalMax - usage.usedPoints)
+	end
 
 	-- Available attribute points at the momemnt (might be invalid)
 	usage.currentPoints = self:getAttributePoints()
@@ -224,9 +246,13 @@ function CharacterModule:getAttributePointsUsage()
 end
 
 ---@private
-function CharacterModule:applyAttributes(attributesSpec, mergeAttrs)
+function CharacterModule:applyAttributes(attributesSpec, specOptions, mergeAttrs)
 	local playerLevel = math.tointeger(self:getStatValue('Level'))
-	local attrExtraLevelMax = playerLevel + attrStartMax - attrTotalMin
+	local attrTotalPoints = playerLevel + attrStartMax - attrTotalMin
+
+	if specOptions.cheat then
+		attrTotalPoints = attrTotalMax - attrTotalMin
+	end
 
 	for _, attribute in pairs(self.attributes) do
 		local playerAttrLevel = math.tointeger(self:getStatValue(attribute.type))
@@ -242,20 +268,22 @@ function CharacterModule:applyAttributes(attributesSpec, mergeAttrs)
 			attrLevel = attrLevelMin
 		end
 
-		attrLevel = math.min(attrLevel, attrExtraLevelMax + attrLevelMin)
+		attrLevel = math.min(attrLevel, attrTotalPoints + attrLevelMin)
 
 		if attrLevel ~= playerAttrLevel then
 			self.playerDevData:SetAttribute(attribute.type, attrLevel)
-			self.playerDevData:AddDevelopmentPoints(-(attrLevel - playerAttrLevel), 'Attribute')
+			--self.playerDevData:AddDevelopmentPoints(-(attrLevel - playerAttrLevel), 'Attribute')
 		end
 
-		attrExtraLevelMax = math.max(0, attrExtraLevelMax - attrLevel + attrLevelMin)
+		attrTotalPoints = math.max(0, attrTotalPoints - attrLevel + attrLevelMin)
 	end
+
+	self:enforceAttributePoints(specOptions.cheat)
 end
 
 ---@private
-function CharacterModule:enforceAttributePoints()
-	local attrPoints = self:getAttributePointsUsage()
+function CharacterModule:enforceAttributePoints(cheatMode)
+	local attrPoints = self:getAttributePointsUsage(cheatMode)
 
 	self.playerDevData:AddDevelopmentPoints(attrPoints.unusedPoints - attrPoints.currentPoints, 'Attribute')
 end
@@ -266,7 +294,7 @@ function CharacterModule:getSkillLevel(skillAlias)
 end
 
 ---@private
-function CharacterModule:applySkills(skillsSpec, mergeSkills)
+function CharacterModule:applySkills(skillsSpec, specOptions, mergeSkills)
 	for _, skill in pairs(self.skills) do
 		local playerAttrLevel = self:getStatValue(skill.attr)
 		local playerSkillLevel = self:getStatValue(skill.type)
@@ -284,8 +312,10 @@ function CharacterModule:applySkills(skillsSpec, mergeSkills)
 			skillLevel = skillLevelMin
 		end
 
-		if skillLevel > playerAttrLevel then
-			skillLevel = playerAttrLevel
+		if not specOptions.cheat then
+			if skillLevel > playerAttrLevel then
+				skillLevel = playerAttrLevel
+			end
 		end
 
 		if skillLevel ~= playerSkillLevel then
@@ -316,7 +346,7 @@ end
 
 ---@public
 function CharacterModule:getPerkLevel(perkAlias)
-	local perk = self.perks[perkAlias]
+	local perk = self.perksDb:get(perkAlias)
 	local perkLevel
 
 	if perk.trait then
@@ -325,7 +355,11 @@ function CharacterModule:getPerkLevel(perkAlias)
 		perkLevel = self.playerDevData:GetPerkLevel(perk.type)
 	end
 
-	return math.max(0, math.floor(perkLevel))
+	if perkLevel < 0 then
+		return 0
+	end
+
+	return math.floor(perkLevel)
 end
 
 ---@public
@@ -360,8 +394,8 @@ function CharacterModule:getPerkPointsUsage(extraPoints, cheatMode)
 	-- Perk points spent on perks
 	usage.usedPoints = 0
 
-	for perkAlias, _ in pairs(self.perks) do
-		usage.usedPoints = usage.usedPoints + self:getPerkLevel(perkAlias)
+	for _, perk in self.perksDb:each() do
+		usage.usedPoints = usage.usedPoints + self:getPerkLevel(perk.alias)
 	end
 
 	-- Available perk points (might be invalid)
@@ -378,32 +412,43 @@ function CharacterModule:getPerkPointsUsage(extraPoints, cheatMode)
 
 	-- Validate extra points
 	if not cheatMode then
-		if usage.extraPoints > perkPointExtraMax then
-			local excessPoints = perkPointExtraMax - usage.extraPoints
+		if usage.extraPoints > perkExtraPointsMax then
+			local excessPoints = usage.extraPoints - perkExtraPointsMax
 
 			usage.extraPoints = usage.extraPoints - excessPoints
 			usage.unusedPoints = usage.unusedPoints - excessPoints
 		end
 	end
 
+	if usage.unusedPoints < 0 then
+		usage.unusedPoints = 0
+	end
+
 	return usage
 end
 
 ---@private
-function CharacterModule:applyPerks(perkSpecs, mergePerks)
+function CharacterModule:applyPerks(perkSpecs, specOptions, perkExtraPoints, mergePerks)
 	if not mergePerks then
 		self.playerDevData:RemoveAllPerks()
+	end
+
+	local perkPoints = self:getPerkPointsUsage(perkExtraPoints)
+	local perkTotalPoints = perkPoints.earnedPoints + perkPoints.extraPoints
+
+	if specOptions.cheat then
+		perkTotalPoints = 999999
 	end
 
 	local adjustPerks = {}
 	local adjustTraits = {}
 	local needPerkPoints = 0
 
-	for perkAlias, perk in pairs(self.perks) do
-		local perkLevel = perkSpecs[perkAlias]
+	for _, perk in self.perksDb:each() do
+		local perkLevel = perkSpecs[perk.alias]
 
 		if type(perkLevel) ~= 'number' and perkSpecs[perk.skill] then
-			perkLevel = perkSpecs[perk.skill][perkAlias]
+			perkLevel = perkSpecs[perk.skill][perk.alias]
 		end
 
 		local playerAttrLevel = self:getStatValue(perk.attr)
@@ -432,6 +477,12 @@ function CharacterModule:applyPerks(perkSpecs, mergePerks)
 			perkLevel = 0
 		end
 
+		perkLevel = math.min(perkLevel, perkTotalPoints)
+
+		if perkTotalPoints > 0 then
+			perkTotalPoints = perkTotalPoints - perkLevel
+		end
+
 		local perkDiff = perkLevel - playerPerkLevel
 
 		if perkDiff ~= 0 then
@@ -445,11 +496,13 @@ function CharacterModule:applyPerks(perkSpecs, mergePerks)
 		end
 	end
 
-	--local havePerkPoints = self:getPerkPoints()
+	if specOptions.cheat then
+		local havePerkPoints = self:getPerkPoints()
 
-	--if needPerkPoints > havePerkPoints then
-	--	self.playerDevData:AddDevelopmentPoints(needPerkPoints - havePerkPoints, 'Primary')
-	--end
+		if needPerkPoints > havePerkPoints then
+			self.playerDevData:AddDevelopmentPoints(needPerkPoints - havePerkPoints, 'Primary')
+		end
+	end
 
 	for perkType, perkLevel in pairs(adjustPerks) do
 		if perkLevel > 0 then
@@ -475,26 +528,11 @@ function CharacterModule:applyPerks(perkSpecs, mergePerks)
 end
 
 ---@private
-function CharacterModule:enforePerkPoints(perkExtraPoints)
-	local perkPoints = self:getPerkPointsUsage(perkExtraPoints)
+function CharacterModule:enforcePerkPoints(perkExtraPoints, cheatMode)
+	local perkPoints = self:getPerkPointsUsage(perkExtraPoints, cheatMode)
 
 	if perkPoints.unusedPoints ~= perkPoints.currentPoints then
 		self.playerDevData:AddDevelopmentPoints((perkPoints.unusedPoints - perkPoints.currentPoints), 'Primary')
-	end
-end
-
----@private
-function CharacterModule:setPoints(pointsSpec)
-	for _, pointAlias in ipairs({ 'Perk' }) do
-		if pointsSpec[pointAlias] then
-			local pointType = self:getStatType(pointAlias)
-			local requestedPoints = pointsSpec[pointAlias]
-			local playerPoints = math.floor(self.playerDevData:GetDevPoints(pointType))
-
-			if requestedPoints ~= playerPoints then
-				self.playerDevData:AddDevelopmentPoints((requestedPoints - playerPoints), pointType)
-			end
-		end
 	end
 end
 
@@ -538,7 +576,7 @@ function CharacterModule:collectExperience(parent, specOptions)
 				end
 
 			elseif node.scope == 'PerkShards' then
-				data[node.name] = self:getPerkExtraPoints()
+				data[node.name] = self:getPerkExtraPoints(specOptions.cheat)
 				count = count + 1
 
 			else

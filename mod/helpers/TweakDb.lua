@@ -73,13 +73,13 @@ end
 function TweakDb:resolve(tweakId)
 	local key = TweakDb.toKey(tweakId)
 
-	return self.db and self.db[key] or nil
+	return self.data and self.data[key] or nil
 end
 
 function TweakDb:resolvable(tweakId)
 	local key = TweakDb.toKey(tweakId)
 
-	return self.db[key] ~= nil
+	return self.data[key] ~= nil
 end
 
 function TweakDb:search(term)

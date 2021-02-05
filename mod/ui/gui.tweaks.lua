@@ -572,7 +572,7 @@ function tweaksGui.onTweakSearchResultSelect()
 			tweak.itemCanBeUpgraded = true
 
 			-- if tweakDb:match(tweak.entryMeta, { kind = 'Mod', group = { 'Clothing', 'Ranged', 'Scope' } }) then
-			if type(tweak.entryMeta.max) == 'string' then
+			if type(tweak.entryMeta.max) == 'string' and not userState.cheatMode then
 				tweak.itemQuality = tweak.entryMeta.max
 			else
 				tweak.itemQuality = 'Legendary'
@@ -658,7 +658,7 @@ function tweaksGui.onSpawnItemClick()
 		itemSpec.quest = false
 	end
 
-	respector:execSpec({ Backpack = { itemSpec } })
+	respector:execSpec({ Backpack = { itemSpec } }, userState.specOptions)
 end
 
 function tweaksGui.onUnlockRecipeClick()

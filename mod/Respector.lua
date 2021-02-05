@@ -144,7 +144,7 @@ function Respector:saveSpec(specName, specOptions)
 	return success
 end
 
-function Respector:loadSpec(specName)
+function Respector:loadSpec(specName, specOptions)
 	if asyncWait then
 		return false
 	end
@@ -156,6 +156,8 @@ function Respector:loadSpec(specName)
 		return false
 	end
 
+	specOptions = self:getSpecOptions(specOptions)
+
 	self:prepareModules()
 
 	for _, module in ipairs(components.modules) do
@@ -163,7 +165,7 @@ function Respector:loadSpec(specName)
 			print(('[DEBUG] Respector: Applying spec using %q module...'):format(module.name))
 		end
 
-		self[module.name]:applySpec(specData)
+		self[module.name]:applySpec(specData, specOptions)
 	end
 
 	self:releaseModulesAsync()
@@ -175,10 +177,12 @@ function Respector:loadSpec(specName)
 	return true
 end
 
-function Respector:execSpec(specData)
+function Respector:execSpec(specData, specOptions)
 	if asyncWait then
 		return false
 	end
+
+	specOptions = self:getSpecOptions(specOptions)
 
 	self:prepareModules()
 
@@ -187,7 +191,7 @@ function Respector:execSpec(specData)
 			print(('[DEBUG] Respector: Applying spec using %q module...'):format(module.name))
 		end
 
-		self[module.name]:applySpec(specData)
+		self[module.name]:applySpec(specData, specOptions)
 	end
 
 	self:releaseModulesAsync()

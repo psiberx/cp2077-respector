@@ -27,19 +27,17 @@ function api.SaveSnap()
 	return respector:saveSpec(nil, { timestamp = true })
 end
 
-function api.ExecSpec(specData, _)
+function api.ExecSpec(specData, specOptions, _)
 	if specData == api then
-		specData = _
+		specData, specOptions = specOptions, _
 	end
 
-	return respector:execSpec(specData)
+	return respector:execSpec(specData, specOptions)
 end
 
 function api.SpawnVehicle(vehicleTweakId, spawnDistance, unlockDoors, _)
 	if vehicleTweakId == api then
-		vehicleTweakId = spawnDistance
-		spawnDistance = unlockDoors
-		unlockDoors = _
+		vehicleTweakId, spawnDistance, unlockDoors = spawnDistance, unlockDoors, _
 	end
 
 	return tweaker:spawnVehicle(vehicleTweakId, spawnDistance, unlockDoors)

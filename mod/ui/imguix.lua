@@ -48,7 +48,7 @@ end
 
 -- Restore Stack
 
-function ImGuiX.RestoreStyleStack()
+function ImGuiX.RestoreStack()
 	if varStackDepth > 0 then
 		ImGui.PopStyleVar(varStackDepth)
 

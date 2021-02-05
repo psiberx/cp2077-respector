@@ -55,6 +55,8 @@ local userState = {
 
 	specNameLoad = nil,
 	specHistory = {},
+
+	cheatMode = nil,
 }
 
 local persitentState
@@ -68,7 +70,7 @@ function gui.init(_respector, _tweaker)
 	gui.initUserState()
 	gui.initViewData()
 
-	respecGui.init(respector, viewData)
+	respecGui.init(respector, viewData, userState)
 	tweaksGui.init(respector, tweaker, userState, persitentState)
 end
 
@@ -96,6 +98,14 @@ function gui.initUserState()
 
 		userState.specOptions = respector:getSpecOptions()
 		userState.specOptions.timestamp = false
+	end
+
+	if type(userState.cheatMode) ~= 'boolean' then
+		userState.cheatMode = false
+	end
+
+	if type(userState.specOptions.cheat) ~= 'boolean' then
+		userState.specOptions.cheat = userState.cheatMode
 	end
 end
 
@@ -152,7 +162,7 @@ function gui.onDrawEvent()
 		return
 	end
 
-	ImGuiX.RestoreStyleStack()
+	ImGuiX.RestoreStack()
 
 	ImGui.SetNextWindowPos(0, 400, ImGuiCond.FirstUseEver)
 	ImGui.SetNextWindowSize(viewData.windowWidth + (viewData.windowPadding * 2), viewData.windowHeight)
@@ -193,9 +203,11 @@ function gui.onDrawEvent()
 
 		-- Main Tabs
 
+		ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 9, 3)
 		ImGui.BeginTabBar('Respector Tabs')
 
-		if ImGui.BeginTabItem('Save Spec') then
+		if ImGui.BeginTabItem('Save') then
+			ImGuiX.PopStyleVar()
 			ImGui.Spacing()
 
 			-- Saving: Spec Name
@@ -277,9 +289,11 @@ function gui.onDrawEvent()
 			viewData.selectedTab = 'Save'
 
 			ImGui.EndTabItem()
+		else
+			ImGuiX.PopStyleVar()
 		end
 
-		if ImGui.BeginTabItem('Load Spec') then
+		if ImGui.BeginTabItem('Load') then
 			ImGui.Spacing()
 
 			-- Loading: Spec Name
@@ -325,6 +339,88 @@ function gui.onDrawEvent()
 			ImGui.EndTabItem()
 		end
 
+		if ImGui.BeginTabItem('Options') then
+			ImGui.Spacing()
+
+			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
+			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameRounding, 8)
+			ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 10, 9)
+			ImGuiX.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
+			ImGuiX.PushStyleColor(ImGuiCol.FrameBg, 0)
+			ImGui.BeginGroup()
+			ImGui.BeginChildFrame(11, viewData.gridFullWidth, 140)
+			ImGuiX.PopStyleColor(2)
+			ImGuiX.PopStyleVar(3)
+
+			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
+			ImGuiX.PushStyleVar(ImGuiStyleVar.ItemInnerSpacing, 7, 0)
+			ImGuiX.PushStyleColor(ImGuiCol.Border, 0xfffa9642)
+			ImGuiX.PushStyleColor(ImGuiCol.Text, userState.cheatMode and 0xff9f9f9f or 0xffffffff)
+			local balancedModeSelected = ImGui.RadioButton('Balanced Mode', not userState.cheatMode)
+			ImGuiX.PopStyleColor(2)
+			ImGuiX.PopStyleVar(2)
+
+			if balancedModeSelected then
+				gui.onCheatModeChange(false)
+			end
+
+			ImGui.Spacing()
+
+			ImGuiX.PushStyleColor(ImGuiCol.Text, userState.cheatMode and 0xff5f5f5f or 0xffbfbfbf)
+			ImGui.TextWrapped('Enforces valid states and combinations of Attributes, Skills, Perks, Attribute Points and Perk Points.')
+			ImGui.Spacing()
+			ImGui.TextWrapped('Items in Quick Tweaks can only be spawned with the quality obtainable in the game.')
+			ImGui.Spacing()
+			ImGui.TextWrapped('Validates and auto corrects loaded specs.')
+			ImGuiX.PopStyleColor()
+
+			ImGui.EndChildFrame()
+			ImGui.EndGroup()
+
+			ImGui.Spacing()
+
+			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
+			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameRounding, 8)
+			ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 10, 9)
+			ImGuiX.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
+			ImGuiX.PushStyleColor(ImGuiCol.FrameBg, 0)
+			ImGui.BeginGroup()
+			ImGui.BeginChildFrame(12, viewData.gridFullWidth, 162)
+			ImGuiX.PopStyleColor(2)
+			ImGuiX.PopStyleVar(3)
+
+			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
+			ImGuiX.PushStyleVar(ImGuiStyleVar.ItemInnerSpacing, 7, 0)
+			ImGuiX.PushStyleColor(ImGuiCol.Border, 0xfffa9642) -- userState.cheatMode and 0xfffa9642 or 0xff4a2f1e
+			ImGuiX.PushStyleColor(ImGuiCol.Text, userState.cheatMode and 0xffffffff or 0xff9f9f9f)
+			local cheatModeSelected = ImGui.RadioButton('Unlimited Mode', userState.cheatMode)
+			ImGuiX.PopStyleColor(2)
+			ImGuiX.PopStyleVar(2)
+
+			if cheatModeSelected then
+				gui.onCheatModeChange(true)
+			end
+
+			ImGui.Spacing()
+
+			ImGuiX.PushStyleColor(ImGuiCol.Text, userState.cheatMode and 0xffbfbfbf or 0xff5f5f5f)
+			ImGui.TextWrapped('Disables all checks and limits.')
+			ImGui.Spacing()
+			ImGui.TextWrapped('Allows to respec all Attributes to the max level and to acquire all Perks at the max level at the same time.')
+			ImGui.Spacing()
+			ImGui.TextWrapped('Items in Quick Tweaks can be spawned with\nany quality, even unobtainable in the game.')
+			ImGui.Spacing()
+			ImGui.TextWrapped('Loaded specs are not validated.')
+			ImGuiX.PopStyleColor()
+
+			ImGui.EndChildFrame()
+			ImGui.EndGroup()
+
+			viewData.selectedTab = 'Options'
+
+			ImGui.EndTabItem()
+		end
+
 		ImGui.EndTabBar()
 	end
 
@@ -335,7 +431,7 @@ function gui.onDrawEvent()
 	viewData.justOpened = false
 end
 
--- GUI Action Handlers
+-- Action Handlers
 
 function gui.onSaveSpecClick()
 	respector:saveSpec(userState.specNameSave, userState.specOptions)
@@ -344,7 +440,14 @@ function gui.onSaveSpecClick()
 end
 
 function gui.onLoadSpecClick()
-	respector:loadSpec(userState.specNameLoad)
+	respector:loadSpec(userState.specNameLoad, userState.specOptions)
+
+	persitentState:flush()
+end
+
+function gui.onCheatModeChange(cheatMode)
+	userState.cheatMode = cheatMode
+	userState.specOptions.cheat = cheatMode
 
 	persitentState:flush()
 end

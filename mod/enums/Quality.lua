@@ -67,4 +67,12 @@ function Quality.upTo(max)
 	return list
 end
 
+function Quality.min(quality, max)
+	if Quality.toValue(quality) > Quality.toValue(max) then
+		return max
+	end
+
+	return quality
+end
+
 return Quality

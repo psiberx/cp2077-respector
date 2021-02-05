@@ -1,6 +1,6 @@
 local mod = ...
 
-local perks = mod and mod.load('mod/data/perks')
+local perks = mod.load('mod/data/perks-by-alias')
 
 local function specTimestamp()
 	return os.date('%d.%m.%Y %H:%M:%S')

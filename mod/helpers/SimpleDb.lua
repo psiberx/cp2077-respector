@@ -5,19 +5,24 @@ SimpleDb.__index = SimpleDb
 
 local shared = {}
 
-function SimpleDb:new(path)
-	local this = { path = nil, db = nil }
+function SimpleDb:new(path, key)
+	local this = {
+		path = nil,
+		key = nil,
+		data = nil,
+		indexed = nil,
+	}
 
 	setmetatable(this, self)
 
 	if path then
-		this:load(path)
+		this:load(path, key)
 	end
 
 	return this
 end
 
-function SimpleDb:load(path)
+function SimpleDb:load(path, key)
 	if path == self.path then
 		return
 	end
@@ -37,10 +42,23 @@ function SimpleDb:load(path)
 		shared[self.path].refs = shared[self.path].refs + 1
 	end
 
-	self.db = shared[self.path].data
+	self.data = shared[self.path].data
+
+	if key then
+		self:index(key)
+	end
 
 	if mod.debug then
 		print(('[DEBUG] Respector: Shared DB %q used by %d client(s).'):format(self.path, shared[self.path].refs))
+	end
+end
+
+function SimpleDb:index(key)
+	self.key = key
+	self.indexed = {}
+
+	for _, item in pairs(self.data) do
+		self.indexed[item[key]] = item
 	end
 end
 
@@ -62,26 +80,28 @@ function SimpleDb:unload()
 	end
 
 	self.path = nil
-	self.db = nil
+	self.data = nil
+	self.key = nil
+	self.indexed = nil
 end
 
-function SimpleDb:get(index)
-	return self.db and self.db[index] or nil
+function SimpleDb:get(key)
+	return self.data[key] or self.indexed[key]
 end
 
-function SimpleDb:has(index)
-	return self.db[index] ~= nil
+function SimpleDb:has(key)
+	return self.data[key] ~= nil or self.indexed[key] ~= nil
 end
 
 function SimpleDb:each()
-	return pairs(self.db)
+	return pairs(self.data)
 end
 
 function SimpleDb:find(criteria)
 	local key, item
 
 	while true do
-		key, item = next(self.db, key)
+		key, item = next(self.data, key)
 
 		if item == nil then
 			return nil
@@ -100,7 +120,7 @@ function SimpleDb:filter(criteria)
 
 	return function()
 		while true do
-			key, item = next(self.db, key)
+			key, item = next(self.data, key)
 
 			if item == nil then
 				return nil
@@ -144,13 +164,6 @@ function SimpleDb:match(item, criteria)
 end
 
 function SimpleDb:search(term, fields)
-	--local dmp = mod.require('mod/vendor/diff_match_patch')
-	--
-	--dmp.settings({
-	--	Match_Threshold = 0.1,
-	--	Match_Distance = 250,
-	--})
-
 	term = term:upper()
 
 	local termRe = term:gsub('%s+', '.* ') .. '.*'
@@ -159,7 +172,7 @@ function SimpleDb:search(term, fields)
 
 	return function()
 		while true do
-			key, item = next(self.db, key)
+			key, item = next(self.data, key)
 
 			if item == nil then
 				return nil
@@ -189,19 +202,6 @@ function SimpleDb:search(term, fields)
 					end
 				end
 			end
-
-			--if term:len() < 8 then
-			--	for weight, field in ipairs(fields) do
-			--		if item[field] then
-			--			local value = item[field]:upper()
-			--			local position = dmp.match_main(value, term, 1)
-			--
-			--			if position > 0 then
-			--				return key, item, position * weight
-			--			end
-			--		end
-			--	end
-			--end
 		end
 	end
 end
