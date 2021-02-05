@@ -451,18 +451,19 @@ function CharacterModule:applyPerks(perkSpecs, specOptions, perkExtraPoints, mer
 			perkLevel = perkSpecs[perk.skill][perk.alias]
 		end
 
-		local playerAttrLevel = self:getStatValue(perk.attr)
-		local playerPerkLevel
+		local playerPerkLevel, playerReqLevel
 
 		if perk.trait then
 			playerPerkLevel = self.playerDevData:GetTraitLevel(perk.type)
+			playerReqLevel = self:getStatValue(perk.skill)
 		else
 			playerPerkLevel = self.playerDevData:GetPerkLevel(perk.type)
+			playerReqLevel = self:getStatValue(perk.attr)
 		end
 
 		playerPerkLevel = math.max(0, playerPerkLevel)
 
-		if playerAttrLevel >= perk.req then
+		if perk.req <= playerReqLevel then
 			if type(perkLevel) == 'number' then
 				perkLevel = math.max(perkLevel, 0)
 				perkLevel = math.min(perkLevel, perk.max)
