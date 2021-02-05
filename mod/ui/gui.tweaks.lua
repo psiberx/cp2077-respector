@@ -611,7 +611,7 @@ function tweaksGui.onTweakSearchResultSelect()
 			end
 
 			tweak.itemRecipeKnown = respector:usingModule('crafting', function(craftingModule)
-				return craftingModule:isRecipeKnown(craftableId)
+				return craftingModule:isRecipeKnown(tweak.itemRecipeId)
 			end)
 		else
 			tweak.itemCanBeCrafted = false
