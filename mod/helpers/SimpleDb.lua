@@ -166,7 +166,8 @@ end
 function SimpleDb:search(term, fields)
 	term = term:upper()
 
-	local termRe = term:gsub('%s+', '.* ') .. '.*'
+	local termEsc = term:gsub('([^%w])', '%%%1')
+	local termRe = termEsc:gsub('%s+', '.* ') .. '.*'
 
 	local key, item
 
@@ -191,7 +192,7 @@ function SimpleDb:search(term, fields)
 			for weight, field in ipairs(fields) do
 				if item[field] then
 					local value = item[field]:upper()
-					local position = value:find(term)
+					local position = value:find(termEsc)
 
 					if not position then
 						position = value:find(termRe)

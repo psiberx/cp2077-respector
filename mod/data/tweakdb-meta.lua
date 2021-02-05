@@ -2040,7 +2040,7 @@ return {
 [0x0000001A11041463] = { type = "Items.Preset_Nekomata_Neon", name = "NEKOMATA (NEON)", kind = "Weapon", group = "Tech", group2 = "Sniper Riffle", rng = true, area = "Weapon", mod = "GenericWeaponMod", },
 [0x0000001A60E1924A] = { type = "Items.Preset_Nekomata_Pimp", name = "NEKOMATA (PIMP)", kind = "Weapon", group = "Tech", group2 = "Sniper Riffle", rng = true, area = "Weapon", mod = "GenericWeaponMod", },
 [0x000000183366929F] = { type = "Items.Preset_Nue_Default", name = "NUE", kind = "Weapon", group = "Power", group2 = "Pistol", rng = true, area = "Weapon", mod = "GenericWeaponMod", },
-[0x0000001D2466108D] = { type = "Items.Preset_Nue_Arasaka_2020", name = "NUE (ARASAKA)", kind = "Weapon", group = "Power", group2 = "Pistol", rng = true, area = "Weapon", mod = "GenericWeaponMod", },
+[0x0000001D2466108D] = { type = "Items.Preset_Nue_Arasaka_2020", name = "TAMAYURA", kind = "Weapon", group = "Power", group2 = "Pistol", rng = true, area = "Weapon", mod = "GenericWeaponMod", },
 [0x000000193462841A] = { type = "Items.Preset_Nue_Military", name = "NUE (MILITARY)", kind = "Weapon", group = "Power", group2 = "Pistol", rng = true, area = "Weapon", mod = "GenericWeaponMod", },
 [0x0000001564C87611] = { type = "Items.Preset_Nue_Neon", name = "NUE (NEON)", kind = "Weapon", group = "Power", group2 = "Pistol", rng = true, area = "Weapon", mod = "GenericWeaponMod", },
 [0x00000015152DF038] = { type = "Items.Preset_Nue_Pimp", name = "NUE (PIMP)", kind = "Weapon", group = "Power", group2 = "Pistol", rng = true, area = "Weapon", mod = "GenericWeaponMod", },
