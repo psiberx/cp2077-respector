@@ -498,6 +498,11 @@ return {
 		-- Instantly restores 10% Health after defeating an enemy.
 		{ id = "HealOnKillLegendary" }, 
 
+		-- HEAT CONVERTER / Cyberware / Integumentary System / Epic
+		-- A temperature regulation system for your body and cyberware.
+		-- When affected by Burn, instead of receiving damage from it, you deal 10% more damage.
+		{ id = "HeatUsingBooster" }, 
+
 		-- INDUCTOR / Cyberware / Immune System / Epic
 		-- When affected by Shock and EMP, Amor increases by 50% instead of taking damage.
 		{ id = "ReversePowerInductor" }, 

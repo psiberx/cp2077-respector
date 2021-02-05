@@ -15,15 +15,12 @@ return {
 		"v_standard25_thorton_colby_pickup_02_player", -- COLBY CX410 BUTTE (RED)
 		"v_standard25_villefort_columbus_player", -- COLUMBUS V340-F FREIGHT
 		"v_standard2_villefort_cortes_player", -- CORTES V5000 VALOR
-		"v_standard2_villefort_cortes_police_siren", -- CORTES V6000 NCPD OVERLORD
 		"v_standard2_villefort_cortes_delamain_player", -- DELAMAIN NO.21
 		"v_standard3_chevalier_emperor_player", -- EMPEROR 620 RAGNAR
-		"v_standard3_chevalier_emperor_police_siren", -- EMPEROR 720 NCPD IRONCLAD
 		"v_standard2_thorton_galena_nomad_player", -- GALENA "GECKO"
 		"v_standard2_thorton_galena_bobas_player", -- GALENA "RATTLER"
 		"v_standard2_thorton_galena_player", -- GALENA G240
 		"v_standard2_archer_hella_player", -- HELLA EC-D I360
-		"v_standard2_archer_hella_police_siren", -- HELLA EC-H I860 ENFORCER
 		"v_sportbike2_arch_jackie_player", -- JACKIE'S ARCH
 		"v_sportbike2_arch_jackie_tuned_player", -- JACKIE'S TUNED ARCH
 		"v_sportbike1_yaiba_kusanagi_tyger_player", -- KUSANAGI "MIZUCHI"

@@ -89,6 +89,11 @@ return {
 		-- Causes the target to exit combat state.
 		{ id = "MemoryWipeLvl2Program" }, 
 
+		-- MEMORY WIPE / Quickhack / Epic
+		-- Causes the target to exit combat state.
+		-- Affects the target's entire squad.
+		{ id = "MemoryWipeLvl3Program" }, 
+
 		-- OVERHEAT / Quickhack / Uncommon
 		-- Non-Leathal.
 		-- Applies Burn to the target, dealing heat damage over time.

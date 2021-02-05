@@ -342,10 +342,6 @@ return {
 		-- M-10AF LEXINGTON / Weapon / Power / Pistol
 		{ id = "Preset_Lexington_Default" }, 
 
-		-- M-179E ACHILLES (MIKE) / Weapon / Tech / Precision Rifle
-		-- Your enemies never stood a chance.
-		{ id = "Preset_Achilles_Tiny_Mike" }, 
-
 		-- M-179E ACHILLES (MILITARY) / Weapon / Tech / Precision Rifle
 		-- Your enemies never stood a chance.
 		{ id = "Preset_Achilles_Military" }, 
@@ -357,6 +353,10 @@ return {
 		-- M-179E ACHILLES (PIMP) / Weapon / Tech / Precision Rifle
 		-- Your enemies never stood a chance.
 		{ id = "Preset_Achilles_Pimp" }, 
+
+		-- M-179E ACHILLES (TINY MIKE) / Weapon / Tech / Precision Rifle
+		-- Your enemies never stood a chance.
+		{ id = "Preset_Achilles_Tiny_Mike" }, 
 
 		-- M-179E ACHILLES / Weapon / Tech / Precision Rifle
 		-- Your enemies never stood a chance.
@@ -455,9 +455,6 @@ return {
 		-- NEKOMATA / Weapon / Tech / Sniper Riffle
 		{ id = "Preset_Nekomata_Default" }, 
 
-		-- NUE (ARASAKA) / Weapon / Power / Pistol
-		{ id = "Preset_Nue_Arasaka_2020" }, 
-
 		-- NUE (MILITARY) / Weapon / Power / Pistol
 		{ id = "Preset_Nue_Military" }, 
 
@@ -527,6 +524,9 @@ return {
 
 		-- STEEL PIPE / Weapon / Melee / Blunt
 		{ id = "Preset_Iron_Pipe_Default" }, 
+
+		-- TAMAYURA / Weapon / Power / Pistol
+		{ id = "Preset_Nue_Arasaka_2020" }, 
 
 		-- TANTO / Weapon / Melee / Blade
 		{ id = "Preset_Tanto_Default" }, 

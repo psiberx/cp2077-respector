@@ -54,7 +54,7 @@ return {
 	},
 	{
 		name = "vehicles",
-		vehicles = { kind = "Vehicle" },
+		vehicles = { kind = "Vehicle", group2 = false },
 	},
 	{
 		name = "weapons",
