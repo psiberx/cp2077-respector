@@ -292,7 +292,7 @@ function tweaksGui.onDrawEvent()
 
 			-- Hacks
 			if tweak.entryMeta.kind == 'Hack' then
-				if ImGui.Button('Execute tweak hack', viewData.gridFullWidth, viewData.buttonHeight) then
+				if ImGui.Button('Execute hack', viewData.gridFullWidth, viewData.buttonHeight) then
 					tweaksGui.onExecuteHackClick()
 				end
 
@@ -623,7 +623,7 @@ function tweaksGui.onTweakSearchResultSelect()
 
 		tweak.itemEquipSlot = 0
 
-		if tweakDb:match(tweak.entryMeta, { kind = { 'Weapon', 'Clothing', 'Cyberware', 'Consumable', 'Grenade' } }) then
+		if tweakDb:match(tweak.entryMeta, { kind = { 'Weapon', 'Clothing', 'Cyberware', 'Grenade' } }) or tweakDb:match(tweak.entryMeta, { kind = 'Consumable', group = 'Meds' }) then
 			tweak.itemCanBeEquipped = true
 
 			equipAreaDb:load('mod/data/equipment-areas')
