@@ -250,43 +250,55 @@ which is usually opened with the backtick (`` ` ``) or tilde (`~`) key.
 The mod has a simple GUI that allows you to save and load specs. 
 You can choose the options for saving specs and see recent history. 
 
-![Respector Save Tab](https://siberx.dev/cp2077-respector/respector-100-1-save.png) ![Respector Load Tab](https://siberx.dev/cp2077-respector/respector-100-2-load.png)
+![Respector Save](https://siberx.dev/cp2077-respector/respector-110-01-save.png) ![Respector Load](https://siberx.dev/cp2077-respector/respector-110-02-load.png)
 
 #### Respec
 
 Here you can reset Perk Points, like with the TABULA E-RASA shard, and respec the Attributes.
 Lowering an Attribute will lower the corresponding Skills and reset the Perks, which requirements are no longer met. 
 
-![Respector Respec Tab](https://siberx.dev/cp2077-respector/respector-100-3-respec.png)
+![Respector Respec](https://siberx.dev/cp2077-respector/respector-110-03-respec.png)
+
+#### Options
+
+Here you can switch the operating mode. 
+If you are using a character that exceeds the base game limits and are using other mods that exceed the base game capabilities, 
+then you will probably need to enable *Unlimited Mode* in order for the mod to properly handle your build.
+
+![Respector Options](https://siberx.dev/cp2077-respector/respector-110-04-options.png)
 
 #### Quick Tweaks
 
 Hitting green button will open another window with Quick Tweaks.
 Just follow the first instructions:
 
-![Quick Tweaks](https://siberx.dev/cp2077-respector/respector-097-4-qt-start.png)
+![Quick Tweaks](https://siberx.dev/cp2077-respector/respector-110-11-qt-start.png)
 
 You can find a different kind of things in the database. For example, weapons that you can produce right there or unlock for crafting. 
 
-![Quick Tweaks Weapon](https://siberx.dev/cp2077-respector/respector-097-5-qt-comrade.png)
+![Quick Tweaks Weapon](https://siberx.dev/cp2077-respector/respector-110-12-qt-comrade.png)
 
 Another example is a vehicle that you can unlock for yourself if you haven't done so before:
 
-![Quick Tweaks Vehicle](https://siberx.dev/cp2077-respector/respector-097-6-qt-shion.png)
+![Quick Tweaks Vehicle](https://siberx.dev/cp2077-respector/respector-110-13-qt-shion.png)
 
 Also, you can find game facts. They indicate what you have done or can do. 
 
-![Quick Tweaks Fact](https://siberx.dev/cp2077-respector/respector-097-7-qt-judy.png)
+![Quick Tweaks Fact](https://siberx.dev/cp2077-respector/respector-110-14-qt-judy.png)
 
 The classic cheat is also there: 
 
-![Quick Tweaks Money](https://siberx.dev/cp2077-respector/respector-097-8-qt-money.png)
+![Quick Tweaks Money](https://siberx.dev/cp2077-respector/respector-110-15-qt-money.png)
 
 Some items can be found by group tags. For example, to find all parts of the Corpo Set outfit you can use simple request:
 
-![Quick Tweaks Corpo Set](https://siberx.dev/cp2077-respector/respector-100-9-qt-corpo-set.png)
+![Quick Tweaks Corpo Set](https://siberx.dev/cp2077-respector/respector-110-16-qt-corpo-set.png)
 
-For clothing items there is an extra option to always get the max mod slots.  
+For clothing items there is an extra option to always get the max mod slots.
+
+There are also a couple of simple hacks:
+
+![Quick Tweaks Hack](https://siberx.dev/cp2077-respector/respector-110-19-qt-hack.png)
 
 ### Configuration
 
