@@ -7,12 +7,12 @@ function api.init(_respector, _tweaker)
 	tweaker = _tweaker
 end
 
-function api.LoadSpec(specName, _)
+function api.LoadSpec(specName, specOptions, _)
 	if specName == api then
-		specName = _
+		specName, specOptions = specOptions, _
 	end
 
-	return respector:loadSpec(specName)
+	return respector:loadSpec(specName, specOptions)
 end
 
 function api.SaveSpec(specName, specOptions, _)
