@@ -30,7 +30,7 @@ local devMode = false
 
 local coreReq = 'mod.lua'
 
-if cetVer <= 1.0906 or package ~= nil then
+if cetVer <= 1.0906 then
 	coreReq = 'plugins/cyber_engine_tweaks/mods/respector/mod'
 
 	if package.loaded[coreReq] ~= nil then
