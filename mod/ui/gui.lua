@@ -112,24 +112,34 @@ end
 function gui.initViewData()
 	viewData.fontSize = ImGui.GetFontSize()
 	viewData.viewScale = viewData.fontSize / 13
+	viewData.viewScaleX = viewData.viewScale
+	viewData.viewScaleY = viewData.viewScale
 
-	viewData.windowWidth = 340 * viewData.viewScale
-	viewData.windowHeight = 373 * viewData.viewScale
-	viewData.windowPadding = 7.5
+	if viewData.viewScale > 1 then
+		viewData.viewScaleX = viewData.viewScaleX * 1.05
+		viewData.viewScaleY = viewData.viewScaleY * 0.975
+	end
+
+	viewData.windowWidth = 340 * viewData.viewScaleX
+	viewData.windowHeight = 373 * viewData.viewScaleY
+	viewData.windowPadding = 8
 	viewData.windowOffsetX = 8
 	viewData.windowOffsetY = math.ceil(viewData.fontSize * 1.3846) + 9
 
-	viewData.gridGutter = 8
+	viewData.gridGutter = 8 * viewData.viewScaleX
 	viewData.gridFullWidth = viewData.windowWidth
 	viewData.gridHalfWidth = (viewData.gridFullWidth - viewData.gridGutter) / 2
 	viewData.gridOneThirdWidth = math.floor((viewData.gridFullWidth - viewData.gridGutter * 2) / 3 + 0.5)
 	viewData.gridTwoThirdsWidth = math.floor((viewData.gridFullWidth - viewData.gridGutter * 2) / 3 * 2 + viewData.gridGutter +  0.5)
 
 	viewData.tabRounding = math.floor(viewData.fontSize * 0.35)
-	viewData.tweaksButtonWidth = 100 * viewData.viewScale
-	viewData.tweaksButtonHeight = 19 * viewData.viewScale
-	viewData.buttonHeight = 19 * viewData.viewScale
-	viewData.inputHeight = 19 * viewData.viewScale
+	viewData.tweaksButtonWidth = 100 * viewData.viewScaleX
+	viewData.tweaksButtonHeight = 19 * viewData.viewScaleY
+	viewData.buttonHeight = 19 * viewData.viewScaleY
+	viewData.inputHeight = 19 * viewData.viewScaleY
+
+	viewData.balancedModeHeight = 140 * viewData.viewScaleY
+	viewData.unlimitedModeHeight = 162 * viewData.viewScaleY
 
 	viewData.rarityFilterIndex = array.find(rarityFilters, userState.specOptions.rarity) - 1
 	viewData.itemFormatIndex = array.find(itemFormatOptions, userState.specOptions.itemFormat) - 1
@@ -348,7 +358,7 @@ function gui.onDrawEvent()
 			ImGuiX.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
 			ImGuiX.PushStyleColor(ImGuiCol.FrameBg, 0)
 			ImGui.BeginGroup()
-			ImGui.BeginChildFrame(11, viewData.gridFullWidth, 140)
+			ImGui.BeginChildFrame(11, viewData.gridFullWidth, viewData.balancedModeHeight)
 			ImGuiX.PopStyleColor(2)
 			ImGuiX.PopStyleVar(3)
 
@@ -385,7 +395,7 @@ function gui.onDrawEvent()
 			ImGuiX.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
 			ImGuiX.PushStyleColor(ImGuiCol.FrameBg, 0)
 			ImGui.BeginGroup()
-			ImGui.BeginChildFrame(12, viewData.gridFullWidth, 162)
+			ImGui.BeginChildFrame(12, viewData.gridFullWidth, viewData.unlimitedModeHeight)
 			ImGuiX.PopStyleColor(2)
 			ImGuiX.PopStyleVar(3)
 

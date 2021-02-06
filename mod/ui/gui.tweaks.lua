@@ -90,29 +90,36 @@ end
 function tweaksGui.initViewData()
 	viewData.fontSize = ImGui.GetFontSize()
 	viewData.viewScale = viewData.fontSize / 13
+	viewData.viewScaleX = viewData.viewScale
+	viewData.viewScaleY = viewData.viewScale
 
-	viewData.windowWidth = 440 * viewData.viewScale
+	if viewData.viewScale > 1 then
+		viewData.viewScaleX = viewData.viewScaleX * 1.05
+		viewData.viewScaleY = viewData.viewScaleY * 0.975
+	end
+
+	viewData.windowWidth = 440 * viewData.viewScaleX
 	viewData.windowHeight = 0 -- Auto Height
-	viewData.windowPaddingX = 7.5
-	viewData.windowPaddingY = 6
-	viewData.windowOffsetX = 6
+	viewData.windowPaddingX = 8 * viewData.viewScaleX
+	viewData.windowPaddingY = 6 * viewData.viewScaleY
+	viewData.windowOffsetX = 6 * viewData.viewScaleX
 
-	viewData.gridGutter = 8
+	viewData.gridGutter = 8 * viewData.viewScaleX
 	viewData.gridFullWidth = viewData.windowWidth
 	viewData.gridHalfWidth = (viewData.gridFullWidth - viewData.gridGutter) / 2
 
-	viewData.buttonHeight = 21 * viewData.viewScale
+	viewData.buttonHeight = 21 * viewData.viewScaleY
 
 	viewData.searchResultsHeight = (viewData.fontSize + 4) * 6.5
 
-	viewData.tweakCloseBtnSize = 18 * viewData.viewScale
-	viewData.tweakFactStateYesWidth = 32 * viewData.viewScale
-	viewData.tweakFactStateNoWidth = 24 * viewData.viewScale
-	viewData.tweakQtyInputWidth = 138 * viewData.viewScale
-	viewData.tweakQualityInputWidth = 168 * viewData.viewScale
-	viewData.tweakQuestInputWidth = 118 * viewData.viewScale
-	viewData.tweakHashNameInputWidth = 296 * viewData.viewScale
-	viewData.tweakHashHexInputWidth = 78 * viewData.viewScale
+	viewData.tweakCloseBtnSize = 18 * viewData.viewScaleX
+	viewData.tweakFactStateYesWidth = 32 * viewData.viewScaleX
+	viewData.tweakFactStateNoWidth = 24 * viewData.viewScaleX
+	viewData.tweakQtyInputWidth = 138 * viewData.viewScaleX
+	viewData.tweakQualityInputWidth = 168 * viewData.viewScaleX
+	viewData.tweakQuestInputWidth = 118 * viewData.viewScaleX
+	viewData.tweakHashNameInputWidth = 296 * viewData.viewScaleX
+	viewData.tweakHashHexInputWidth = 78 * viewData.viewScaleX
 
 	viewData.tweakSearch = ''
 	viewData.tweakSearchStarted = false
@@ -131,6 +138,7 @@ function tweaksGui.onDrawEvent()
 
 	ImGui.SetNextWindowPos(365, 400, ImGuiCond.FirstUseEver)
 	ImGui.SetNextWindowSize(viewData.windowWidth + (viewData.windowPaddingX * 2), viewData.windowHeight)
+
 	ImGuiX.PushStyleVar(ImGuiStyleVar.WindowPadding, viewData.windowPaddingX, viewData.windowPaddingY)
 
 	local showTweaker, expandTweaker = ImGui.Begin('Quick Tweaks', userState.showTweaker, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)

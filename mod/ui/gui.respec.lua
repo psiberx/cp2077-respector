@@ -16,8 +16,8 @@ end
 
 function respecGui.initViewData()
 	viewData.respecAttrGroupWidth = viewData.gridOneThirdWidth
-	viewData.respecAttrGroupHeight = 46 * viewData.viewScale
-	viewData.respecAttrInputWidth = 70 * viewData.viewScale
+	viewData.respecAttrGroupHeight = 46 * viewData.viewScaleY
+	viewData.respecAttrInputWidth = 70 * viewData.viewScaleX
 
 	viewData.respecAttrs = {
 		{ attr = 'Body', label = 'Body', offsetX = 0 },
