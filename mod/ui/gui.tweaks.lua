@@ -10,15 +10,25 @@ local tweaksGui = {}
 
 local respector, tweaker, tweakDb, equipAreaDb, persitentState
 
+local specialSearches = {
+	['ammo'] = { kind = 'Ammo' },
+	['cyberware'] = { kind = 'Cyberware' },
+	['gog'] = { tag = 'GOG' },
+	['iconic'] = { iconic = true },
+}
+
+local defaultSearches = { 'iconic', 'johnny', 'gog', 'ncpd', 'ammo', 'crafting', 'eu', 'hack' }
+
 local viewData = {
 	justOpened = true,
 	
 	tweakSearch = nil,
 	tweakSearchMaxLen = 128,
 	tweakSearchStarted = false,
-	tweakSearchMaxResults = 50,
 	tweakSearchResults = nil,
+	tweakSearchResultsMax = 250,
 	tweakSearchPreviews = nil,
+	tweakSearchHistoryLen = 25,
 
 	activeTweakIndex = nil,
 	activeTweakData = nil,
@@ -63,6 +73,7 @@ local userState = {
 	showTweaker = nil,
 	expandTweaker = nil,
 	tweakSearch = nil,
+	tweakSearchHistory = nil,
 }
 
 function tweaksGui.init(_respector, _tweaker, _userState, _persitentState)
@@ -82,6 +93,10 @@ function tweaksGui.initUserState(force)
 	if not userState.tweakSearch or force then
 		userState.showTweaker = false
 		userState.expandTweaker = true
+	end
+
+	if not userState.tweakSearchHistory then
+		userState.tweakSearchHistory = defaultSearches
 	end
 
 	userState.tweakSearch = ''
@@ -112,7 +127,7 @@ function tweaksGui.initViewData()
 
 	viewData.searchResultsHeight = (viewData.fontSize + 4) * 6.5
 
-	viewData.tweakCloseBtnSize = 18 * viewData.viewScaleX
+	viewData.tweakCloseBtnSize = 19 * viewData.viewScaleX
 	viewData.tweakFactStateYesWidth = 32 * viewData.viewScaleX
 	viewData.tweakFactStateNoWidth = 24 * viewData.viewScaleX
 	viewData.tweakQtyInputWidth = 138 * viewData.viewScaleX
@@ -162,10 +177,27 @@ function tweaksGui.onDrawEvent()
 		end
 
 		ImGui.Spacing()
-		ImGui.SetNextItemWidth(viewData.gridFullWidth)
+
+		local _, searchPanelY = ImGui.GetCursorPos()
+		local searchInputWidth = viewData.gridFullWidth
+
+		if viewData.tweakSearch ~= '' then
+			searchInputWidth = searchInputWidth - viewData.tweakCloseBtnSize - 2
+		end
+
+		ImGui.SetNextItemWidth(searchInputWidth)
 		ImGuiX.PushStyleColor(ImGuiCol.TextDisabled, 0xffaaaaaa)
 		viewData.tweakSearch = ImGui.InputTextWithHint('##TweakSearch', 'Search database...', viewData.tweakSearch, viewData.tweakSearchMaxLen)
 		ImGuiX.PopStyleColor()
+
+		if viewData.tweakSearch ~= '' then
+			ImGui.SetCursorPos(viewData.windowOffsetX + viewData.gridFullWidth - viewData.tweakCloseBtnSize, searchPanelY)
+			ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
+			if ImGui.Button('X', viewData.tweakCloseBtnSize + 1, viewData.tweakCloseBtnSize) then
+				viewData.tweakSearch = ''
+			end
+			ImGuiX.PopStyleVar()
+		end
 
 		if viewData.tweakSearch ~= userState.tweakSearch then
 			viewData.tweakSearchResults = {}
@@ -184,9 +216,10 @@ function tweaksGui.onDrawEvent()
 		ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
 		ImGuiX.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
 		ImGuiX.PushStyleColor(ImGuiCol.FrameBg, 0)
-		ImGui.BeginChildFrame(1, viewData.gridFullWidth, viewData.searchResultsHeight)
 
 		if #viewData.tweakSearchResults > 0 then
+			ImGui.BeginChildFrame(1, viewData.gridFullWidth, viewData.searchResultsHeight)
+
 			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 0)
 			ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
 			ImGui.SetNextItemWidth(viewData.gridFullWidth)
@@ -206,20 +239,69 @@ function tweaksGui.onDrawEvent()
 
 				tweaksGui.onTweakSearchResultSelect()
 			end
+
+			ImGui.EndChildFrame()
 		else
 			ImGuiX.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
 
 			if viewData.tweakSearchStarted then
 				ImGui.TextWrapped('No results for your request.')
 			else
+				if #userState.tweakSearchHistory > 0 then
+					ImGui.BeginGroup()
+					ImGuiX.PushStyleColor(ImGuiCol.Text, 0xffffffff)
+					ImGuiX.PushStyleColor(ImGuiCol.Button, 0x00000000)
+					ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, 4, 4)
+					ImGuiX.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
+					ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 5, 3)
+
+					--local currentLine = 1
+					local currentOffsetX = 0
+
+					for _, tweakSearch in ipairs(userState.tweakSearchHistory) do
+						local buttonWidth = ImGui.CalcTextSize(tweakSearch)
+
+						if currentOffsetX + buttonWidth < viewData.gridFullWidth then
+							if currentOffsetX ~= 0 then
+								ImGui.SameLine()
+							end
+						else
+							--currentLine = currentLine + 1
+							currentOffsetX = 0
+
+							--if currentLine >= 3 then
+							--	break
+							--end
+						end
+
+						if ImGui.Button(tweakSearch) then
+							viewData.tweakSearch = tweakSearch
+						end
+
+						if ImGui.IsItemClicked(ImGuiMouseButton.Middle) then
+							tweaksGui.forgetTweakSearchTerm(tweakSearch)
+						end
+
+						currentOffsetX = currentOffsetX + buttonWidth + (5 * 2 + 1 * 2 + 4) -- padding + border + spacing
+					end
+
+					ImGuiX.PopStyleVar(3)
+					ImGuiX.PopStyleColor(2)
+					ImGui.EndGroup()
+
+					ImGui.Spacing()
+				end
+
 				ImGui.TextWrapped('1. Start typing in the search bar (at least 2 characters)\n   to find items, vehicles, resources, facts.')
 				ImGui.TextWrapped('2. Select entry to get the available tweaks.')
+
+				ImGui.Spacing()
 			end
 
 			ImGuiX.PopStyleColor()
 		end
 
-		ImGui.EndChildFrame()
+
 		ImGuiX.PopStyleColor(2)
 		ImGuiX.PopStyleVar(2)
 
@@ -230,7 +312,7 @@ function tweaksGui.onDrawEvent()
 			ImGui.Separator()
 			ImGui.Spacing()
 
-			local _, tweakPanelY = ImGui.GetCursorPos()
+			--local _, tweakPanelY = ImGui.GetCursorPos()
 
 			ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, 5, 3)
 
@@ -509,13 +591,13 @@ function tweaksGui.onDrawEvent()
 			ImGuiX.PopStyleVar()
 			ImGuiX.PopStyleColor(2)
 
-			ImGui.SetCursorPos(viewData.windowOffsetX + viewData.gridFullWidth - viewData.tweakCloseBtnSize, tweakPanelY)
-			ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
-			if ImGui.Button('X', viewData.tweakCloseBtnSize + 1, viewData.tweakCloseBtnSize) then
-				viewData.activeTweakIndex = -1
-				viewData.activeTweakData = nil
-			end
-			ImGuiX.PopStyleVar()
+			--ImGui.SetCursorPos(viewData.windowOffsetX + viewData.gridFullWidth - viewData.tweakCloseBtnSize, tweakPanelY)
+			--ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
+			--if ImGui.Button('X', viewData.tweakCloseBtnSize + 1, viewData.tweakCloseBtnSize) then
+			--	viewData.activeTweakIndex = -1
+			--	viewData.activeTweakData = nil
+			--end
+			--ImGuiX.PopStyleVar()
 		end
 	end
 
@@ -524,10 +606,12 @@ function tweaksGui.onDrawEvent()
 	ImGuiX.PopStyleVar()
 end
 
+-- Actions
+
 function tweaksGui.onTweakSearchChange()
 	--persitentState:flush()
 
-	local searchTerm = str.trim(userState.tweakSearch)
+	local searchTerm = str.trim(userState.tweakSearch:lower())
 
 	if searchTerm == '`' then
 		userState.tweakSearch = ''
@@ -546,20 +630,32 @@ function tweaksGui.onTweakSearchChange()
 
 	local searchResults = {}
 
-	for entryKey, entryMeta, entryPos in tweakDb:search(searchTerm) do
-		if entryMeta.name and entryMeta.tweak ~= false and entryMeta.kind ~= 'Slot' then
-			table.insert(searchResults, {
-				entryKey = entryKey,
-				entryMeta = entryMeta,
-				entryOrder = tweakDb:order(entryMeta, true, ('%04X'):format(entryPos)),
-			})
+	if specialSearches[searchTerm] then
+		for entryKey, entryMeta in tweakDb:filter(specialSearches[searchTerm]) do
+			if entryMeta.name and entryMeta.tweak ~= false then
+				table.insert(searchResults, {
+					entryKey = entryKey,
+					entryMeta = entryMeta,
+					entryOrder = tweakDb:order(entryMeta, true),
+				})
+			end
+		end
+	else
+		for entryKey, entryMeta, entryPos in tweakDb:search(searchTerm) do
+			if entryMeta.name and entryMeta.tweak ~= false then
+				table.insert(searchResults, {
+					entryKey = entryKey,
+					entryMeta = entryMeta,
+					entryOrder = tweakDb:order(entryMeta, true, ('%04X'):format(entryPos)),
+				})
+			end
 		end
 	end
 
 	tweakDb:unload()
 
 	array.sort(searchResults, 'entryOrder')
-	array.limit(searchResults, viewData.tweakSearchMaxResults)
+	array.limit(searchResults, viewData.tweakSearchResultsMax)
 
 	-- View Data
 
@@ -718,6 +814,8 @@ function tweaksGui.onTweakSearchResultSelect()
 		viewData.questOptionCount = #viewData.questOptionList
 		viewData.questOptionIndex = tweak.itemQuestMark and 0 or 1
 	end
+
+	tweaksGui.trackTweakSearchTerm()
 end
 
 function tweaksGui.onSpawnItemClick()
@@ -798,6 +896,44 @@ function tweaksGui.onToggleTweaker()
 
 	persitentState:flush()
 end
+
+function tweaksGui.trackTweakSearchTerm()
+	local tweakSearch = str.trim(userState.tweakSearch:lower())
+
+	if tweakSearch == viewData.lastTrackedSearch then
+		return
+	end
+
+	viewData.lastTrackedSearch = tweakSearch
+
+	for searchIndex, searchTerm in ipairs(userState.tweakSearchHistory) do
+		if searchTerm == tweakSearch then
+			table.remove(userState.tweakSearchHistory, searchIndex)
+			break
+		end
+	end
+
+	table.insert(userState.tweakSearchHistory, 1, tweakSearch)
+
+	if #userState.tweakSearchHistory > viewData.tweakSearchHistoryLen then
+		table.remove(userState.tweakSearchHistory)
+	end
+
+	persitentState:flush()
+end
+
+function tweaksGui.forgetTweakSearchTerm(tweakSearch)
+	for searchIndex, searchTerm in ipairs(userState.tweakSearchHistory) do
+		if searchTerm == tweakSearch then
+			table.remove(userState.tweakSearchHistory, searchIndex)
+			break
+		end
+	end
+
+	persitentState:flush()
+end
+
+-- Helpers
 
 function tweaksGui.getItemAmount(itemKind, itemId)
 	if itemKind == 'Ammo' then
