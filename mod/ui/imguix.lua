@@ -68,4 +68,14 @@ function ImGuiX.RestoreStack()
 	end
 end
 
+-- Polyfill
+
+if not ImGuiMouseButton then
+	ImGuiMouseButton = {
+		Left = 0,
+		Right = 1,
+		Middle = 2,
+	}
+end
+
 return ImGuiX
