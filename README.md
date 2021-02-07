@@ -10,7 +10,7 @@ with useful extra features.
 - **Character Respec:** Adjust your Attributes and restore all spent Perk Points to redistribute them.
 - **Build Management:** Try different builds switching them on the fly while playing, share builds with others.
 - **Item Management:** Create item packs (eg. "Stash Wall Weapons", "Legendary Outfits").
-- **Quick Tweaks:** Get items and currencies, unlock vehicles, manipulate facts with ease 
+- **Quick Tweaks:** Get items and resources, unlock vehicles, manipulate facts with ease 
   just by typing the in-game name of a thing in the search bar.
 
 ## Requirements
