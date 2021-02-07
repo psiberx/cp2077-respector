@@ -23,6 +23,36 @@ function SpecStore:new(specsDir, defaultSpec)
 	return this
 end
 
+function SpecStore:listSpecs()
+	local specs = {}
+
+	if type(dir) == 'function' then
+		local existingSpecs = dir(self.specsDir)
+
+		for _, specFileInfo in pairs(existingSpecs) do
+			local specName = specFileInfo.name:match('^([^.].*)%.lua$')
+
+			if specName  then
+				local specFile = io.open(self.specsDir .. specFileInfo.name, 'r')
+				local specHeader = specFile:read('l')
+				specFile:close()
+
+				if specHeader ~= '-- This is just a placeholder.' then
+					local time = specHeader:match('^-- (%d%d%.%d%d%.%d%d%d%d %d%d:%d%d)') -- :%d%d
+
+					if not time then
+						time = os.date('%d.%m.%Y %H:%M')
+					end
+
+					table.insert(specs, { specName = specName, time = time })
+				end
+			end
+		end
+	end
+
+	return specs
+end
+
 function SpecStore:hasSpec(specName)
 	if not specName or specName == '' then
 		specName = self.defaultSpec

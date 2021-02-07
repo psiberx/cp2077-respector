@@ -107,6 +107,51 @@ function gui.initUserState()
 	if type(userState.specOptions.cheat) ~= 'boolean' then
 		userState.specOptions.cheat = userState.cheatMode
 	end
+
+	local existingSpecs = respector.specStore:listSpecs()
+
+	if #existingSpecs > 0 then
+		for entryIndex = #userState.specHistory, 1, -1 do
+			local entryInfo = userState.specHistory[entryIndex]
+
+			local existingSpecIndex = false
+
+			for specIndex, specInfo in ipairs(existingSpecs) do
+				if entryInfo.specName == specInfo.specName then
+					existingSpecIndex = specIndex
+					break
+				end
+			end
+
+			if existingSpecIndex then
+				table.remove(existingSpecs, existingSpecIndex)
+			else
+				table.remove(userState.specHistory, entryIndex)
+			end
+		end
+
+		if #existingSpecs > 0 then
+			for _, specInfo in ipairs(existingSpecs) do
+				table.insert(userState.specHistory, {
+					specName = specInfo.specName,
+					time = specInfo.time,
+					event = 'new',
+				})
+			end
+
+			table.sort(userState.specHistory, function(a, b)
+				return gui.parseDateTime(a.time) > gui.parseDateTime(b.time)
+			end)
+		end
+	else
+		for entryIndex = #userState.specHistory, 1, -1 do
+			local entryData = userState.specHistory[entryIndex]
+
+			if not respector.specStore:hasSpec(entryData.specName) then
+				table.remove(userState.specHistory, entryIndex)
+			end
+		end
+	end
 end
 
 function gui.initViewData()
@@ -144,14 +189,6 @@ function gui.initViewData()
 	viewData.rarityFilterIndex = array.find(rarityFilters, userState.specOptions.rarity) - 1
 	viewData.itemFormatIndex = array.find(itemFormatOptions, userState.specOptions.itemFormat) - 1
 	viewData.keepSeedIndex = array.find(keepSeedOptions, userState.specOptions.keepSeed) - 1
-
-	for entryIndex = #userState.specHistory, 1, -1 do
-		local entryData = userState.specHistory[entryIndex]
-
-		if not respector.specStore:hasSpec(entryData.specName) then
-			table.remove(userState.specHistory, entryIndex)
-		end
-	end
 
 	viewData.specHistoryList = array.map(userState.specHistory, gui.formatHistoryEntry)
 end
@@ -322,7 +359,7 @@ function gui.onDrawEvent()
 			ImGui.Spacing()
 
 			-- Loading: Recent Specs
-			ImGui.Text('Recently saved / loaded specs:')
+			ImGui.Text('Recent specs:')
 			ImGui.Spacing()
 			ImGui.SetNextItemWidth(viewData.gridFullWidth)
 			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 0)
@@ -500,7 +537,22 @@ end
 -- Helpers
 
 function gui.formatHistoryEntry(entryData)
-	return entryData.time .. ' ' .. (entryData.event == 'load' and 'L' or 'S') .. ' ' .. entryData.specName
+	local event = (entryData.event == 'load' and 'L' or (entryData.event == 'save' and 'S' or 'N'))
+
+	return entryData.time .. ' ' .. event .. ' ' .. entryData.specName
+end
+
+function gui.parseDateTime(dateTime)
+	local day, month, year, hour, min = dateTime:match('^(%d%d)%.(%d%d)%.(%d%d%d%d) (%d%d):(%d%d)')
+
+	return os.time({
+		day = tonumber(day),
+		month = tonumber(month),
+		year = tonumber(year),
+		hour = tonumber(hour),
+		min = tonumber(min),
+		sec = 0
+	})
 end
 
 return gui
