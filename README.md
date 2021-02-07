@@ -270,9 +270,11 @@ then you will probably need to enable *Unlimited Mode* in order for the mod to p
 #### Quick Tweaks
 
 Hitting green button will open another window with Quick Tweaks.
-Just follow the first instructions:
 
-![Quick Tweaks](https://siberx.dev/cp2077-respector/respector-110-11-qt-start.png)
+Start the search by typing in your query or by selecting a recent search from the list. 
+Middle clicking on the recent search will remove it from the list.
+
+![Quick Tweaks](https://siberx.dev/cp2077-respector/respector-110-11-qt-search.png)
 
 You can find a different kind of things in the database. For example, weapons that you can produce right there or unlock for crafting. 
 
