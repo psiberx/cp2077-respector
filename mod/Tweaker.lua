@@ -45,8 +45,6 @@ function Tweaker:addPack(packSpec, cheatMode)
 
 	tweakDb:unload()
 
-	print(#itemSpecs, #vehicleSpecs)
-
 	self.respector:execSpec({ Backpack = itemSpecs, Vehicles = vehicleSpecs }, { cheat = cheatMode })
 end
 
