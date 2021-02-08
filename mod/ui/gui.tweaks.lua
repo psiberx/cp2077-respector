@@ -15,9 +15,10 @@ local specialSearches = {
 	['cyberware'] = { kind = 'Cyberware' },
 	['gog'] = { tag = 'GOG' },
 	['iconic'] = { iconic = true },
+	['pack'] = { kind = 'Pack' },
 }
 
-local defaultSearches = { 'iconic', 'johnny', 'gog', 'ncpd', 'ammo', 'crafting', 'eu', 'hack' }
+local defaultSearches = { 'iconic', 'johnny', 'gog', 'ncpd', 'ammo', 'crafting', 'eu', 'hack', 'pack' }
 
 local viewData = {
 	justOpened = true,
@@ -316,8 +317,8 @@ function tweaksGui.onDrawEvent()
 
 			ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, 5, 3)
 
-			if tweak.entryMeta.quality then
-				ImGuiX.PushStyleColor(ImGuiCol.Text, Quality.toColor(tweak.entryMeta.quality))
+			if tweak.rarityColor then
+				ImGuiX.PushStyleColor(ImGuiCol.Text, tweak.rarityColor)
 			end
 
 			ImGui.Text(tweak.entryMeta.name)
@@ -335,6 +336,14 @@ function tweaksGui.onDrawEvent()
 					ImGui.Text('Iconic')
 				end
 
+			elseif tweak.entryMeta.iconic then
+				ImGui.SameLine()
+				ImGui.Text('·')
+				ImGui.SameLine()
+				ImGui.Text('Iconic')
+			end
+
+			if tweak.rarityColor then
 				ImGuiX.PopStyleColor()
 			end
 
@@ -354,11 +363,11 @@ function tweaksGui.onDrawEvent()
 					ImGui.Text(tweak.entryMeta.group2)
 				end
 
-				if tweak.showEntryTag then
+				if tweak.showEntrySet then
 					ImGui.SameLine()
 					ImGui.Text('·')
 					ImGui.SameLine()
-					ImGui.Text(tweak.entryMeta.tag)
+					ImGui.Text(tweak.entryMeta.set)
 				end
 			end
 
@@ -380,13 +389,11 @@ function tweaksGui.onDrawEvent()
 
 			ImGui.Spacing()
 
-			-- Hacks
 			if tweak.entryMeta.kind == 'Hack' then
 				if ImGui.Button('Execute hack', viewData.gridFullWidth, viewData.buttonHeight) then
 					tweaksGui.onExecuteHackClick()
 				end
 
-			-- Facts
 			elseif tweak.entryMeta.kind == 'Fact' then
 				ImGui.AlignTextToFramePadding()
 				ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, 5, 3)
@@ -415,7 +422,6 @@ function tweaksGui.onDrawEvent()
 
 				ImGui.TextWrapped('Be careful with manipulating facts.\nMake a manual save before making any changes.')
 
-				-- Vehicles
 			elseif tweak.entryMeta.kind == 'Vehicle' then
 				ImGui.Spacing()
 
@@ -428,7 +434,7 @@ function tweaksGui.onDrawEvent()
 						ImGui.Spacing()
 
 						if ImGui.Button('Add to garage', viewData.gridFullWidth, viewData.buttonHeight) then
-							tweaksGui.onUnlockVehicleClick()
+							tweaksGui.onAddVehicleClick()
 						end
 					end
 				else
@@ -446,7 +452,6 @@ function tweaksGui.onDrawEvent()
 					ImGui.Text('This vehicle cannot be added to the garage.')
 				end
 
-				-- Money / Ingredients
 			elseif tweak.entryMeta.kind == 'Money' or tweak.entryMeta.kind == 'Component' or tweak.entryMeta.kind == 'Ammo' then
 				local form = viewData.resourceForm[tweak.entryMeta.kind]
 
@@ -472,10 +477,14 @@ function tweaksGui.onDrawEvent()
 				ImGui.Spacing()
 
 				if ImGui.Button(form.buttonLabel, viewData.gridFullWidth, viewData.buttonHeight) then
-					tweaksGui.onTransferGoodsClick()
+					tweaksGui.onAddResourceClick()
 				end
 
-				-- Items
+			elseif tweak.entryMeta.kind == 'Pack' then
+				if ImGui.Button('Get pack', viewData.gridFullWidth, viewData.buttonHeight) then
+					tweaksGui.onAddPackClick()
+				end
+
 			else
 				ImGui.BeginGroup()
 				ImGui.Spacing()
@@ -549,7 +558,7 @@ function tweaksGui.onDrawEvent()
 				ImGui.Spacing()
 
 				if ImGui.Button('Add to inventory', viewData.gridFullWidth, viewData.buttonHeight) then
-					tweaksGui.onSpawnItemClick()
+					tweaksGui.onAddItemClick()
 				end
 
 				if tweak.itemCanBeCrafted then
@@ -563,7 +572,7 @@ function tweaksGui.onDrawEvent()
 						ImGui.Spacing()
 
 						if ImGui.Button('Get crafting recipe', viewData.gridFullWidth, viewData.buttonHeight) then
-							tweaksGui.onUnlockRecipeClick()
+							tweaksGui.onAddRecipeClick()
 						end
 					end
 				end
@@ -670,7 +679,7 @@ function tweaksGui.onTweakSearchChange()
 			entryMeta = result.entryMeta,
 			entryType = str.nonempty(result.entryMeta.type, 'N/A'),
 			entryHash = TweakDb.isRealKey(result.entryKey) and ('%010X'):format(result.entryKey) or 'N/A',
-			showEntryTag = tweakDb:isTaggedAsSet(result.entryMeta),
+			showEntrySet = tweakDb:isTaggedAsSet(result.entryMeta),
 		}
 	end)
 
@@ -682,7 +691,15 @@ end
 function tweaksGui.onTweakSearchResultSelect()
 	local tweak = viewData.activeTweakData
 
-	if tweak.entryMeta.kind == 'Hack' then
+	if tweak.entryMeta.quality then
+		tweak.rarityColor = Quality.toColor(tweak.entryMeta.quality)
+	elseif tweak.entryMeta.iconic then
+		tweak.rarityColor = 0xfffefd01
+	else
+		tweak.rarityColor = nil
+	end
+
+	if tweak.entryMeta.kind == 'Pack' or tweak.entryMeta.kind == 'Hack' then
 		--
 
 	elseif tweak.entryMeta.kind == 'Fact' then
@@ -821,7 +838,23 @@ function tweaksGui.onTweakSearchResultSelect()
 	tweaksGui.trackTweakSearchTerm()
 end
 
-function tweaksGui.onSpawnItemClick()
+function tweaksGui.onAddPackClick()
+	local tweak = viewData.activeTweakData
+
+	local packSpec = {
+		kind = tweak.entryMeta.group,
+		group = tweak.entryMeta.group2,
+		iconic = tweak.entryMeta.iconic,
+		tag = tweak.entryMeta.tag,
+		set = tweak.entryMeta.set,
+		quality = tweak.entryMeta.quality,
+		upgrade = tweak.entryMeta.max,
+	}
+
+	tweaker:addPack(packSpec, userState.cheatMode)
+end
+
+function tweaksGui.onAddItemClick()
 	local tweak = viewData.activeTweakData
 
 	local itemSpec = {
@@ -845,7 +878,7 @@ function tweaksGui.onSpawnItemClick()
 	tweaker:addItem(itemSpec, userState.cheatMode)
 end
 
-function tweaksGui.onUnlockRecipeClick()
+function tweaksGui.onAddRecipeClick()
 	local tweak = viewData.activeTweakData
 
 	tweaker:addRecipe(tweak.itemRecipeId)
@@ -853,7 +886,7 @@ function tweaksGui.onUnlockRecipeClick()
 	tweak.itemRecipeKnown = true
 end
 
-function tweaksGui.onUnlockVehicleClick()
+function tweaksGui.onAddVehicleClick()
 	local tweak = viewData.activeTweakData
 
 	tweaker:addVehicle(tweak.entryMeta.type)
@@ -867,7 +900,7 @@ function tweaksGui.onSpawnVehicleClick()
 	tweaker:spawnVehicle(tweak.entryMeta.type)
 end
 
-function tweaksGui.onTransferGoodsClick()
+function tweaksGui.onAddResourceClick()
 	local tweak = viewData.activeTweakData
 
 	tweaker:addResource(tweak.entryMeta.type, tweak.transferAmount)

@@ -1,7 +1,7 @@
 return {
 	{
 		name = "clothing",
-		items = { kind = "Clothing", tag = false },
+		items = { kind = "Clothing", tag = false, set = false },
 	},
 	{
 		name = "clothing-mods",
@@ -9,7 +9,7 @@ return {
 	},
 	{
 		name = "clothing-sets",
-		items = { kind = "Clothing", tag = { "Badge Set", "Corpo Set", "Fixer Set", "Media Set", "Netrunner Set", "Nomad Set", "Rocker Set", "Solo Set", "Techie Set" } },
+		items = { kind = "Clothing", set = { "Badge Set", "Corpo Set", "Fixer Set", "Media Set", "Netrunner Set", "Nomad Set", "Rocker Set", "Solo Set", "Techie Set" } },
 	},
 	{
 		name = "clothing-unique",
@@ -46,7 +46,7 @@ return {
 	{
 		name = "stash-wall",
 		desc = "The weapons that show up on the Stash Wall.",
-		items = { type = { "Items.mq007_skippy",  "Items.Preset_Ajax_Moron",  "Items.Preset_Burya_Comrade",  "Items.Preset_Carnage_Mox",  "Items.Preset_Copperhead_Genesis",  "Items.Preset_Dian_Yinglong",  "Items.Preset_Grad_Panam",  "Items.Preset_Igla_Sovereign",  "Items.Preset_Katana_Saburo",  "Items.Preset_Katana_Takemura",  "Items.Preset_Liberty_Dex",  "Items.Preset_Nekomata_Breakthrough",  "Items.Preset_Nue_Jackie",  "Items.Preset_Overture_Kerry",  "Items.Preset_Overture_River",  "Items.Preset_Pulsar_Buzzsaw",  "Items.Preset_Silverhand_3516",  "Items.Preset_Tactician_Headsman",  "Items.Preset_Zhuo_Eight_Star" } },
+		items = { set = "Stash Wall" },
 	},
 	{
 		name = "quickhacks",

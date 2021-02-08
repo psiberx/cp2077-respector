@@ -12,6 +12,37 @@ function Tweaker:new(respector)
 	return this
 end
 
+function Tweaker:addPack(packSpec, cheatMode)
+	local tweakDb = TweakDb:new(true)
+
+	local itemSpecs = {}
+	local itemUpgrade = packSpec.upgrade
+
+	if packSpec.upgrade then
+		packSpec.upgrade = nil
+	end
+
+	for _, itemMeta in tweakDb:filter(packSpec) do
+		local itemSpec = {}
+
+		itemSpec.id = itemMeta.type
+
+		if not itemMeta.quality and itemUpgrade then
+			itemSpec.upgrade = itemUpgrade
+		end
+
+		if itemMeta.kind == 'Clothing' then
+			itemSpec.slots = 'max'
+		end
+
+		table.insert(itemSpecs, itemSpec)
+	end
+
+	tweakDb:unload()
+
+	self.respector:execSpec({ Backpack = itemSpecs }, { cheat = cheatMode })
+end
+
 function Tweaker:addItem(itemSpec, cheatMode)
 	self.respector:execSpec({ Inventory = { itemSpec } }, { cheat = cheatMode })
 end

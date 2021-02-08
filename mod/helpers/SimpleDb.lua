@@ -163,7 +163,7 @@ function SimpleDb:match(item, criteria)
 	return match
 end
 
-function SimpleDb:search(term, fields)
+function SimpleDb:search(term, schema)
 	term = term:upper()
 
 	local termEsc = term:gsub('([^%w])', '%%%1')
@@ -179,19 +179,19 @@ function SimpleDb:search(term, fields)
 				return nil
 			end
 
-			for weight, field in ipairs(fields) do
-				if item[field] then
-					local value = item[field]:upper()
+			for _, param in ipairs(schema) do
+				if item[param.field] then
+					local value = item[param.field]:upper()
 
 					if term == value then
-						return key, item, weight
+						return key, item, param.weight
 					end
 				end
 			end
 
-			for weight, field in ipairs(fields) do
-				if item[field] then
-					local value = item[field]:upper()
+			for _, param in ipairs(schema) do
+				if item[param.field] then
+					local value = item[param.field]:upper()
 					local position = value:find(termEsc)
 
 					if not position then
@@ -199,7 +199,7 @@ function SimpleDb:search(term, fields)
 					end
 
 					if position then
-						return key, item, position * weight
+						return key, item, position * param.weight
 					end
 				end
 			end

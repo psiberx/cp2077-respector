@@ -8,6 +8,14 @@ TweakDb.__index = TweakDb
 
 setmetatable(TweakDb, { __index = SimpleDb })
 
+local searchSchema = {
+	{ field = 'name', weight = 1 },
+	{ field = 'tag', weight = 2 },
+	{ field = 'set', weight = 2 },
+	{ field = 'kind', weight = 2 },
+	{ field = 'type', weight = 3 },
+}
+
 local kindOrders = {
 	['Weapon'] = 1,
 	['Clothing'] = 2,
@@ -83,11 +91,11 @@ function TweakDb:resolvable(tweakId)
 end
 
 function TweakDb:search(term)
-	return SimpleDb.search(self, term, { 'name', 'tag', 'type' })
+	return SimpleDb.search(self, term, searchSchema)
 end
 
 function TweakDb:isTaggedAsSet(itemMeta)
-	return itemMeta.tag and itemMeta.tag:find(' Set$')
+	return itemMeta.set and itemMeta.set:find(' Set$')
 end
 
 function TweakDb:describe(itemMeta, extended, sets, ellipsis)
@@ -98,7 +106,7 @@ function TweakDb:describe(itemMeta, extended, sets, ellipsis)
 	end
 
 	if sets and self:isTaggedAsSet(itemMeta) then
-		comment = string.upper(itemMeta.tag) .. ': ' .. comment
+		comment = string.upper(itemMeta.set) .. ': ' .. comment
 	end
 
 	if ellipsis then
@@ -144,7 +152,7 @@ function TweakDb:order(itemMeta, orderKind, orderPrefix)
 		end
 
 	elseif self:isTaggedAsSet(itemMeta) then
-		order = order .. itemMeta.tag .. '|'
+		order = order .. itemMeta.set .. '|'
 	end
 
 	if itemMeta.name then
