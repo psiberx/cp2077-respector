@@ -82,21 +82,21 @@ function InventoryModule:applySpec(specData, specOptions)
 	local updateCyberware = false
 	local updateInventory = false
 
-	if specData.Equipment then
+	if specData.Equipment and #specData.Equipment > 0 then
 		self:applyItemSpecs(specData.Equipment, specOptions, equipedSlots)
 		updateEquipment = true
 	end
 
-	if specData.Cyberware then
+	if specData.Cyberware and #specData.Cyberware > 0 then
 		self:applyItemSpecs(specData.Cyberware, specOptions, equipedSlots)
 		updateCyberware = true
 	end
 
-	if specData.Backpack then
+	if specData.Backpack and #specData.Backpack > 0 then
 		self:applyItemSpecs(specData.Backpack, specOptions)
 	end
 
-	if specData.Inventory then
+	if specData.Inventory and #specData.Inventory > 0 then
 		self:applyItemSpecs(specData.Inventory, specOptions, equipedSlots)
 		updateInventory = true
 	end
@@ -417,7 +417,7 @@ function InventoryModule:applyItemSpecs(itemSpecs, specOptions, equipedSlots)
 end
 
 function InventoryModule:applyItemSpec(itemSpec, specOptions, equipedSlots)
-	itemSpec = self:completeSpec(itemSpec)
+	itemSpec = self:completeItemSpec(itemSpec)
 
 	local removedParts = {}
 
@@ -600,7 +600,7 @@ function InventoryModule:applyItemSpec(itemSpec, specOptions, equipedSlots)
 	return itemId
 end
 
-function InventoryModule:completeSpec(itemSpec)
+function InventoryModule:completeItemSpec(itemSpec)
 	if type(itemSpec) ~= 'table' then
 		itemSpec = { id = itemSpec }
 	end

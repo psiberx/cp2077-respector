@@ -32,6 +32,16 @@ local kindOrders = {
 	['Shard'] = 92,
 }
 
+local groupOrders = {
+	['Head'] = 11,
+	['Face'] = 12,
+	['Outer Torso'] = 13,
+	['Inner Torso'] = 14,
+	['Legs'] = 15,
+	['Feet'] = 16,
+	['Special'] = 17,
+}
+
 local itemModPrefixes = {
 	['Clo_Face'] = 'FaceFabricEnhancer',
 	['Clo_Feet'] = 'FootFabricEnhancer',
@@ -95,7 +105,7 @@ function TweakDb:search(term)
 end
 
 function TweakDb:isTaggedAsSet(itemMeta)
-	return itemMeta.set and itemMeta.set:find(' Set$')
+	return itemMeta.set and itemMeta.kind ~= 'Pack' and itemMeta.set:find(' Set$')
 end
 
 function TweakDb:describe(itemMeta, extended, sets, ellipsis)
@@ -116,18 +126,21 @@ function TweakDb:describe(itemMeta, extended, sets, ellipsis)
 	if extended then
 		comment = comment .. ' / ' .. itemMeta.kind
 
-		if itemMeta.group then
-			comment = comment .. ' / ' .. itemMeta.group
-		end
+		if itemMeta.kind ~= 'Pack' then
+			if itemMeta.group then
+				comment = comment .. ' / ' .. itemMeta.group
+			end
 
-		if itemMeta.kind == 'Weapon' or (itemMeta.kind == 'Mod' and itemMeta.group == 'Cyberware') then
-			comment = comment ..  ' / ' .. itemMeta.group2
+			if itemMeta.kind == 'Weapon' or (itemMeta.kind == 'Mod' and itemMeta.group == 'Cyberware') then
+				comment = comment ..  ' / ' .. itemMeta.group2
+			end
 		end
 	end
 
 	if itemMeta.quality then
 		comment = comment .. ' / ' .. itemMeta.quality
-		--comment = comment:gsub('^' .. itemMeta.quality:upper() .. ' ', '') .. ' / ' .. itemMeta.quality
+	elseif itemMeta.kind == 'Pack' and itemMeta.max then
+		comment = comment .. ' / ' .. itemMeta.max
 	end
 
 	return comment
@@ -150,7 +163,10 @@ function TweakDb:order(itemMeta, orderKind, orderPrefix)
 		if itemMeta.group == 'Cyberware' then
 			order = order .. itemMeta.group2 .. '|'
 		end
-
+	elseif itemMeta.kind == 'Pack' then
+		if itemMeta.group == 'Clothing' and itemMeta.set == false and itemMeta.tag == false then
+			order = order .. 'Z' .. ('%02d'):format(groupOrders[itemMeta.group2] or 99)
+		end
 	elseif self:isTaggedAsSet(itemMeta) then
 		order = order .. itemMeta.set .. '|'
 	end
@@ -164,6 +180,10 @@ function TweakDb:order(itemMeta, orderKind, orderPrefix)
 	if itemMeta.quality then
 		order = order .. '|' .. Quality.toValue(itemMeta.quality)
 		--order = order .. '|' .. (Quality.maxValue() - Quality.toValue(itemMeta.quality))
+	elseif itemMeta.kind == 'Pack' and itemMeta.max then
+		order = order .. '|' .. Quality.toValue(itemMeta.max)
+	else
+		order = order .. '|0'
 	end
 
 	if itemMeta.name and itemMeta.type then

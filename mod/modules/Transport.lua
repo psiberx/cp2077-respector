@@ -31,7 +31,7 @@ function TransportModule:fillSpec(specData, specOptions)
 end
 
 function TransportModule:applySpec(specData)
-	if specData.Vehicles then
+	if specData.Vehicles and #specData.Vehicles > 0 then
 		self:unlockVehicles(specData.Vehicles)
 	end
 end
@@ -89,6 +89,10 @@ function TransportModule:isVehicleUnlocked(vehicle)
 	end
 
 	return false
+end
+
+function TransportModule:isVehicleUnlockable(vehicleId)
+	return (vehicleId:find('_player$')) and true or false
 end
 
 return TransportModule

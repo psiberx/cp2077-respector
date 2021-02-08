@@ -112,54 +112,56 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 			local itemSpecs = {}
 
 			for _, itemMeta in tweakDb:filter(samplePack.items) do
-				local itemSpec = {}
+				if itemMeta.kind ~= 'Pack' then
+					local itemSpec = {}
 
-				itemSpec._comment = tweakDb:describe(itemMeta, true, true)
-				itemSpec._order = tweakDb:order(itemMeta)
+					itemSpec._comment = tweakDb:describe(itemMeta, true, true)
+					itemSpec._order = tweakDb:order(itemMeta)
 
-				if itemMeta.comment then
-					itemSpec._comment = itemSpec._comment .. '\n' .. itemMeta.comment:gsub('([.!?]) ', '%1\n')
-				end
+					if itemMeta.comment then
+						itemSpec._comment = itemSpec._comment .. '\n' .. itemMeta.comment:gsub('([.!?]) ', '%1\n')
+					end
 
-				if itemMeta.desc then
-					itemSpec._comment = itemSpec._comment .. '\n' .. itemMeta.desc:gsub('([.!?]) ', '%1\n')
-				end
+					if itemMeta.desc then
+						itemSpec._comment = itemSpec._comment .. '\n' .. itemMeta.desc:gsub('([.!?]) ', '%1\n')
+					end
 
-				itemSpec.id = TweakDb.toItemAlias(itemMeta.type)
+					itemSpec.id = TweakDb.toItemAlias(itemMeta.type)
 
-				if samplePack.items.kind == 'Cyberware' then
-					local itemSlots = {}
+					if samplePack.items.kind == 'Cyberware' then
+						local itemSlots = {}
 
-					for _, partSlot in ipairs(partSlots) do
-						if tweakDb:match(itemMeta, partSlot.criteria) then
-							local matched = true
+						for _, partSlot in ipairs(partSlots) do
+							if tweakDb:match(itemMeta, partSlot.criteria) then
+								local matched = true
 
-							if itemMeta.group2 == 'Cyberdeck' then
-								local slotsNum = Quality.toValue(itemMeta.quality) + 1
+								if itemMeta.group2 == 'Cyberdeck' then
+									local slotsNum = Quality.toValue(itemMeta.quality) + 1
 
-								if partSlot.index > slotsNum then
-									matched = false
+									if partSlot.index > slotsNum then
+										matched = false
+									end
+								end
+
+								if matched then
+									table.insert(itemSlots, { slot = partSlot.slot })
 								end
 							end
+						end
 
-							if matched then
-								table.insert(itemSlots, { slot = partSlot.slot })
-							end
+						if #itemSlots > 0 then
+							itemSpec.slots = itemSlots
+							itemSpec._inline = false
+						end
+
+					elseif samplePack.name == 'stash-wall' then
+						if itemMeta.quest then
+							itemSpec.quest = false
 						end
 					end
 
-					if #itemSlots > 0 then
-						itemSpec.slots = itemSlots
-						itemSpec._inline = false
-					end
-
-				elseif samplePack.name == 'stash-wall' then
-					if itemMeta.quest then
-						itemSpec.quest = false
-					end
+					table.insert(itemSpecs, itemSpec)
 				end
-
-				table.insert(itemSpecs, itemSpec)
 			end
 
 			tweakDb:sort(itemSpecs)

@@ -13,12 +13,21 @@ local respector, tweaker, tweakDb, equipAreaDb, persitentState
 local specialSearches = {
 	['ammo'] = { kind = 'Ammo' },
 	['cyberware'] = { kind = 'Cyberware' },
-	['gog'] = { tag = 'GOG' },
 	['iconic'] = { iconic = true },
 	['pack'] = { kind = 'Pack' },
 }
 
-local defaultSearches = { 'iconic', 'johnny', 'gog', 'ncpd', 'ammo', 'crafting', 'eu', 'hack', 'pack' }
+local defaultSearches = {
+	'iconic',
+	'stash',
+	'johnny',
+	'gog',
+	'ammo',
+	'crafting',
+	'eu',
+	'hack',
+	'pack',
+}
 
 local viewData = {
 	justOpened = true,
@@ -317,33 +326,27 @@ function tweaksGui.onDrawEvent()
 
 			ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, 5, 3)
 
-			if tweak.rarityColor then
-				ImGuiX.PushStyleColor(ImGuiCol.Text, tweak.rarityColor)
+			if tweak.entryQualityColor then
+				ImGuiX.PushStyleColor(ImGuiCol.Text, tweak.entryQualityColor)
 			end
 
 			ImGui.Text(tweak.entryMeta.name)
 
-			if tweak.entryMeta.quality then
+			if tweak.entryQuality then
 				ImGui.SameLine()
 				ImGui.Text('·')
 				ImGui.SameLine()
-				ImGui.Text(tweak.entryMeta.quality)
+				ImGui.Text(tweak.entryQuality)
 
-				if tweak.entryMeta.iconic then
+				if tweak.entryIconic then
 					ImGui.SameLine()
 					ImGui.Text('/')
 					ImGui.SameLine()
 					ImGui.Text('Iconic')
 				end
-
-			elseif tweak.entryMeta.iconic then
-				ImGui.SameLine()
-				ImGui.Text('·')
-				ImGui.SameLine()
-				ImGui.Text('Iconic')
 			end
 
-			if tweak.rarityColor then
+			if tweak.entryQualityColor then
 				ImGuiX.PopStyleColor()
 			end
 
@@ -363,7 +366,7 @@ function tweaksGui.onDrawEvent()
 					ImGui.Text(tweak.entryMeta.group2)
 				end
 
-				if tweak.showEntrySet then
+				if tweak.entryTaggedAsSet then
 					ImGui.SameLine()
 					ImGui.Text('·')
 					ImGui.SameLine()
@@ -373,15 +376,15 @@ function tweaksGui.onDrawEvent()
 
 			ImGuiX.PopStyleColor()
 
-			if tweak.entryMeta.comment then
+			if tweak.entryComment then
 				ImGuiX.PushStyleColor(ImGuiCol.Text, 0xff484ad5)
-				ImGui.TextWrapped(tweak.entryMeta.comment:gsub('%%', '%%%%'))
+				ImGui.TextWrapped(tweak.entryComment)
 				ImGuiX.PopStyleColor()
 			end
 
-			if tweak.entryMeta.desc then
+			if tweak.entryDesc then
 				ImGuiX.PushStyleColor(ImGuiCol.Text, 0xffcccccc)
-				ImGui.TextWrapped(tweak.entryMeta.desc:gsub('%%', '%%%%'))
+				ImGui.TextWrapped(tweak.entryDesc)
 				ImGuiX.PopStyleColor()
 			end
 
@@ -392,6 +395,11 @@ function tweaksGui.onDrawEvent()
 			if tweak.entryMeta.kind == 'Hack' then
 				if ImGui.Button('Execute hack', viewData.gridFullWidth, viewData.buttonHeight) then
 					tweaksGui.onExecuteHackClick()
+				end
+
+			elseif tweak.entryMeta.kind == 'Pack' then
+				if ImGui.Button('Get pack', viewData.gridFullWidth, viewData.buttonHeight) then
+					tweaksGui.onAddPackClick()
 				end
 
 			elseif tweak.entryMeta.kind == 'Fact' then
@@ -478,11 +486,6 @@ function tweaksGui.onDrawEvent()
 
 				if ImGui.Button(form.buttonLabel, viewData.gridFullWidth, viewData.buttonHeight) then
 					tweaksGui.onAddResourceClick()
-				end
-
-			elseif tweak.entryMeta.kind == 'Pack' then
-				if ImGui.Button('Get pack', viewData.gridFullWidth, viewData.buttonHeight) then
-					tweaksGui.onAddPackClick()
 				end
 
 			else
@@ -679,7 +682,6 @@ function tweaksGui.onTweakSearchChange()
 			entryMeta = result.entryMeta,
 			entryType = str.nonempty(result.entryMeta.type, 'N/A'),
 			entryHash = TweakDb.isRealKey(result.entryKey) and ('%010X'):format(result.entryKey) or 'N/A',
-			showEntrySet = tweakDb:isTaggedAsSet(result.entryMeta),
 		}
 	end)
 
@@ -691,16 +693,30 @@ end
 function tweaksGui.onTweakSearchResultSelect()
 	local tweak = viewData.activeTweakData
 
+	tweak.entryIconic = tweak.entryMeta.iconic and tweak.entryMeta.kind ~= 'Pack'
+	tweak.entryTaggedAsSet = tweakDb:isTaggedAsSet(tweak.entryMeta)
+
 	if tweak.entryMeta.quality then
-		tweak.rarityColor = Quality.toColor(tweak.entryMeta.quality)
+		tweak.entryQuality = tweak.entryMeta.quality
+		tweak.entryQualityColor= Quality.toColor(tweak.entryMeta.quality)
+	elseif tweak.entryMeta.max and tweak.entryMeta.kind == 'Pack' then
+		tweak.entryQuality = tweak.entryMeta.max
+		tweak.entryQualityColor= Quality.toColor(tweak.entryMeta.max)
 	elseif tweak.entryMeta.iconic then
-		tweak.rarityColor = 0xfffefd01
+		tweak.entryQuality = nil
+		tweak.entryQualityColor= 0xfffefd01
 	else
-		tweak.rarityColor = nil
+		tweak.entryQuality = nil
+		tweak.entryQualityColor= nil
 	end
 
-	if tweak.entryMeta.kind == 'Pack' or tweak.entryMeta.kind == 'Hack' then
+	tweak.packSize = nil
+
+	if tweak.entryMeta.kind == 'Hack' then
 		--
+
+	elseif tweak.entryMeta.kind == 'Pack' then
+		tweak.packSize = tweaker:getPackSize(tweaksGui.getCurrentPackSpec())
 
 	elseif tweak.entryMeta.kind == 'Fact' then
 		tweak.factState = tweaker:getFact(tweak.entryMeta.type)
@@ -835,45 +851,34 @@ function tweaksGui.onTweakSearchResultSelect()
 		viewData.questOptionIndex = tweak.itemQuestMark and 0 or 1
 	end
 
+	tweak.entryComment = tweak.entryMeta.comment
+
+	if tweak.entryComment then
+		tweak.entryComment = tweak.entryComment:gsub('%%', '%%%%')
+	end
+
+	tweak.entryDesc = tweak.entryMeta.desc
+
+	if tweak.packSize then
+		tweak.entryDesc = (tweak.entryDesc and tweak.entryDesc .. ' ' or '') ..
+			('Contains %d %s(s).'):format(tweak.packSize, (tweak.entryMeta.group == 'Vehicle' and 'vehicle' or 'item'))
+	end
+
+	if tweak.entryDesc then
+		tweak.entryDesc = tweak.entryDesc:gsub('%%', '%%%%')
+	end
+
 	tweaksGui.trackTweakSearchTerm()
 end
 
 function tweaksGui.onAddPackClick()
-	local tweak = viewData.activeTweakData
-
-	local packSpec = {
-		kind = tweak.entryMeta.group,
-		group = tweak.entryMeta.group2,
-		iconic = tweak.entryMeta.iconic,
-		tag = tweak.entryMeta.tag,
-		set = tweak.entryMeta.set,
-		quality = tweak.entryMeta.quality,
-		upgrade = tweak.entryMeta.max,
-	}
+	local packSpec = tweaksGui.getCurrentPackSpec()
 
 	tweaker:addPack(packSpec, userState.cheatMode)
 end
 
 function tweaksGui.onAddItemClick()
-	local tweak = viewData.activeTweakData
-
-	local itemSpec = {
-		id = tweak.entryMeta.type,
-		upgrade = tweak.itemQuality,
-		qty = tweak.itemQty
-	}
-
-	if tweak.itemMaxSlots == true then
-		itemSpec.slots = 'max'
-	end
-
-	if tweak.itemQuestMark == false then
-		itemSpec.quest = false
-	end
-
-	if tweak.itemEquipSlot ~= 0 then
-		itemSpec.equip = tweak.itemEquipSlot
-	end
+	local itemSpec = tweaksGui.getCurrentItemSpec()
 
 	tweaker:addItem(itemSpec, userState.cheatMode)
 end
@@ -956,6 +961,46 @@ function tweaksGui.forgetTweakSearchTerm(tweakSearch)
 	end
 
 	persitentState:flush()
+end
+
+-- Helpers
+
+function tweaksGui.getCurrentPackSpec()
+	local tweak = viewData.activeTweakData
+
+	return {
+		kind = tweak.entryMeta.group ~= 'Mixed' and tweak.entryMeta.group or nil,
+		group = tweak.entryMeta.group2,
+		iconic = tweak.entryMeta.iconic,
+		tag = tweak.entryMeta.tag,
+		set = tweak.entryMeta.set,
+		quality = tweak.entryMeta.quality,
+		upgrade = tweak.entryMeta.max,
+	}
+end
+
+function tweaksGui.getCurrentItemSpec()
+	local tweak = viewData.activeTweakData
+
+	local itemSpec = {
+		id = tweak.entryMeta.type,
+		upgrade = tweak.itemQuality,
+		qty = tweak.itemQty
+	}
+
+	if tweak.itemMaxSlots == true then
+		itemSpec.slots = 'max'
+	end
+
+	if tweak.itemQuestMark == false then
+		itemSpec.quest = false
+	end
+
+	if tweak.itemEquipSlot ~= 0 then
+		itemSpec.equip = tweak.itemEquipSlot
+	end
+
+	return itemSpec
 end
 
 return tweaksGui

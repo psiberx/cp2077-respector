@@ -9,7 +9,7 @@ return {
 	},
 	{
 		name = "clothing-sets",
-		items = { kind = "Clothing", set = { "Badge Set", "Corpo Set", "Fixer Set", "Media Set", "Netrunner Set", "Nomad Set", "Rocker Set", "Solo Set", "Techie Set" } },
+		items = { kind = "Clothing", set = true },
 	},
 	{
 		name = "clothing-unique",
@@ -54,7 +54,7 @@ return {
 	},
 	{
 		name = "vehicles",
-		vehicles = { kind = "Vehicle", group2 = false },
+		vehicles = { kind = "Vehicle", set = "Garage" },
 	},
 	{
 		name = "weapons",

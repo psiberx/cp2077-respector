@@ -42,6 +42,22 @@ return {
 		-- FIXER SET: TRYLAYER ARAMID WEAVE FIXER SKIRT WITH JACKET / Clothing / Outer Torso / Legendary
 		{ id = "Fixer_01_Set_Coat" }, 
 
+		-- HEAVY-DUTY MAXTAC CARGO PANT / Clothing / Legs
+		-- Brutally straightforward.
+		-- Much like their tactics.
+		-- Currently unobtainable in the gameplay.
+		{ id = "SQ030_MaxTac_Pants" }, 
+
+		-- MAXTAC MULTILAYERED ARMOR-WEAVE JACKET / Clothing / Outer Torso
+		-- Issued only to memebers of the NCPD's elite unit.
+		-- Currently unobtainable in the gameplay.
+		{ id = "SQ030_MaxTac_Chest" }, 
+
+		-- MAXTAC TACTICAL HELMET WITH MULTIFUNCTION INFOVISOR / Clothing / Head
+		-- It's hard to believe there's a human somewhere behind that.
+		-- Currently unobtainable in the gameplay.
+		{ id = "SQ030_MaxTac_Helmet" }, 
+
 		-- MEDIA SET: ANTI PIERCING TACTICAL MEDIA CARGO PANTS / Clothing / Legs / Legendary
 		{ id = "Media_01_Set_Pants" }, 
 

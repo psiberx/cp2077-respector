@@ -17,30 +17,64 @@ function Tweaker:addPack(packSpec, cheatMode)
 
 	local itemSpecs = {}
 	local itemUpgrade = packSpec.upgrade
+	local vehicleSpecs = {}
 
-	if packSpec.upgrade then
-		packSpec.upgrade = nil
-	end
+	for itemKey, itemMeta in tweakDb:filter(self:toPackCriteria(packSpec)) do
+		if TweakDb.isRealKey(itemKey) then
+			if itemMeta.kind == 'Vehicle' then
+				table.insert(vehicleSpecs, itemMeta.type)
+			else
+				local itemSpec = {}
 
-	for _, itemMeta in tweakDb:filter(packSpec) do
-		local itemSpec = {}
+				itemSpec.id = itemMeta.type
 
-		itemSpec.id = itemMeta.type
+				if not itemMeta.quality and itemUpgrade then
+					itemSpec.upgrade = itemUpgrade
+				end
 
-		if not itemMeta.quality and itemUpgrade then
-			itemSpec.upgrade = itemUpgrade
+				if itemMeta.kind == 'Clothing' then
+					itemSpec.slots = 'max'
+				end
+
+				itemSpec.quest = false
+
+				table.insert(itemSpecs, itemSpec)
+			end
 		end
-
-		if itemMeta.kind == 'Clothing' then
-			itemSpec.slots = 'max'
-		end
-
-		table.insert(itemSpecs, itemSpec)
 	end
 
 	tweakDb:unload()
 
-	self.respector:execSpec({ Backpack = itemSpecs }, { cheat = cheatMode })
+	print(#itemSpecs, #vehicleSpecs)
+
+	self.respector:execSpec({ Backpack = itemSpecs, Vehicles = vehicleSpecs }, { cheat = cheatMode })
+end
+
+function Tweaker:getPackSize(packSpec)
+	local tweakDb = TweakDb:new(true)
+
+	local packSize = 0
+
+	for itemKey, _ in tweakDb:filter(self:toPackCriteria(packSpec)) do
+		if TweakDb.isRealKey(itemKey) then
+			packSize = packSize + 1
+		end
+	end
+
+	tweakDb:unload()
+
+	return packSize
+end
+
+function Tweaker:toPackCriteria(packSpec)
+	return {
+		kind = packSpec.kind,
+		group = packSpec.group,
+		iconic = packSpec.iconic,
+		tag = packSpec.tag,
+		set = packSpec.set,
+		quality = packSpec.quality,
+	}
 end
 
 function Tweaker:addItem(itemSpec, cheatMode)
@@ -72,7 +106,9 @@ function Tweaker:hasVehicle(vehicleId)
 end
 
 function Tweaker:canHaveVehicle(vehicleId)
-	return (vehicleId:find('_player$')) and true or false
+	return self.respector:usingModule('transport', function(transport)
+		return transport:isVehicleUnlockable(vehicleId)
+	end)
 end
 
 function Tweaker:addVehicle(vehicleId)
