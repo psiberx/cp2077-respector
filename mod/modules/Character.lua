@@ -87,8 +87,8 @@ function CharacterModule:applySpec(specData, specOptions)
 		end
 
 		-- Apply street cred level
-		if specData.Character.StreedCred then
-			self:applyStreedCred(specData.Character.StreedCred)
+		if specData.Character.StreetCred then
+			self:applyStreetCred(specData.Character.StreetCred)
 		end
 
 		-- Apply attributes
@@ -164,7 +164,7 @@ function CharacterModule:applyLevel(playerLevel)
 end
 
 ---@private
-function CharacterModule:applyStreedCred(streetCred)
+function CharacterModule:applyStreetCred(streetCred)
 	streetCred = math.max(playerLevelMin, math.min(playerLevelMax, streetCred))
 
 	local currentLevel = self:getStatValue('StreetCred')

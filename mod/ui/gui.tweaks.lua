@@ -18,6 +18,7 @@ local specialSearches = {
 }
 
 local defaultSearches = {
+	'pack',
 	'iconic',
 	'stash',
 	'johnny',
@@ -26,7 +27,6 @@ local defaultSearches = {
 	'crafting',
 	'eu',
 	'hack',
-	'pack',
 }
 
 local viewData = {
