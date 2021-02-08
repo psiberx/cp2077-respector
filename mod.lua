@@ -8,11 +8,14 @@ local mod = {
 local loaded = {}
 local timers = {}
 local counter = 0
+local debug
 
 function mod.init(debugMode)
 	mod.debug = debugMode
 
 	mod.configure()
+
+	debug = mod.load('debug')
 end
 
 function mod.configure()
@@ -50,7 +53,7 @@ end
 function mod.load(path)
 	local chunk = loadfile(mod.path(path))
 
-	return chunk and chunk(mod) or nil
+	return chunk and chunk(mod, debug) or nil
 end
 
 function mod.require(path)

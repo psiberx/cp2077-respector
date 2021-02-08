@@ -36,6 +36,7 @@
 	-x!"%ModPath%\mod\data\tweakdb-names.*" ^
 	-x!"%ModPath%\specs\??*.lua" ^
 	-x!"%ModPath%\.gitignore" ^
+	-x!"%ModPath%\debug.lua" ^
 	-x!"%ModPath%\db.sqlite3" ^
 	-x!"%ModPath%\respector*.log" ^
 	"%ReleaseZip%" ^

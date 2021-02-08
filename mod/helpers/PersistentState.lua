@@ -1,5 +1,5 @@
 local mod = ...
-local debug = mod.require('mod/utils/debug')
+local export = mod.require('mod/utils/export')
 
 local PersistentState = {}
 PersistentState.__index = PersistentState
@@ -45,7 +45,7 @@ function PersistentState:flush()
 	local stateFile = io.open(self.path, 'w')
 
 	if stateFile ~= nil then
-		stateFile:write('return ' .. debug.table(self.state))
+		stateFile:write('return ' .. export.table(self.state))
 		stateFile:close()
 
 		if mod.debug then
