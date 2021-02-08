@@ -62,7 +62,7 @@ local Respector = mod.require('mod/Respector')
 local respector = Respector:new()
 
 local Tweaker = mod.require('mod/Tweaker')
-local tweaker = Tweaker:new()
+local tweaker = Tweaker:new(respector)
 
 if mod.config.useModApi or mod.config.useGlobalApi then
 	if mod.debug then

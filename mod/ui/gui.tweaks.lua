@@ -608,9 +608,14 @@ end
 
 -- Actions
 
-function tweaksGui.onTweakSearchChange()
-	--persitentState:flush()
+function tweaksGui.onToggleTweaker()
+	userState.showTweaker = not userState.showTweaker
+	viewData.justOpened = userState.showTweaker
 
+	persitentState:flush()
+end
+
+function tweaksGui.onTweakSearchChange()
 	local searchTerm = str.trim(userState.tweakSearch:lower())
 
 	if searchTerm == '`' then
@@ -681,17 +686,15 @@ function tweaksGui.onTweakSearchResultSelect()
 		--
 
 	elseif tweak.entryMeta.kind == 'Fact' then
-		tweak.factState = tweaksGui.getFactState(tweak.entryMeta.type)
+		tweak.factState = tweaker:getFact(tweak.entryMeta.type)
 
 	elseif tweak.entryMeta.kind == 'Vehicle' then
-		tweak.vehicleUnlockable = (tweak.entryMeta.type):find('_player$')
-		tweak.vehicleUnlocked = respector:usingModule('transport', function(transportModule)
-			return transportModule:isVehicleUnlocked(tweak.entryMeta.type)
-		end)
+		tweak.vehicleUnlockable = tweaker:canHaveVehicle(tweak.entryMeta.type)
+		tweak.vehicleUnlocked = tweaker:hasVehicle(tweak.entryMeta.type)
 
 	elseif tweak.entryMeta.kind == 'Money' or tweak.entryMeta.kind == 'Component' or tweak.entryMeta.kind == 'Ammo' then
 		tweak.transferAmount = viewData.resourceForm[tweak.entryMeta.kind].transferAmount
-		tweak.currentAmount = tweaksGui.getItemAmount(tweak.entryMeta.kind, tweak.entryMeta.type)
+		tweak.currentAmount = tweaker:getResource(tweak.entryMeta.type)
 
 	else
 		-- Item Quantity
@@ -839,15 +842,13 @@ function tweaksGui.onSpawnItemClick()
 		itemSpec.equip = tweak.itemEquipSlot
 	end
 
-	respector:execSpec({ Inventory = { itemSpec } }, userState.specOptions)
+	tweaker:addItem(itemSpec, userState.cheatMode)
 end
 
 function tweaksGui.onUnlockRecipeClick()
 	local tweak = viewData.activeTweakData
 
-	respector:usingModule('crafting', function(craftingModule)
-		craftingModule:addRecipe(tweak.itemRecipeId)
-	end)
+	tweaker:addRecipe(tweak.itemRecipeId)
 
 	tweak.itemRecipeKnown = true
 end
@@ -855,9 +856,7 @@ end
 function tweaksGui.onUnlockVehicleClick()
 	local tweak = viewData.activeTweakData
 
-	respector:usingModule('transport', function(transportModule)
-		return transportModule:unlockVehicle(tweak.entryMeta.type)
-	end)
+	tweaker:addVehicle(tweak.entryMeta.type)
 
 	tweak.vehicleUnlocked = true
 end
@@ -865,36 +864,29 @@ end
 function tweaksGui.onSpawnVehicleClick()
 	local tweak = viewData.activeTweakData
 
-	tweaker:execHack('SpawnVehicle', tweak.entryMeta.type)
+	tweaker:spawnVehicle(tweak.entryMeta.type)
 end
 
 function tweaksGui.onTransferGoodsClick()
 	local tweak = viewData.activeTweakData
 
-	tweaksGui.addItemAmount(tweak.entryMeta.kind, tweak.entryMeta.type, tweak.transferAmount)
+	tweaker:addResource(tweak.entryMeta.type, tweak.transferAmount)
 
-	tweak.currentAmount = tweaksGui.getItemAmount(tweak.entryMeta.kind, tweak.entryMeta.type)
+	tweak.currentAmount = tweaker:getResource(tweak.entryMeta.type)
 end
 
 function tweaksGui.onSwitchFactClick()
 	local tweak = viewData.activeTweakData
 
-	tweak.factState = not tweak.factState
+	tweaker:setFact(tweak.entryMeta.type, not tweak.factState)
 
-	tweaksGui.setFactState(tweak.entryMeta.type, tweak.factState)
+	tweak.factState = tweaker:getFact(tweak.entryMeta.type)
 end
 
 function tweaksGui.onExecuteHackClick()
 	local tweak = viewData.activeTweakData
 
 	tweaker:execHack(tweak.entryMeta.type)
-end
-
-function tweaksGui.onToggleTweaker()
-	userState.showTweaker = not userState.showTweaker
-	viewData.justOpened = userState.showTweaker
-
-	persitentState:flush()
 end
 
 function tweaksGui.trackTweakSearchTerm()
@@ -931,36 +923,6 @@ function tweaksGui.forgetTweakSearchTerm(tweakSearch)
 	end
 
 	persitentState:flush()
-end
-
--- Helpers
-
-function tweaksGui.getItemAmount(itemKind, itemId)
-	if itemKind == 'Ammo' then
-		itemId = TweakDb.toItemId(TweakDb.toTweakId(itemId), false)
-	else
-		itemId = TweakDb.toItemId(itemId, false)
-	end
-
-	return Game.GetTransactionSystem():GetItemQuantity(Game.GetPlayer(), itemId)
-end
-
-function tweaksGui.addItemAmount(itemKind, itemId, itemAmount)
-	if itemKind == 'Ammo' then
-		itemId = TweakDb.toItemId(TweakDb.toTweakId(itemId), false)
-	else
-		itemId = TweakDb.toItemId(itemId, false)
-	end
-
-	Game.GetTransactionSystem():GiveItem(Game.GetPlayer(), itemId, itemAmount)
-end
-
-function tweaksGui.getFactState(factName)
-	return Game.GetQuestsSystem():GetFactStr(factName) == 1
-end
-
-function tweaksGui.setFactState(factName, state)
-	Game.GetQuestsSystem():SetFactStr(factName, state and 1 or 0)
 end
 
 return tweaksGui

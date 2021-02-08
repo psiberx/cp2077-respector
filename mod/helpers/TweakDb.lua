@@ -243,7 +243,11 @@ function TweakDb.toTweakId(tweakId, prefix)
 	end
 
 	if type(tweakId) == 'string' then
-		return TweakDBID.new(str.with(tweakId, prefix))
+		if tweakId:find('%.') then
+			return TweakDBID.new(tweakId)
+		else
+			return TweakDBID.new(str.with(tweakId, prefix))
+		end
 	end
 
 	if type(tweakId) == 'userdata' then
