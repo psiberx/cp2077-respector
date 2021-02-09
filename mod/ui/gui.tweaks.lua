@@ -737,16 +737,24 @@ function tweaksGui.onTweakSearchResultSelect()
 		-- Item Quality
 
 		if tweak.entryMeta.quality then
-			tweak.itemCanBeUpgraded = false
 			tweak.itemQuality = tweak.entryMeta.quality
+
+			if tweak.entryMeta.kind == 'Clothing' and userState.cheatMode then
+				tweak.itemCanBeUpgraded = true
+				tweak.itemQualityMax = 'Legendary'
+			else
+				tweak.itemCanBeUpgraded = false
+			end
 		else
 			tweak.itemCanBeUpgraded = true
 
 			if type(tweak.entryMeta.max) == 'string' and not userState.cheatMode then
-				tweak.itemQuality = tweak.entryMeta.max
+				tweak.itemQualityMax = tweak.entryMeta.max
 			else
-				tweak.itemQuality = 'Legendary'
+				tweak.itemQualityMax = 'Legendary'
 			end
+
+			tweak.itemQuality = tweak.itemQualityMax
 		end
 
 		-- Item Quest Mark
@@ -833,13 +841,14 @@ function tweaksGui.onTweakSearchResultSelect()
 		-- Item View Data
 
 		if tweak.itemCanBeUpgraded then
-			viewData.qualityOptionList = Quality.upTo(tweak.itemQuality)
+			viewData.qualityOptionList = Quality.upTo(tweak.itemQualityMax)
+			viewData.qualityOptionIndex = array.find(viewData.qualityOptionList, tweak.itemQuality) - 1
 		else
 			viewData.qualityOptionList = { tweak.itemQuality }
+			viewData.qualityOptionIndex = 0
 		end
 
 		viewData.qualityOptionCount = #viewData.qualityOptionList
-		viewData.qualityOptionIndex = viewData.qualityOptionCount - 1
 
 		if tweak.itemCanBeMarked then
 			viewData.questOptionList = { 'Yes', 'No' }

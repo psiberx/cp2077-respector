@@ -495,6 +495,7 @@ end
 function gui.onCheatModeChange(cheatMode)
 	userState.cheatMode = cheatMode
 	userState.specOptions.cheat = cheatMode
+	userState.tweakSearch = nil
 
 	persitentState:flush()
 end
