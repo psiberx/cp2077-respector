@@ -361,11 +361,25 @@ function gui.onDrawEvent()
 			-- Loading: Recent Specs
 			ImGui.Text('Recent specs:')
 			ImGui.Spacing()
-			ImGui.SetNextItemWidth(viewData.gridFullWidth)
 			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 0)
 			ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
 			ImGuiX.PushStyleColor(ImGuiCol.FrameBg, 0)
-			local recentSpecIndex = ImGui.ListBox('##RecentSpecs', -1, viewData.specHistoryList, #viewData.specHistoryList, 14)
+
+			ImGui.BeginListBox('##RecentSpecs', viewData.gridFullWidth + .0, 237.0)
+			local recentSpecIndex = -1
+			for entryIndex, entryPreview in ipairs(viewData.specHistoryList) do
+				if ImGui.Selectable(entryPreview, false) then
+					recentSpecIndex = entryIndex - 1
+				end
+				if ImGui.IsItemClicked(ImGuiMouseButton.Middle) then
+					gui.forgetHistoryEntry(entryIndex)
+				end
+			end
+			ImGui.EndListBox()
+
+			--ImGui.SetNextItemWidth(viewData.gridFullWidth)
+			--local recentSpecIndex = ImGui.ListBox('##RecentSpecs', -1, viewData.specHistoryList, #viewData.specHistoryList, 14)
+
 			ImGuiX.PopStyleColor()
 			ImGuiX.PopStyleVar(2)
 			if recentSpecIndex >= 0 then
@@ -498,6 +512,17 @@ function gui.onCheatModeChange(cheatMode)
 	userState.tweakSearch = nil
 
 	persitentState:flush()
+end
+
+function gui.forgetHistoryEntry(entryIndex)
+	local entry = userState.specHistory[entryIndex]
+
+	if respector.specStore:deleteSpec(entry.specName) then
+		table.remove(userState.specHistory, entryIndex)
+		table.remove(viewData.specHistoryList, entryIndex)
+
+		persitentState:flush()
+	end
 end
 
 -- Hotkey Handlers

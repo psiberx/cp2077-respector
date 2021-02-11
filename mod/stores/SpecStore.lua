@@ -103,4 +103,16 @@ function SpecStore:writeSpec(specName, specData, timestamped)
 	return success, specName
 end
 
+function SpecStore:deleteSpec(specName)
+	if not specName or specName == '' then
+		specName = self.defaultSpec
+	end
+
+	local specPath = mod.path(self.specsDir .. specName)
+
+	local success = os.remove(specPath)
+
+	return success
+end
+
 return SpecStore

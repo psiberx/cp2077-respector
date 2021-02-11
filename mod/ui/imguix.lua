@@ -78,4 +78,9 @@ if not ImGuiMouseButton then
 	}
 end
 
+if not ImGui.BeginListBox then
+	ImGui.BeginListBox = ImGui.ListBoxHeader
+	ImGui.EndListBox = ImGui.ListBoxFooter
+end
+
 return ImGuiX
