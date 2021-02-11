@@ -94,26 +94,31 @@ return {
 		{ id = "TygerClawsStrongArmsBattery1" }, 
 
 		-- EXPLOSIVE ANALYSIS / Mod / Cyberware / Kiroshi / Uncommon
+		-- An upgrade to Kiroshi optical cyberware.
 		-- Allows you to see the precise explosion radius of your grenades.
 		{ id = "KiroshiOpticsFragment2" }, 
 
 		-- TARGET ANALYSIS / Mod / Cyberware / Kiroshi / Rare
+		-- An upgrade to Kiroshi optical cyberware.
 		-- All weapons become non-lethal.
 		-- Headshots do not deal additional damage.
 		-- Smart Weapons primarily target limbs.
 		{ id = "KiroshiOpticsFragment1" }, 
 
 		-- TARGET ANALYSIS / Mod / Cyberware / Kiroshi / Rare
+		-- An upgrade to Kiroshi optical cyberware.
 		-- All weapons become non-lethal.
 		-- Headshots do not deal additional damage.
 		-- Smart Weapons primarily target limbs.
 		{ id = "KiroshiOpticsFragment3" }, 
 
 		-- THREAT DETECTOR / Mod / Cyberware / Kiroshi / Rare
+		-- An upgrade to Kiroshi optical cyberware.
 		-- Automatically highlights who have detected you.
 		{ id = "KiroshiOpticsFragment4" }, 
 
 		-- TRAJECTORY ANALYSIS / Mod / Cyberware / Kiroshi / Legendary
+		-- An upgrade to Kiroshi optical cyberware.
 		-- Increase headshot bonus damage by 50%.
 		{ id = "KiroshiOpticsFragment5" }, 
 
@@ -123,6 +128,7 @@ return {
 		{ id = "KiroshiOpticsFragment7" }, 
 
 		-- WEAKSPOT DETECTION / Mod / Cyberware / Kiroshi / Uncommon
+		-- An upgrade to Kiroshi optical cyberware.
 		-- Increases Crit Chance by 5%.
 		{ id = "KiroshiOpticsFragment6" }, 
 
@@ -216,6 +222,7 @@ return {
 		{ id = "ExplosiveDamageRound" }, 
 
 		-- METAL PLATING / Mod / Cyberware / Projectile Launch System / Rare
+		-- Metal inserts that are integrated into the body to better prevent soft-tissue damage.
 		-- Increases all Resistances by 10%.
 		{ id = "MetalPlating" }, 
 
@@ -226,6 +233,7 @@ return {
 		{ id = "MilitechProjectileLauncherRound1" }, 
 
 		-- NEOPLASTIC PLATING / Mod / Cyberware / Projectile Launch System / Rare
+		-- A covering made from a durable and flexible material.
 		-- Increases Crit Chance by 10%.
 		{ id = "NeoplasticPlating" }, 
 
@@ -236,6 +244,7 @@ return {
 		{ id = "ThermalDamageRound" }, 
 
 		-- TITANIUM PLATING / Mod / Cyberware / Projectile Launch System / Epic
+		-- Titanium inserts that are integrated into the body to better prevent soft-tissue damage.
 		-- Increases Armor by 7%.
 		{ id = "TitaniumPlating" }, 
 

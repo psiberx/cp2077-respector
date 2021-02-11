@@ -2,15 +2,15 @@
 return {
 	Inventory = {
 		-- BLACK UNICORN / Weapon / Melee / Blade / Rare
-		-- DRM FREE!
+		-- The razor-like blade is as merciless as death itself, the guard is fashioned from premium materials and the handle is crafted so exquisitely it belongs in a museum. Most importantly, it remains light and nimble to wield because it was forged DRM-free.
 		{ id = "Preset_Katana_GoG" }, 
 
 		-- BLACK UNICORN / Weapon / Melee / Blade / Epic
-		-- DRM FREE!
+		-- The razor-like blade is as merciless as death itself, the guard is fashioned from premium materials and the handle is crafted so exquisitely it belongs in a museum. Most importantly, it remains light and nimble to wield because it was forged DRM-free.
 		{ id = "Preset_Katana_GoG_Epic" }, 
 
 		-- BLACK UNICORN / Weapon / Melee / Blade / Legendary
-		-- DRM FREE!
+		-- The razor-like blade is as merciless as death itself, the guard is fashioned from premium materials and the handle is crafted so exquisitely it belongs in a museum. Most importantly, it remains light and nimble to wield because it was forged DRM-free.
 		{ id = "Preset_Katana_GoG_Legendary" }, 
 
 		-- GALAXY T-SHIRT / Clothing / Inner Torso / Rare

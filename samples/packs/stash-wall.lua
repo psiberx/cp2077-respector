@@ -18,8 +18,7 @@ return {
 		{ id = "Preset_Nekomata_Breakthrough" }, 
 
 		-- BUZZSAW / Weapon / Power / SMG / Rare
-		-- An absolute beast with a nasty bite.
-		-- Don't get too close
+		-- An absolute beast with a nasty bite. Don't get too close.
 		-- A unique mod that allows you to fire high penetration rounds.
 		{ id = "Preset_Pulsar_Buzzsaw" }, 
 
@@ -37,41 +36,37 @@ return {
 		{ id = "Preset_Overture_River", quest = false }, 
 
 		-- JINCHU-MARU / Weapon / Melee / Blade / Epic
-		-- The purest essence of a katana.
-		-- No addons, no modifications, only razor-sharp steel.
+		-- The purest essence of a katana. No add-ons, no modifications - only razor-sharp steel.
 		-- Gains 100% Crit Chance while Kerenzikov is active.
 		-- Last Strike in a combo deals double damage.
 		-- Doubles damage against enemies with twice your current health.
 		{ id = "Preset_Katana_Takemura" }, 
 
 		-- LA CHINGONA DORADA / Weapon / Power / Pistol / Rare
-		-- Jackie's pistol.
-		-- A beautiful marriage of Japanese technology and Valentino style.
+		-- Jackie's pistol. A beautiful marriage of Japanese technology and Valentino style.
 		-- Reduces reload time and adds an extra mod slot.
 		-- Higher Chance to apply burn and stun.
 		{ id = "Preset_Nue_Jackie" }, 
 
 		-- MALORIAN ARMS 3516 / Weapon / Power / Pistol / Legendary
-		-- Custom-made for Johnny Silverhand.
-		-- The guy had taste.
+		-- Custom-made for Johnny Silverhand. The guy had taste.
 		{ id = "Preset_Silverhand_3516" }, 
 
 		-- MORON LABE / Weapon / Power / Assault Riffle / Epic
-		-- A weapon for an alpha among alphas.
+		-- A weapon for an alpha among alphas.
 		-- Increases fire rate.
 		-- Chance to dismember target.
 		{ id = "Preset_Ajax_Moron" }, 
 
 		-- MOX / Weapon / Power / Shotgun / Rare
-		-- An uncompromising force weapons technology that once belonged to Judy
+		-- An uncompromising force weapons technology that once belonged to Judy.
 		-- Suited for high reflexes.
 		-- Low reload speed.
 		-- Modded barrel reduces spread while aiming.
 		{ id = "Preset_Carnage_Mox" }, 
 
 		-- OVERWATCH / Weapon / Power / Sniper Riffle / Rare
-		-- A Sniper rifle that belonged to Panam.
-		-- Increased reload speed and leathal accuracy - A rifle you can count on.
+		-- A sniper rifle that belonged to Panam. Increased reload spead and lethal accuracy - a rifle you can count on.
 		-- Increases reload speed.
 		-- Comes with a custom silencer.
 		{ id = "Preset_Grad_Panam" }, 
@@ -83,21 +78,19 @@ return {
 		{ id = "Preset_Liberty_Dex" }, 
 
 		-- PSALM 11:6 / Weapon / Power / Assault Riffle / Rare
-		-- Let him rain coals on the wicked: fire and sulfur and a scorching wind shall be the portion of their cup.
+		-- "Let him rain coals on the wicked; fire and sulfur and a scorching wind shall be the portion of their cup."
 		-- Pure hellfire.
 		-- This gun deals additional Thermal damage, greatly increasing the chance to apply burn.
 		{ id = "Preset_Copperhead_Genesis" }, 
 
 		-- SATORI / Weapon / Melee / Blade / Rare
-		-- Property of Saburo Arasaka.
-		-- An antique katana forged in the first the half of the 20th  century that hasn't dulled a day.
+		-- Property of Saburo Arasaka. An antique katana forged in the first half of the 20th century that hasn't dulled a day.
 		-- Reduces base damge but increases Crit damage significally.
 		-- +500%.
 		{ id = "Preset_Katana_Saburo" }, 
 
 		-- SKIPPY / Weapon / Smart / Pistol / Epic
-		-- A smartgun with a unique voice-user interface.
-		-- Slightly unpredictable.
+		-- A smartgun with a unique voice-user interface. Slightly unpredictable.
 		-- Scales to the user's level.
 		{ id = "mq007_skippy", quest = false }, 
 
