@@ -31,6 +31,7 @@
 	-x!"%ModPath%\.idea\" ^
 	-x!"%ModPath%\bin\" ^
 	-x!"%ModPath%\dist\" ^
+	-x!"%ModPath%\mod\data\*.csv" ^
 	-x!"%ModPath%\mod\data\*.txt" ^
 	-x!"%ModPath%\mod\data\*.xlsm" ^
 	-x!"%ModPath%\mod\data\tweakdb-names.*" ^
