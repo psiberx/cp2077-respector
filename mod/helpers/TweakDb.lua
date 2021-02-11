@@ -89,19 +89,31 @@ function TweakDb:load(path)
 end
 
 function TweakDb:resolve(tweakId)
-	local key = TweakDb.toKey(tweakId)
-
-	return self.data and self.data[key] or nil
+	return self:get(TweakDb.toKey(tweakId))
 end
 
 function TweakDb:resolvable(tweakId)
-	local key = TweakDb.toKey(tweakId)
-
-	return self.data[key] ~= nil
+	return self:has(TweakDb.toKey(tweakId))
 end
 
 function TweakDb:search(term)
 	return SimpleDb.search(self, term, searchSchema)
+end
+
+function TweakDb:complete(itemMeta)
+	if itemMeta and itemMeta.ref then
+		local refMeta = self:get(itemMeta.ref)
+
+		for prop, value in pairs(refMeta) do
+			if itemMeta[prop] == nil then
+				itemMeta[prop] = value
+			end
+		end
+
+		itemMeta.ref = nil
+	end
+
+	return itemMeta
 end
 
 function TweakDb:isTaggedAsSet(itemMeta)

@@ -9,8 +9,8 @@ function SimpleDb:new(path, key)
 	local this = {
 		path = nil,
 		key = nil,
-		data = nil,
-		indexed = nil,
+		data = {},
+		indexed = {},
 	}
 
 	setmetatable(this, self)
@@ -80,13 +80,13 @@ function SimpleDb:unload()
 	end
 
 	self.path = nil
-	self.data = nil
 	self.key = nil
-	self.indexed = nil
+	self.data = {}
+	self.indexed = {}
 end
 
 function SimpleDb:get(key)
-	return self.data[key] or self.indexed[key]
+	return self:complete(self.data[key] or self.indexed[key])
 end
 
 function SimpleDb:has(key)
@@ -94,7 +94,15 @@ function SimpleDb:has(key)
 end
 
 function SimpleDb:each()
-	return pairs(self.data)
+	local key, item
+
+	return function()
+		key, item = next(self.data, key)
+
+		if item ~= nil then
+			return key, self:complete(item)
+		end
+	end
 end
 
 function SimpleDb:find(criteria)
@@ -110,7 +118,7 @@ function SimpleDb:find(criteria)
 		local match = self:match(item, criteria)
 
 		if match then
-			return item
+			return self:complete(item)
 		end
 	end
 end
@@ -129,7 +137,51 @@ function SimpleDb:filter(criteria)
 			local match = self:match(item, criteria)
 
 			if match then
-				return key, item
+				return key, self:complete(item)
+			end
+		end
+	end
+end
+
+function SimpleDb:search(term, schema)
+	term = term:upper()
+
+	local termEsc = term:gsub('([^%w])', '%%%1')
+	local termRe = termEsc:gsub('%s+', '.* ') .. '.*'
+
+	local key, item
+
+	return function()
+		while true do
+			key, item = next(self.data, key)
+
+			if item == nil then
+				return nil
+			end
+
+			for _, param in ipairs(schema) do
+				if item[param.field] then
+					local value = item[param.field]:upper()
+
+					if term == value then
+						return key, self:complete(item), param.weight
+					end
+				end
+			end
+
+			for _, param in ipairs(schema) do
+				if item[param.field] then
+					local value = item[param.field]:upper()
+					local position = value:find(termEsc)
+
+					if not position then
+						position = value:find(termRe)
+					end
+
+					if position then
+						return key, self:complete(item), position * param.weight
+					end
+				end
 			end
 		end
 	end
@@ -163,48 +215,8 @@ function SimpleDb:match(item, criteria)
 	return match
 end
 
-function SimpleDb:search(term, schema)
-	term = term:upper()
-
-	local termEsc = term:gsub('([^%w])', '%%%1')
-	local termRe = termEsc:gsub('%s+', '.* ') .. '.*'
-
-	local key, item
-
-	return function()
-		while true do
-			key, item = next(self.data, key)
-
-			if item == nil then
-				return nil
-			end
-
-			for _, param in ipairs(schema) do
-				if item[param.field] then
-					local value = item[param.field]:upper()
-
-					if term == value then
-						return key, item, param.weight
-					end
-				end
-			end
-
-			for _, param in ipairs(schema) do
-				if item[param.field] then
-					local value = item[param.field]:upper()
-					local position = value:find(termEsc)
-
-					if not position then
-						position = value:find(termRe)
-					end
-
-					if position then
-						return key, item, position * param.weight
-					end
-				end
-			end
-		end
-	end
+function SimpleDb:complete(item)
+	return item
 end
 
 function SimpleDb:sort(items, field)
