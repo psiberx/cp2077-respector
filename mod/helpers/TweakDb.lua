@@ -101,7 +101,7 @@ function TweakDb:search(term)
 end
 
 function TweakDb:complete(itemMeta)
-	if itemMeta and itemMeta.ref then
+	if itemMeta and itemMeta.ref and itemMeta.ref ~= true then
 		local refMeta = self:get(itemMeta.ref)
 
 		for prop, value in pairs(refMeta) do
@@ -110,7 +110,7 @@ function TweakDb:complete(itemMeta)
 			end
 		end
 
-		itemMeta.ref = nil
+		itemMeta.ref = true
 	end
 
 	return itemMeta
@@ -374,6 +374,15 @@ function TweakDb:toSlotTweakId(slotAlias, itemMeta)
 	end
 
 	return tweakId
+end
+
+function TweakDb.localize(tweakId)
+	tweakId = TweakDb.toTweakId(tweakId)
+
+	return {
+		name = Game.GetLocalizedTextByKey(Game['TDB::GetLocKey;TweakDBID'](TweakDBID.new(tweakId, '.displayName'))),
+		comment = Game.GetLocalizedTextByKey(Game['TDB::GetLocKey;TweakDBID'](TweakDBID.new(tweakId, '.localizedDescription'))),
+	}
 end
 
 function TweakDb.extract(data)

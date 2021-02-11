@@ -14,12 +14,13 @@ function Compiler:new()
 end
 
 function Compiler:run()
-	self:rehashTweakDbNames()
+	self:rehashTweakDbIds()
+	self:collectTweakDbInfo()
 	self:compileSamplePacks()
 	self:writeDefaultConfig()
 end
 
-function Compiler:rehashTweakDbNames(stringsListPath, hashNamesDbPath, hashNamesCsvPath)
+function Compiler:rehashTweakDbIds(stringsListPath, hashNamesDbPath, hashNamesCsvPath)
 	if not stringsListPath then
 		stringsListPath = mod.path('mod/data/tweakdb-strings.txt')
 	end
@@ -77,7 +78,38 @@ function Compiler:rehashTweakDbNames(stringsListPath, hashNamesDbPath, hashNames
 	fcsv:close()
 
 	if mod.debug then
-		print(('[DEBUG] Respector: Rehashed TweakDB names using list %q.'):format(stringsListPath))
+		print(('[DEBUG] Respector: Rehashed TweakDBIDs using list %q.'):format(stringsListPath))
+	end
+end
+
+function Compiler:collectTweakDbInfo(outputCsvPath)
+	if not outputCsvPath then
+		outputCsvPath = mod.path('mod/data/tweakdb-info.csv')
+	end
+
+	local fcsv = io.open(outputCsvPath, 'w')
+
+	local TweakDb = mod.require('mod/helpers/TweakDb')
+	local tweakDb = TweakDb:new(true)
+
+	local normalize = function(str)
+		return str:gsub('"', '""'):gsub('“', '""'):gsub('’', '\''):gsub('–', '-')
+	end
+
+	for key, meta in tweakDb:each() do
+		local localized = TweakDb.localize(key)
+
+		if localized.name ~= '' or localized.comment ~= '' then
+			fcsv:write(string.format('0x%016X,%s,"%s","%s"\n', key, meta.type, normalize(localized.name), normalize(localized.comment)))
+		end
+	end
+
+	tweakDb:unload()
+
+	fcsv:close()
+
+	if mod.debug then
+		print(('[DEBUG] Respector: Collected TweakDB display names and descriptions.'))
 	end
 end
 
@@ -96,7 +128,7 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 	local specStore = SpecStore:new(samplePacksDir)
 
 	local TweakDb = mod.require('mod/helpers/TweakDb')
-	local tweakDb = TweakDb:new('mod/data/tweakdb-meta')
+	local tweakDb = TweakDb:new(true)
 
 	for _, samplePack in ipairs(samplePacks) do
 		if mod.debug then
@@ -111,6 +143,8 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 		if samplePack.items then
 			local itemSpecs = {}
 
+			samplePack.items.ref = false
+
 			for _, itemMeta in tweakDb:filter(samplePack.items) do
 				if itemMeta.kind ~= 'Pack' then
 					local itemSpec = {}
@@ -119,7 +153,7 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 					itemSpec._order = tweakDb:order(itemMeta)
 
 					if itemMeta.comment then
-						itemSpec._comment = itemSpec._comment .. '\n' .. itemMeta.comment:gsub('([.!?]) ', '%1\n')
+						itemSpec._comment = itemSpec._comment .. '\n' .. itemMeta.comment --itemMeta.comment:gsub('([.!?]) ', '%1\n')
 					end
 
 					if itemMeta.desc then
@@ -171,6 +205,8 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 
 		if samplePack.vehicles then
 			local vehicleSpecs = {}
+
+			samplePack.vehicles.ref = false
 
 			for _, vehicleMeta in tweakDb:filter(samplePack.vehicles) do
 				local vehicleSpec = {}
