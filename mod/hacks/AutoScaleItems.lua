@@ -19,7 +19,7 @@ return function()
 		for slotIndex = 1, equipArea.max do
 			local itemId = playerEquipmentData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
 
-			if itemId.tdbid.hash ~= 0 then
+			if itemId.id.hash ~= 0 then
 				local itemData = transactionSystem:GetItemData(player, itemId)
 
 				if itemData ~= nil then

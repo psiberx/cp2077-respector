@@ -123,7 +123,7 @@ function InventoryModule:getEquipmentItems(specOptions)
 		for slotIndex = 1, equipArea.max do
 			local itemId = self.playerEquipmentData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
 
-			if itemId.tdbid.hash ~= 0 then
+			if itemId.id.hash ~= 0 then
 				table.insert(equipmentItemIds, itemId)
 			end
 		end
@@ -139,7 +139,7 @@ function InventoryModule:getCyberwareItems(specOptions)
 		for slotIndex = 1, equipArea.max do
 			local itemId = self.playerEquipmentData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
 
-			if itemId.tdbid.hash ~= 0 then
+			if itemId.id.hash ~= 0 then
 				table.insert(cyberwareItemIds, itemId)
 			end
 		end
@@ -185,7 +185,7 @@ function InventoryModule:getBackpackItems(specOptions)
 
 		if itemMatch then
 			local itemId = itemData:GetID()
-			local itemMeta = self.tweakDb:resolve(itemId.tdbid)
+			local itemMeta = self.tweakDb:resolve(itemId.id)
 
 			--if not itemMeta or self.tweakDb:match(itemMeta, baseCriteria) then
 			if itemMeta and self.tweakDb:match(itemMeta, baseCriteria) then
@@ -213,7 +213,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 		-- Sometimes equipment system bugs out and gives ItemID for an actually empty slot.
 		-- When this happens, GetItemData() will return nil, so we have to check that.
 		if itemData ~= nil then
-			local itemKey = TweakDb.toKey(itemId.tdbid)
+			local itemKey = TweakDb.toKey(itemId.id)
 			local itemMeta = self.tweakDb:resolve(itemKey)
 			local itemQty = self.transactionSystem:GetItemQuantity(self.player, itemId)
 			local itemQuality = self.gameRPGManager:GetItemDataQuality(itemData).value
@@ -318,7 +318,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 							local partSpec = {}
 
 							local partId = itemPartsBySlots[slotMeta.type]
-							local partMeta = self.tweakDb:resolve(partId.tdbid)
+							local partMeta = self.tweakDb:resolve(partId.id)
 
 							local partData = self.inventoryManager:CreateItemData(partId, self.player)
 							local partQuality = self.gameRPGManager:GetItemDataQuality(partData).value
@@ -329,9 +329,9 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 								if partMeta.type ~= '' and specOptions.itemFormat == 'auto' then
 									partSpec.id = TweakDb.toItemAlias(partMeta.type)
 								elseif specOptions.itemFormat == 'struct' then
-									partSpec.id = TweakDb.toStruct(partId.tdbid)
+									partSpec.id = TweakDb.toStruct(partId.id)
 								else
-									partSpec.id = TweakDb.toKey(partId.tdbid)
+									partSpec.id = TweakDb.toKey(partId.id)
 								end
 
 								if partMeta.rng or specOptions.keepSeed == 'always' then
@@ -345,9 +345,9 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 								partSpec._comment = self.tweakDb:describe(partMeta)
 							else
 								if specOptions.itemFormat == 'struct' then
-									partSpec.id = TweakDb.toStruct(partId.tdbid)
+									partSpec.id = TweakDb.toStruct(partId.id)
 								else
-									partSpec.id = TweakDb.toKey(partId.tdbid)
+									partSpec.id = TweakDb.toKey(partId.id)
 								end
 
 								partSpec.seed = partId.rng_seed
@@ -389,7 +389,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 				table.insert(itemSpecs, itemSpec)
 
-				itemSpecsByTweakDbId[TweakDb.toKey(itemId.tdbid)] = itemSpec
+				itemSpecsByTweakDbId[TweakDb.toKey(itemId.id)] = itemSpec
 			end
 		end
 	end
@@ -491,7 +491,7 @@ function InventoryModule:applyItemSpec(itemSpec, specOptions, equipedSlots)
 					local slotId = part:GetSlotID(part)
 					local partItemId = part:GetItemID(part)
 
-					if partItemId.tdbid.hash == slotBlocker.hash and partItemId.tdbid.length == slotBlocker.length then
+					if partItemId.id.hash == slotBlocker.hash and partItemId.id.length == slotBlocker.length then
 						self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
 						table.insert(removedParts, partItemId)
 					end
@@ -648,7 +648,7 @@ function InventoryModule:unequipUnusedSlots(slotCriteria, equipedSlots)
 			if not equipedSlots or not equipedSlots[equipArea.type] or not equipedSlots[equipArea.type][slotIndex] then
 				local equipedItemId = self.playerEquipmentData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
 
-				if equipedItemId and equipedItemId.tdbid.hash ~= 0 then
+				if equipedItemId and equipedItemId.id.hash ~= 0 then
 					self:unequipItem(equipedItemId)
 				end
 			end

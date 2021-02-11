@@ -18,7 +18,7 @@ return function()
 		for slotIndex = 1, equipArea.max do
 			local itemId = playerEquipmentData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
 
-			if itemId.tdbid.hash ~= 0 then
+			if itemId.id.hash ~= 0 then
 				local itemData = transactionSystem:GetItemData(player, itemId)
 
 				if itemData ~= nil then
@@ -26,7 +26,7 @@ return function()
 						local slotId = part:GetSlotID(part)
 						local partId = part:GetItemID(part)
 
-						if partId.tdbid.hash == dummyClothingMod.hash and partId.tdbid.length == dummyClothingMod.length then
+						if partId.id.hash == dummyClothingMod.hash and partId.id.length == dummyClothingMod.length then
 							itemModSystem:RemoveItemPart(player, itemId, slotId, true)
 							transactionSystem:RemoveItem(player, partId, 1)
 						end
