@@ -18,10 +18,10 @@ local debugMode = false
 -- Developer Mode
 -- -------------------------------------------------------------------------- --
 -- 1. Resets Lua package cache forcing require() to always read the source.
--- 2. Recalculates hashes of known TweakDB names on every mod load.
--- 3. Recompiles the samples on every mod load.
--- 4. Recreates default confing file on every mod load.
--- 5. Enables Developer menu in the GUI.
+-- 2. Recalculates hashes of known TweakDBIDs on every mod load.
+-- 3. Collects localized name and description of TweakDB records.
+-- 4. Recompiles the samples on every mod load.
+-- 5. Recreates default confing file on every mod load.
 -- -------------------------------------------------------------------------- --
 
 local devMode = false
