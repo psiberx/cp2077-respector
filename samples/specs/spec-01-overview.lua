@@ -7,9 +7,8 @@ return {
 		StreetCred = ...,
 		Attributes = {...},
 		Skills = {...},
-		Perks = {...},
 		Progression = {...},
-		Points = {...},
+		Perks = {...},
 	},
 
 	Inventory = {...},
