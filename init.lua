@@ -4,7 +4,7 @@
 
 local cetVer = tonumber((GetVersion():gsub('^v(%d+)%.(%d+)%.(%d+)(.*)', function(major, minor, patch, wip)
 	return ('%d.%02d%02d%d'):format(major, minor, patch, (wip == '' and 0 or 1))
-end)))
+end))) or 1.10
 
 -- -------------------------------------------------------------------------- --
 -- Debug Mode

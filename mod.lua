@@ -158,4 +158,6 @@ function mod.onUpdateEvent(delta)
 	end
 end
 
+mod.onUpdate = mod.onUpdateEvent
+
 return mod
