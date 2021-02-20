@@ -129,6 +129,10 @@ end
 ---@param timerId any
 ---@return void
 function mod.halt(timerId)
+	if type(timerId) == 'table' then
+		timerId = timerId.id
+	end
+
 	for i, timer in ipairs(timers) do
 		if timer.id == timerId then
 			table.remove(timers, i)
