@@ -1,10 +1,11 @@
 local export = {}
 
-function export.table(t, depth)
+function export.table(t, max, depth)
 	if type(t) ~= 'table' then
 		return ''
 	end
 
+	max = max or 63
 	depth = depth or 0
 
 	local dumpStr = '{\n'
@@ -20,7 +21,11 @@ function export.table(t, depth)
 		if type(v) == 'string' then
 			vstr = string.format('\'%s\'', tostring(v))
 		elseif type(v) == 'table' then
-			vstr = export.table(v, depth + 1)
+			if depth < max then
+				vstr = export.table(v, max, depth + 1)
+			else
+				vstr = '...'
+			end
 		end
 
 		dumpStr = string.format('%s\t%s%s%s,\n', dumpStr, indent, kstr, vstr)
@@ -29,11 +34,12 @@ function export.table(t, depth)
 	return string.format('%s%s}', dumpStr, indent)
 end
 
-function export.keys(t, depth)
+function export.keys(t, max, depth)
 	if type(t) ~= 'table' then
 		return ''
 	end
 
+	max = max or 63
 	depth = depth or 0
 
 	local dumpStr = '{\n'
@@ -46,8 +52,10 @@ function export.keys(t, depth)
 		end
 
 		local vstr = ''
-		if type(v) == 'table' then
-			vstr = ' = ' .. export.keys(v, depth + 1)
+		if type(v) == 'table' and depth < max then
+			vstr = ' = ' .. export.keys(v, max, depth + 1)
+		else
+			vstr = ' = ...'
 		end
 
 		dumpStr = string.format('%s\t%s%s%s,\n', dumpStr, indent, kstr, vstr)
