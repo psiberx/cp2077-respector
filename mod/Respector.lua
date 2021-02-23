@@ -1,6 +1,6 @@
 local mod = ...
 
-local Respector = { version = '1.2.3' }
+local Respector = { version = '1.2.4' }
 Respector.__index = Respector
 
 local asyncWait = false
