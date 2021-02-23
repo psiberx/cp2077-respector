@@ -458,7 +458,7 @@ function InventoryModule:applyItemSpec(itemSpec, specOptions, equipedSlots)
 		local currentEquipIndex = self.playerEquipmentData:GetSlotIndex(itemId) + 1
 
 		if itemMeta.stack then
-			self.transactionSystem:GiveItem(self.player, itemId, itemSpec.qty - currentQty)
+			self.transactionSystem:GiveItem(self.player, itemId, itemSpec.add and itemSpec.qty or itemSpec.qty - currentQty)
 		else
 			-- Never add the exact same item (hash + seed) if it's already in inventory
 			if currentQty == 0 then

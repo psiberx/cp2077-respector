@@ -994,7 +994,8 @@ function tweaksGui.getCurrentItemSpec()
 	local itemSpec = {
 		id = tweak.entryMeta.type,
 		upgrade = tweak.itemQuality,
-		qty = tweak.itemQty
+		qty = tweak.itemQty,
+		add = true,
 	}
 
 	if tweak.itemMaxSlots == true then
