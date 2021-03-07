@@ -80,7 +80,7 @@ function CharacterModule:applySpec(specData, specOptions)
 
 		local perkExtraPoints = self:getPerkExtraPoints(specOptions.cheat)
 
-		-- Apply player levelw
+		-- Apply player level
 		if specData.Character.Level then
 			self:applyLevel(specData.Character.Level)
 			levelApplied = true

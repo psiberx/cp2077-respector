@@ -546,7 +546,7 @@ function tweaksGui.onDrawEvent()
 					if tweak.itemCanRandomize then
 						ImGui.SameLine()
 						ImGui.BeginGroup()
-						ImGui.Text('Random:')
+						ImGui.Text('Slots:')
 						ImGui.SetNextItemWidth(viewData.tweakQualityInputWidth)
 
 						local optionIndex, optionChanged = ImGui.Combo('##ItemRandomize', viewData.randomizeOptionIndex, viewData.randomizeOptionList, viewData.randomizeOptionCount)
