@@ -42,7 +42,6 @@
 	-x!"%ModPath%\respector*.log" ^
 	"%ReleaseZip%" ^
 	"%ModPath%" ^
-	"%ModPath%\specs\V.lua" ^
 	> nul
 
 @echo Done.
