@@ -2431,7 +2431,6 @@ return {
 [0x00000013C4C9BBE9] = { type = "Items.NashWeaponMod", name = "ICONIC", kind = "Mod", group = "Iconic", tweak = false, },
 [0x0000002305D794D9] = { type = "Items.NekomataBreakthroughWeaponMod", name = "ICONIC", kind = "Mod", group = "Iconic", tweak = false, },
 [0x000000149AB3D39E] = { type = "Items.PanamWeaponMod", name = "ICONIC", kind = "Mod", group = "Iconic", tweak = false, },
-[0x000000194464D722] = { type = "Items.Patricia_Weapon_Mod", name = "ICONIC", kind = "Mod", group = "Iconic", tweak = false, },
 [0x0000001F1910F63C] = { type = "Items.PrototypeShingenWeaponMod", name = "ICONIC", kind = "Mod", group = "Iconic", tweak = false, },
 [0x0000001C3C82F662] = { type = "Items.PulsarBuzzsawWeaponMod", name = "ICONIC", kind = "Mod", group = "Iconic", tweak = false, },
 [0x0000001D0910324B] = { type = "Items.RaffenSaratogaWeaponMod", name = "ICONIC", kind = "Mod", group = "Iconic", tweak = false, },

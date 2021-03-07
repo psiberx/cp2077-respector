@@ -376,6 +376,10 @@ function TweakDb:toSlotTweakId(slotAlias, itemMeta)
 	return tweakId
 end
 
+function TweakDb.toSlotType(alias)
+	return TweakDb.toType(alias, 'AttachmentSlots.')
+end
+
 function TweakDb.localize(tweakId)
 	tweakId = TweakDb.toTweakId(tweakId)
 
