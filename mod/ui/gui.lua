@@ -72,6 +72,8 @@ function gui.init(_respector, _tweaker)
 
 	respecGui.init(respector, viewData, userState)
 	tweaksGui.init(respector, tweaker, userState, persitentState)
+
+	gui.refreshSpecHistory()
 end
 
 function gui.initHandlers()
@@ -106,51 +108,6 @@ function gui.initUserState()
 
 	if type(userState.specOptions.cheat) ~= 'boolean' then
 		userState.specOptions.cheat = userState.cheatMode
-	end
-
-	local existingSpecs = respector.specStore:listSpecs()
-
-	if #existingSpecs > 0 then
-		for entryIndex = #userState.specHistory, 1, -1 do
-			local entryInfo = userState.specHistory[entryIndex]
-
-			local existingSpecIndex = false
-
-			for specIndex, specInfo in ipairs(existingSpecs) do
-				if entryInfo.specName == specInfo.specName then
-					existingSpecIndex = specIndex
-					break
-				end
-			end
-
-			if existingSpecIndex then
-				table.remove(existingSpecs, existingSpecIndex)
-			else
-				table.remove(userState.specHistory, entryIndex)
-			end
-		end
-
-		if #existingSpecs > 0 then
-			for _, specInfo in ipairs(existingSpecs) do
-				table.insert(userState.specHistory, {
-					specName = specInfo.specName,
-					time = specInfo.time,
-					event = 'new',
-				})
-			end
-
-			table.sort(userState.specHistory, function(a, b)
-				return gui.parseDateTime(a.time) > gui.parseDateTime(b.time)
-			end)
-		end
-	else
-		for entryIndex = #userState.specHistory, 1, -1 do
-			local entryData = userState.specHistory[entryIndex]
-
-			if not respector.specStore:hasSpec(entryData.specName) then
-				table.remove(userState.specHistory, entryIndex)
-			end
-		end
 	end
 end
 
@@ -189,8 +146,6 @@ function gui.initViewData()
 	viewData.rarityFilterIndex = array.find(rarityFilters, userState.specOptions.rarity) - 1
 	viewData.itemFormatIndex = array.find(itemFormatOptions, userState.specOptions.itemFormat) - 1
 	viewData.keepSeedIndex = array.find(keepSeedOptions, userState.specOptions.keepSeed) - 1
-
-	viewData.specHistoryList = array.map(userState.specHistory, gui.formatHistoryEntry)
 end
 
 -- GUI Event Handlers
@@ -224,6 +179,9 @@ function gui.onDrawEvent()
 		viewData.justOpened = true
 		viewData.showWindow = showWindow
 		persitentState:flush()
+	--elseif viewData.isFocused ~= ImGui.IsWindowFocused() then
+	--	viewData.justFocused = true
+	--	gui.refreshSpecHistory()
 	end
 
 	if viewData.showWindow and userState.expandWindow then
@@ -341,6 +299,10 @@ function gui.onDrawEvent()
 		end
 
 		if ImGui.BeginTabItem('Load') then
+			if viewData.selectedTab ~= 'Load' then
+				gui.refreshSpecHistory()
+			end
+
 			ImGui.Spacing()
 
 			-- Loading: Spec Name
@@ -485,11 +447,13 @@ function gui.onDrawEvent()
 		ImGui.EndTabBar()
 	end
 
+	--viewData.isFocused = ImGui.IsWindowFocused()
+	--viewData.justFocused = false
+	viewData.justOpened = false
+
 	ImGui.End()
 
 	tweaksGui.onDrawEvent()
-
-	viewData.justOpened = false
 end
 
 -- Action Handlers
@@ -561,6 +525,49 @@ function gui.onRespectorEvent(eventData)
 end
 
 -- Helpers
+
+function gui.refreshSpecHistory()
+	local existingSpecs = respector.specStore:listSpecs()
+
+	for entryIndex = #userState.specHistory, 1, -1 do
+		local entryInfo = userState.specHistory[entryIndex]
+
+		if not respector.specStore:hasSpec(entryInfo.specName) then
+			table.remove(userState.specHistory, entryIndex)
+		elseif #existingSpecs > 0 then
+			local existingSpecIndex = false
+
+			for specIndex, specInfo in ipairs(existingSpecs) do
+				if entryInfo.specName == specInfo.specName then
+					existingSpecIndex = specIndex
+					break
+				end
+			end
+
+			if existingSpecIndex then
+				table.remove(existingSpecs, existingSpecIndex)
+			else
+				table.remove(userState.specHistory, entryIndex)
+			end
+		end
+	end
+
+	if #existingSpecs > 0 then
+		for _, specInfo in ipairs(existingSpecs) do
+			table.insert(userState.specHistory, {
+				specName = specInfo.specName,
+				time = specInfo.time,
+				event = 'new',
+			})
+		end
+
+		table.sort(userState.specHistory, function(a, b)
+			return gui.parseDateTime(a.time) > gui.parseDateTime(b.time)
+		end)
+	end
+
+	viewData.specHistoryList = array.map(userState.specHistory, gui.formatHistoryEntry)
+end
 
 function gui.formatHistoryEntry(entryData)
 	local event = (entryData.event == 'load' and 'L' or (entryData.event == 'save' and 'S' or 'N'))
