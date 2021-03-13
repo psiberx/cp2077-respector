@@ -82,12 +82,12 @@ function InventoryModule:applySpec(specData, specOptions)
 	local updateCyberware = false
 	local updateInventory = false
 
-	if specData.Equipment and #specData.Equipment > 0 then
+	if specData.Equipment then
 		self:applyItemSpecs(specData.Equipment, specOptions, equipedSlots)
 		updateEquipment = true
 	end
 
-	if specData.Cyberware and #specData.Cyberware > 0 then
+	if specData.Cyberware then
 		self:applyItemSpecs(specData.Cyberware, specOptions, equipedSlots)
 		updateCyberware = true
 	end
