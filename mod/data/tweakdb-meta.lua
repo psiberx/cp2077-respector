@@ -2159,6 +2159,8 @@ return {
 [0x0000F30000000000] = { type = "ClothingInnerTorsoPack", name = "CLOTHING: INNER TORSO", kind = "Pack", max = "Legendary", group = "Clothing", group2 = "Inner Torso", tag = false, set = false, desc = "Keep in mind that a lot of items can slow down the Inventory. Weighs ~152 kg.", },
 [0x0000F40000000000] = { type = "ClothingLegsPack", name = "CLOTHING: LEGS", kind = "Pack", max = "Legendary", group = "Clothing", group2 = "Legs", tag = false, set = false, desc = "Keep in mind that a lot of items can slow down the Inventory. Weighs ~109 kg.", },
 [0x0000F50000000000] = { type = "ClothingFeetPack", name = "CLOTHING: FEET", kind = "Pack", max = "Legendary", group = "Clothing", group2 = "Feet", tag = false, set = false, desc = "Keep in mind that a lot of items can slow down the Inventory. Weighs ~60 kg.", },
+[0x0000F70000000000] = { type = "ScopePack", name = "SCOPES", kind = "Pack", max = "Epic", group = "Mod", group2 = "Scope", desc = "All scopes.", },
+[0x0000F80000000000] = { type = "MuzzlePack", name = "MUZZLES", kind = "Pack", group = "Mod", group2 = "Muzzle", desc = "All muzzle.", },
 [0x0000001F2C124D04] = { type = "Items.Craftable_Common_Achilles", kind = "Weapon", quality = "Common", ref = 0x0000001DCBF561ED, tweak = false, },
 [0x0000001B2D91B211] = { type = "Items.Craftable_Common_Ajax", kind = "Weapon", quality = "Common", ref = 0x0000001977302306, tweak = false, },
 [0x0000001D08F3AD4E] = { type = "Items.Craftable_Common_Ashura", kind = "Weapon", quality = "Common", ref = 0x0000001B3FF8CC33, tweak = false, },
