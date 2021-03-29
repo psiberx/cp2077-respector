@@ -169,7 +169,7 @@ function gui.onDrawEvent()
 	ImGui.SetNextWindowPos(0, 400, ImGuiCond.FirstUseEver)
 	ImGui.SetNextWindowSize(viewData.windowWidth + (viewData.windowPadding * 2), viewData.windowHeight)
 
-	local showWindow, expandWindow = ImGui.Begin('Respector', true, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
+	local showWindow, expandWindow = ImGui.Begin('Respector', true, ImGuiWindowFlags.NoResize + ImGuiWindowFlags.NoScrollbar + ImGuiWindowFlags.NoScrollWithMouse)
 
 	if expandWindow ~= userState.expandWindow then
 		userState.expandWindow = expandWindow

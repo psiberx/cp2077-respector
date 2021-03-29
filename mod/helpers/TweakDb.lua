@@ -1,5 +1,6 @@
 local mod = ...
 local str = mod.require('mod/utils/str')
+local bit32 = _VERSION == 'Lua 5.1' and bit32 or mod.require('mod/utils/bit32')
 local Quality = mod.require('mod/enums/Quality')
 local SimpleDb = mod.require('mod/helpers/SimpleDb')
 
@@ -227,7 +228,8 @@ function TweakDb.toKey(data)
 	end
 
 	if type(data) == 'table' then
-		return (data.length << 32 | data.hash)
+		return data.length * 0x100000000 + data.hash
+		--return (data.length << 32 | data.hash)
 	end
 
 	return 0
@@ -243,7 +245,8 @@ function TweakDb.toStruct(data)
 	end
 
 	if type(data) == 'number' then
-		return { hash = data & 0xFFFFFFFF, length = data >> 32 }
+		return { hash = bit32.band(data, 0xFFFFFFFF), length = math.floor(data / 0x100000000) }
+		--return { hash = data & 0xFFFFFFFF, length = data >> 32 }
 	end
 
 	if type(data) == 'string' then

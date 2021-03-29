@@ -147,7 +147,7 @@ end
 
 ---@public
 function CharacterModule:getLevel()
-	return math.tointeger(self:getStatValue('Level'))
+	return math.floor(self:getStatValue('Level'))
 end
 
 ---@private
@@ -197,7 +197,7 @@ end
 
 ---@public
 function CharacterModule:getAttributePoints()
-	return math.tointeger(self.playerDevData:GetDevPoints('Attribute'))
+	return math.floor(self.playerDevData:GetDevPoints('Attribute'))
 end
 
 ---@public
@@ -247,7 +247,7 @@ end
 
 ---@private
 function CharacterModule:applyAttributes(attributesSpec, specOptions, mergeAttrs)
-	local playerLevel = math.tointeger(self:getStatValue('Level'))
+	local playerLevel = math.floor(self:getStatValue('Level'))
 	local attrTotalPoints = playerLevel + attrStartMax - attrTotalMin
 
 	if specOptions.cheat then
@@ -255,9 +255,9 @@ function CharacterModule:applyAttributes(attributesSpec, specOptions, mergeAttrs
 	end
 
 	for _, attribute in pairs(self.attributes) do
-		local playerAttrLevel = math.tointeger(self:getStatValue(attribute.type))
+		local playerAttrLevel = math.floor(self:getStatValue(attribute.type))
 
-		local attrLevel = math.tointeger(attributesSpec[attribute.alias])
+		local attrLevel = math.floor(attributesSpec[attribute.alias])
 
 		if type(attrLevel) == 'number' then
 			attrLevel = math.max(attrLevel, attrLevelMin)
@@ -364,7 +364,7 @@ end
 
 ---@public
 function CharacterModule:getPerkPoints()
-	return math.tointeger(self.playerDevData:GetDevPoints('Primary'))
+	return math.floor(self.playerDevData:GetDevPoints('Primary'))
 end
 
 ---@public

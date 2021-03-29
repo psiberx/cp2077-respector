@@ -166,7 +166,7 @@ function tweaksGui.onDrawEvent()
 
 	ImGuiX.PushStyleVar(ImGuiStyleVar.WindowPadding, viewData.windowPaddingX, viewData.windowPaddingY)
 
-	local showTweaker, expandTweaker = ImGui.Begin('Quick Tweaks', userState.showTweaker, ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
+	local showTweaker, expandTweaker = ImGui.Begin('Quick Tweaks', userState.showTweaker, ImGuiWindowFlags.NoResize + ImGuiWindowFlags.NoScrollbar + ImGuiWindowFlags.NoScrollWithMouse)
 
 	if expandTweaker ~= userState.expandTweaker then
 		userState.expandTweaker = expandTweaker
