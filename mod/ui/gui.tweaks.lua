@@ -353,6 +353,13 @@ function tweaksGui.onDrawEvent()
 			ImGuiX.PushStyleColor(ImGuiCol.Text, 0xffbf9f9f)
 			ImGui.Text(tweak.entryMeta.kind)
 
+			if tweak.entryMeta.pack then
+				ImGui.SameLine()
+				ImGui.Text('/')
+				ImGui.SameLine()
+				ImGui.Text(tweak.entryMeta.pack)
+			end
+
 			if tweak.entryMeta.group then
 				ImGui.SameLine()
 				ImGui.Text('/')
@@ -978,13 +985,16 @@ function tweaksGui.getCurrentPackSpec()
 	local tweak = viewData.activeTweakData
 
 	return {
-		kind = tweak.entryMeta.group ~= 'Mixed' and tweak.entryMeta.group or nil,
-		group = tweak.entryMeta.group2,
+		type = tweak.entryMeta.pack,
+		kind = tweak.entryMeta.pack ~= 'Mixed' and tweak.entryMeta.pack or nil,
+		group = tweak.entryMeta.group,
+		group2 = tweak.entryMeta.group2,
 		iconic = tweak.entryMeta.iconic,
 		tag = tweak.entryMeta.tag,
 		set = tweak.entryMeta.set,
 		quality = tweak.entryMeta.quality,
 		upgrade = tweak.entryMeta.max,
+		--craft = tweak.entryMeta.craft,
 	}
 end
 

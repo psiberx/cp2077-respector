@@ -177,8 +177,8 @@ function TweakDb:order(itemMeta, orderKind, orderPrefix)
 			order = order .. itemMeta.group2 .. '|'
 		end
 	elseif itemMeta.kind == 'Pack' then
-		if itemMeta.group == 'Clothing' and itemMeta.set == false and itemMeta.tag == false then
-			order = order .. 'Z' .. ('%02d'):format(groupOrders[itemMeta.group2] or 99)
+		if itemMeta.pack == 'Clothing' and itemMeta.set == false and itemMeta.tag == false then
+			order = order .. 'Z' .. ('%02d'):format(groupOrders[itemMeta.group] or 99)
 		end
 	elseif self:isTaggedAsSet(itemMeta) then
 		order = order .. itemMeta.set .. '|'
