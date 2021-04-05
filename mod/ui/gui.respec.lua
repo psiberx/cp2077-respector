@@ -97,7 +97,7 @@ function respecGui.onDrawEvent(justOpened)
 
 		ImGui.BeginGroup()
 		ImGuiX.PushStyleVar(ImGuiStyleVar.FrameRounding, 8)
-		ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 2)
+		ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 2 * viewData.viewScaleY)
 		ImGui.BeginChildFrame(i, viewData.respecAttrGroupWidth, viewData.respecAttrGroupHeight)
 		ImGuiX.PopStyleVar(2)
 

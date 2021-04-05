@@ -117,16 +117,19 @@ function gui.initViewData()
 	viewData.viewScaleX = viewData.viewScale
 	viewData.viewScaleY = viewData.viewScale
 
-	if viewData.viewScale > 1 then
-		viewData.viewScaleX = viewData.viewScaleX * 1.05
-		viewData.viewScaleY = viewData.viewScaleY * 0.975
-	end
+	viewData.FramePaddingX = 3 * viewData.viewScaleX
+	viewData.FramePaddingY = 3 * viewData.viewScaleY
+	viewData.InnerSpacingX = 4 * viewData.viewScaleX
+	viewData.InnerSpacingY = 4 * viewData.viewScaleY
+	viewData.ItemSpacingX = 8 * viewData.viewScaleX
+	viewData.ItemSpacingY = 4 * viewData.viewScaleY
 
 	viewData.windowWidth = 340 * viewData.viewScaleX
 	viewData.windowHeight = 373 * viewData.viewScaleY
-	viewData.windowPadding = 8
-	viewData.windowOffsetX = 8
-	viewData.windowOffsetY = math.ceil(viewData.fontSize * 1.3846) + 9
+	viewData.windowPaddingX = 8 * viewData.viewScaleX
+	viewData.windowPaddingY = 6 * viewData.viewScaleY
+	viewData.windowOffsetX = 8 * viewData.viewScaleX
+	viewData.windowOffsetY = 19 * viewData.viewScaleY + viewData.windowPaddingY + viewData.FramePaddingY
 
 	viewData.gridGutter = 8 * viewData.viewScaleX
 	viewData.gridFullWidth = viewData.windowWidth
@@ -134,7 +137,7 @@ function gui.initViewData()
 	viewData.gridOneThirdWidth = math.floor((viewData.gridFullWidth - viewData.gridGutter * 2) / 3 + 0.5)
 	viewData.gridTwoThirdsWidth = math.floor((viewData.gridFullWidth - viewData.gridGutter * 2) / 3 * 2 + viewData.gridGutter +  0.5)
 
-	viewData.tabRounding = math.floor(viewData.fontSize * 0.35)
+	viewData.tabRounding = 4
 	viewData.tweaksButtonWidth = 100 * viewData.viewScaleX
 	viewData.tweaksButtonHeight = 19 * viewData.viewScaleY
 	viewData.buttonHeight = 19 * viewData.viewScaleY
@@ -167,7 +170,12 @@ function gui.onDrawEvent()
 	ImGuiX.RestoreStack()
 
 	ImGui.SetNextWindowPos(0, 400, ImGuiCond.FirstUseEver)
-	ImGui.SetNextWindowSize(viewData.windowWidth + (viewData.windowPadding * 2), viewData.windowHeight)
+	ImGui.SetNextWindowSize(viewData.windowWidth + (viewData.windowPaddingX * 2), viewData.windowHeight)
+
+	ImGuiX.PushStyleVar(ImGuiStyleVar.WindowPadding, viewData.windowPaddingX, viewData.windowPaddingY)
+	ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, viewData.FramePaddingX, viewData.FramePaddingY)
+	ImGuiX.PushStyleVar(ImGuiStyleVar.ItemInnerSpacing, viewData.InnerSpacingX, viewData.InnerSpacingY)
+	ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, viewData.ItemSpacingX, viewData.ItemSpacingY)
 
 	local showWindow, expandWindow = ImGui.Begin('Respector', true, ImGuiWindowFlags.NoResize + ImGuiWindowFlags.NoScrollbar + ImGuiWindowFlags.NoScrollWithMouse)
 
@@ -187,11 +195,12 @@ function gui.onDrawEvent()
 	if viewData.showWindow and userState.expandWindow then
 		-- Quick Tweaks Button
 
-		ImGui.SetCursorPos(viewData.windowOffsetX + viewData.windowWidth - viewData.tweaksButtonWidth , viewData.windowOffsetY + 1)
+		ImGui.SetCursorPos(viewData.windowOffsetX + viewData.windowWidth - viewData.tweaksButtonWidth, viewData.windowOffsetY + 1)
 
 		local windowX, windowY = ImGui.GetItemRectMin()
 
 		ImGuiX.PushClipRect(windowX, windowY, windowX + viewData.windowOffsetX + viewData.windowWidth, windowY + viewData.windowOffsetY + viewData.tweaksButtonHeight - 1, false)
+		ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 9 * viewData.viewScaleX, 1 * viewData.viewScaleY)
 		ImGuiX.PushStyleVar(ImGuiStyleVar.FrameRounding, viewData.tabRounding)
 		ImGuiX.PushStyleColor(ImGuiCol.Button, userState.showTweaker and 0xff51a600 or 0xff518900)
 		ImGuiX.PushStyleColor(ImGuiCol.ButtonHovered, 0xff67bc16)
@@ -201,14 +210,14 @@ function gui.onDrawEvent()
 		end
 
 		ImGuiX.PopStyleColor(2)
-		ImGuiX.PopStyleVar()
+		ImGuiX.PopStyleVar(2)
 		ImGuiX.PopClipRect()
 
 		ImGui.SetCursorPos(viewData.windowOffsetX, viewData.windowOffsetY)
 
 		-- Main Tabs
 
-		ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 9, 3)
+		ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 9 * viewData.viewScaleX, 3 * viewData.viewScaleY)
 		ImGui.BeginTabBar('Respector Tabs')
 
 		if ImGui.BeginTabItem('Save') then
@@ -250,7 +259,7 @@ function gui.onDrawEvent()
 				elseif section.desc then
 					ImGui.SameLine()
 					ImGuiX.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
-					ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, 3, 5)
+					ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, 3 * viewData.viewScaleX, viewData.ItemSpacingY)
 					if type(section.desc) == 'table' then
 						for i, item in ipairs(section.desc) do
 							if i > 1 then
@@ -258,7 +267,7 @@ function gui.onDrawEvent()
 								ImGui.Text('/')
 								ImGui.SameLine()
 							else
-								ImGui.SameLine(ImGui.GetCursorPosX() - 2)
+								ImGui.SameLine(ImGui.GetCursorPosX() - 2 * viewData.viewScaleX)
 							end
 							ImGui.Text(item)
 						end
@@ -367,7 +376,7 @@ function gui.onDrawEvent()
 
 			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
 			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameRounding, 8)
-			ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 10, 9)
+			ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 10 * viewData.viewScaleX, 9 * viewData.viewScaleY)
 			ImGuiX.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
 			ImGuiX.PushStyleColor(ImGuiCol.FrameBg, 0)
 			ImGui.BeginGroup()
@@ -376,7 +385,7 @@ function gui.onDrawEvent()
 			ImGuiX.PopStyleVar(3)
 
 			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
-			ImGuiX.PushStyleVar(ImGuiStyleVar.ItemInnerSpacing, 7, 0)
+			ImGuiX.PushStyleVar(ImGuiStyleVar.ItemInnerSpacing, 7 * viewData.viewScaleX, 0)
 			ImGuiX.PushStyleColor(ImGuiCol.Border, 0xfffa9642)
 			ImGuiX.PushStyleColor(ImGuiCol.Text, userState.cheatMode and 0xff9f9f9f or 0xffffffff)
 			local balancedModeSelected = ImGui.RadioButton('Balanced Mode', not userState.cheatMode)
@@ -404,7 +413,7 @@ function gui.onDrawEvent()
 
 			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
 			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameRounding, 8)
-			ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 10, 9)
+			ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 10 * viewData.viewScaleX, 9 * viewData.viewScaleY)
 			ImGuiX.PushStyleColor(ImGuiCol.Border, 0xff483f3f)
 			ImGuiX.PushStyleColor(ImGuiCol.FrameBg, 0)
 			ImGui.BeginGroup()
@@ -413,7 +422,7 @@ function gui.onDrawEvent()
 			ImGuiX.PopStyleVar(3)
 
 			ImGuiX.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
-			ImGuiX.PushStyleVar(ImGuiStyleVar.ItemInnerSpacing, 7, 0)
+			ImGuiX.PushStyleVar(ImGuiStyleVar.ItemInnerSpacing, 7 * viewData.viewScaleX, 0)
 			ImGuiX.PushStyleColor(ImGuiCol.Border, 0xfffa9642) -- userState.cheatMode and 0xfffa9642 or 0xff4a2f1e
 			ImGuiX.PushStyleColor(ImGuiCol.Text, userState.cheatMode and 0xffffffff or 0xff9f9f9f)
 			local cheatModeSelected = ImGui.RadioButton('Unlimited Mode', userState.cheatMode)
@@ -454,6 +463,8 @@ function gui.onDrawEvent()
 	ImGui.End()
 
 	tweaksGui.onDrawEvent()
+
+	ImGuiX.PopStyleVar(4)
 end
 
 -- Action Handlers
