@@ -188,7 +188,7 @@ return {
 	{ alias = "HeadStart", type = "Hacking_Area_09_Perk_2", max = 1, attr = "Intelligence", req = 18, skill = "BreachProtocol", name = "Head Start", desc = "Automatically uploads the first daemon in the list at the start of Breach Protocol." },
 	{ alias = "Compression", type = "Hacking_Area_10_Perk_1", max = 1, attr = "Intelligence", req = 20, skill = "BreachProtocol", name = "Compression", desc = "Reduces the lengths of the sequences required to upload daemons by 1. Cannot be reduced below 2." },
 	{ alias = "BufferOptimization", type = "Hacking_Area_10_Perk_2", max = 1, attr = "Intelligence", req = 20, skill = "BreachProtocol", name = "Buffer Optimization", desc = "Increases the duration of daemon effects by 100%." },
-	{ alias = "Transmigration", type = "HackingTrait01", max = 999, trait = true, req = 16, attr = "Intelligence", skill = "BreachProtocol", name = "Transmigration", desc = "Increases the breach time of Breach Protocol by 50%. +5% per Perk level." },
+	{ alias = "Transmigration", type = "HackingTrait01", max = 999, trait = true, req = 20, attr = "Intelligence", skill = "BreachProtocol", name = "Transmigration", desc = "Increases the breach time of Breach Protocol by 50%. +5% per Perk level." },
 
 	-- Quickhacking
 	{ alias = "Biosynergy", type = "CombatHacking_Area_01_Perk_1", max = 3, attr = "Intelligence", req = 3, skill = "Quickhacking", name = "Biosynergy", desc = "Allows RAM to recover during combat. Recover 4/8/12 RAM unit(s) every 60 sec." },
