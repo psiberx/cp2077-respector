@@ -118,11 +118,6 @@ function tweaksGui.initViewData()
 	viewData.viewScaleX = viewData.viewScale
 	viewData.viewScaleY = viewData.viewScale
 
-	if viewData.viewScale > 1 then
-		viewData.viewScaleX = viewData.viewScaleX * 1.05
-		viewData.viewScaleY = viewData.viewScaleY * 0.975
-	end
-
 	viewData.windowWidth = 440 * viewData.viewScaleX
 	viewData.windowHeight = 0 -- Auto Height
 	viewData.windowPaddingX = 8 * viewData.viewScaleX
@@ -192,7 +187,7 @@ function tweaksGui.onDrawEvent()
 		local searchInputWidth = viewData.gridFullWidth
 
 		if viewData.tweakSearch ~= '' then
-			searchInputWidth = searchInputWidth - viewData.tweakCloseBtnSize - 2
+			searchInputWidth = searchInputWidth - viewData.tweakCloseBtnSize - (2 * viewData.viewScale)
 		end
 
 		ImGui.SetNextItemWidth(searchInputWidth)
@@ -203,7 +198,7 @@ function tweaksGui.onDrawEvent()
 		if viewData.tweakSearch ~= '' then
 			ImGui.SetCursorPos(viewData.windowOffsetX + viewData.gridFullWidth - viewData.tweakCloseBtnSize, searchPanelY)
 			ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 0, 0)
-			if ImGui.Button('X', viewData.tweakCloseBtnSize + 1, viewData.tweakCloseBtnSize) then
+			if ImGui.Button('X', viewData.tweakCloseBtnSize, viewData.tweakCloseBtnSize) then
 				viewData.tweakSearch = ''
 			end
 			ImGuiX.PopStyleVar()
@@ -261,9 +256,9 @@ function tweaksGui.onDrawEvent()
 					ImGui.BeginGroup()
 					ImGuiX.PushStyleColor(ImGuiCol.Text, 0xffffffff)
 					ImGuiX.PushStyleColor(ImGuiCol.Button, 0x00000000)
-					ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, 4, 4)
+					ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, 4 * viewData.viewScale, 4 * viewData.viewScale)
 					ImGuiX.PushStyleVar(ImGuiStyleVar.FrameBorderSize, 1)
-					ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 5, 3)
+					ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, 5 * viewData.viewScale, 3 * viewData.viewScale)
 
 					--local currentLine = 1
 					local currentOffsetX = 0
@@ -292,7 +287,8 @@ function tweaksGui.onDrawEvent()
 							tweaksGui.forgetTweakSearchTerm(tweakSearch)
 						end
 
-						currentOffsetX = currentOffsetX + buttonWidth + (5 * 2 + 1 * 2 + 4) -- padding + border + spacing
+						 -- padding + border + spacing
+						currentOffsetX = currentOffsetX + buttonWidth + (5 * 2 * viewData.viewScale + 1 * 2 + 4 * viewData.viewScale)
 					end
 
 					ImGuiX.PopStyleVar(3)
