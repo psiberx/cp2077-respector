@@ -114,6 +114,12 @@ function InventoryModule:applySpec(specData, specOptions)
 			end
 		end)
 	end
+
+	if not specOptions.cheat then
+		mod.after(0.5, function()
+			self:validateEquipment()
+		end)
+	end
 end
 
 function InventoryModule:getEquipmentItems(specOptions)
@@ -649,6 +655,22 @@ function InventoryModule:unequipUnusedSlots(slotCriteria, equipedSlots)
 				local equipedItemId = self.playerEquipmentData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
 
 				if equipedItemId and equipedItemId.id.hash ~= 0 then
+					self:unequipItem(equipedItemId)
+				end
+			end
+		end
+	end
+end
+
+function InventoryModule:validateEquipment()
+	for _, equipArea in self.equipAreaDb:filter({ kind = { 'Weapon', 'Clothing', 'Cyberware' } }) do
+		for slotIndex = 1, equipArea.max do
+			local equipedItemId = self.playerEquipmentData:GetItemInEquipSlotArea(equipArea.type, slotIndex - 1)
+
+			if equipedItemId and equipedItemId.id.hash ~= 0 then
+				local equipedItemData = self.transactionSystem:GetItemData(self.player, equipedItemId)
+
+				if not self.playerEquipmentData:IsEquippable(equipedItemData) then
 					self:unequipItem(equipedItemId)
 				end
 			end

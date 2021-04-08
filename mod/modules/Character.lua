@@ -257,9 +257,10 @@ function CharacterModule:applyAttributes(attributesSpec, specOptions, mergeAttrs
 	for _, attribute in pairs(self.attributes) do
 		local playerAttrLevel = math.floor(self:getStatValue(attribute.type))
 
-		local attrLevel = math.floor(attributesSpec[attribute.alias])
+		local attrLevel = attributesSpec[attribute.alias]
 
 		if type(attrLevel) == 'number' then
+			attrLevel = math.floor(attrLevel)
 			attrLevel = math.max(attrLevel, attrLevelMin)
 			attrLevel = math.min(attrLevel, attrLevelMax)
 		elseif mergeAttrs then
