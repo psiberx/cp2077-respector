@@ -117,19 +117,19 @@ function gui.initViewData()
 	viewData.viewScaleX = viewData.viewScale
 	viewData.viewScaleY = viewData.viewScale
 
-	viewData.FramePaddingX = 3 * viewData.viewScaleX
-	viewData.FramePaddingY = 3 * viewData.viewScaleY
-	viewData.InnerSpacingX = 4 * viewData.viewScaleX
-	viewData.InnerSpacingY = 4 * viewData.viewScaleY
-	viewData.ItemSpacingX = 8 * viewData.viewScaleX
-	viewData.ItemSpacingY = 4 * viewData.viewScaleY
+	viewData.framePaddingX = 3 * viewData.viewScaleX
+	viewData.framePaddingY = 3 * viewData.viewScaleY
+	viewData.innerSpacingX = 4 * viewData.viewScaleX
+	viewData.innerSpacingY = 4 * viewData.viewScaleY
+	viewData.itemSpacingX = 8 * viewData.viewScaleX
+	viewData.itemSpacingY = 4 * viewData.viewScaleY
 
 	viewData.windowWidth = 340 * viewData.viewScaleX
 	viewData.windowHeight = 373 * viewData.viewScaleY
 	viewData.windowPaddingX = 8 * viewData.viewScaleX
 	viewData.windowPaddingY = 6 * viewData.viewScaleY
 	viewData.windowOffsetX = 8 * viewData.viewScaleX
-	viewData.windowOffsetY = 19 * viewData.viewScaleY + viewData.windowPaddingY + viewData.FramePaddingY
+	viewData.windowOffsetY = 19 * viewData.viewScaleY + viewData.windowPaddingY + viewData.framePaddingY
 
 	viewData.gridGutter = 8 * viewData.viewScaleX
 	viewData.gridFullWidth = viewData.windowWidth
@@ -173,9 +173,9 @@ function gui.onDrawEvent()
 	ImGui.SetNextWindowSize(viewData.windowWidth + (viewData.windowPaddingX * 2), viewData.windowHeight)
 
 	ImGuiX.PushStyleVar(ImGuiStyleVar.WindowPadding, viewData.windowPaddingX, viewData.windowPaddingY)
-	ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, viewData.FramePaddingX, viewData.FramePaddingY)
-	ImGuiX.PushStyleVar(ImGuiStyleVar.ItemInnerSpacing, viewData.InnerSpacingX, viewData.InnerSpacingY)
-	ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, viewData.ItemSpacingX, viewData.ItemSpacingY)
+	ImGuiX.PushStyleVar(ImGuiStyleVar.FramePadding, viewData.framePaddingX, viewData.framePaddingY)
+	ImGuiX.PushStyleVar(ImGuiStyleVar.ItemInnerSpacing, viewData.innerSpacingX, viewData.innerSpacingY)
+	ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, viewData.itemSpacingX, viewData.itemSpacingY)
 
 	local showWindow, expandWindow = ImGui.Begin('Respector', true, ImGuiWindowFlags.NoResize + ImGuiWindowFlags.NoScrollbar + ImGuiWindowFlags.NoScrollWithMouse)
 
@@ -259,7 +259,7 @@ function gui.onDrawEvent()
 				elseif section.desc then
 					ImGui.SameLine()
 					ImGuiX.PushStyleColor(ImGuiCol.Text, 0xff9f9f9f)
-					ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, 3 * viewData.viewScaleX, viewData.ItemSpacingY)
+					ImGuiX.PushStyleVar(ImGuiStyleVar.ItemSpacing, 3 * viewData.viewScaleX, viewData.itemSpacingY)
 					if type(section.desc) == 'table' then
 						for i, item in ipairs(section.desc) do
 							if i > 1 then
