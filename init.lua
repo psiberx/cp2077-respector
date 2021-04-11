@@ -97,6 +97,6 @@ end
 
 registerForEvent('onUpdate', mod.onUpdateEvent)
 
-print(('Respector v%s loaded.'):format(respector.version))
+--print(('Respector v%s loaded.'):format(respector.version))
 
 return api

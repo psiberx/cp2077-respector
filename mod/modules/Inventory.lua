@@ -670,7 +670,7 @@ function InventoryModule:validateEquipment()
 			if equipedItemId and equipedItemId.id.hash ~= 0 then
 				local equipedItemData = self.transactionSystem:GetItemData(self.player, equipedItemId)
 
-				if not self.playerEquipmentData:IsEquippable(equipedItemData) then
+				if equipedItemData and not self.playerEquipmentData:IsEquippable(equipedItemData) then
 					self:unequipItem(equipedItemId)
 				end
 			end
