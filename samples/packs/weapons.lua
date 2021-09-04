@@ -16,19 +16,19 @@ return {
 		-- Kang Tao does the thinking for you.
 		{ id = "Preset_Chao_Default" }, 
 
-		-- ASHURA (MILITARY) / Weapon / Smart / Sniper Riffle
+		-- ASHURA (MILITARY) / Weapon / Smart / Sniper Rifle
 		-- More than a rifle.
 		{ id = "Preset_Ashura_Military" }, 
 
-		-- ASHURA (NEON) / Weapon / Smart / Sniper Riffle
+		-- ASHURA (NEON) / Weapon / Smart / Sniper Rifle
 		-- More than a rifle.
 		{ id = "Preset_Ashura_Neon" }, 
 
-		-- ASHURA (PIMP) / Weapon / Smart / Sniper Riffle
+		-- ASHURA (PIMP) / Weapon / Smart / Sniper Rifle
 		-- More than a rifle.
 		{ id = "Preset_Ashura_Pimp" }, 
 
-		-- ASHURA / Weapon / Smart / Sniper Riffle
+		-- ASHURA / Weapon / Smart / Sniper Rifle
 		-- More than a rifle.
 		{ id = "Preset_Ashura_Default" }, 
 
@@ -92,39 +92,39 @@ return {
 		-- A firearm staple since 2020.
 		{ id = "Preset_Crusher_Default" }, 
 
-		-- D5 COPPERHEAD (MILITARY) / Weapon / Power / Assault Riffle
+		-- D5 COPPERHEAD (MILITARY) / Weapon / Power / Assault Rifle
 		-- From Alaska to Zimbabwe - a versatile weapon for versatile combatants.
 		{ id = "Preset_Copperhead_Military" }, 
 
-		-- D5 COPPERHEAD (NEON) / Weapon / Power / Assault Riffle
+		-- D5 COPPERHEAD (NEON) / Weapon / Power / Assault Rifle
 		-- From Alaska to Zimbabwe - a versatile weapon for versatile combatants.
 		{ id = "Preset_Copperhead_Neon" }, 
 
-		-- D5 COPPERHEAD (PIMP) / Weapon / Power / Assault Riffle
+		-- D5 COPPERHEAD (PIMP) / Weapon / Power / Assault Rifle
 		-- From Alaska to Zimbabwe - a versatile weapon for versatile combatants.
 		{ id = "Preset_Copperhead_Pimp" }, 
 
-		-- D5 COPPERHEAD / Weapon / Power / Assault Riffle
+		-- D5 COPPERHEAD / Weapon / Power / Assault Rifle
 		-- From Alaska to Zimbabwe - a versatile weapon for versatile combatants.
 		{ id = "Preset_Base_Copperhead" }, 
 
-		-- D5 COPPERHEAD / Weapon / Power / Assault Riffle
+		-- D5 COPPERHEAD / Weapon / Power / Assault Rifle
 		-- From Alaska to Zimbabwe - a versatile weapon for versatile combatants.
 		{ id = "Preset_Copperhead_Default" }, 
 
-		-- D5 SIDEWINDER (MILITARY) / Weapon / Smart / Assault Riffle
+		-- D5 SIDEWINDER (MILITARY) / Weapon / Smart / Assault Rifle
 		-- Smart rifle. Smart choice.
 		{ id = "Preset_Sidewinder_Military" }, 
 
-		-- D5 SIDEWINDER (NEON) / Weapon / Smart / Assault Riffle
+		-- D5 SIDEWINDER (NEON) / Weapon / Smart / Assault Rifle
 		-- Smart rifle. Smart choice.
 		{ id = "Preset_Sidewinder_Neon" }, 
 
-		-- D5 SIDEWINDER (PIMP) / Weapon / Smart / Assault Riffle
+		-- D5 SIDEWINDER (PIMP) / Weapon / Smart / Assault Rifle
 		-- Smart rifle. Smart choice.
 		{ id = "Preset_Sidewinder_Pimp" }, 
 
-		-- D5 SIDEWINDER / Weapon / Smart / Assault Riffle
+		-- D5 SIDEWINDER / Weapon / Smart / Assault Rifle
 		-- Smart rifle. Smart choice.
 		{ id = "Preset_Sidewinder_Default" }, 
 
@@ -296,35 +296,35 @@ return {
 		-- Aiming takes time you might not have.
 		{ id = "Preset_Yukimura_Default" }, 
 
-		-- HJSH-18 MASAMUNE (ARASAKA) / Weapon / Power / Assault Riffle
+		-- HJSH-18 MASAMUNE (ARASAKA) / Weapon / Power / Assault Rifle
 		-- Masamune - power reimagined.
 		{ id = "Preset_Masamune_Arasaka_2020" }, 
 
-		-- HJSH-18 MASAMUNE (FLASHLIGHT) / Weapon / Power / Assault Riffle
+		-- HJSH-18 MASAMUNE (FLASHLIGHT) / Weapon / Power / Assault Rifle
 		-- Masamune - power reimagined.
 		{ id = "Preset_Masamune_Flashlight" }, 
 
-		-- HJSH-18 MASAMUNE (MILITARY) / Weapon / Power / Assault Riffle
+		-- HJSH-18 MASAMUNE (MILITARY) / Weapon / Power / Assault Rifle
 		-- Masamune - power reimagined.
 		{ id = "Preset_Masamune_Military" }, 
 
-		-- HJSH-18 MASAMUNE (NEON) / Weapon / Power / Assault Riffle
+		-- HJSH-18 MASAMUNE (NEON) / Weapon / Power / Assault Rifle
 		-- Masamune - power reimagined.
 		{ id = "Preset_Masamune_Neon" }, 
 
-		-- HJSH-18 MASAMUNE (PIMP) / Weapon / Power / Assault Riffle
+		-- HJSH-18 MASAMUNE (PIMP) / Weapon / Power / Assault Rifle
 		-- Masamune - power reimagined.
 		{ id = "Preset_Masamune_Pimp" }, 
 
-		-- HJSH-18 MASAMUNE (TRAUMA) / Weapon / Power / Assault Riffle
+		-- HJSH-18 MASAMUNE (TRAUMA) / Weapon / Power / Assault Rifle
 		-- Masamune - power reimagined.
 		{ id = "Preset_Masamune_Trauma" }, 
 
-		-- HJSH-18 MASAMUNE / Weapon / Power / Assault Riffle
+		-- HJSH-18 MASAMUNE / Weapon / Power / Assault Rifle
 		-- Masamune - power reimagined.
 		{ id = "Preset_Base_Masamune" }, 
 
-		-- HJSH-18 MASAMUNE / Weapon / Power / Assault Riffle
+		-- HJSH-18 MASAMUNE / Weapon / Power / Assault Rifle
 		-- Masamune - power reimagined.
 		{ id = "Preset_Masamune_Default" }, 
 
@@ -540,23 +540,23 @@ return {
 		-- Purrs like a kitten.
 		{ id = "Preset_Saratoga_Default" }, 
 
-		-- M251S AJAX (MILITARY) / Weapon / Power / Assault Riffle
+		-- M251S AJAX (MILITARY) / Weapon / Power / Assault Rifle
 		-- Come rain or shine, it'll weather it out.
 		{ id = "Preset_Ajax_Military" }, 
 
-		-- M251S AJAX (NEON) / Weapon / Power / Assault Riffle
+		-- M251S AJAX (NEON) / Weapon / Power / Assault Rifle
 		-- Come rain or shine, it'll weather it out.
 		{ id = "Preset_Ajax_Neon" }, 
 
-		-- M251S AJAX (PIMP) / Weapon / Power / Assault Riffle
+		-- M251S AJAX (PIMP) / Weapon / Power / Assault Rifle
 		-- Come rain or shine, it'll weather it out.
 		{ id = "Preset_Ajax_Pimp" }, 
 
-		-- M251S AJAX (TRAINING) / Weapon / Power / Assault Riffle
+		-- M251S AJAX (TRAINING) / Weapon / Power / Assault Rifle
 		-- Come rain or shine, it'll weather it out.
 		{ id = "Preset_Ajax_Training" }, 
 
-		-- M251S AJAX / Weapon / Power / Assault Riffle
+		-- M251S AJAX / Weapon / Power / Assault Rifle
 		-- Come rain or shine, it'll weather it out.
 		{ id = "Preset_Ajax_Default" }, 
 
@@ -580,19 +580,19 @@ return {
 		-- Time for the artillery to roll in.
 		{ id = "w_special_flak" }, 
 
-		-- NEKOMATA (MILITARY) / Weapon / Tech / Sniper Riffle
+		-- NEKOMATA (MILITARY) / Weapon / Tech / Sniper Rifle
 		-- Precision without compromise.
 		{ id = "Preset_Nekomata_Military" }, 
 
-		-- NEKOMATA (NEON) / Weapon / Tech / Sniper Riffle
+		-- NEKOMATA (NEON) / Weapon / Tech / Sniper Rifle
 		-- Precision without compromise.
 		{ id = "Preset_Nekomata_Neon" }, 
 
-		-- NEKOMATA (PIMP) / Weapon / Tech / Sniper Riffle
+		-- NEKOMATA (PIMP) / Weapon / Tech / Sniper Rifle
 		-- Precision without compromise.
 		{ id = "Preset_Nekomata_Pimp" }, 
 
-		-- NEKOMATA / Weapon / Tech / Sniper Riffle
+		-- NEKOMATA / Weapon / Tech / Sniper Rifle
 		-- Precision without compromise.
 		{ id = "Preset_Nekomata_Default" }, 
 
@@ -644,6 +644,10 @@ return {
 		-- Glory to the progress of Soviet Socialist science!
 		{ id = "Preset_Burya_Default" }, 
 
+		-- SLAUGHT-O-MATIC / Weapon / Power / Pistol / Common
+		-- Single-use and non-reloadable, but perfect for a pinch.
+		{ id = "Preset_Base_Slaughtomatic" }, 
+
 		-- SOCKET WRENCH / Weapon / Melee / Blunt
 		-- Bottom of the barrel as a weapon choice, but it can still knock out someone's pearly whites.
 		{ id = "Preset_Pipe_Wrench_Default" }, 
@@ -664,19 +668,19 @@ return {
 		-- Reliable. Dependable. Midnight Arms.
 		{ id = "Preset_Sor22_Default" }, 
 
-		-- SPT32 GRAD (MILITARY) / Weapon / Power / Sniper Riffle
+		-- SPT32 GRAD (MILITARY) / Weapon / Power / Sniper Rifle
 		-- From this weapon, there is no cover.
 		{ id = "Preset_Grad_Military" }, 
 
-		-- SPT32 GRAD (NEON) / Weapon / Power / Sniper Riffle
+		-- SPT32 GRAD (NEON) / Weapon / Power / Sniper Rifle
 		-- From this weapon, there is no cover.
 		{ id = "Preset_Grad_Neon" }, 
 
-		-- SPT32 GRAD (PIMP) / Weapon / Power / Sniper Riffle
+		-- SPT32 GRAD (PIMP) / Weapon / Power / Sniper Rifle
 		-- From this weapon, there is no cover.
 		{ id = "Preset_Grad_Pimp" }, 
 
-		-- SPT32 GRAD / Weapon / Power / Sniper Riffle
+		-- SPT32 GRAD / Weapon / Power / Sniper Rifle
 		-- From this weapon, there is no cover.
 		{ id = "Preset_Grad_Default" }, 
 

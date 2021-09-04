@@ -39,6 +39,8 @@ function Compiler:rehashTweakDbIds(stringsListPath, hashNamesDbPath, hashNamesCs
 		hashNamesCsvPath = mod.path('mod/data/tweakdb-names.csv')
 	end
 
+	local TweakDb = mod.require('mod/helpers/TweakDb')
+
 	local fdb = io.open(hashNamesDbPath, 'w')
 	local fcsv = io.open(hashNamesCsvPath, 'w')
 
@@ -65,6 +67,10 @@ function Compiler:rehashTweakDbIds(stringsListPath, hashNamesDbPath, hashNamesCs
 
 		if pass then
 			name = group .. '.' .. name
+
+			if hash == '0' then
+				hash = TweakDb.toKey(name)
+			end
 
 			fdb:write(string.format('[0x%016X] = %q,\n', hash, name))
 			fcsv:write(string.format('%s,0x%016X\n', name, hash))

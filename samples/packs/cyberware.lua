@@ -685,6 +685,11 @@ return {
 		-- The sound of your foots will not carry as far.
 		{ id = "CatPaws" }, 
 
+		-- MANEUVERING SYSTEM / Cyberware / Nervous System / Rare
+		-- A subprogram that enhances nervous system function.
+		-- Allows you to preform dodges in midair.
+		{ id = "NervousSystemDischarge" }, 
+
 		-- MANTIS BLADES / Cyberware / Arms / Rare
 		-- Arm blades designed with lethality and concealment in mind. As effective as they are flashy.
 		-- Arm blades designed with lethality and concealment in mind.
@@ -723,11 +728,6 @@ return {
 				{ slot = "Mod" }, 
 			},
 		},
-
-		-- MANUVERING SYSTEM / Cyberware / Nervous System / Rare
-		-- A subprogram that enhances nervous system function.
-		-- Allows you to preform dodges in midair.
-		{ id = "NervousSystemDischarge" }, 
 
 		-- MECHATRONIC CORE / Cyberware / Frontal Cortex / Common
 		-- Provides information about the weak points of both mass-produced and some lesser-known machines.

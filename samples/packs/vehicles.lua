@@ -30,6 +30,7 @@ return {
 		"v_standard2_makigai_maimai_player", -- MAIMAI P126
 		"v_sportbike2_arch_tyger_player", -- NAZARÉ "ITSUMADE"
 		"v_sport1_herrera_outlaw_player", -- OUTLAW GTS
+		"v_standard2_archer_bandit_player", -- QUARTZ "BANDIT"
 		"v_standard2_archer_quartz_player", -- QUARTZ EC-T2 R660
 		"v_sport2_mizutani_shion_nomad_02_player", -- SHION "COYOTE" (RED)
 		"v_sport2_mizutani_shion_nomad_player", -- SHION "COYOTE"

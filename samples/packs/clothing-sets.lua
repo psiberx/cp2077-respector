@@ -37,7 +37,7 @@ return {
 		{ id = "Corporate_01_Set_Glasses" }, 
 
 		-- FIXER SET: ELASTIWEAVE FIXER PUMPS WITH REINFORCED SEAMS / Clothing / Feet / Legendary
-		-- Don't give me this "Robin Hood" stuff. I'm doin' a job, no more. I give people what they want, an' they pay me out. Maybe I even a few scores here and there, but that's good for business. I got a slogan... "How much you pay me?" - Phil "Nacho" Hernandez, Fixer
+		-- Don't give me this "Robin Hood" stuff. I'm doin' a job, no more. I give people what they want, an' they pay me out. Maybe I even a few scores here and there, but that's good for business. I got a slogan... "How much you pay me? - Phil "Nacho" Hernandez, Fixer
 		{ id = "Fixer_01_Set_FormalShoes" }, 
 
 		-- FIXER SET: HEAT RESISTANT ARAMID WEAVE FIXER BUSTIER / Clothing / Inner Torso / Legendary

@@ -18,6 +18,7 @@ local specialSearches = {
 }
 
 local defaultSearches = {
+	'dlc',
 	'pack',
 	'iconic',
 	'stash',

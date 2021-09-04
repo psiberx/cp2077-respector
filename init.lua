@@ -51,13 +51,6 @@ local mod = require(coreReq)
 
 mod.init(debugMode)
 
-if devMode then
-	local Compiler = mod.require('mod/Compiler')
-	local compiler = Compiler:new()
-
-	compiler:run()
-end
-
 local Respector = mod.require('mod/Respector')
 local respector = Respector:new()
 
@@ -86,6 +79,13 @@ if mod.config.useGui then
 	local gui = mod.require('mod/ui/gui')
 
 	registerForEvent('onInit', function()
+		if devMode then
+			local Compiler = mod.require('mod/Compiler')
+			local compiler = Compiler:new()
+
+			compiler:run()
+		end
+
 		gui.init(respector, tweaker)
 	end)
 

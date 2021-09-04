@@ -72,4 +72,8 @@ return {
 		name = "weapons-mods",
 		items = { kind = "Mod", group = { "Ranged", "Melee" } }
 	},
+	{
+		name = "dlc-jackets",
+		items = { tag = "DLC: V's New Jackets" },
+	},
 }

@@ -12,7 +12,7 @@ return {
 		-- Fires explosive rounds and rips enemies to shreads.
 		{ id = "Preset_Zhuo_Eight_Star" }, 
 
-		-- BREAKTHROUGH / Weapon / Tech / Sniper Riffle / Epic
+		-- BREAKTHROUGH / Weapon / Tech / Sniper Rifle / Epic
 		-- Pierces concrete like cardboard.
 		-- Can penatrate through walls and ricochet multiple times.
 		{ id = "Preset_Nekomata_Breakthrough" }, 
@@ -52,7 +52,7 @@ return {
 		-- Custom-made for Johnny Silverhand. The guy had taste.
 		{ id = "Preset_Silverhand_3516" }, 
 
-		-- MORON LABE / Weapon / Power / Assault Riffle / Epic
+		-- MORON LABE / Weapon / Power / Assault Rifle / Epic
 		-- A weapon for an alpha among alphas.
 		-- Increases fire rate.
 		-- Chance to dismember target.
@@ -65,7 +65,7 @@ return {
 		-- Modded barrel reduces spread while aiming.
 		{ id = "Preset_Carnage_Mox" }, 
 
-		-- OVERWATCH / Weapon / Power / Sniper Riffle / Rare
+		-- OVERWATCH / Weapon / Power / Sniper Rifle / Rare
 		-- A sniper rifle that belonged to Panam. Increased reload spead and lethal accuracy - a rifle you can count on.
 		-- Increases reload speed.
 		-- Comes with a custom silencer.
@@ -77,7 +77,7 @@ return {
 		-- Every shot cost you eddies.
 		{ id = "Preset_Liberty_Dex" }, 
 
-		-- PSALM 11:6 / Weapon / Power / Assault Riffle / Rare
+		-- PSALM 11:6 / Weapon / Power / Assault Rifle / Rare
 		-- "Let him rain coals on the wicked; fire and sulfur and a scorching wind shall be the portion of their cup."
 		-- Pure hellfire.
 		-- This gun deals additional Thermal damage, greatly increasing the chance to apply burn.

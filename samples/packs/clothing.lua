@@ -573,7 +573,7 @@ return {
 		{ id = "Jacket_17_old_01" }, 
 
 		-- CARBON-PLATED EDGERUNNER / Clothing / Outer Torso
-		-- Some rockergirl wrote a savage album in this jacket. You can feel it.
+		-- Some rockerboy wrote a savage album in this jacket. You can feel it.
 		{ id = "Jacket_03_old_02" }, 
 
 		-- CARBON-REINFORCED TONGUES / Clothing / Feet
@@ -941,7 +941,7 @@ return {
 		{ id = "Pants_01_rich_03" }, 
 
 		-- DESERT CROSS STRONG-WEAVE BUTTON-UP / Clothing / Inner Torso
-		-- For the refined cowgirl.
+		-- For the refined cowboy.
 		{ id = "FormalShirt_02_rich_01" }, 
 
 		-- DIAMANT NOI CARBON-REINFORCED CORPORATE BLAZER / Clothing / Outer Torso
@@ -2398,7 +2398,7 @@ return {
 		{ id = "TShirt_11_old_01" }, 
 
 		-- PUNK HIGH-COLLAR VEST / Clothing / Outer Torso
-		-- Gives you bad girl vibes.
+		-- Gives you bad boy vibes.
 		{ id = "Vest_07_old_01" }, 
 
 		-- PUNK SHORT SLEEVE DUAL MEMBRANE JACKET / Clothing / Outer Torso
@@ -2710,7 +2710,7 @@ return {
 		{ id = "Jacket_07_basic_01" }, 
 
 		-- SCALED KINRYU BLAZER WITH CARBON-COMPOSITE INSETS / Clothing / Outer Torso
-		-- For queens of chromatic rock!
+		-- For kings of chromatic rock!
 		{ id = "FormalJacket_04_rich_02" }, 
 
 		-- SCAV BALLISTIC VEST / Clothing / Outer Torso
@@ -2742,7 +2742,7 @@ return {
 		{ id = "TShirt_08_old_02" }, 
 
 		-- SECONDHAND MAELSTROM NEOTAC PANTS / Clothing / Legs
-		-- Black synleather - a wardrobe staple for meat-hating borgs everywhere.
+		-- Black syn-leather - a wardrobe staple for meat-hating borgs everywhere.
 		{ id = "Pants_08_old_02" }, 
 
 		-- SECONDHAND RED DEATH WINDBREAKER PANTS / Clothing / Legs
@@ -2978,7 +2978,7 @@ return {
 		{ id = "TShirt_04_old_06" }, 
 
 		-- STURDI-BOOST COWBOY HAT / Clothing / Head
-		-- Smells like synleather and cigarette smoke.
+		-- Smells like syn-leather and cigarette smoke.
 		{ id = "Hat_02_old_01" }, 
 
 		-- STURDY CONICAL HAT / Clothing / Head
@@ -3054,7 +3054,7 @@ return {
 		{ id = "Coat_01_basic_03" }, 
 
 		-- STYLISH TORA TO RYU COAT WITH TITANIUM INSERTS / Clothing / Outer Torso
-		-- A coat to suit a queen among fixers.
+		-- A coat to suit a king among fixers.
 		{ id = "Coat_01_rich_03" }, 
 
 		-- STYLISH TORQUOISE SPORT GLASSES / Clothing / Face
@@ -3414,7 +3414,7 @@ return {
 		{ id = "Boots_05_old_02" }, 
 
 		-- UTILITARIAN COMPOSITE MESH TSHIRT / Clothing / Inner Torso
-		-- Won't be easy to miss with a big X on your tits.
+		-- Won't be easy to miss with a big X on your chest.
 		{ id = "TShirt_02_old_04" }, 
 
 		-- UTILITARIUN BURN CORPO SHIT TSHIRT / Clothing / Inner Torso

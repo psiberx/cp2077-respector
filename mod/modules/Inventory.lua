@@ -4,7 +4,7 @@ local RarityFilter = mod.require('mod/enums/RarityFilter')
 local TweakDb = mod.require('mod/helpers/TweakDb')
 local SimpleDb = mod.require('mod/helpers/SimpleDb')
 
--- ME-THRILL
+-- ME-THRILL / Items.DummyFabricEnhancer
 local slotBlocker = { hash = 0x4C882AC5, length = 25 }
 
 local InventoryModule = {}
