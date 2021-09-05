@@ -125,12 +125,12 @@ function CharacterModule:applySpec(specData, specOptions)
 
 		-- Apply perks
 		if specData.Character.Perks then
-			mod.after(0.25, function()
+			mod.after(0.5, function()
 				self:applyPerks(specData.Character.Perks, specOptions, perkExtraPoints)
 				self:enforcePerkPoints(perkExtraPoints, specOptions.cheat)
 			end)
 		elseif skillsApplied then
-			mod.after(0.25, function()
+			mod.after(0.5, function()
 				self:applyPerks({}, specOptions, perkExtraPoints, true) -- Enforce legit perks
 				self:enforcePerkPoints(perkExtraPoints, specOptions.cheat)
 			end)
@@ -431,7 +431,14 @@ end
 ---@private
 function CharacterModule:applyPerks(perkSpecs, specOptions, perkExtraPoints, mergePerks)
 	if not mergePerks then
-		self.playerDevData:RemoveAllPerks()
+		--self.playerDevData:RemoveAllPerks()
+		for _, perk in self.perksDb:each() do
+			if perk.trait then
+				self.playerDevData:RemoveTrait(perk.type)
+			else
+				self.playerDevData:RemovePerk(perk.type)
+			end
+		end
 	end
 
 	local perkPoints = self:getPerkPointsUsage(perkExtraPoints)
