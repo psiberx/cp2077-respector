@@ -270,11 +270,13 @@ function TweakDb.toType(tweakId, prefix)
 end
 
 function TweakDb.toAlias(tweakId, prefix)
-	if type(tweakId) == 'string' then
-		return str.without(tweakId, prefix)
-	end
+	return tweakId
 
-	return ''
+	--if type(tweakId) == 'string' then
+	--	return str.without(tweakId, prefix)
+	--end
+	--
+	--return ''
 end
 
 function TweakDb.toTweakId(tweakId, prefix)
