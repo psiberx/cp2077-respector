@@ -36,7 +36,7 @@ local viewData = {
 	rarityFilterCount = #rarityFilters,
 
 	itemFormatIndex = 0,
-	itemFormatList = { 'Hash name', 'Hash value', 'Hash struct' },
+	itemFormatList = { 'Item name', 'Hash value', 'Hash struct' },
 	itemFormatCount = #itemFormatOptions,
 
 	keepSeedIndex = 0,
