@@ -825,20 +825,37 @@ function tweaksGui.onTweakSearchResultSelect()
 		-- Item Crafting
 
 		if tweak.entryMeta.craft then
-			tweak.itemCanBeCrafted = true
-
 			if tweak.entryMeta.craft == true then
-				tweak.itemRecipeId = tweak.entryMeta.id
+				tweak.itemRecipeIds = { tweak.entryMeta.id }
 			else
-				tweak.itemRecipeId = tweak.entryMeta.craft
+				tweak.itemRecipeIds = { tweak.entryMeta.craft }
 			end
+		else
+			tweak.itemRecipeIds = {}
 
+			if tweakDb:match(tweak.entryMeta, { kind = { 'Weapon', 'Clothing' } }) then
+				tweakDb:load('mod/data/tweakdb-meta')
+
+				for _, itemMeta in tweakDb:filter({ craft = true, ref = tweak.entryKey }) do
+					table.insert(tweak.itemRecipeIds, itemMeta.id)
+				end
+
+				tweakDb:unload()
+			end
+		end
+
+		if #tweak.itemRecipeIds > 0 then
+			tweak.itemCanBeCrafted = true
 			tweak.itemRecipeKnown = respector:usingModule('crafting', function(craftingModule)
-				return craftingModule:isRecipeKnown(tweak.itemRecipeId)
+				for _, itemRecipeId in ipairs(tweak.itemRecipeIds) do
+					if not craftingModule:isRecipeKnown(itemRecipeId) then
+						return false
+					end
+				end
+				return true
 			end)
 		else
 			tweak.itemCanBeCrafted = false
-			tweak.itemRecipeId = nil
 			tweak.itemRecipeKnown = false
 		end
 
@@ -899,7 +916,7 @@ end
 function tweaksGui.onAddRecipeClick()
 	local tweak = viewData.activeTweakData
 
-	tweaker:addRecipe(tweak.itemRecipeId)
+	tweaker:addRecipes(tweak.itemRecipeIds)
 
 	tweak.itemRecipeKnown = true
 end

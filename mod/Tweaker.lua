@@ -111,6 +111,12 @@ function Tweaker:addRecipe(itemId)
 	end)
 end
 
+function Tweaker:addRecipes(itemIds)
+	self.respector:usingModule('crafting', function(crafting)
+		crafting:addRecipes(itemIds)
+	end)
+end
+
 function Tweaker:getResource(resourceId)
 	resourceId = TweakDb.toItemId(resourceId, false)
 
