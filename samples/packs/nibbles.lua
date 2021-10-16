@@ -5,6 +5,6 @@ return {
 		-- It'll have you purring in no time.
 		-- Increases max health by 5%.
 		-- Regenerates 0.5% health every second outside combat.
-		{ id = "LowQualityFood11" }, 
+		{ id = "Items.LowQualityFood11" }, 
 	},
 }

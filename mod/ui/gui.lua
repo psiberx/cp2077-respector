@@ -163,7 +163,7 @@ function gui.onOverlayClose()
 end
 
 function gui.onDrawEvent()
-	if not viewData.showWindow then
+	if not viewData.showWindow or not viewData.viewScale then
 		return
 	end
 

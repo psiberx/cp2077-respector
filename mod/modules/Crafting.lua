@@ -67,7 +67,7 @@ function CraftingModule:getComponents()
 	local componentSpecs = {}
 
 	for componentAlias, component in pairs(components) do
-		local componentId = ItemID.new(TweakDBID.new(component.type))
+		local componentId = ItemID.new(TweakDBID.new(component.id))
 		local componentQty = self.transactionSystem:GetItemQuantity(self.player, componentId)
 
 		componentSpecs[componentAlias] = componentQty
@@ -81,7 +81,7 @@ function CraftingModule:setComponents(componentSpecs)
 
 	for componentAlias, componentQty in pairs(componentSpecs) do
 		local component = components[componentAlias]
-		local componentId = ItemID.new(TweakDBID.new(component.type))
+		local componentId = ItemID.new(TweakDBID.new(component.id))
 		local currentQty = self.transactionSystem:GetItemQuantity(self.player, componentId)
 
 		if currentQty ~= componentQty then
@@ -99,10 +99,10 @@ function CraftingModule:getRecipes()
 		if self:isRecipeKnown(itemKey) then
 			local recipeSpec = {}
 
-			if itemMeta.type == '' then
+			if itemMeta.id == '' then
 				recipeSpec[1] = itemKey
 			else
-				recipeSpec[1] = TweakDb.toItemAlias(itemMeta.type)
+				recipeSpec[1] = TweakDb.toItemAlias(itemMeta.id)
 			end
 
 			recipeSpec._comment = self.tweakDb:describe(itemMeta)

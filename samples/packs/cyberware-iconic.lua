@@ -7,7 +7,7 @@ return {
 		-- Increase Crit Chance by 20% and Crit Damage by 35% when Sandevistan is active.
 		-- Cooldown 60 sec.
 		{
-			id = "SandevistanC4MK5", 
+			id = "Items.SandevistanC4MK5", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -21,7 +21,7 @@ return {
 		-- Max health and stamina +40%, defeating enemies restores 5% health.
 		-- Cooldown 60 seconds.
 		{
-			id = "BerserkC4MK5", 
+			id = "Items.BerserkC4MK5", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -37,7 +37,7 @@ return {
 		-- Increases cyberdeck RAM recovery rare by 9 unit(s) per 60 sec.
 		-- Increases quickhack spread distance by 60%.
 		{
-			id = "NetwatchNetdriverLegendaryMKV", 
+			id = "Items.NetwatchNetdriverLegendaryMKV", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -55,7 +55,7 @@ return {
 		-- Increase Crit Chance by 10% and Crit Damage by 50% when Sandevistan is active.
 		-- Cooldown 30 sec.
 		{
-			id = "SandevistanC3MK5", 
+			id = "Items.SandevistanC3MK5", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -70,7 +70,7 @@ return {
 		-- Cooldown 30 seconds.
 		-- 3 Mod Slots.
 		{
-			id = "BerserkC3MK5", 
+			id = "Items.BerserkC3MK5", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 

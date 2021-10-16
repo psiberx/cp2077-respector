@@ -684,7 +684,7 @@ function tweaksGui.onTweakSearchChange()
 		return {
 			entryKey = result.entryKey,
 			entryMeta = result.entryMeta,
-			entryType = str.nonempty(result.entryMeta.type, 'N/A'),
+			entryType = str.nonempty(result.entryMeta.id, 'N/A'),
 			entryHash = TweakDb.isRealKey(result.entryKey) and ('%010X'):format(result.entryKey) or 'N/A',
 		}
 	end)
@@ -723,15 +723,15 @@ function tweaksGui.onTweakSearchResultSelect()
 		tweak.packSize = tweaker:getPackSize(tweaksGui.getCurrentPackSpec())
 
 	elseif tweak.entryMeta.kind == 'Fact' then
-		tweak.factState = tweaker:getFact(tweak.entryMeta.type)
+		tweak.factState = tweaker:getFact(tweak.entryMeta.id)
 
 	elseif tweak.entryMeta.kind == 'Vehicle' then
-		tweak.vehicleUnlockable = tweaker:canHaveVehicle(tweak.entryMeta.type)
-		tweak.vehicleUnlocked = tweaker:hasVehicle(tweak.entryMeta.type)
+		tweak.vehicleUnlockable = tweaker:canHaveVehicle(tweak.entryMeta.id)
+		tweak.vehicleUnlocked = tweaker:hasVehicle(tweak.entryMeta.id)
 
 	elseif tweak.entryMeta.kind == 'Money' or tweak.entryMeta.kind == 'Component' or tweak.entryMeta.kind == 'Ammo' then
 		tweak.transferAmount = viewData.resourceForm[tweak.entryMeta.kind].transferAmount
-		tweak.currentAmount = tweaker:getResource(tweak.entryMeta.type)
+		tweak.currentAmount = tweaker:getResource(tweak.entryMeta.id)
 
 	else
 		-- Item Quantity
@@ -828,7 +828,7 @@ function tweaksGui.onTweakSearchResultSelect()
 			tweak.itemCanBeCrafted = true
 
 			if tweak.entryMeta.craft == true then
-				tweak.itemRecipeId = tweak.entryMeta.type
+				tweak.itemRecipeId = tweak.entryMeta.id
 			else
 				tweak.itemRecipeId = tweak.entryMeta.craft
 			end
@@ -907,7 +907,7 @@ end
 function tweaksGui.onAddVehicleClick()
 	local tweak = viewData.activeTweakData
 
-	tweaker:addVehicle(tweak.entryMeta.type)
+	tweaker:addVehicle(tweak.entryMeta.id)
 
 	tweak.vehicleUnlocked = true
 end
@@ -915,29 +915,29 @@ end
 function tweaksGui.onSpawnVehicleClick()
 	local tweak = viewData.activeTweakData
 
-	tweaker:spawnVehicle(tweak.entryMeta.type)
+	tweaker:spawnVehicle(tweak.entryMeta.id)
 end
 
 function tweaksGui.onAddResourceClick()
 	local tweak = viewData.activeTweakData
 
-	tweaker:addResource(tweak.entryMeta.type, tweak.transferAmount)
+	tweaker:addResource(tweak.entryMeta.id, tweak.transferAmount)
 
-	tweak.currentAmount = tweaker:getResource(tweak.entryMeta.type)
+	tweak.currentAmount = tweaker:getResource(tweak.entryMeta.id)
 end
 
 function tweaksGui.onSwitchFactClick()
 	local tweak = viewData.activeTweakData
 
-	tweaker:setFact(tweak.entryMeta.type, not tweak.factState)
+	tweaker:setFact(tweak.entryMeta.id, not tweak.factState)
 
-	tweak.factState = tweaker:getFact(tweak.entryMeta.type)
+	tweak.factState = tweaker:getFact(tweak.entryMeta.id)
 end
 
 function tweaksGui.onExecuteHackClick()
 	local tweak = viewData.activeTweakData
 
-	tweaker:execHack(tweak.entryMeta.type)
+	tweaker:execHack(tweak.entryMeta.id)
 end
 
 function tweaksGui.trackTweakSearchTerm()
@@ -999,7 +999,7 @@ function tweaksGui.getCurrentItemSpec()
 	local tweak = viewData.activeTweakData
 
 	local itemSpec = {
-		id = tweak.entryMeta.type,
+		id = tweak.entryMeta.id,
 		upgrade = tweak.itemQuality,
 		qty = tweak.itemQty,
 		add = true,

@@ -254,8 +254,8 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 				end
 
 				if itemMeta ~= nil then
-					if itemMeta.type ~= '' and specOptions.itemFormat == 'auto' then
-						itemSpec.id = TweakDb.toItemAlias(itemMeta.type)
+					if itemMeta.id ~= '' and specOptions.itemFormat == 'auto' then
+						itemSpec.id = TweakDb.toItemAlias(itemMeta.id)
 					elseif specOptions.itemFormat == 'struct' then
 						itemSpec.id = TweakDb.toStruct(itemKey)
 					else
@@ -306,14 +306,14 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 						local slotMeta = self.tweakDb:resolve(slotId)
 
 						if slotMeta and slotMeta.kind == 'Slot' then
-							itemPartsBySlots[slotMeta.type] = part:GetItemID(part)
+							itemPartsBySlots[slotMeta.id] = part:GetItemID(part)
 						end
 					end
 				end
 
 				if not itemMeta or (itemMeta.kind ~= 'Mod' and itemMeta.kind ~= 'Quickhack') then
 					for _, slotMeta in ipairs(self.attachmentSlots) do
-						local slotId = self.tweakDb:toSlotTweakId(slotMeta.type)
+						local slotId = self.tweakDb:toSlotTweakId(slotMeta.id)
 
 						if itemData:HasPartInSlot(slotId) then
 							if itemSpec.slots == nil then
@@ -323,7 +323,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 							local partSpec = {}
 
-							local partId = itemPartsBySlots[slotMeta.type]
+							local partId = itemPartsBySlots[slotMeta.id]
 							local partMeta = self.tweakDb:resolve(partId.id)
 
 							local partData = self.inventoryManager:CreateItemData(partId, self.player)
@@ -332,8 +332,8 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 							partSpec.slot = slotMeta.slot
 
 							if partMeta ~= nil then
-								if partMeta.type ~= '' and specOptions.itemFormat == 'auto' then
-									partSpec.id = TweakDb.toItemAlias(partMeta.type)
+								if partMeta.id ~= '' and specOptions.itemFormat == 'auto' then
+									partSpec.id = TweakDb.toItemAlias(partMeta.id)
 								elseif specOptions.itemFormat == 'struct' then
 									partSpec.id = TweakDb.toStruct(partId.id)
 								else
@@ -508,7 +508,7 @@ function InventoryModule:applyItemSpec(itemSpec, specOptions, equipedSlots)
 
 			if type(itemSpec.slots) == 'table' then -- and (itemMeta.kind == 'Weapon' or itemMeta.kind == 'Clothing' or itemMeta.kind == 'Cyberware')
 				for _, slotMeta in ipairs(self.attachmentSlots) do
-					local slotId = TweakDb.toTweakId(slotMeta.type)
+					local slotId = TweakDb.toTweakId(slotMeta.id)
 
 					if itemData:HasPartInSlot(slotId) then
 						local partItemId = self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)

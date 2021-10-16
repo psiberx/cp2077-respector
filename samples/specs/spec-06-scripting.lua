@@ -1,6 +1,6 @@
 --
 -- Scripting example:
--- For every legendary clothing mod creates a Corpo Glasses with that mod in each slot.
+-- Create a Corpo Glasses for every legendary clothing mod with that mod in each slot.
 --
 
 -- This opens access to the mod functions
@@ -28,7 +28,7 @@ for _, mod in tweakDb:filter({ kind = "Mod", group = "Clothing", quality = "Lege
 	for index = 1, 3 do
 		table.insert(glasses.slots, {
 			slot = "Mod" .. index,
-			id = mod.type,
+			id = mod.id,
 		})
 	end
 

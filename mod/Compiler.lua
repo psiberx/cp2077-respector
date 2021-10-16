@@ -1,5 +1,4 @@
 local mod = ...
-local str = mod.require('mod/utils/str')
 local Quality = mod.require('mod/enums/Quality')
 
 local Compiler = {}
@@ -32,11 +31,11 @@ function Compiler:rehashTweakDbIds(stringsListPath, hashNamesDbPath, hashNamesCs
 	end
 
 	if not hashNamesDbPath then
-		hashNamesDbPath = mod.path('mod/data/tweakdb-names.lua')
+		hashNamesDbPath = mod.path('mod/data/tweakdb-ids.lua')
 	end
 
 	if not hashNamesCsvPath then
-		hashNamesCsvPath = mod.path('mod/data/tweakdb-names.csv')
+		hashNamesCsvPath = mod.path('mod/data/tweakdb-ids.csv')
 	end
 
 	local TweakDb = mod.require('mod/helpers/TweakDb')
@@ -57,17 +56,19 @@ function Compiler:rehashTweakDbIds(stringsListPath, hashNamesDbPath, hashNamesCs
 		local group, name, hash = line:match('^(%w+)%.(.+),(%d+)$')
 		local pass = false
 
-		if allowedGroups[group] and not name:find('%.') and not name:find('_inline%d+$') then
-			if group == 'Vehicle' then
-				pass = name:find('^v_')
-			else
+		if not group then
+			name, hash = line:match('^(<TDBID:[0-9A-Z]+:[0-9A-Z]+>),(%d+)$')
+			if name then
 				pass = true
+			end
+		elseif allowedGroups[group] and not name:find('%.') and not name:find('_inline%d+$') then
+			pass = (group ~= 'Vehicle' or name:find('^v_'))
+			if pass then
+				name = group .. '.' .. name
 			end
 		end
 
 		if pass then
-			name = group .. '.' .. name
-
 			if hash == '0' then
 				hash = TweakDb.toKey(name)
 			end
@@ -96,17 +97,55 @@ function Compiler:collectTweakDbInfo(outputCsvPath)
 	local fcsv = io.open(outputCsvPath, 'w')
 
 	local TweakDb = mod.require('mod/helpers/TweakDb')
-	local tweakDb = TweakDb:new(true)
+	local tweakDb = TweakDb:new('mod/data/tweakdb-ids')
 
 	local normalize = function(str)
 		return str:gsub('"', '""'):gsub('“', '""'):gsub('’', '\''):gsub('–', '-')
 	end
 
-	for key, meta in tweakDb:each() do
-		local localized = TweakDb.localize(key)
+	local bool = function(value)
+		return value and 'TRUE' or 'FALSE'
+	end
 
-		if localized.name ~= '' or localized.comment ~= '' then
-			fcsv:write(string.format('0x%016X,%s,"%s","%s"\n', key, meta.type, normalize(localized.name), normalize(localized.comment)))
+	for key, id in tweakDb:each() do
+		local record = TweakDB:GetRecord(TweakDb.toTweakId(key))
+
+		if record and record:IsA('gamedataBaseObject_Record') then
+			local name = GetLocalizedTextByKey(record:DisplayName())
+			local desc = ''
+			local ability = ''
+			local category = ''
+			local quality = ''
+			local craftable = false
+
+			if record:IsA('gamedataItem_Record') and record:ItemCategory() then
+				desc = GetLocalizedTextByKey(record:LocalizedDescription())
+				category = NameToString(record:ItemCategory():Name())
+
+				local qualityData = record:Quality()
+				if qualityData and qualityData:Value() > 0 then
+					quality = ('%d-%s'):format(qualityData:Value() + 1, qualityData:Name())
+				end
+
+				local attachData = record:GetOnAttachItem(0)
+				if attachData then
+					local uiData = attachData:UIData()
+					if uiData then
+						ability = GetLocalizedText(uiData:LocalizedDescription())
+					end
+				end
+
+				local craftingData = record:CraftingData()
+				if craftingData then
+					craftable = true
+				end
+			elseif record:IsA('gamedataVehicle_Record') then
+				category = 'Vehicle'
+			end
+
+			if name ~= '' and category ~= '' then
+				fcsv:write(('0x%016X,%s,"%s","%s","%s","%s","%s","%s"\n'):format(key, id, normalize(name), normalize(desc), normalize(ability), category, quality, bool(craftable)))
+			end
 		end
 	end
 
@@ -166,7 +205,7 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 						itemSpec._comment = itemSpec._comment .. '\n' .. itemMeta.desc:gsub('([.!?]) ', '%1\n')
 					end
 
-					itemSpec.id = TweakDb.toItemAlias(itemMeta.type)
+					itemSpec.id = TweakDb.toItemAlias(itemMeta.id)
 
 					if samplePack.items.kind == 'Cyberware' then
 						local itemSlots = {}
@@ -217,7 +256,7 @@ function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
 			for _, vehicleMeta in tweakDb:filter(samplePack.vehicles) do
 				local vehicleSpec = {}
 
-				vehicleSpec[1] = str.without(vehicleMeta.type, 'Vehicle.')
+				vehicleSpec[1] = vehicleMeta.id
 				vehicleSpec._comment = tweakDb:describe(vehicleMeta)
 				vehicleSpec._order = tweakDb:order(vehicleMeta)
 

@@ -185,8 +185,8 @@ function TweakDb:order(itemMeta, orderKind, orderPrefix)
 
 	if itemMeta.name then
 		order = order .. itemMeta.name
-	elseif itemMeta.type then
-		order = order .. TweakDb.toItemAlias(itemMeta.type)
+	elseif itemMeta.id then
+		order = order .. TweakDb.toItemAlias(itemMeta.id)
 	end
 
 	if itemMeta.quality then
@@ -198,8 +198,8 @@ function TweakDb:order(itemMeta, orderKind, orderPrefix)
 		order = order .. '|0'
 	end
 
-	if itemMeta.name and itemMeta.type then
-		order = order .. '|' .. TweakDb.toItemAlias(itemMeta.type)
+	if itemMeta.name and itemMeta.id then
+		order = order .. '|' .. TweakDb.toItemAlias(itemMeta.id)
 	end
 
 	return string.upper(order)
@@ -289,7 +289,10 @@ function TweakDb.toTweakId(tweakId, prefix)
 	end
 
 	if type(tweakId) == 'string' then
-		if tweakId:find('%.') then
+		local hashHex, lenHex = tweakId:match('^<TDBID:([0-9A-Z]+):([0-9A-Z]+)>$')
+		if hashHex and lenHex then
+			return TweakDBID.new(tonumber(hashHex, 16), tonumber(lenHex, 16))
+		elseif tweakId:find('%.') then
 			return TweakDBID.new(tweakId)
 		else
 			return TweakDBID.new(str.with(tweakId, prefix))

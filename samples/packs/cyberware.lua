@@ -3,27 +3,27 @@ return {
 		-- ADRENAL BOOSTER / Cyberware / Circulatory System / Common
 		-- Helps the body maintain performance when under great strain.
 		-- Instantly restores 10% Stamina when you defeat an enemy.
-		{ id = "StaminaRegenBoosterCommon" }, 
+		{ id = "Items.StaminaRegenBoosterCommon" }, 
 
 		-- ADRENAL BOOSTER / Cyberware / Circulatory System / Uncommon
 		-- Helps the body maintain performance when under great strain.
 		-- Instantly restores 20% Stamina when you defeat an enemy.
-		{ id = "StaminaRegenBoosterUncommon" }, 
+		{ id = "Items.StaminaRegenBoosterUncommon" }, 
 
 		-- ADRENAL BOOSTER / Cyberware / Circulatory System / Rare
 		-- Helps the body maintain performance when under great strain.
 		-- Instantly restores 30% Stamina when you defeat an enemy.
-		{ id = "StaminaRegenBoosterRare" }, 
+		{ id = "Items.StaminaRegenBoosterRare" }, 
 
 		-- ADRENAL BOOSTER / Cyberware / Circulatory System / Epic
 		-- Helps the body maintain performance when under great strain.
 		-- Instantly restores 40% Stamina when you defeat an enemy.
-		{ id = "StaminaRegenBoosterEpic" }, 
+		{ id = "Items.StaminaRegenBoosterEpic" }, 
 
 		-- ADRENAL BOOSTER / Cyberware / Circulatory System / Legendary
 		-- Helps the body maintain performance when under great strain.
 		-- Instantly restores 50% Stamina when you defeat an enemy.
-		{ id = "StaminaRegenBoosterLegendary" }, 
+		{ id = "Items.StaminaRegenBoosterLegendary" }, 
 
 		-- ARASAKA MK.3 / Cyberware / Operating System / Epic
 		-- A top-tier cyberdeck, commonly used by netrunners specializing in infilitration and corporate espionage.
@@ -31,7 +31,7 @@ return {
 		-- Quickhacking an enemy affected by Ping will reset the duratio of ping.
 		-- Increases combat quickhack duration by 30%.
 		{
-			id = "ArasakaEpicMKIII", 
+			id = "Items.ArasakaEpicMKIII", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -47,7 +47,7 @@ return {
 		-- Quickhacking an enemy affected by Ping will reset the duratio of ping.
 		-- Increases combat quickhack duration by 40%.
 		{
-			id = "ArasakaLegendaryMKIV", 
+			id = "Items.ArasakaLegendaryMKIV", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -61,39 +61,39 @@ return {
 		-- BALLISTIC COPROCESSOR / Cyberware / Hands / Rare
 		-- A coprocessor with an integrated servomotor system.
 		-- A coprocessor with an integrated servomotor system.
-		{ id = "PowerGripRare" }, 
+		{ id = "Items.PowerGripRare" }, 
 
 		-- BALLISTIC COPROCESSOR / Cyberware / Hands / Epic
 		-- A coprocessor with an integrated servomotor system.
 		-- A coprocessor with an integrated servomotor system.
-		{ id = "PowerGripEpic" }, 
+		{ id = "Items.PowerGripEpic" }, 
 
 		-- BALLISTIC COPROCESSOR / Cyberware / Hands / Legendary
 		-- A coprocessor with an integrated servomotor system.
 		-- A coprocessor with an integrated servomotor system.
-		{ id = "PowerGripLegendary" }, 
+		{ id = "Items.PowerGripLegendary" }, 
 
 		-- BIOCONDUCTOR / Cyberware / Circulatory System / Rare
 		-- Facilitates superconductivity in the circuitry that connects the body's cyberware.
 		-- Reduces all Cyberware cooldowns by 10%.
-		{ id = "BioConductorsRare" }, 
+		{ id = "Items.BioConductorsRare" }, 
 
 		-- BIOCONDUCTOR / Cyberware / Circulatory System / Epic
 		-- Facilitates superconductivity in the circuitry that connects the body's cyberware.
 		-- Reduces all Cyberware cooldowns by 20%.
-		{ id = "BioConductorsEpic" }, 
+		{ id = "Items.BioConductorsEpic" }, 
 
 		-- BIOCONDUCTOR / Cyberware / Circulatory System / Legendary
 		-- Facilitates superconductivity in the circuitry that connects the body's cyberware.
 		-- Reduces all Cyberware cooldowns by 30%.
-		{ id = "BioConductorsLegendary" }, 
+		{ id = "Items.BioConductorsLegendary" }, 
 
 		-- BIODYNE BERSERK MK.1 / Cyberware / Operating System / Uncommon
 		-- The Berserk model from BioDyne is an affordable and versatile implant for those who want quick and easy results, but don't expect miracles. It does what it says on the box, so let's not get picky.
 		-- When activated, ranged weapon recoil and sway -15%, melee damage -15% and Armor and Resistances +5% for 10 seconds.
 		-- Cooldown 30 seconds.
 		{
-			id = "BerserkC2MK1", 
+			id = "Items.BerserkC2MK1", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -107,7 +107,7 @@ return {
 		-- Ranged attack damage +10%.
 		-- Cooldown 30 seconds.
 		{
-			id = "BerserkC2MK2", 
+			id = "Items.BerserkC2MK2", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -122,7 +122,7 @@ return {
 		-- Defeating enemies restores 3% health.
 		-- Cooldown 30 seconds.
 		{
-			id = "BerserkC2MK3", 
+			id = "Items.BerserkC2MK3", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -137,7 +137,7 @@ return {
 		-- Defeating enemies restores 4% health.
 		-- Cooldown 30 seconds.
 		{
-			id = "BerserkC2MK4", 
+			id = "Items.BerserkC2MK4", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -149,7 +149,7 @@ return {
 		-- A practical and amply-spacious cyberdeck. One of the more basic and affordable models known for its substantial performance output.
 		-- Allows you to preform quckhacks on targets and devices while scanning.
 		{
-			id = "BioDyneUncommonMKI", 
+			id = "Items.BioDyneUncommonMKI", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -162,7 +162,7 @@ return {
 		-- Allows you to preform quckhacks on targets and devices while scanning.
 		-- Increases Cyberdeck Ram recovery rate by 3 unite(s) per 60 seconds.
 		{
-			id = "BioDyneRareMKII", 
+			id = "Items.BioDyneRareMKII", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -175,98 +175,98 @@ return {
 		-- An implant designed to coordinate regenerative processes.
 		-- Instant restores 30% Health when Health drops to 15%.
 		-- Cooldown 240 sec.
-		{ id = "HealthMonitorCommon" }, 
+		{ id = "Items.HealthMonitorCommon" }, 
 
 		-- BIOMONITOR / Cyberware / Circulatory System / Uncommon
 		-- An implant designed to coordinate regenerative processes.
 		-- Instant restores 40% Health when Health drops to 15%.
 		-- Cooldown 240 sec.
-		{ id = "HealthMonitorUncommon" }, 
+		{ id = "Items.HealthMonitorUncommon" }, 
 
 		-- BIOMONITOR / Cyberware / Circulatory System / Rare
 		-- An implant designed to coordinate regenerative processes.
 		-- Instant restores 50% Health when Health drops to 15%.
 		-- Cooldown 240 sec.
-		{ id = "HealthMonitorRare" }, 
+		{ id = "Items.HealthMonitorRare" }, 
 
 		-- BIOMONITOR / Cyberware / Circulatory System / Epic
 		-- An implant designed to coordinate regenerative processes.
 		-- Instant restores 60% Health when Health drops to 15%.
 		-- Cooldown 240 sec.
-		{ id = "HealthMonitorEpic" }, 
+		{ id = "Items.HealthMonitorEpic" }, 
 
 		-- BIOMONITOR / Cyberware / Circulatory System / Legendary
 		-- An implant designed to coordinate regenerative processes.
 		-- Instant restores 100% Health when Health drops to 15%.
 		-- Cooldown 240 sec.
-		{ id = "HealthMonitorLegendary" }, 
+		{ id = "Items.HealthMonitorLegendary" }, 
 
 		-- BIONIC JOINTS / Cyberware / Skeleton / Rare
 		-- Mechatronic musculoskeletal support.
 		-- Reduces recoil of ranged weapons by 12%.
-		{ id = "JointLockRare" }, 
+		{ id = "Items.JointLockRare" }, 
 
 		-- BIONIC JOINTS / Cyberware / Skeleton / Epic
 		-- Mechatronic musculoskeletal support.
 		-- Reduces recoil of ranged weapons by 25%.
-		{ id = "JointLockEpic" }, 
+		{ id = "Items.JointLockEpic" }, 
 
 		-- BIONIC LUNGS / Cyberware / Skeleton / Common
 		-- Efficient lungs engineered with both organic and artificial tissue fibers.
 		-- Increases Stamin by 20%.
-		{ id = "EnhancedTissueCommon" }, 
+		{ id = "Items.EnhancedTissueCommon" }, 
 
 		-- BIONIC LUNGS / Cyberware / Skeleton / Uncommon
 		-- Efficient lungs engineered with both organic and artificial tissue fibers.
 		-- Increases Stamin by 30%.
-		{ id = "EnhancedTissueUncommon" }, 
+		{ id = "Items.EnhancedTissueUncommon" }, 
 
 		-- BIONIC LUNGS / Cyberware / Skeleton / Rare
 		-- Efficient lungs engineered with both organic and artificial tissue fibers.
 		-- Increases Stamin by 40%.
-		{ id = "EnhancedTissueRare" }, 
+		{ id = "Items.EnhancedTissueRare" }, 
 
 		-- BIONIC LUNGS / Cyberware / Skeleton / Epic
 		-- Efficient lungs engineered with both organic and artificial tissue fibers.
 		-- Increases Stamin by 50%.
-		{ id = "EnhancedTissueEpic" }, 
+		{ id = "Items.EnhancedTissueEpic" }, 
 
 		-- BIONIC LUNGS / Cyberware / Skeleton / Legendary
 		-- Efficient lungs engineered with both organic and artificial tissue fibers.
 		-- Increases Stamin by 60%.
-		{ id = "EnhancedTissueLegendary" }, 
+		{ id = "Items.EnhancedTissueLegendary" }, 
 
 		-- BIOPLASTIC BLOOD VESSELS / Cyberware / Circulatory System / Common
 		-- Facilitates the body's distribution of blood and blood-borne substances.
 		-- Increases health regen outside of combat by 1 point per second.
-		{ id = "EnhancedBloodVesselsCommon" }, 
+		{ id = "Items.EnhancedBloodVesselsCommon" }, 
 
 		-- BIOPLASTIC BLOOD VESSELS / Cyberware / Circulatory System / Uncommon
 		-- Facilitates the body's distribution of blood and blood-borne substances.
 		-- Increases health regen outside of combat by 2 point per second.
-		{ id = "EnhancedBloodVesselsUncommon" }, 
+		{ id = "Items.EnhancedBloodVesselsUncommon" }, 
 
 		-- BIOPLASTIC BLOOD VESSELS / Cyberware / Circulatory System / Rare
 		-- Facilitates the body's distribution of blood and blood-borne substances.
 		-- Increases health regen outside of combat by 4 point per second.
-		{ id = "EnhancedBloodVesselsRare" }, 
+		{ id = "Items.EnhancedBloodVesselsRare" }, 
 
 		-- BIOPLASTIC BLOOD VESSELS / Cyberware / Circulatory System / Epic
 		-- Facilitates the body's distribution of blood and blood-borne substances.
 		-- Increases health regen outside of combat by 10 point per second.
-		{ id = "EnhancedBloodVesselsEpic" }, 
+		{ id = "Items.EnhancedBloodVesselsEpic" }, 
 
 		-- BIOPLASTIC BLOOD VESSELS / Cyberware / Circulatory System / Legendary
 		-- Facilitates the body's distribution of blood and blood-borne substances.
 		-- Increases health regen outside of combat by 50 point per second.
-		{ id = "EnhancedBloodVesselsLegendary" }, 
+		{ id = "Items.EnhancedBloodVesselsLegendary" }, 
 
 		-- BIOTECH Σ MK.1 / Cyberware / Operating System / Uncommon
 		-- A popular cyberdeck among netrunners whose equipment relies on speedy RAM recovery. On that front, the augmented Biotech coprocessors easily get the job done.
 		-- Allows you to perform quickhacks on targets and devices while scanning.
 		-- Increases RAM recovery rate by 6 units per 60 seconds.
 		{
-			id = "BiotechUncommonMKI", 
+			id = "Items.BiotechUncommonMKI", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -280,7 +280,7 @@ return {
 		-- Increases RAM recovery rate by 9 units per 60 seconds.
 		-- Quickhacks deal 10% more damage.
 		{
-			id = "BiotechRareMKII", 
+			id = "Items.BiotechRareMKII", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -295,7 +295,7 @@ return {
 		-- Increases RAM recovery rate by 9 units per 60 seconds.
 		-- Quickhacks deal 20% more damage.
 		{
-			id = "BiotechEpicMKIII", 
+			id = "Items.BiotechEpicMKIII", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -308,79 +308,79 @@ return {
 		-- BLOOD PUMP / Cyberware / Circulatory System / Common
 		-- Accelerates oxygen supply to the body's cells.
 		-- Activate to instantly restore 50% health (cooldown 180 seconds).
-		{ id = "BloodPumpCommon" }, 
+		{ id = "Items.BloodPumpCommon" }, 
 
 		-- BLOOD PUMP / Cyberware / Circulatory System / Uncommon
 		-- Accelerates oxygen supply to the body's cells.
 		-- Activate to instantly restore 60% health (cooldown 180 seconds).
-		{ id = "BloodPumpUncommon" }, 
+		{ id = "Items.BloodPumpUncommon" }, 
 
 		-- BLOOD PUMP / Cyberware / Circulatory System / Rare
 		-- Accelerates oxygen supply to the body's cells.
 		-- Activate to instantly restore 70% health (cooldown 180 seconds).
-		{ id = "BloodPumpRare" }, 
+		{ id = "Items.BloodPumpRare" }, 
 
 		-- BLOOD PUMP / Cyberware / Circulatory System / Epic
 		-- Accelerates oxygen supply to the body's cells.
 		-- Activate to instantly restore 80% health (cooldown 180 seconds).
-		{ id = "BloodPumpEpic" }, 
+		{ id = "Items.BloodPumpEpic" }, 
 
 		-- BLOOD PUMP / Cyberware / Circulatory System / Legendary
 		-- Accelerates oxygen supply to the body's cells.
 		-- Activate to instantly restore 90% health (cooldown 180 seconds).
-		{ id = "BloodPumpLegendary" }, 
+		{ id = "Items.BloodPumpLegendary" }, 
 
 		-- CAMILLO RAM MANAGER / Cyberware / Frontal Cortex / Epic
 		-- A mod that manages and optimizes RAM use between your brain and your cyberdeck.
 		-- When your cyberdeck's RAM reaches 2, Instantly free 20% of it.
 		-- Cooldown 4min.
-		{ id = "MemoryReplenishmentEpic" }, 
+		{ id = "Items.MemoryReplenishmentEpic" }, 
 
 		-- CAMILLO RAM MANAGER / Cyberware / Frontal Cortex / Legendary
 		-- A mod that manages and optimizes RAM use between your brain and your cyberdeck.
 		-- When your cyberdeck's RAM reaches 2, Instantly free 30% of it.
 		-- Cooldown 4min.
-		{ id = "MemoryReplenishmentLegendary" }, 
+		{ id = "Items.MemoryReplenishmentLegendary" }, 
 
 		-- CATARESIST / Cyberware / Immune System / Common
 		-- Hybrid cyberware that protects the body from the inside and out.
 		-- Increases all resistances by 8%.
-		{ id = "ResistancesBoosterCommon" }, 
+		{ id = "Items.ResistancesBoosterCommon" }, 
 
 		-- CATARESIST / Cyberware / Immune System / Uncommon
 		-- Hybrid cyberware that protects the body from the inside and out.
 		-- Increases all resistances by 13%.
-		{ id = "ResistancesBoosterUncommon" }, 
+		{ id = "Items.ResistancesBoosterUncommon" }, 
 
 		-- CATARESIST / Cyberware / Immune System / Epic
 		-- Hybrid cyberware that protects the body from the inside and out.
 		-- Increases all resistances by 23%.
-		{ id = "ResistancesBoosterEpic" }, 
+		{ id = "Items.ResistancesBoosterEpic" }, 
 
 		-- CATARESIST / Cyberware / Immune System / Legendary
 		-- Hybrid cyberware that protects the body from the inside and out.
 		-- Increases all resistances by 35%.
-		{ id = "ResistancesBoosterLegendary" }, 
+		{ id = "Items.ResistancesBoosterLegendary" }, 
 
 		-- DENSE MARROW / Cyberware / Skeleton / Uncommon
 		-- Increases body weight and the power behind melee attacks.
 		-- Increases Stamina cost of melee attacks by 10%, but increases base damage of melee weapons by 7%.
-		{ id = "DenseMarrowUncommon" }, 
+		{ id = "Items.DenseMarrowUncommon" }, 
 
 		-- DENSE MARROW / Cyberware / Skeleton / Rare
 		-- Increases body weight and the power behind melee attacks.
 		-- Increases Stamina cost of melee attacks by 10%, but increases base damage of melee weapons by 15%.
-		{ id = "DenseMarrowRare" }, 
+		{ id = "Items.DenseMarrowRare" }, 
 
 		-- DENSE MARROW / Cyberware / Skeleton / Epic
 		-- Increases body weight and the power behind melee attacks.
 		-- Increases Stamina cost of melee attacks by 10%, but increases base damage of melee weapons by 25%.
-		{ id = "DenseMarrowEpic" }, 
+		{ id = "Items.DenseMarrowEpic" }, 
 
 		-- DETOXIFIER / Cyberware / Immune System / Rare
 		-- Performs blood dialysis.
 		-- Grants Immunity to Poison.
-		{ id = "ToxinCleanser" }, 
+		{ id = "Items.ToxinCleanser" }, 
 
 		-- DYNALAR SANDEVISTAN MK.1 / Cyberware / Operating System / Uncommon
 		-- The Sandevistan from Dynalar has been a standard go-to for soldiers and mercenaries. It guarantees not only speed, but built-in combat support at a very attractive price.
@@ -388,7 +388,7 @@ return {
 		-- Cooldown 30 sec.
 		-- Increase any damage dealt by 5% when Sandevistan is active.
 		{
-			id = "SandevistanC2MK1", 
+			id = "Items.SandevistanC2MK1", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -402,7 +402,7 @@ return {
 		-- Cooldown 30 sec.
 		-- Increase any damage dealt by 10% when Sandevistan is active.
 		{
-			id = "SandevistanC2MK2", 
+			id = "Items.SandevistanC2MK2", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -416,7 +416,7 @@ return {
 		-- Cooldown 30 sec.
 		-- Increase any damage dealt by 15% when Sandevistan is active.
 		{
-			id = "SandevistanC2MK3", 
+			id = "Items.SandevistanC2MK3", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -431,7 +431,7 @@ return {
 		-- Increase any damage dealt by 15% when Sandevistan is active.
 		-- Increase Crit Chance by 15% when Sandevistan is active.
 		{
-			id = "SandevistanC2MK4", 
+			id = "Items.SandevistanC2MK4", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -442,54 +442,54 @@ return {
 		-- EX-DISK / Cyberware / Frontal Cortex / Rare
 		-- An implant that increases the brain's capacity to store and process information.
 		-- Increases your cyberdeck's max Ram units by 1.
-		{ id = "BrainCapacityBoosterRare" }, 
+		{ id = "Items.BrainCapacityBoosterRare" }, 
 
 		-- EX-DISK / Cyberware / Frontal Cortex / Epic
 		-- An implant that increases the brain's capacity to store and process information.
 		-- Increases your cyberdeck's max Ram units by 3.
-		{ id = "BrainCapacityBoosterEpic" }, 
+		{ id = "Items.BrainCapacityBoosterEpic" }, 
 
 		-- EX-DISK / Cyberware / Frontal Cortex / Legendary
 		-- An implant that increases the brain's capacity to store and process information.
 		-- Increases your cyberdeck's max Ram units by 5.
-		{ id = "BrainCapacityBoosterLegendary" }, 
+		{ id = "Items.BrainCapacityBoosterLegendary" }, 
 
 		-- FEEDBACK CIRCUIT / Cyberware / Circulatory System / Rare
 		-- Additional circuitry that links your body and cyberware with weapons and devices.
 		-- Instantly restores 3% Health after you discharge a fully charged weapon with a hit to an enemy.
-		{ id = "DischargeConnectorRare" }, 
+		{ id = "Items.DischargeConnectorRare" }, 
 
 		-- FEEDBACK CIRCUIT / Cyberware / Circulatory System / Epic
 		-- Additional circuitry that links your body and cyberware with weapons and devices.
 		-- Instantly restores 6% Health after you discharge a fully charged weapon with a hit to an enemy.
-		{ id = "DischargeConnectorEpic" }, 
+		{ id = "Items.DischargeConnectorEpic" }, 
 
 		-- FEEDBACK CIRCUIT / Cyberware / Circulatory System / Legendary
 		-- Additional circuitry that links your body and cyberware with weapons and devices.
 		-- Instantly restores 10% Health after you discharge a fully charged weapon with a hit to an enemy.
-		{ id = "DischargeConnectorLegendary" }, 
+		{ id = "Items.DischargeConnectorLegendary" }, 
 
 		-- FIREPROOF COATING / Cyberware / Integumentary System / Rare
 		-- A coating that protects the body against fire.
 		-- Grants Immunity to Burn.
-		{ id = "FireproofSkin" }, 
+		{ id = "Items.FireproofSkin" }, 
 
 		-- FORTIFIED ANKLES / Cyberware / Legs / Rare
 		-- Ankle joints reinforced with plastic fibers and nanogel-filled joint capsules
 		-- Hold "Jump" to charge the power of the jump, then release to jump.
-		{ id = "ReinforcedMusclesRare" }, 
+		{ id = "Items.ReinforcedMusclesRare" }, 
 
 		-- FORTIFIED ANKLES / Cyberware / Legs / Epic
 		-- Ankle joints reinforced with plastic fibers and nanogel-filled joint capsules
 		-- Hold "Jump" to charge the power of the jump, then release to jump.
 		-- Enables you to perform hover jumps.
-		{ id = "ReinforcedMusclesEpic" }, 
+		{ id = "Items.ReinforcedMusclesEpic" }, 
 
 		-- FUYUTSUI ELECTRONICS MK.1 / Cyberware / Operating System / Common
 		-- "Good enough" - as once described by a user of this popular, but low-spec cyberdeck.
 		-- Allows you to perform quickhacks on targets and devices while scanning.
 		{
-			id = "FuyutsuiCommonMKI", 
+			id = "Items.FuyutsuiCommonMKI", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -503,7 +503,7 @@ return {
 		-- Increases combat quickhacks duration by 50%.
 		-- Increaces quickhacks spread distance by 40%.
 		{
-			id = "FuyutsuiTinkererLegendaryMKIII", 
+			id = "Items.FuyutsuiTinkererLegendaryMKIII", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -518,7 +518,7 @@ return {
 		-- Classic and reliable replacements for natural limbs, suited for all kinds of hard labor.
 		-- Classic and Reliable replacements for natural limbs, suited for all kinds of hard labor.
 		{
-			id = "StrongArms", 
+			id = "Items.StrongArms", 
 			slots = {
 				{ slot = "Knuckles" }, 
 				{ slot = "Battery" }, 
@@ -530,7 +530,7 @@ return {
 		-- Classic and reliable replacements for natural limbs, suited for all kinds of hard labor.
 		-- Classic and Reliable replacements for natural limbs, suited for all kinds of hard labor.
 		{
-			id = "StrongArmsEpic", 
+			id = "Items.StrongArmsEpic", 
 			slots = {
 				{ slot = "Knuckles" }, 
 				{ slot = "Battery" }, 
@@ -542,7 +542,7 @@ return {
 		-- Classic and reliable replacements for natural limbs, suited for all kinds of hard labor.
 		-- Classic and Reliable replacements for natural limbs, suited for all kinds of hard labor.
 		{
-			id = "StrongArmsLegendary", 
+			id = "Items.StrongArmsLegendary", 
 			slots = {
 				{ slot = "Knuckles" }, 
 				{ slot = "Battery" }, 
@@ -553,37 +553,37 @@ return {
 		-- GROUNDING PLATE / Cyberware / Integumentary System / Rare
 		-- Uses a smart-transmitter system to protect the user by diffusing and dispersing shocks from electrical hazards.
 		-- Grants Immunity to Shock.
-		{ id = "GroundingPlating" }, 
+		{ id = "Items.GroundingPlating" }, 
 
 		-- HEAL-ON-KILL / Cyberware / Frontal Cortex / Common
 		-- A combat implant that regulates hormones and regenerates Health after an enemy is defeated.
 		-- Instantly restores 2% Health after defeating an enemy.
-		{ id = "HealOnKillCommon" }, 
+		{ id = "Items.HealOnKillCommon" }, 
 
 		-- HEAL-ON-KILL / Cyberware / Frontal Cortex / Uncommon
 		-- A combat implant that regulates hormones and regenerates Health after an enemy is defeated.
 		-- Instantly restores 3% Health after defeating an enemy.
-		{ id = "HealOnKillUncommon" }, 
+		{ id = "Items.HealOnKillUncommon" }, 
 
 		-- HEAL-ON-KILL / Cyberware / Frontal Cortex / Epic
 		-- A combat implant that regulates hormones and regenerates Health after an enemy is defeated.
 		-- Instantly restores 6% Health after defeating an enemy.
-		{ id = "HealOnKillEpic" }, 
+		{ id = "Items.HealOnKillEpic" }, 
 
 		-- HEAL-ON-KILL / Cyberware / Frontal Cortex / Legendary
 		-- A combat implant that regulates hormones and regenerates Health after an enemy is defeated.
 		-- Instantly restores 10% Health after defeating an enemy.
-		{ id = "HealOnKillLegendary" }, 
+		{ id = "Items.HealOnKillLegendary" }, 
 
 		-- HEAT CONVERTER / Cyberware / Integumentary System / Epic
 		-- A temperature regulation system for your body and cyberware.
 		-- When affected by Burn, instead of receiving damage from it, you deal 10% more damage.
-		{ id = "HeatUsingBooster" }, 
+		{ id = "Items.HeatUsingBooster" }, 
 
 		-- INDUCTOR / Cyberware / Immune System / Epic
 		-- Invigorates the immune system after receiving an external high-voltage stimulus.
 		-- When affected by Shock and EMP, Amor increases by 50% instead of taking damage.
-		{ id = "ReversePowerInductor" }, 
+		{ id = "Items.ReversePowerInductor" }, 
 
 		-- KERENZIKOV / Cyberware / Nervous System / Common
 		-- A classic reflex booster.
@@ -591,7 +591,7 @@ return {
 		-- Slows time by 50% for 1.5 sec.
 		-- when blocking, aiming or attacking during a slide or doge.
 		-- cooldown 5 sec.
-		{ id = "KerenzikovCommon" }, 
+		{ id = "Items.KerenzikovCommon" }, 
 
 		-- KERENZIKOV / Cyberware / Nervous System / Uncommon
 		-- A classic reflex booster.
@@ -599,7 +599,7 @@ return {
 		-- Slows time by 60% for 1.8 sec.
 		-- when blocking, aiming or attacking during a slide or doge.
 		-- cooldown 5 sec.
-		{ id = "KerenzikovUncommon" }, 
+		{ id = "Items.KerenzikovUncommon" }, 
 
 		-- KERENZIKOV / Cyberware / Nervous System / Rare
 		-- A classic reflex booster.
@@ -607,7 +607,7 @@ return {
 		-- Slows time by 70% for 2 sec.
 		-- when blocking, aiming or attacking during a slide or doge.
 		-- cooldown 5 sec.
-		{ id = "KerenzikovRare" }, 
+		{ id = "Items.KerenzikovRare" }, 
 
 		-- KERENZIKOV / Cyberware / Nervous System / Epic
 		-- A classic reflex booster.
@@ -615,7 +615,7 @@ return {
 		-- Slows time by 80% for 2.5 sec.
 		-- when blocking, aiming or attacking during a slide or doge.
 		-- cooldown 5 sec.
-		{ id = "KerenzikovEpic" }, 
+		{ id = "Items.KerenzikovEpic" }, 
 
 		-- KERENZIKOV / Cyberware / Nervous System / Legendary
 		-- A classic reflex booster.
@@ -623,14 +623,14 @@ return {
 		-- Slows time by 90% for 3.5 sec.
 		-- when blocking, aiming or attacking during a slide or doge.
 		-- cooldown 5 sec.
-		{ id = "KerenzikovLegendary" }, 
+		{ id = "Items.KerenzikovLegendary" }, 
 
 		-- KIROSHI OPTICS MK.1 / Cyberware / Ocular System / Common
 		-- Kiroshi optical cyberware is a widely popular suite composed of electro-neural enhancements with environment-scanning functionality.
 		-- Ehances your vision.
 		-- 1 Empty cyberware mod slot.
 		{
-			id = "KiroshiOptics", 
+			id = "Items.KiroshiOptics", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -643,7 +643,7 @@ return {
 		-- Ehances your vision.
 		-- 2 Empty cyberware mod slot.
 		{
-			id = "KiroshiOpticsRare", 
+			id = "Items.KiroshiOpticsRare", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -656,7 +656,7 @@ return {
 		-- Ehances your vision.
 		-- 3 Empty cyberware mod slot.
 		{
-			id = "KiroshiOpticsEpic", 
+			id = "Items.KiroshiOpticsEpic", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -667,35 +667,35 @@ return {
 		-- LIMBIC SYSTEM ENHANCEMENT / Cyberware / Frontal Cortex / Common
 		-- Cyberware that supports the part of the brain responsible for aggression and fear response.
 		-- Increases Crit Chance By 7%.
-		{ id = "LimbicSystemEnhancementCommon" }, 
+		{ id = "Items.LimbicSystemEnhancementCommon" }, 
 
 		-- LIMBIC SYSTEM ENHANCEMENT / Cyberware / Frontal Cortex / Rare
 		-- Cyberware that supports the part of the brain responsible for aggression and fear response.
 		-- Increases Crit Chance By 15%.
-		{ id = "LimbicSystemEnhancementRare" }, 
+		{ id = "Items.LimbicSystemEnhancementRare" }, 
 
 		-- LIMBIC SYSTEM ENHANCEMENT / Cyberware / Frontal Cortex / Legendary
 		-- Cyberware that supports the part of the brain responsible for aggression and fear response.
 		-- Increases Crit Chance By 25%.
-		{ id = "LimbicSystemEnhancementLegendary" }, 
+		{ id = "Items.LimbicSystemEnhancementLegendary" }, 
 
 		-- LYNX PAWS / Cyberware / Legs / Epic
 		-- A leg modification that softens the sound dynamics of movement.
 		-- Allows you to move and run more quietly.
 		-- The sound of your foots will not carry as far.
-		{ id = "CatPaws" }, 
+		{ id = "Items.CatPaws" }, 
 
 		-- MANEUVERING SYSTEM / Cyberware / Nervous System / Rare
 		-- A subprogram that enhances nervous system function.
 		-- Allows you to preform dodges in midair.
-		{ id = "NervousSystemDischarge" }, 
+		{ id = "Items.NervousSystemDischarge" }, 
 
 		-- MANTIS BLADES / Cyberware / Arms / Rare
 		-- Arm blades designed with lethality and concealment in mind. As effective as they are flashy.
 		-- Arm blades designed with lethality and concealment in mind.
 		-- As effective as they are flashy.
 		{
-			id = "MantisBlades", 
+			id = "Items.MantisBlades", 
 			slots = {
 				{ slot = "Edge" }, 
 				{ slot = "Rotor" }, 
@@ -708,7 +708,7 @@ return {
 		-- Arm blades designed with lethality and concealment in mind.
 		-- As effective as they are flashy.
 		{
-			id = "MantisBladesEpic", 
+			id = "Items.MantisBladesEpic", 
 			slots = {
 				{ slot = "Edge" }, 
 				{ slot = "Rotor" }, 
@@ -721,7 +721,7 @@ return {
 		-- Arm blades designed with lethality and concealment in mind.
 		-- As effective as they are flashy.
 		{
-			id = "MantisBladesLegendary", 
+			id = "Items.MantisBladesLegendary", 
 			slots = {
 				{ slot = "Edge" }, 
 				{ slot = "Rotor" }, 
@@ -732,119 +732,119 @@ return {
 		-- MECHATRONIC CORE / Cyberware / Frontal Cortex / Common
 		-- Provides information about the weak points of both mass-produced and some lesser-known machines.
 		-- Increases damage to drones, mechs and robots by 10%.
-		{ id = "RoboticCoreCommon" }, 
+		{ id = "Items.RoboticCoreCommon" }, 
 
 		-- MECHATRONIC CORE / Cyberware / Frontal Cortex / Uncommon
 		-- Provides information about the weak points of both mass-produced and some lesser-known machines.
 		-- Increases damage to drones, mechs and robots by 20%.
-		{ id = "RoboticCoreUncommon" }, 
+		{ id = "Items.RoboticCoreUncommon" }, 
 
 		-- MECHATRONIC CORE / Cyberware / Frontal Cortex / Rare
 		-- Provides information about the weak points of both mass-produced and some lesser-known machines.
 		-- Increases damage to drones, mechs and robots by 30%.
-		{ id = "RoboticCoreRare" }, 
+		{ id = "Items.RoboticCoreRare" }, 
 
 		-- MECHATRONIC CORE / Cyberware / Frontal Cortex / Epic
 		-- Provides information about the weak points of both mass-produced and some lesser-known machines.
 		-- Increases damage to drones, mechs and robots by 40%.
-		{ id = "RoboticCoreEpic" }, 
+		{ id = "Items.RoboticCoreEpic" }, 
 
 		-- MECHATRONIC CORE / Cyberware / Frontal Cortex / Legendary
 		-- Provides information about the weak points of both mass-produced and some lesser-known machines.
 		-- Increases damage to drones, mechs and robots by 50%.
-		{ id = "RoboticCoreLegendary" }, 
+		{ id = "Items.RoboticCoreLegendary" }, 
 
 		-- MEMORY BOOST / Cyberware / Frontal Cortex / Common
 		-- A module that optimizes the sync between brain and cyberware.
 		-- Defeating an enemy instantly removes 1 cyberdeck Ram unit(s).
-		{ id = "MemoryBoostCommon" }, 
+		{ id = "Items.MemoryBoostCommon" }, 
 
 		-- MEMORY BOOST / Cyberware / Frontal Cortex / Uncommon
 		-- A module that optimizes the sync between brain and cyberware.
 		-- Defeating an enemy instantly removes 2 cyberdeck Ram unit(s).
-		{ id = "MemoryBoostUncommon" }, 
+		{ id = "Items.MemoryBoostUncommon" }, 
 
 		-- MEMORY BOOST / Cyberware / Frontal Cortex / Rare
 		-- A module that optimizes the sync between brain and cyberware.
 		-- Defeating an enemy instantly removes 3 cyberdeck Ram unit(s).
-		{ id = "MemoryBoostRare" }, 
+		{ id = "Items.MemoryBoostRare" }, 
 
 		-- MEMORY BOOST / Cyberware / Frontal Cortex / Epic
 		-- A module that optimizes the sync between brain and cyberware.
 		-- Defeating an enemy instantly removes 4 cyberdeck Ram unit(s).
-		{ id = "MemoryBoostEpic" }, 
+		{ id = "Items.MemoryBoostEpic" }, 
 
 		-- METABOLIC EDITOR / Cyberware / Immune System / Epic
 		-- An implant designed to assist liver and pancreas function against poisons.
 		-- Poison effects cause yo to regenerate Health instead of taking damage.
-		{ id = "ReverseMetabolicEnhancer" }, 
+		{ id = "Items.ReverseMetabolicEnhancer" }, 
 
 		-- MICROGENERATOR / Cyberware / Circulatory System / Common
 		-- A small, high-voltage generator that packs a shocking punch.
 		-- When your Health drops to 15%, releases an electroshock that deals damage equal to 20% of the target enemy's max Health.
-		{ id = "MicroGeneratorCommon" }, 
+		{ id = "Items.MicroGeneratorCommon" }, 
 
 		-- MICROGENERATOR / Cyberware / Circulatory System / Uncommon
 		-- A small, high-voltage generator that packs a shocking punch.
 		-- When your Health drops to 15%, releases an electroshock that deals damage equal to 30% of the target enemy's max Health.
-		{ id = "MicroGeneratorUncommon" }, 
+		{ id = "Items.MicroGeneratorUncommon" }, 
 
 		-- MICROGENERATOR / Cyberware / Circulatory System / Rare
 		-- A small, high-voltage generator that packs a shocking punch.
 		-- When your Health drops to 15%, releases an electroshock that deals damage equal to 40% of the target enemy's max Health.
-		{ id = "MicroGeneratorRare" }, 
+		{ id = "Items.MicroGeneratorRare" }, 
 
 		-- MICROGENERATOR / Cyberware / Circulatory System / Epic
 		-- A small, high-voltage generator that packs a shocking punch.
 		-- When your Health drops to 15%, releases an electroshock that deals damage equal to 40% of the target enemy's max Health.
 		-- Applies Shock to enemies.
-		{ id = "MicroGeneratorEpic" }, 
+		{ id = "Items.MicroGeneratorEpic" }, 
 
 		-- MICROGENERATOR / Cyberware / Circulatory System / Legendary
 		-- A small, high-voltage generator that packs a shocking punch.
 		-- When your Health drops to 15%, releases an electroshock that deals damage equal to 50% of the target enemy's max Health.
 		-- Applies Shock to enemies.
-		{ id = "MicroGeneratorLegendary" }, 
+		{ id = "Items.MicroGeneratorLegendary" }, 
 
 		-- MICROROTORS / Cyberware / Skeleton / Common
 		-- Improves agility in melee combat.
 		-- Increases Attack speed by 5%.
-		{ id = "CyberRotorsCommon" }, 
+		{ id = "Items.CyberRotorsCommon" }, 
 
 		-- MICROROTORS / Cyberware / Skeleton / Uncommon
 		-- Improves agility in melee combat.
 		-- Increases Attack speed by 10%.
-		{ id = "CyberRotorsUncommon" }, 
+		{ id = "Items.CyberRotorsUncommon" }, 
 
 		-- MICROROTORS / Cyberware / Skeleton / Rare
 		-- Improves agility in melee combat.
 		-- Increases Attack speed by 15%.
-		{ id = "CyberRotorsRare" }, 
+		{ id = "Items.CyberRotorsRare" }, 
 
 		-- MICROROTORS / Cyberware / Skeleton / Epic
 		-- Improves agility in melee combat.
 		-- Increases Attack speed by 20%.
-		{ id = "CyberRotorsEpic" }, 
+		{ id = "Items.CyberRotorsEpic" }, 
 
 		-- MICROROTORS / Cyberware / Skeleton / Legendary
 		-- Improves agility in melee combat.
 		-- Increases Attack speed by 25%.
-		{ id = "CyberRotorsLegendary" }, 
+		{ id = "Items.CyberRotorsLegendary" }, 
 
 		-- MICROVIBRATION GENERATOR / Cyberware / Skeleton / Uncommon
 		-- Causes melee weapons to vibrate at a frequency that causes more destruction.
 		-- Increases base damage of melee weapons by 5%.
-		{ id = "MicroVibrationsGeneratorUncommon" }, 
+		{ id = "Items.MicroVibrationsGeneratorUncommon" }, 
 
 		-- MICROVIBRATION GENERATOR / Cyberware / Skeleton / Rare
 		-- Causes melee weapons to vibrate at a frequency that causes more destruction.
 		-- Increases base damage of melee weapons by 10%.
-		{ id = "MicroVibrationsGeneratorRare" }, 
+		{ id = "Items.MicroVibrationsGeneratorRare" }, 
 
 		-- MICROVIBRATION GENERATOR / Cyberware / Skeleton / Epic
 		-- Causes melee weapons to vibrate at a frequency that causes more destruction.
 		-- Increases base damage of melee weapons by 15%.
-		{ id = "MicroVibrationsGeneratorEpic" }, 
+		{ id = "Items.MicroVibrationsGeneratorEpic" }, 
 
 		-- MILITECH "FALCON" SANDEVISTAN MK.5 / Cyberware / Operating System / Legendary
 		-- Manufactured by Militech, the "Falcon" is hands down the best and most advanced Sandevistan model out there. Previously used only by elite Militech soldiers, its now available to the average consumer. The nickname is no accident - the peregrine falcon was once one of the fastest animals in the world, as this implant is among cyberware.
@@ -853,7 +853,7 @@ return {
 		-- Increase Crit Chance by 20% and Crit Damage by 35% when Sandevistan is active.
 		-- Cooldown 60 sec.
 		{
-			id = "SandevistanC4MK5", 
+			id = "Items.SandevistanC4MK5", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -867,7 +867,7 @@ return {
 		-- Max health and stamina +40%, defeating enemies restores 5% health.
 		-- Cooldown 60 seconds.
 		{
-			id = "BerserkC4MK5", 
+			id = "Items.BerserkC4MK5", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -879,7 +879,7 @@ return {
 		-- Not the most powerful cyberdeck on the market, but capable of performing multiple tasks - even if it does require a little patience.
 		-- Allows you to perform quickhacks on targets and devices while scanning.
 		{
-			id = "MilitechParaline", 
+			id = "Items.MilitechParaline", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -892,7 +892,7 @@ return {
 		-- Attacks with a charged wire deal bonus damage based on the charge level.
 		-- Charge level and bonus damage dealt decline with each attack.
 		{
-			id = "NanoWires", 
+			id = "Items.NanoWires", 
 			slots = {
 				{ slot = "Cable" }, 
 				{ slot = "Battery" }, 
@@ -906,7 +906,7 @@ return {
 		-- Attacks with a charged wire deal bonus damage based on the charge level.
 		-- Charge level and bonus damage dealt decline with each attack.
 		{
-			id = "NanoWiresEpic", 
+			id = "Items.NanoWiresEpic", 
 			slots = {
 				{ slot = "Cable" }, 
 				{ slot = "Battery" }, 
@@ -920,7 +920,7 @@ return {
 		-- Attacks with a charged wire deal bonus damage based on the charge level.
 		-- Charge level and bonus damage dealt decline with each attack.
 		{
-			id = "NanoWiresLegendary", 
+			id = "Items.NanoWiresLegendary", 
 			slots = {
 				{ slot = "Cable" }, 
 				{ slot = "Battery" }, 
@@ -933,7 +933,7 @@ return {
 		-- When activated, ranged weapon recoil and sway -10%, melee damage +10% and Armor +5% for 10 seconds.
 		-- Cooldown 60 seconds.
 		{
-			id = "BerserkC1MK1", 
+			id = "Items.BerserkC1MK1", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -947,7 +947,7 @@ return {
 		-- Max Health +10%.
 		-- Cooldown 60 seconds.
 		{
-			id = "BerserkC1MK2", 
+			id = "Items.BerserkC1MK2", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -962,7 +962,7 @@ return {
 		-- Defeating enemies restore 2% health.
 		-- Cooldown 60 seconds.
 		{
-			id = "BerserkC1MK3", 
+			id = "Items.BerserkC1MK3", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -973,42 +973,42 @@ return {
 		-- NANORELAYS / Cyberware / Nervous System / Uncommon
 		-- Improves the speed of nerve impulses.
 		-- Increases Sandevistan and Kerenzikov duration by 0.5 sec.
-		{ id = "ImprovedReactionUncommon" }, 
+		{ id = "Items.ImprovedReactionUncommon" }, 
 
 		-- NANORELAYS / Cyberware / Nervous System / Rare
 		-- Improves the speed of nerve impulses.
 		-- Increases Sandevistan and Kerenzikov duration by 1 sec.
-		{ id = "ImprovedReactionRare" }, 
+		{ id = "Items.ImprovedReactionRare" }, 
 
 		-- NANORELAYS / Cyberware / Nervous System / Epic
 		-- Improves the speed of nerve impulses.
 		-- Increases Sandevistan and Kerenzikov duration by 2 sec.
-		{ id = "ImprovedReactionEpic" }, 
+		{ id = "Items.ImprovedReactionEpic" }, 
 
 		-- NEOFIBER / Cyberware / Nervous System / Common
 		-- Synthetic muscle fibers.
 		-- Increases evasion by 3%.
-		{ id = "NeoFiberCommon" }, 
+		{ id = "Items.NeoFiberCommon" }, 
 
 		-- NEOFIBER / Cyberware / Nervous System / Uncommon
 		-- Synthetic muscle fibers.
 		-- Increases evasion by 6%.
-		{ id = "NeoFiberUncommon" }, 
+		{ id = "Items.NeoFiberUncommon" }, 
 
 		-- NEOFIBER / Cyberware / Nervous System / Rare
 		-- Synthetic muscle fibers.
 		-- Increases evasion by 9%.
-		{ id = "NeoFiberRare" }, 
+		{ id = "Items.NeoFiberRare" }, 
 
 		-- NEOFIBER / Cyberware / Nervous System / Epic
 		-- Synthetic muscle fibers.
 		-- Increases evasion by 12%.
-		{ id = "NeoFiberEpic" }, 
+		{ id = "Items.NeoFiberEpic" }, 
 
 		-- NEOFIBER / Cyberware / Nervous System / Legendary
 		-- Synthetic muscle fibers.
 		-- Increases evasion by 15%.
-		{ id = "NeoFiberLegendary" }, 
+		{ id = "Items.NeoFiberLegendary" }, 
 
 		-- NETWATCH NETDRIVER MK.5 / Cyberware / Operating System / Legendary
 		-- A cyberdeck series used by the best NetWatch agents and a frightening beast in terms of its offensive capabilities. It's best if NetWatch didn't catch you using this.
@@ -1018,7 +1018,7 @@ return {
 		-- Increases cyberdeck RAM recovery rare by 9 unit(s) per 60 sec.
 		-- Increases quickhack spread distance by 60%.
 		{
-			id = "NetwatchNetdriverLegendaryMKV", 
+			id = "Items.NetwatchNetdriverLegendaryMKV", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -1029,16 +1029,34 @@ return {
 			},
 		},
 
+		-- OPTICAL CAMO / Cyberware / Integumentary System / Rare
+		-- Makes the user impossible to locate in visible spectrum light.
+		-- Activate to turn almost invisible for 15 seconds, greatly reducing the likelihood of detection.
+		-- Cooldown 60 seconds.
+		{ id = "Items.OpticalCamoRare" }, 
+
+		-- OPTICAL CAMO / Cyberware / Integumentary System / Epic
+		-- Makes the user impossible to locate in visible spectrum light.
+		-- Activate to turn almost invisible for 5 seconds, greatly reducing the likelihood of detection.
+		-- Cooldown 60 seconds.
+		{ id = "Items.OpticalCamoEpic" }, 
+
+		-- OPTICAL CAMO / Cyberware / Integumentary System / Legendary
+		-- Makes the user impossible to locate in visible spectrum light.
+		-- Activate to turn almost invisible for 10 seconds, greatly reducing the likelihood of detection.
+		-- Cooldown 60 seconds.
+		{ id = "Items.OpticalCamoLegendary" }, 
+
 		-- PAIN EDITOR / Cyberware / Immune System / Legendary
 		-- An immune system enhancement valued highly on the streets.
 		-- Reduces all incoming damage by 10%.
-		{ id = "PainReductor" }, 
+		{ id = "Items.PainReductor" }, 
 
 		-- PROJECTILE LAUNCH SYSTEM / Cyberware / Arms / Rare
 		-- A missile launcher in the palm of your hand (more or less literally).
 		-- A missile launcher in the pal of your hand (more or less literally).
 		{
-			id = "ProjectileLauncher", 
+			id = "Items.ProjectileLauncher", 
 			slots = {
 				{ slot = "Round" }, 
 				{ slot = "Wiring" }, 
@@ -1050,7 +1068,7 @@ return {
 		-- A missile launcher in the palm of your hand (more or less literally).
 		-- A missile launcher in the pal of your hand (more or less literally).
 		{
-			id = "ProjectileLauncherEpic", 
+			id = "Items.ProjectileLauncherEpic", 
 			slots = {
 				{ slot = "Round" }, 
 				{ slot = "Wiring" }, 
@@ -1062,7 +1080,7 @@ return {
 		-- A missile launcher in the palm of your hand (more or less literally).
 		-- A missile launcher in the pal of your hand (more or less literally).
 		{
-			id = "ProjectileLauncherLegendary", 
+			id = "Items.ProjectileLauncherLegendary", 
 			slots = {
 				{ slot = "Round" }, 
 				{ slot = "Wiring" }, 
@@ -1077,7 +1095,7 @@ return {
 		-- Increase Crit Chance by 10% and Crit Damage by 50% when Sandevistan is active.
 		-- Cooldown 30 sec.
 		{
-			id = "SandevistanC3MK5", 
+			id = "Items.SandevistanC3MK5", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -1092,7 +1110,7 @@ return {
 		-- Increase any damage dealt by 15% when Sandevistan is active.
 		-- Increase Crit Chance by 15% when Sandevistan is active.
 		{
-			id = "SandevistanC3MK4", 
+			id = "Items.SandevistanC3MK4", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -1103,17 +1121,17 @@ return {
 		-- RAM UPGRADE / Cyberware / Frontal Cortex / Common
 		-- An upgrade to your system's random-access memory to support processing speed.
 		-- Increases cyberdeck RAM recovery rate by 0.05 units(s) per second.
-		{ id = "FastAccessMemoryCommon" }, 
+		{ id = "Items.FastAccessMemoryCommon" }, 
 
 		-- RAM UPGRADE / Cyberware / Frontal Cortex / Uncommon
 		-- An upgrade to your system's random-access memory to support processing speed.
 		-- Increases cyberdeck RAM recovery rate by 0.1 units(s) per second.
-		{ id = "FastAccessMemoryUncommon" }, 
+		{ id = "Items.FastAccessMemoryUncommon" }, 
 
 		-- RAM UPGRADE / Cyberware / Frontal Cortex / Rare
 		-- An upgrade to your system's random-access memory to support processing speed.
 		-- Increases cyberdeck RAM recovery rate by 0.15 units(s) per second.
-		{ id = "FastAccessMemoryRare" }, 
+		{ id = "Items.FastAccessMemoryRare" }, 
 
 		-- RAVEN MICROCYBER MK.3 / Cyberware / Operating System / Epic
 		-- Some call these decks battleships. When it comes to system security and fortified anti-theft protocols, it's a foolproof piece of machinery.
@@ -1122,7 +1140,7 @@ return {
 		-- Increases quickhack spread distance by 40%.
 		-- Increases cyberdeck RAM recovery rate by 3 unit(s) per 60 sec.,.
 		{
-			id = "RavenEpicMKIII", 
+			id = "Items.RavenEpicMKIII", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -1139,7 +1157,7 @@ return {
 		-- Increases quickhack spread distance by 60%.
 		-- Increases cyberdeck RAM recovery rate by 6 unit(s) per 60 sec.,.
 		{
-			id = "RavenLegendaryMKIV", 
+			id = "Items.RavenLegendaryMKIV", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -1155,52 +1173,52 @@ return {
 		-- Slows time by 50% for 2 sec.
 		-- when your health drops to 25%.
 		-- Cooldown 60 sec.
-		{ id = "ReflexRecorderCommon" }, 
+		{ id = "Items.ReflexRecorderCommon" }, 
 
 		-- REFLEX TUNERS / Cyberware / Nervous System / Uncommon
 		-- A coprocessor that supports decision-making processes in emergency situations.
 		-- Slows time by 60% for 2.5 sec.
 		-- when your health drops to 25%.
 		-- Cooldown 60 sec.
-		{ id = "ReflexRecorderUncommon" }, 
+		{ id = "Items.ReflexRecorderUncommon" }, 
 
 		-- REFLEX TUNERS / Cyberware / Nervous System / Rare
 		-- A coprocessor that supports decision-making processes in emergency situations.
 		-- Slows time by 70% for 3 sec.
 		-- when your health drops to 25%.
 		-- Cooldown 50 sec.
-		{ id = "ReflexRecorderRare" }, 
+		{ id = "Items.ReflexRecorderRare" }, 
 
 		-- REFLEX TUNERS / Cyberware / Nervous System / Legendary
 		-- A coprocessor that supports decision-making processes in emergency situations.
 		-- Slows time by 80% for 4 sec.
 		-- when your health drops to 25%.
 		-- Cooldown 40 sec.
-		{ id = "ReflexRecorderLegendary" }, 
+		{ id = "Items.ReflexRecorderLegendary" }, 
 
 		-- REINFORCED TENDONS / Cyberware / Legs / Rare
 		-- Biomechanical connective tissue supporting leg muscles
 		-- Press "Jump" while in midair to perform a double jump.
-		{ id = "BoostedTendonsRare" }, 
+		{ id = "Items.BoostedTendonsRare" }, 
 
 		-- SECOND HEART / Cyberware / Circulatory System / Legendary
 		-- Corrects one of nature's greatest flaws by giving you an second lease on life.
 		-- Instantly restores 100% of max Health when your Health falls to 0.
 		-- Cooldown 2 min.
-		{ id = "SecondHeart" }, 
+		{ id = "Items.SecondHeart" }, 
 
 		-- SELF-ICE / Cyberware / Frontal Cortex / Rare
 		-- An intrusion countermeasure electronics system that protects cybernetic implants from nasty bugs.
 		-- Negates Effectts of enemy quickhacks.
 		-- Cooldown 45 Sec.
-		{ id = "AntiVirus" }, 
+		{ id = "Items.AntiVirus" }, 
 
 		-- SEOCHO ELECTRONICS MK.1 / Cyberware / Operating System / Uncommon
 		-- NetWatch statistics show this is the most common deck for any kind of break-in. Why? Because it's cost-effective, user-friendly and doesn't crap out when you need something done quickly and quietly.
 		-- Allows you to perform quickhacks on targets and devicese while scanning.
 		-- Decreases the RAM cost of Covert Quickhacks by 1.
 		{
-			id = "SeachoUncommonMKI", 
+			id = "Items.SeachoUncommonMKI", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -1214,7 +1232,7 @@ return {
 		-- Decreases the RAM cost of Covert Quickhacks by 1.
 		-- Reduces quickhack Upload time by 25%.
 		{
-			id = "SeachoRareMKII", 
+			id = "Items.SeachoRareMKII", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -1226,44 +1244,44 @@ return {
 		-- SHOCK-N-AWE / Cyberware / Immune System / Common
 		-- An effective self-defense tool engineered in Shanghai.
 		-- After taking damage, there is a 2% chance of release a large electroshock that deals damage to nearby enemies.
-		{ id = "ElectroshockMechanismCommon" }, 
+		{ id = "Items.ElectroshockMechanismCommon" }, 
 
 		-- SHOCK-N-AWE / Cyberware / Immune System / Uncommon
 		-- An effective self-defense tool engineered in Shanghai.
 		-- After taking damage, there is a 4% chance of release a large electroshock that deals damage to nearby enemies.
-		{ id = "ElectroshockMechanismUncommon" }, 
+		{ id = "Items.ElectroshockMechanismUncommon" }, 
 
 		-- SHOCK-N-AWE / Cyberware / Immune System / Epic
 		-- An effective self-defense tool engineered in Shanghai.
 		-- After taking damage, there is a 8% chance of release a large electroshock that deals damage to nearby enemies.
-		{ id = "ElectroshockMechanismEpic" }, 
+		{ id = "Items.ElectroshockMechanismEpic" }, 
 
 		-- SHOCK-N-AWE / Cyberware / Immune System / Legendary
 		-- An effective self-defense tool engineered in Shanghai.
 		-- After taking damage, there is a 10% chance of release a large electroshock that deals damage to nearby enemies.
-		{ id = "ElectroshockMechanismLegendary" }, 
+		{ id = "Items.ElectroshockMechanismLegendary" }, 
 
 		-- SMART LINK / Cyberware / Hands / Rare
 		-- Cyberware that allows swift, direct, low-latency connection with compatible objects such as a firearms or implants, while also increasing effectiveness and handling.
 		-- Cyberware taht allows swift, direct, low-latancy connection with compatible objects such as fires or implants, while also increasing effectiveness and handling.
-		{ id = "SmartLinkRare" }, 
+		{ id = "Items.SmartLinkRare" }, 
 
 		-- SMART LINK / Cyberware / Hands / Epic
 		-- Cyberware that allows swift, direct, low-latency connection with compatible objects such as a firearms or implants, while also increasing effectiveness and handling.
 		-- Cyberware taht allows swift, direct, low-latancy connection with compatible objects such as fires or implants, while also increasing effectiveness and handling.
-		{ id = "SmartLinkEpic" }, 
+		{ id = "Items.SmartLinkEpic" }, 
 
 		-- SMART LINK / Cyberware / Hands / Legendary
 		-- Cyberware that allows swift, direct, low-latency connection with compatible objects such as a firearms or implants, while also increasing effectiveness and handling.
 		-- Cyberware taht allows swift, direct, low-latancy connection with compatible objects such as fires or implants, while also increasing effectiveness and handling.
-		{ id = "SmartLinkLegendary" }, 
+		{ id = "Items.SmartLinkLegendary" }, 
 
 		-- STEPHENSON TECK MK. 2 / Cyberware / Operating System / Rare
 		-- A cyberdeck that, according to some, can prolong orgasms. Thanks to its optimized protocols, this preem-tier machine will squeeze the effectiveness out of your daemons to the very last drop.
 		-- Allows you to perform quickhacks on targets and devicese while scanning.
 		-- Quickhack cooldown reduced by 30% Increase combat quickhack duration by 30%.
 		{
-			id = "StephensonRareMKII", 
+			id = "Items.StephensonRareMKII", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -1277,7 +1295,7 @@ return {
 		-- Allows you to perform quickhacks on targets and devicese while scanning.
 		-- Quickhack cooldown reduced by 45% Increase combat quickhack duration by 40%.
 		{
-			id = "StephensonEpicMKIII", 
+			id = "Items.StephensonEpicMKIII", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -1293,7 +1311,7 @@ return {
 		-- Quickhack cooldown reduced by 45% Increase combat quickhack duration by 50%.
 		-- Reduces quickhack upload time by 25%.
 		{
-			id = "StephensonLegendaryMKIV", 
+			id = "Items.StephensonLegendaryMKIV", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -1307,124 +1325,136 @@ return {
 		-- SUBDERMAL ARMOR / Cyberware / Integumentary System / Common
 		-- A major hit on the armor market for decades.
 		-- Increases armor by 20.
-		{ id = "SubdermalArmorCommon" }, 
+		{ id = "Items.SubdermalArmorCommon" }, 
 
 		-- SUBDERMAL ARMOR / Cyberware / Integumentary System / Uncommon
 		-- A major hit on the armor market for decades.
 		-- Increases armor by 50.
-		{ id = "SubdermalArmorUncommon" }, 
+		{ id = "Items.SubdermalArmorUncommon" }, 
 
 		-- SUBDERMAL ARMOR / Cyberware / Integumentary System / Rare
 		-- A major hit on the armor market for decades.
 		-- Increases armor by 90.
-		{ id = "SubdermalArmorRare" }, 
+		{ id = "Items.SubdermalArmorRare" }, 
 
 		-- SUBDERMAL ARMOR / Cyberware / Integumentary System / Epic
 		-- A major hit on the armor market for decades.
 		-- Increases armor by 140.
-		{ id = "SubdermalArmorEpic" }, 
+		{ id = "Items.SubdermalArmorEpic" }, 
 
 		-- SUBDERMAL ARMOR / Cyberware / Integumentary System / Legendary
 		-- A major hit on the armor market for decades.
 		-- Increases armor by 200.
-		{ id = "SubdermalArmorLegendary" }, 
+		{ id = "Items.SubdermalArmorLegendary" }, 
 
 		-- SUPRA-DERMAL WEAVE / Cyberware / Integumentary System / Rare
 		-- Reinforces the bonds between skin cells, making them extremely hard to penetrate.
 		-- Grants Immunity to Bleeding.
-		{ id = "MetalCoveredSkin" }, 
+		{ id = "Items.MetalCoveredSkin" }, 
 
 		-- SYN-LUNGS / Cyberware / Circulatory System / Common
 		-- Synthetic tissues designed to increase functional lung tissue surface area.
 		-- Increases Stamina regen by 5%.
-		{ id = "IronLungsCommon" }, 
+		{ id = "Items.IronLungsCommon" }, 
 
 		-- SYN-LUNGS / Cyberware / Circulatory System / Uncommon
 		-- Synthetic tissues designed to increase functional lung tissue surface area.
 		-- Increases Stamina regen by 10%.
-		{ id = "IronLungsUncommon" }, 
+		{ id = "Items.IronLungsUncommon" }, 
 
 		-- SYN-LUNGS / Cyberware / Circulatory System / Rare
 		-- Synthetic tissues designed to increase functional lung tissue surface area.
 		-- Increases Stamina regen by 15%.
-		{ id = "IronLungsRare" }, 
+		{ id = "Items.IronLungsRare" }, 
 
 		-- SYN-LUNGS / Cyberware / Circulatory System / Epic
 		-- Synthetic tissues designed to increase functional lung tissue surface area.
 		-- Increases Stamina regen by 20%.
-		{ id = "IronLungsEpic" }, 
+		{ id = "Items.IronLungsEpic" }, 
 
 		-- SYN-LUNGS / Cyberware / Circulatory System / Legendary
 		-- Synthetic tissues designed to increase functional lung tissue surface area.
 		-- Increases Stamina regen by 25%.
-		{ id = "IronLungsLegendary" }, 
+		{ id = "Items.IronLungsLegendary" }, 
 
 		-- SYNAPTIC ACCELERATOR / Cyberware / Nervous System / Common
 		-- A neuroprocessor that regulates hormonal balance during threatening situations.
 		-- Slows time by 25% for 2 sec.
 		-- when you are detected by enemies.
 		-- Cooldown 60 sec.
-		{ id = "SynapticAcceleratorCommon" }, 
+		{ id = "Items.SynapticAcceleratorCommon" }, 
 
 		-- SYNAPTIC ACCELERATOR / Cyberware / Nervous System / Uncommon
 		-- A neuroprocessor that regulates hormonal balance during threatening situations.
 		-- Slows time by 30% for 2 sec.
 		-- when you are detected by enemies.
 		-- Cooldown 60 sec.
-		{ id = "SynapticAcceleratorUncommon" }, 
+		{ id = "Items.SynapticAcceleratorUncommon" }, 
 
 		-- SYNAPTIC ACCELERATOR / Cyberware / Nervous System / Rare
 		-- A neuroprocessor that regulates hormonal balance during threatening situations.
 		-- Slows time by 30% for 3 sec.
 		-- when you are detected by enemies.
 		-- Cooldown 60 sec.
-		{ id = "SynapticAcceleratorRare" }, 
+		{ id = "Items.SynapticAcceleratorRare" }, 
 
 		-- SYNAPTIC ACCELERATOR / Cyberware / Nervous System / Epic
 		-- A neuroprocessor that regulates hormonal balance during threatening situations.
 		-- Slows time by 40% for 3 sec.
 		-- when you are detected by enemies.
 		-- Cooldown 60 sec.
-		{ id = "SynapticAcceleratorEpic" }, 
+		{ id = "Items.SynapticAcceleratorEpic" }, 
 
 		-- SYNAPTIC ACCELERATOR / Cyberware / Nervous System / Legendary
 		-- A neuroprocessor that regulates hormonal balance during threatening situations.
 		-- Slows time by 50% for 4 sec.
 		-- when you are detected by enemies.
 		-- Cooldown 60 sec.
-		{ id = "SynapticAcceleratorLegendary" }, 
+		{ id = "Items.SynapticAcceleratorLegendary" }, 
 
 		-- SYNAPTIC SINGAL OPTIMIZER / Cyberware / Skeleton / Common
 		-- Enhances the body's natural resistance and performance.
 		-- Increases Health by 20%.
-		{ id = "EndoskeletonCommon" }, 
+		{ id = "Items.EndoskeletonCommon" }, 
 
 		-- SYNAPTIC SINGAL OPTIMIZER / Cyberware / Skeleton / Uncommon
 		-- Enhances the body's natural resistance and performance.
 		-- Increases Health by 30%.
-		{ id = "EndoskeletonUncommon" }, 
+		{ id = "Items.EndoskeletonUncommon" }, 
 
 		-- SYNAPTIC SINGAL OPTIMIZER / Cyberware / Skeleton / Rare
 		-- Enhances the body's natural resistance and performance.
 		-- Increases Health by 40%.
-		{ id = "EndoskeletonRare" }, 
+		{ id = "Items.EndoskeletonRare" }, 
 
 		-- SYNAPTIC SINGAL OPTIMIZER / Cyberware / Skeleton / Epic
 		-- Enhances the body's natural resistance and performance.
 		-- Increases Health by 50%.
-		{ id = "EndoskeletonEpic" }, 
+		{ id = "Items.EndoskeletonEpic" }, 
 
 		-- SYNAPTIC SINGAL OPTIMIZER / Cyberware / Skeleton / Legendary
 		-- Enhances the body's natural resistance and performance.
 		-- Increases Health by 60%.
-		{ id = "EndoskeletonLegendary" }, 
+		{ id = "Items.EndoskeletonLegendary" }, 
+
+		-- TATTOO: JOHNNY'S SPECIAL / Cyberware / Hands / Common
+		-- The Arasaka logo... with a few special touches of Johnny's.
+		{ id = "Items.CasiusTattoo" }, 
+
+		-- TATTOO: TOGETHER FOREVER / Cyberware / Hands / Common
+		-- J+V 4EVAH
+		{ id = "Items.SilverhandTattoo" }, 
+
+		-- TATTOO: TYGER CLAWS DERMAL IMPRINT / Cyberware / Hands / Common
+		-- A Tyger Claws speciality, this dermal ink features effective Smart weapon jamming capabilities. Only for a select few - those Wakako trusts to remain loyal.
+		{ id = "Items.YakuzaTattoo" }, 
 
 		-- TETRATRONIC MK. 1 / Cyberware / Operating System / Uncommon
 		-- Tetratronic takes pride in the fact that its decks are indispensable in combat operations around the globe. Even if it's not entirely true, one thing's for sure - these cyberdecks are powerful, effective and optimized for offensive daemons.
 		-- Allows you to perform quickhacks on targets and devicese while scanning.
 		-- Increase Damage dealt by quickhacks by 10%.
 		{
-			id = "TetratronicUncommonMKI", 
+			id = "Items.TetratronicUncommonMKI", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -1438,7 +1468,7 @@ return {
 		-- Increase Damage dealt by quickhacks by 20%.
 		-- Reduces the RAM cost of Ultimate quickhacks by 1.
 		{
-			id = "TetratronicRareMKII", 
+			id = "Items.TetratronicRareMKII", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -1453,7 +1483,7 @@ return {
 		-- Increase Damage dealt by quickhacks by 30%.
 		-- Reduces the RAM cost of Ultimate quickhacks by 2.
 		{
-			id = "TetratronicEpicMKIII", 
+			id = "Items.TetratronicEpicMKIII", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -1471,7 +1501,7 @@ return {
 		-- Reduces quickhack upload time by 75%.
 		-- Quickhack cooldown reduced by 45%.
 		{
-			id = "TetratronicRipplerLegendaryMKIV", 
+			id = "Items.TetratronicRipplerLegendaryMKIV", 
 			slots = {
 				{ slot = "Program1" }, 
 				{ slot = "Program2" }, 
@@ -1485,42 +1515,42 @@ return {
 		-- TITANIUM BONES / Cyberware / Skeleton / Common
 		-- Metal-infused bones capable of withstanding heavy loads.
 		-- Increases carrying capacity by 20%.
-		{ id = "TitaniumInfusedBonesCommon" }, 
+		{ id = "Items.TitaniumInfusedBonesCommon" }, 
 
 		-- TITANIUM BONES / Cyberware / Skeleton / Uncommon
 		-- Metal-infused bones capable of withstanding heavy loads.
 		-- Increases carrying capacity by 40%.
-		{ id = "TitaniumInfusedBonesUncommon" }, 
+		{ id = "Items.TitaniumInfusedBonesUncommon" }, 
 
 		-- TITANIUM BONES / Cyberware / Skeleton / Rare
 		-- Metal-infused bones capable of withstanding heavy loads.
 		-- Increases carrying capacity by 60%.
-		{ id = "TitaniumInfusedBonesRare" }, 
+		{ id = "Items.TitaniumInfusedBonesRare" }, 
 
 		-- TYROSINE INJECTOR / Cyberware / Circulatory System / Uncommon
 		-- Enhances intracellular transduction.
 		-- Increases the breach time of Breach Protocol by 100%.
-		{ id = "TyrosineInjector" }, 
+		{ id = "Items.TyrosineInjector" }, 
 
 		-- VISUAL CORTEX SUPPORT / Cyberware / Frontal Cortex / Common
 		-- A brain mod that improves perception and targeting.
 		-- Increases Crit Damage by 10%.
-		{ id = "ImprovedPerceptionCommon" }, 
+		{ id = "Items.ImprovedPerceptionCommon" }, 
 
 		-- VISUAL CORTEX SUPPORT / Cyberware / Frontal Cortex / Uncommon
 		-- A brain mod that improves perception and targeting.
 		-- Increases Crit Damage by 16%.
-		{ id = "ImprovedPerceptionUncommon" }, 
+		{ id = "Items.ImprovedPerceptionUncommon" }, 
 
 		-- VISUAL CORTEX SUPPORT / Cyberware / Frontal Cortex / Epic
 		-- A brain mod that improves perception and targeting.
 		-- Increases Crit Damage by 30%.
-		{ id = "ImprovedPerceptionEpic" }, 
+		{ id = "Items.ImprovedPerceptionEpic" }, 
 
 		-- VISUAL CORTEX SUPPORT / Cyberware / Frontal Cortex / Legendary
 		-- A brain mod that improves perception and targeting.
 		-- Increases Crit Damage by 45%.
-		{ id = "ImprovedPerceptionLegendary" }, 
+		{ id = "Items.ImprovedPerceptionLegendary" }, 
 
 		-- ZETATECH BERSERK MK.4 / Cyberware / Operating System / Legendary
 		-- Zetatech's Berserk implant will make you into a lean, mean killing machine. Not to mention hard to kill yourself, thanks to its revolutionary nanodermal impact-absorption systems.
@@ -1529,7 +1559,7 @@ return {
 		-- Cooldown 30 seconds.
 		-- 3 Mod Slots.
 		{
-			id = "BerserkC3MK4", 
+			id = "Items.BerserkC3MK4", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -1544,7 +1574,7 @@ return {
 		-- Cooldown 30 seconds.
 		-- 3 Mod Slots.
 		{
-			id = "BerserkC3MK5", 
+			id = "Items.BerserkC3MK5", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -1558,7 +1588,7 @@ return {
 		-- Cooldown 30 sec.
 		-- Increase Crit Chance by 15% when Sandevistan is active.
 		{
-			id = "SandevistanC1MK2", 
+			id = "Items.SandevistanC1MK2", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -1572,7 +1602,7 @@ return {
 		-- Cooldown 30 sec.
 		-- Increase Crit Chance by 20% when Sandevistan is active.
 		{
-			id = "SandevistanC1MK3", 
+			id = "Items.SandevistanC1MK3", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 
@@ -1586,7 +1616,7 @@ return {
 		-- Cooldown 30 sec.
 		-- Increase Crit Chance by 10% when Sandevistan is active.
 		{
-			id = "SandevistanC1MK1", 
+			id = "Items.SandevistanC1MK1", 
 			slots = {
 				{ slot = "Slot1" }, 
 				{ slot = "Slot2" }, 

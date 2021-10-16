@@ -47,7 +47,7 @@ function TransportModule:getVehicles()
 
 		local vehicleSpec = {}
 
-		vehicleSpec[1] = TweakDb.toVehicleAlias(vehicleMeta.type)
+		vehicleSpec[1] = TweakDb.toVehicleAlias(vehicleMeta.id)
 		vehicleSpec._comment = self.tweakDb:describe(vehicleMeta)
 		vehicleSpec._order = self.tweakDb:order(vehicleMeta)
 

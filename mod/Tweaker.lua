@@ -22,13 +22,13 @@ function Tweaker:addPack(packSpec, cheatMode)
 	for itemKey, itemMeta in tweakDb:filter(self:toPackCriteria(packSpec)) do
 		if TweakDb.isRealKey(itemKey) then
 			if packSpec.type == 'Recipe' then
-				table.insert(recipeSpecs, itemMeta.type)
+				table.insert(recipeSpecs, itemMeta.id)
 			elseif itemMeta.kind == 'Vehicle' then
-				table.insert(vehicleSpecs, itemMeta.type)
+				table.insert(vehicleSpecs, itemMeta.id)
 			else
 				local itemSpec = {}
 
-				itemSpec.id = itemMeta.type
+				itemSpec.id = itemMeta.id
 
 				if not itemMeta.quality then
 					if packSpec.upgrade then
