@@ -2321,7 +2321,7 @@ return {
 [0x0000001F0C2D2571] = { id = "Items.Craftable_Legendary_Unity", kind = "Weapon", quality = "Legendary", craft = true, ref = 0x0000001A78EAB3EA, tweak = false, },
 [0x000000224A6D5861] = { id = "Items.Craftable_Legendary_Yukimura", kind = "Weapon", quality = "Legendary", craft = true, ref = 0x0000001D4D62E81D, tweak = false, },
 [0x0000001EA4A8C1C1] = { id = "Items.Craftable_Legendary_Zhuo", kind = "Weapon", quality = "Legendary", craft = true, ref = 0x00000019B432DD1F, tweak = false, },
-[0x0000001FE341D146] = { id = "Items.Preset_Overture_Default_L", kind = "Weapon", quality = "Legendary", craft = true, ref = 0x0000001DBDA11F86, tweak = false, },
+[0x0000001FDB8F4BD7] = { id = "Items.Preset_Overture_Legendary", kind = "Weapon", quality = "Legendary", craft = true, ref = 0x0000001DBDA11F86, tweak = false, },
 [0x0000001DA7722F53] = { id = "Items.Craftable_Rare_Achilles", kind = "Weapon", quality = "Rare", craft = true, ref = 0x0000001DCBF561ED, tweak = false, },
 [0x00000019FF9927B6] = { id = "Items.Craftable_Rare_Ajax", kind = "Weapon", quality = "Rare", craft = true, ref = 0x0000001977302306, tweak = false, },
 [0x0000001B69D032A3] = { id = "Items.Craftable_Rare_Ashura", kind = "Weapon", quality = "Rare", craft = true, ref = 0x0000001B3FF8CC33, tweak = false, },
