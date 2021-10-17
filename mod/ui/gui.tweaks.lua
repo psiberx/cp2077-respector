@@ -702,16 +702,16 @@ function tweaksGui.onTweakSearchResultSelect()
 
 	if tweak.entryMeta.quality then
 		tweak.entryQuality = tweak.entryMeta.quality
-		tweak.entryQualityColor= Quality.toColor(tweak.entryMeta.quality)
+		tweak.entryQualityColor = Quality.toColor(tweak.entryMeta.quality)
 	elseif tweak.entryMeta.max and tweak.entryMeta.kind == 'Pack' then
 		tweak.entryQuality = tweak.entryMeta.max
-		tweak.entryQualityColor= Quality.toColor(tweak.entryMeta.max)
+		tweak.entryQualityColor = Quality.toColor(tweak.entryMeta.max)
 	elseif tweak.entryMeta.iconic then
 		tweak.entryQuality = nil
-		tweak.entryQualityColor= 0xfffefd01
+		tweak.entryQualityColor = 0xfffefd01
 	else
 		tweak.entryQuality = nil
-		tweak.entryQualityColor= nil
+		tweak.entryQualityColor = nil
 	end
 
 	tweak.packSize = nil
@@ -807,7 +807,7 @@ function tweaksGui.onTweakSearchResultSelect()
 
 		-- Item Slots
 
-		if tweak.entryMeta.kind == 'Clothing' then
+		if tweak.entryMeta.kind == 'Clothing' or tweak.entryMeta.kind == 'Weapon' then
 			tweak.itemCanRandomize = true
 			tweak.itemMaxSlots = true
 
@@ -1017,10 +1017,13 @@ function tweaksGui.getCurrentItemSpec()
 
 	local itemSpec = {
 		id = tweak.entryMeta.id,
-		upgrade = tweak.itemQuality,
 		qty = tweak.itemQty,
 		add = true,
 	}
+
+	if tweak.itemCanBeUpgraded then
+		itemSpec.upgrade = tweak.itemQuality
+	end
 
 	if tweak.itemMaxSlots == true then
 		itemSpec.slots = 'max'
@@ -1032,6 +1035,19 @@ function tweaksGui.getCurrentItemSpec()
 
 	if tweak.itemEquipSlot ~= 0 then
 		itemSpec.equip = tweak.itemEquipSlot
+	end
+
+	if tweak.entryMeta.kind == 'Weapon' and not tweak.entryMeta.quality then
+		tweakDb:load('mod/data/tweakdb-meta')
+
+		local upgradedItem = tweakDb:find({ ref = tweak.entryKey, quality = tweak.itemQuality })
+
+		if upgradedItem then
+			itemSpec.id = upgradedItem.id
+			--itemSpec.upgrade = nil
+		end
+
+		tweakDb:unload()
 	end
 
 	return itemSpec
