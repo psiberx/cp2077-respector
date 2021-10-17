@@ -269,7 +269,7 @@ function TweakDb.toType(tweakId, prefix)
 	return ''
 end
 
-function TweakDb.toAlias(tweakId, prefix)
+function TweakDb.toAlias(tweakId--[[, prefix]])
 	return tweakId
 
 	--if type(tweakId) == 'string' then
@@ -350,36 +350,41 @@ function TweakDb:toSlotTweakId(slotAlias, itemMeta)
 	local slotName = str.with(slotAlias, 'AttachmentSlots.')
 	local tweakId = TweakDBID.new(slotName)
 
+	--if not TDB.GetAttachmentSlotRecord(tweakId)
 	if not self:resolvable(tweakId) then
+		local slotPrefix
+
 		if type(itemMeta) == 'table' and itemMeta.mod then
 			if slotAlias == 'Mod' and itemMeta.kind == 'Cyberware' and itemMeta.group == 'Arms' then
 				slotName = 'AttachmentSlots.ArmsCyberwareGeneralSlot'
 			else
-				local index = string.match(slotAlias, '%d$')
-
-				if index ~= nil then
-					slotName = 'AttachmentSlots.' .. itemMeta.mod .. index
-				else
-					slotName = 'AttachmentSlots.' .. itemMeta.mod .. slotAlias
-				end
+				slotPrefix = itemMeta.mod
 			end
-
-			tweakId = TweakDBID.new(slotName)
 		elseif type(itemMeta) == 'string' then
-			local modPrefix = itemModPrefixes[itemMeta]
+			slotPrefix = itemModPrefixes[itemMeta]
+		end
 
-			if modPrefix then
+		if slotPrefix then
+			local slotMeta = self:find({ kind = 'Slot', name = slotAlias:upper(), mod = slotPrefix })
+
+			if slotMeta then
+				slotName = slotMeta.id
+			else
 				local index = string.match(slotAlias, '%d$')
 
 				if index ~= nil then
-					slotName = 'AttachmentSlots.' .. modPrefix .. index
+					slotName = 'AttachmentSlots.' .. slotPrefix .. index
 				else
-					slotName = 'AttachmentSlots.' .. modPrefix .. slotAlias
+					if slotPrefix == 'GenericWeaponMod' and Quality.toValue(slotAlias) then
+						slotName = 'AttachmentSlots.PowerWeaponMod' .. slotAlias
+					else
+						slotName = 'AttachmentSlots.' .. slotPrefix .. slotAlias
+					end
 				end
-
-				tweakId = TweakDBID.new(slotName)
 			end
 		end
+
+		tweakId = TweakDBID.new(slotName)
 	end
 
 	return tweakId

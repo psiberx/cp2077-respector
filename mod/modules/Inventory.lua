@@ -4,9 +4,6 @@ local RarityFilter = mod.require('mod/enums/RarityFilter')
 local TweakDb = mod.require('mod/helpers/TweakDb')
 local SimpleDb = mod.require('mod/helpers/SimpleDb')
 
--- ME-THRILL / Items.DummyFabricEnhancer
-local slotBlocker = { hash = 0x4C882AC5, length = 25 }
-
 local InventoryModule = {}
 InventoryModule.__index = InventoryModule
 
@@ -43,6 +40,9 @@ function InventoryModule:prepare()
 	self.playerEquipmentData['EquipItemInSlot'] = self.playerEquipmentData['EquipItem;ItemIDInt32BoolBoolBool']
 	self.playerEquipmentData['GetItemInEquipSlotArea'] = self.playerEquipmentData['GetItemInEquipSlot;gamedataEquipmentAreaInt32']
 	self.playerEquipmentData['GetSlotIndexInArea'] = self.playerEquipmentData['GetSlotIndex;ItemIDgamedataEquipmentArea']
+
+	self.clothingSlotBlocker = TweakDBID.new('Items.DummyFabricEnhancer')
+	self.weaponSlotBlocker = TweakDBID.new('Items.DummyWeaponMod')
 end
 
 function InventoryModule:release()
@@ -297,19 +297,19 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 				self:appendStatsComment(itemSpec, itemMeta, itemData)
 
-				local itemParts = itemData:GetItemParts()
-				local itemPartsBySlots = {}
-
-				for _, part in ipairs(itemParts) do
-					if part then
-						local slotId = part:GetSlotID(part)
-						local slotMeta = self.tweakDb:resolve(slotId)
-
-						if slotMeta and slotMeta.kind == 'Slot' then
-							itemPartsBySlots[slotMeta.id] = part:GetItemID(part)
-						end
-					end
-				end
+				--local itemParts = itemData:GetItemParts()
+				--local itemPartsBySlots = {}
+				--
+				--for _, part in ipairs(itemParts) do
+				--	if part then
+				--		local slotId = part:GetSlotID(part)
+				--		local slotMeta = self.tweakDb:resolve(slotId)
+				--
+				--		if slotMeta and slotMeta.kind == 'Slot' then
+				--			itemPartsBySlots[slotMeta.id] = part:GetItemID(part)
+				--		end
+				--	end
+				--end
 
 				if not itemMeta or (itemMeta.kind ~= 'Mod' and itemMeta.kind ~= 'Quickhack') then
 					for _, slotMeta in ipairs(self.attachmentSlots) do
@@ -323,7 +323,7 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 
 							local partSpec = {}
 
-							local partId = itemPartsBySlots[slotMeta.id]
+							local partId = itemData:GetItemPart(slotId):GetItemID() --itemPartsBySlots[slotMeta.id]
 							local partMeta = self.tweakDb:resolve(partId.id)
 
 							local partData = self.inventoryManager:CreateItemData(partId, self.player)
@@ -492,12 +492,13 @@ function InventoryModule:applyItemSpec(itemSpec, specOptions, equipedSlots)
 
 			-- Guarantee max number of slots
 
-			if itemSpec.slots == 'max' then -- and itemMeta.kind == 'Clothing'
+			if itemSpec.slots == 'max' then
 				for _, part in ipairs(itemData:GetItemParts()) do
 					local slotId = part:GetSlotID(part)
 					local partItemId = part:GetItemID(part)
+					local partTweakId = TweakDBID.new(partItemId.id)
 
-					if partItemId.id.hash == slotBlocker.hash and partItemId.id.length == slotBlocker.length then
+					if partTweakId == self.clothingSlotBlocker or partTweakId == self.weaponSlotBlocker then
 						self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
 						table.insert(removedParts, partItemId)
 					end
