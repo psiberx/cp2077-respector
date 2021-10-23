@@ -132,7 +132,9 @@ end
 function CraftingModule:addRecipe(tweakId)
 	tweakId = TweakDb.toItemTweakId(tweakId)
 
-	self.playerCraftBook:AddRecipe(tweakId, {}, 1)
+	if self.playerCraftBook:GetRecipeIndex(tweakId) < 0 then
+		self.playerCraftBook:AddRecipe(tweakId)
+	end
 end
 
 function CraftingModule:addRecipes(recipeSpecs)
