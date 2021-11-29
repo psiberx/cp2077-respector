@@ -18,7 +18,7 @@ return function(vehicleTweakId, spawnDistance, unlockDoors)
 	local offsetVector = Vector3.new(forwardVector.x * spawnDistance, forwardVector.y * spawnDistance, forwardVector.z)
 
 	local spawnTransform = player:GetWorldTransform()
-	local spawnPosition = spawnTransform.Position:ToVector4(spawnTransform.Position)
+	local spawnPosition = spawnTransform.Position:ToVector4()
 	spawnPosition = Vector4.new(spawnPosition.x + offsetVector.x, spawnPosition.y + offsetVector.y, spawnPosition.z + offsetVector.z, spawnPosition.w)
 
 	spawnTransform:SetPosition(spawnTransform, spawnPosition)
