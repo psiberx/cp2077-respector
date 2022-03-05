@@ -15,6 +15,7 @@ end
 function Compiler:run()
 	self:rehashTweakDbIds()
 	self:collectTweakDbInfo()
+	self:collectPerkInfo()
 	self:compileSamplePacks()
 	self:writeDefaultConfig()
 end
@@ -156,6 +157,82 @@ function Compiler:collectTweakDbInfo(outputCsvPath)
 	if mod.debug then
 		print(('[DEBUG] Respector: Collected TweakDB display names and descriptions.'))
 	end
+end
+
+function Compiler:collectPerkInfo(outputLuaPath)
+	if not outputLuaPath then
+		outputLuaPath = mod.path('mod/data/_perks.lua')
+	end
+
+	local fout = io.open(outputLuaPath, 'w')
+	fout:write('return {\n')
+
+	local sep = false
+
+    --for _, attrRec in ipairs(TweakDB:GetRecords('gamedataAttribute_Record')) do
+    --    local attr = attrRec:EnumName()
+    --    for _, skillRec in ipairs(attrRec:Proficiencies()) do
+    --      local skill = skillRec:EnumName().value
+
+    local skillMetas = {
+        { id = "Proficiencies.Athletics", name = "Athletics", attr = "Body" },
+        { id = "Proficiencies.Demolition", name = "Annihilation", attr = "Body" },
+        { id = "Proficiencies.Brawling", name = "Street Brawler", attr = "Body" },
+        { id = "Proficiencies.Assault", name = "Assault", attr = "Reflexes" },
+        { id = "Proficiencies.Gunslinger", name = "Handguns", attr = "Reflexes" },
+        { id = "Proficiencies.Kenjutsu", name = "Blades", attr = "Reflexes" },
+        { id = "Proficiencies.Crafting", name = "Crafting", attr = "TechnicalAbility" },
+        { id = "Proficiencies.Engineering", name = "Engineering", attr = "TechnicalAbility" },
+        { id = "Proficiencies.Hacking", name = "Breach Protocol", attr = "Intelligence" },
+        { id = "Proficiencies.CombatHacking", name = "Quickhacking", attr = "Intelligence" },
+        { id = "Proficiencies.Stealth", name = "Stealth", attr = "Cool" },
+        { id = "Proficiencies.ColdBlood", name = "Cold Blood", attr = "Cool" },
+    }
+
+    for _, skillMeta in ipairs(skillMetas) do
+        local skillRec = TweakDB:GetRecord(skillMeta.id)
+        local skill = skillMeta.name:gsub('[^%w]', '')
+        local attr = skillMeta.attr
+
+        if sep then
+            fout:write('\n')
+        else
+            sep = true
+        end
+
+        fout:write(('\t-- %s\n'):format(skillMeta.name))
+
+        for _, areaRec in ipairs(skillRec:PerkAreas()) do
+            local req = math.max(3, areaRec:Requirement():ValueToCheck())
+            for _, perkRec in ipairs(areaRec:Perks()) do
+                local type = perkRec:EnumName().value
+                local max = perkRec:GetLevelsCount()
+                local name = GetLocalizedText(perkRec:Loc_name_key())
+                local desc = GetLocalizedText(perkRec:Loc_desc_key()):gsub('{.+}', 'X')
+                local alias = name:gsub('%s%l', string.upper):gsub('[^%w]', '')
+                fout:write(
+                    ('\t{ alias = %q, type = %q, max = %d, attr = %q, req = %d, skill = %q, name = %q, desc = %q },\n')
+                    :format(alias, type, max, attr, req, skill, name, desc)
+                )
+            end
+        end
+
+        local traitRec = skillRec:Trait()
+        local type = traitRec:EnumName().value
+        local req = traitRec:Requirement():ValueToCheck()
+        local max = 999
+        local name = GetLocalizedText(traitRec:Loc_name_key())
+        local desc = GetLocalizedText(traitRec:Loc_desc_key()):gsub('{.+}', 'X')
+        local alias = name:gsub('%s%l', string.upper):gsub('[^%w]', '')
+
+        fout:write(
+            ('\t{ alias = %q, type = %q, max = %d, attr = %q, trait = true, req = %d, skill = %q, name = %q, desc = %q },\n')
+            :format(alias, type, max, attr, req, skill, name, desc)
+        )
+    end
+
+    fout:write('}')
+    fout:close()
 end
 
 function Compiler:compileSamplePacks(samplePacksDir, samplePacks)
