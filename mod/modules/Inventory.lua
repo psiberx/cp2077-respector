@@ -20,7 +20,7 @@ end
 
 function InventoryModule:prepare()
 	local scriptableSystemsContainer = Game.GetScriptableSystemsContainer()
-	local equipmentSystem = scriptableSystemsContainer:Get(CName.new('EquipmentSystem'))
+	local equipmentSystem = scriptableSystemsContainer:Get('EquipmentSystem')
 
 	self.player = Game.GetPlayer()
 	self.transactionSystem = Game.GetTransactionSystem()
@@ -37,7 +37,7 @@ function InventoryModule:prepare()
 
 	self.attachmentSlots = mod.load('mod/data/attachment-slots')
 
-	self.playerEquipmentData['EquipItemInSlot'] = self.playerEquipmentData['EquipItem;ItemIDInt32BoolBoolBool']
+	self.playerEquipmentData['EquipItemInSlot'] = self.playerEquipmentData['EquipItem;ItemIDInt32BoolBool']
 	self.playerEquipmentData['GetItemInEquipSlotArea'] = self.playerEquipmentData['GetItemInEquipSlot;gamedataEquipmentAreaInt32']
 	self.playerEquipmentData['GetSlotIndexInArea'] = self.playerEquipmentData['GetSlotIndex;ItemIDgamedataEquipmentArea']
 
@@ -621,7 +621,7 @@ end
 
 function InventoryModule:equipItem(itemId, slotIndex)
 	if not self.playerEquipmentData:IsEquipped(itemId) then
-		self.playerEquipmentData:EquipItemInSlot(itemId, slotIndex - 1, false, false, false)
+		self.playerEquipmentData:EquipItemInSlot(itemId, slotIndex - 1, false, false)
 	end
 end
 
