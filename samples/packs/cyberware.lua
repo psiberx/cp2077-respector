@@ -1202,7 +1202,7 @@ return {
 		{ id = "Items.BoostedTendonsRare" }, 
 
 		-- SECOND HEART / Cyberware / Circulatory System / Legendary
-		-- Corrects one of nature's greatest flaws by giving you an second lease on life.
+		-- Corrects one of nature's greatest flaws by giving you a second lease on life.
 		-- Instantly restores 100% of max Health when your Health falls to 0.
 		-- Cooldown 2 min.
 		{ id = "Items.SecondHeart" }, 
@@ -1262,17 +1262,17 @@ return {
 		{ id = "Items.ElectroshockMechanismLegendary" }, 
 
 		-- SMART LINK / Cyberware / Hands / Rare
-		-- Cyberware that allows swift, direct, low-latency connection with compatible objects such as a firearms or implants, while also increasing effectiveness and handling.
+		-- Cyberware that allows swift, direct, low-latency connection with compatible objects such as firearms or implants, while also increasing effectiveness and handling.
 		-- Cyberware taht allows swift, direct, low-latancy connection with compatible objects such as fires or implants, while also increasing effectiveness and handling.
 		{ id = "Items.SmartLinkRare" }, 
 
 		-- SMART LINK / Cyberware / Hands / Epic
-		-- Cyberware that allows swift, direct, low-latency connection with compatible objects such as a firearms or implants, while also increasing effectiveness and handling.
+		-- Cyberware that allows swift, direct, low-latency connection with compatible objects such as firearms or implants, while also increasing effectiveness and handling.
 		-- Cyberware taht allows swift, direct, low-latancy connection with compatible objects such as fires or implants, while also increasing effectiveness and handling.
 		{ id = "Items.SmartLinkEpic" }, 
 
 		-- SMART LINK / Cyberware / Hands / Legendary
-		-- Cyberware that allows swift, direct, low-latency connection with compatible objects such as a firearms or implants, while also increasing effectiveness and handling.
+		-- Cyberware that allows swift, direct, low-latency connection with compatible objects such as firearms or implants, while also increasing effectiveness and handling.
 		-- Cyberware taht allows swift, direct, low-latancy connection with compatible objects such as fires or implants, while also increasing effectiveness and handling.
 		{ id = "Items.SmartLinkLegendary" }, 
 
@@ -1611,7 +1611,7 @@ return {
 		},
 
 		-- ZETATECH SANDEVISTAN MK.1 / Cyberware / Operating System / Uncommon
-		-- The popular, mass-market Sandevistan from Zetatech. It's widely praised by users for its minimalism, lack of  unnecessary features, and ease-of-use.
+		-- The popular, mass-market Sandevistan from Zetatech. It's widely praised by users for its minimalism, lack of unnecessary features, and ease-of-use.
 		-- Slows time by 75% for 8 sec.
 		-- Cooldown 30 sec.
 		-- Increase Crit Chance by 10% when Sandevistan is active.

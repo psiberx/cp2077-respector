@@ -32,9 +32,21 @@ return {
 		-- Increases damage by 5/6/7/8/9.
 		{ id = "Items.SimpleWeaponMod01" }, 
 
+		-- FOCUS / Mod / Ranged / Epic
+		-- Eliminates vertical recoil while aiming.
+		{ id = "Items.PowerWeaponMod03" }, 
+
+		-- KNOCKDOWN / Mod / Ranged / Epic
+		-- Reduces enemy Armor by {int_0} for {int_1} sec.
+		{ id = "Items.PowerWeaponMod01" }, 
+
 		-- NEON ARROW / Mod / Ranged / Rare
 		-- Reduces weapon reload time by 5%.
 		{ id = "Items.TygerRangedWeaponMod" }, 
+
+		-- OVERPENETRATE / Mod / Ranged / Epic
+		-- Increases projectile kinetic energy by {int_0} times, increasing the chance to knock down an enemy.
+		{ id = "Items.PowerWeaponMod04" }, 
 
 		-- PACIFIER / Mod / Ranged
 		-- Increases Crit Damage by 6/8/10/12/14%.
@@ -52,9 +64,25 @@ return {
 		-- Increases rate of fire by 5%.
 		{ id = "Items.WraithsRangedWeaponMod" }, 
 
+		-- PULPIFY / Mod / Ranged / Epic
+		-- Bullet spread is reduced after every shot by {int_0}%.
+		{ id = "Items.PowerWeaponMod02" }, 
+
 		-- PULVERIZE / Mod / Ranged / Uncommon
 		-- Increases damage to limbs by 5%.
 		{ id = "Items.SimpleWeaponMod12" }, 
+
+		-- RICOCHET ENGINE / Mod / Ranged / Epic
+		{ id = "Items.PowerWeaponMod07" }, 
+
+		-- STABILIZER / Mod / Ranged / Epic
+		-- Reduces weapon sway by {int_0}%.
+		{ id = "Items.PowerWeaponMod05" }, 
+
+		-- SUBSONIC / Mod / Ranged / Epic
+		-- Reduces weapon draw time by half.
+		-- Increases damage by {int_0}%.
+		{ id = "Items.PowerWeaponMod06" }, 
 
 		-- VENDETTA / Mod / Ranged / Rare
 		-- Increases headshot damage by 20%.

@@ -108,6 +108,12 @@ function Compiler:collectTweakDbInfo(outputCsvPath)
 		return value and 'TRUE' or 'FALSE'
 	end
 
+	local boolopt = function(value)
+		return value and 'TRUE' or ''
+	end
+
+	local iconicModId = TweakDBID('Quality.IconicItem')
+
 	for key, id in tweakDb:each() do
 		local record = TweakDB:GetRecord(TweakDb.toTweakId(key))
 
@@ -118,10 +124,11 @@ function Compiler:collectTweakDbInfo(outputCsvPath)
 			local category = ''
 			local quality = ''
 			local craftable = false
+			local iconic = false
 
-			if record:IsA('gamedataItem_Record') and record:ItemCategory() then
+			if record:IsA('gamedataItem_Record') and (record:ItemCategory() or record:IsPart()) then
 				desc = GetLocalizedTextByKey(record:LocalizedDescription())
-				category = NameToString(record:ItemCategory():Name())
+				category = record:IsPart() and 'Mod' or NameToString(record:ItemCategory():Name())
 
 				local qualityData = record:Quality()
 				if qualityData and qualityData:Value() > 0 then
@@ -140,12 +147,22 @@ function Compiler:collectTweakDbInfo(outputCsvPath)
 				if craftingData then
 					craftable = true
 				end
+
+				for _, statMod in ipairs(record:StatModifiers()) do
+                    if statMod:GetID() == iconicModId then
+                        iconic = true
+                        break
+                    end
+				end
 			elseif record:IsA('gamedataVehicle_Record') then
 				category = 'Vehicle'
 			end
 
 			if name ~= '' and category ~= '' then
-				fcsv:write(('0x%016X,%s,"%s","%s","%s","%s","%s","%s"\n'):format(key, id, normalize(name), normalize(desc), normalize(ability), category, quality, bool(craftable)))
+				fcsv:write(('0x%016X,%s,"%s","%s","%s","%s","%s","%s","%s"\n'):format(
+				    key, id, normalize(name), normalize(desc), normalize(ability),
+				    category, quality, boolopt(iconic), bool(craftable)
+				))
 			end
 		end
 	end

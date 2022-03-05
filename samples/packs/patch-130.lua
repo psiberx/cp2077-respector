@@ -156,4 +156,8 @@ return {
 		-- For when you need something that expresses the state of your soul.
 		{ id = "Items.Jacket_19_old_01" }, 
 	},
+
+	Vehicles = {
+		"Vehicle.v_standard2_archer_bandit_player", -- QUARTZ "BANDIT"
+	},
 }

@@ -23,6 +23,12 @@ return {
 		-- Fires explosive rounds and rips enemies to shreads.
 		{ id = "Items.Preset_Zhuo_Eight_Star" }, 
 
+		-- BLOODY MARIA / Weapon / Power / Shotgun / Epic
+		-- As mean throughout all Night City as it is on the streets of Santo.
+		-- Increase knockdown, bleeding and dismemberment chance.
+		-- It's going to be a mess.
+		{ id = "Items.Preset_Tactician_Dino" }, 
+
 		-- BREAKTHROUGH / Weapon / Tech / Sniper Rifle / Epic
 		-- Pierces concrete like cardboard.
 		-- Can penatrate through walls and ricochet multiple times.
@@ -32,6 +38,12 @@ return {
 		-- An absolute beast with a nasty bite. Don't get too close.
 		-- A unique mod that allows you to fire high penetration rounds.
 		{ id = "Items.Preset_Pulsar_Buzzsaw" }, 
+
+		-- BYAKKO / Weapon / Melee / Blade / Epic
+		-- Spent most of the time collecting dust on Wakako's desk. Except for the occasional heated negotiation.
+		-- Byakko is perfectly balanced, allowing to jump the enemy and attack them with full force.
+		-- It's incredible sharpness increases bleeding chance..
+		{ id = "Items.Preset_Katana_Wakako" }, 
 
 		-- CARETAKER'S SPADE / Weapon / Melee / Blunt / Legendary
 		-- For a little light gardening and body disposal.
@@ -211,6 +223,13 @@ return {
 		-- It cuts with surgical precision.
 		-- Increases Electrical damage, While Sandevistan is active, increase Crit Chance by 50% and hits apply Bleeding.
 		{ id = "Items.Preset_Katana_Surgeon" }, 
+
+		-- SERAPH / Weapon / Power / Pistol / Epic
+		-- Padre's closest companion. Judge, jury and executioner for divine justice - all rolled into one.
+		-- Every subsequent hit increases the chance of setting the enemy ablaze in Seraphs cleansing flames.
+		-- While on fire, bullets inflict additional damage.
+		-- Does not synergize with mods.
+		{ id = "Items.Preset_Liberty_Padre" }, 
 
 		-- SIR JOHN PHALLUSTIFF / Weapon / Melee / Blunt / Rare
 		-- Perfect for when someone is just asking to get fucked.

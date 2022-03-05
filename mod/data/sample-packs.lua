@@ -73,7 +73,13 @@ return {
 		items = { kind = "Mod", group = { "Ranged", "Melee" } }
 	},
 	{
-		name = "dlc-jackets",
+		name = "patch-130",
 		items = { tag = "DLC: V's New Jackets" },
+		vehicles = { tag = "DLC: Atcher Quartz Bandit" },
+	},
+	{
+		name = "patch-150",
+		items = { kind = { "Clothing", "Weapon", "Mod" }, tag = "Patch 1.5" },
+		vehicles = { kind = "Vehicle", tag = "Patch 1.5" },
 	},
 }

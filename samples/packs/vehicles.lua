@@ -26,6 +26,7 @@ return {
 		"Vehicle.v_sportbike1_yaiba_kusanagi_tyger_player", -- KUSANAGI "MIZUCHI"
 		"Vehicle.v_sportbike1_yaiba_kusanagi_player", -- KUSANAGI CT-3X
 		"Vehicle.v_standard3_thorton_mackinaw_ncu_player", -- MACKINAW "BEAST"
+		"Vehicle.v_standard3_thorton_mackinaw_02_player", -- MACKINAW "SAGUARO"
 		"Vehicle.v_standard3_thorton_mackinaw_player", -- MACKINAW MTL1
 		"Vehicle.v_standard2_makigai_maimai_player", -- MAIMAI P126
 		"Vehicle.v_sportbike2_arch_tyger_player", -- NAZARÉ "ITSUMADE"
@@ -42,6 +43,7 @@ return {
 		"Vehicle.v_sport2_quadra_type66_nomad_ncu_player", -- TYPE-66 "CTHULHU"
 		"Vehicle.v_sport2_quadra_type66_nomad_player", -- TYPE-66 "JAVELINA"
 		"Vehicle.v_sport2_quadra_type66_player", -- TYPE-66 "JEN ROWLEY"
+		"Vehicle.v_sport2_quadra_type66_02_player", -- TYPE-66 640 TS
 		"Vehicle.v_sport2_quadra_type66_avenger_player", -- TYPE-66 AVENGER
 	},
 }

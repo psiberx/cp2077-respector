@@ -128,6 +128,22 @@ return {
 		-- Smart rifle. Smart choice.
 		{ id = "Items.Preset_Sidewinder_Default" }, 
 
+		-- DA8 UMBRA (MILITARY) / Weapon / Power / Assault Rifle
+		-- Fire, kill, toss. Not exactly a keepsake - you'll ditch the Umbra as soon as something better comes along, and not a moment later.
+		{ id = "Items.Preset_Umbra_Military" }, 
+
+		-- DA8 UMBRA (NEON) / Weapon / Power / Assault Rifle
+		-- Fire, kill, toss. Not exactly a keepsake - you'll ditch the Umbra as soon as something better comes along, and not a moment later.
+		{ id = "Items.Preset_Umbra_Neon" }, 
+
+		-- DA8 UMBRA (PIMP) / Weapon / Power / Assault Rifle
+		-- Fire, kill, toss. Not exactly a keepsake - you'll ditch the Umbra as soon as something better comes along, and not a moment later.
+		{ id = "Items.Preset_Umbra_Pimp" }, 
+
+		-- DA8 UMBRA / Weapon / Power / Assault Rifle
+		-- Fire, kill, toss. Not exactly a keepsake - you'll ditch the Umbra as soon as something better comes along, and not a moment later.
+		{ id = "Items.Preset_Umbra_Default" }, 
+
 		-- DB-2 SATARA (MILITARY) / Weapon / Tech / Shotgun
 		-- Faith can move mountains. Satara doesn't need to.
 		{ id = "Items.Preset_Satara_Military" }, 
@@ -275,6 +291,22 @@ return {
 		-- G-58 DIAN / Weapon / Smart / SMG
 		-- Most all-time appearances atop the "Guns and Horses" rankings.
 		{ id = "Items.Preset_Dian_Default" }, 
+
+		-- GUILLOTINE (MILITARY) / Weapon / Power / SMG
+		-- Only slightly better than bringing a knife to a gunfight.
+		{ id = "Items.Preset_Guillotine_Military" }, 
+
+		-- GUILLOTINE (NEON) / Weapon / Power / SMG
+		-- Only slightly better than bringing a knife to a gunfight.
+		{ id = "Items.Preset_Guillotine_Neon" }, 
+
+		-- GUILLOTINE (PIMP) / Weapon / Power / SMG
+		-- Only slightly better than bringing a knife to a gunfight.
+		{ id = "Items.Preset_Guillotine_Pimp" }, 
+
+		-- GUILLOTINE / Weapon / Power / SMG
+		-- Only slightly better than bringing a knife to a gunfight.
+		{ id = "Items.Preset_Guillotine_Default" }, 
 
 		-- HAMMER / Weapon / Melee / Blunt
 		-- With a hammer in your hand, every problem looks a nail.
@@ -629,19 +661,19 @@ return {
 		{ id = "Items.Preset_Overture_Default" }, 
 
 		-- RT-46 BURYA (MILITARY) / Weapon / Tech / Revolver
-		-- Glory to the progress of Soviet Socialist science!
+		-- Electromagnetic pistol. Always ready to fire. All together now, choomrades: Glory to the progress of Soviet Socialist science!
 		{ id = "Items.Preset_Burya_Military" }, 
 
 		-- RT-46 BURYA (NEON) / Weapon / Tech / Revolver
-		-- Glory to the progress of Soviet Socialist science!
+		-- Electromagnetic pistol. Always ready to fire. All together now, choomrades: Glory to the progress of Soviet Socialist science!
 		{ id = "Items.Preset_Burya_Neon" }, 
 
 		-- RT-46 BURYA (PIMP) / Weapon / Tech / Revolver
-		-- Glory to the progress of Soviet Socialist science!
+		-- Electromagnetic pistol. Always ready to fire. All together now, choomrades: Glory to the progress of Soviet Socialist science!
 		{ id = "Items.Preset_Burya_Pimp" }, 
 
 		-- RT-46 BURYA / Weapon / Tech / Revolver
-		-- Glory to the progress of Soviet Socialist science!
+		-- Electromagnetic pistol. Always ready to fire. All together now, choomrades: Glory to the progress of Soviet Socialist science!
 		{ id = "Items.Preset_Burya_Default" }, 
 
 		-- SLAUGHT-O-MATIC / Weapon / Power / Pistol / Common
