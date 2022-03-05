@@ -176,13 +176,20 @@ function Compiler:collectTweakDbInfo(outputCsvPath)
 	end
 end
 
-function Compiler:collectPerkInfo(outputLuaPath)
-	if not outputLuaPath then
-		outputLuaPath = mod.path('mod/data/_perks.lua')
+function Compiler:collectPerkInfo(outputInfoPath, outputSchemaPath)
+	if not outputInfoPath then
+		outputInfoPath = mod.path('mod/data/perks-info.lua')
 	end
 
-	local fout = io.open(outputLuaPath, 'w')
-	fout:write('return {\n')
+	if not outputSchemaPath then
+		outputSchemaPath = mod.path('mod/data/perks-schema.lua')
+	end
+
+	local finfo = io.open(outputInfoPath, 'w')
+	finfo:write('return {\n')
+
+	local fschema = io.open(outputSchemaPath, 'w')
+	fschema:write('return {\n')
 
 	local sep = false
 
@@ -212,12 +219,17 @@ function Compiler:collectPerkInfo(outputLuaPath)
         local attr = skillMeta.attr
 
         if sep then
-            fout:write('\n')
+            finfo:write('\n')
         else
             sep = true
         end
 
-        fout:write(('\t-- %s\n'):format(skillMeta.name))
+        finfo:write(('\t-- %s\n'):format(skillMeta.name))
+
+        fschema:write('{\n')
+        fschema:write(('\tname = %q,\n'):format(skillMeta.name))
+        fschema:write('\tscope = "Perks",\n')
+        fschema:write('\tchildren = {\n')
 
         for _, areaRec in ipairs(skillRec:PerkAreas()) do
             local req = math.max(3, areaRec:Requirement():ValueToCheck())
@@ -227,10 +239,13 @@ function Compiler:collectPerkInfo(outputLuaPath)
                 local name = GetLocalizedText(perkRec:Loc_name_key())
                 local desc = GetLocalizedText(perkRec:Loc_desc_key()):gsub('{.+}', 'X')
                 local alias = name:gsub('%s%l', string.upper):gsub('[^%w]', '')
-                fout:write(
+
+                finfo:write(
                     ('\t{ alias = %q, type = %q, max = %d, attr = %q, req = %d, skill = %q, name = %q, desc = %q },\n')
                     :format(alias, type, max, attr, req, skill, name, desc)
                 )
+
+                fschema:write(('\t\t{ name = %q, comment = perkDescription },\n'):format(alias))
             end
         end
 
@@ -242,14 +257,21 @@ function Compiler:collectPerkInfo(outputLuaPath)
         local desc = GetLocalizedText(traitRec:Loc_desc_key()):gsub('{.+}', 'X')
         local alias = name:gsub('%s%l', string.upper):gsub('[^%w]', '')
 
-        fout:write(
+        finfo:write(
             ('\t{ alias = %q, type = %q, max = %d, attr = %q, trait = true, req = %d, skill = %q, name = %q, desc = %q },\n')
             :format(alias, type, max, attr, req, skill, name, desc)
         )
+
+        fschema:write(('\t\t{ name = %q, comment = perkDescription },\n'):format(alias))
+        fschema:write('\t},\n')
+        fschema:write('},\n')
     end
 
-    fout:write('}')
-    fout:close()
+    finfo:write('}')
+    finfo:close()
+
+    fschema:write('}')
+    fschema:close()
 end
 
 function Compiler:compileSamplePacks(samplePacksDir, samplePacks)

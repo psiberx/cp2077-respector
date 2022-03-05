@@ -326,7 +326,9 @@ function InventoryModule:getItemsById(itemIds, specOptions)
 							local partId = itemData:GetItemPart(slotId):GetItemID() --itemPartsBySlots[slotMeta.id]
 							local partMeta = self.tweakDb:resolve(partId.id)
 
-							local partData = self.inventoryManager:CreateItemData(partId, self.player)
+							--local partData = self.inventoryManager:CreateItemData(partId, self.player)
+							local partParams = gameItemModParams.new({ itemID = partId, quantity = 1 })
+							local partData = gameInventory.CreateItemData(partParams, self.player)
 							local partQuality = self.gameRPGManager:GetItemDataQuality(partData).value
 
 							partSpec.slot = slotMeta.slot
