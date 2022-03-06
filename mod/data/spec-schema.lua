@@ -131,7 +131,7 @@ return {
                             },
                         },
                         {
-                            name = "Street Brawler",
+                            name = "StreetBrawler",
                             scope = "Perks",
                             children = {
                                 { name = "Flurry", comment = perkDescription },
@@ -279,7 +279,7 @@ return {
                             },
                         },
                         {
-                            name = "Breach Protocol",
+                            name = "BreachProtocol",
                             scope = "Perks",
                             children = {
                                 { name = "BigSleep", comment = perkDescription },
@@ -361,7 +361,7 @@ return {
                             },
                         },
                         {
-                            name = "Cold Blood",
+                            name = "ColdBlood",
                             scope = "Perks",
                             children = {
                                 { name = "ColdBlood", comment = perkDescription },

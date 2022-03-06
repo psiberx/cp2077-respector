@@ -623,7 +623,7 @@ end
 
 function InventoryModule:equipItem(itemId, slotIndex)
 	if not self.playerEquipmentData:IsEquipped(itemId) then
-		self.playerEquipmentData:EquipItemInSlot(itemId, slotIndex - 1, false, false)
+		self.playerEquipmentData:EquipItemInSlot(itemId, slotIndex - 1, true, true)
 	end
 end
 
@@ -634,21 +634,18 @@ function InventoryModule:unequipItem(itemId)
 end
 
 function InventoryModule:equipUsedSlots(equipedSlots)
-	for equipAreaType, equipedItems in pairs(equipedSlots) do
-		for slotIndex, itemId in pairs(equipedItems) do
-			local equipArea = self.equipAreaDb:find({ type = equipAreaType })
-
-			if not self:isEquipped(itemId) then
-				if equipArea.kind == 'Clothing' or equipArea.type == 'SystemReplacementCW' then
-					mod.after(0.15, function()
-						self:equipItem(itemId, slotIndex)
-					end)
-				else
-					self:equipItem(itemId, slotIndex)
-				end
-			end
-		end
-	end
+    for equipAreaType, equipedItems in pairs(equipedSlots) do
+        for slotIndex, itemId in pairs(equipedItems) do
+            local equipArea = self.equipAreaDb:find({ type = equipAreaType })
+            if equipArea.type == 'Weapon' then
+                mod.after(0.5, function()
+                    self:equipItem(itemId, slotIndex)
+                end)
+            else
+                self:equipItem(itemId, slotIndex)
+            end
+        end
+    end
 end
 
 function InventoryModule:unequipUnusedSlots(slotCriteria, equipedSlots)

@@ -227,7 +227,7 @@ function Compiler:collectPerkInfo(outputInfoPath, outputSchemaPath)
         finfo:write(('\t-- %s\n'):format(skillMeta.name))
 
         fschema:write('{\n')
-        fschema:write(('\tname = %q,\n'):format(skillMeta.name))
+        fschema:write(('\tname = %q,\n'):format(skill))
         fschema:write('\tscope = "Perks",\n')
         fschema:write('\tchildren = {\n')
 
