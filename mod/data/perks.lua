@@ -134,7 +134,7 @@ return {
 	{ alias = "Innovation", type = "Crafting_Area_04_Perk_1", max = 2, attr = "TechnicalAbility", req = 9, skill = "Crafting", name = "Innovation", desc = "Increases the effect duration from consumables by X%." },
 	{ alias = "Sapper", type = "Crafting_Area_04_Perk_2", max = 2, attr = "TechnicalAbility", req = 9, skill = "Crafting", name = "Sapper", desc = "Grenades deal X% more damage." },
 	{ alias = "FieldTechnician", type = "Crafting_Area_05_Perk_1", max = 2, attr = "TechnicalAbility", req = 11, skill = "Crafting", name = "Field Technician", desc = "Crafted weapons deal X% more damage." },
-	{ alias = "200Efficiency", type = "Crafting_Area_05_Perk_2", max = 2, attr = "TechnicalAbility", req = 11, skill = "Crafting", name = "200% Efficiency", desc = "Crafted clothes gain X% more armor." },
+	{ alias = "TwoHundredEfficiency", type = "Crafting_Area_05_Perk_2", max = 2, attr = "TechnicalAbility", req = 11, skill = "Crafting", name = "200% Efficiency", desc = "Crafted clothes gain X% more armor." },
 	{ alias = "ExNihilo", type = "Crafting_Area_06_Perk_1", max = 1, attr = "TechnicalAbility", req = 12, skill = "Crafting", name = "Ex Nihilo", desc = "Grants a X% chance to craft an item for free." },
 	{ alias = "EfficientUpgrades", type = "Crafting_Area_06_Perk_2", max = 1, attr = "TechnicalAbility", req = 12, skill = "Crafting", name = "Efficient Upgrades", desc = "Grants a X% chance to upgrade an item for free." },
 	{ alias = "GreaseMonkey", type = "Crafting_Area_06_Perk_3", max = 1, attr = "TechnicalAbility", req = 12, skill = "Crafting", name = "Grease Monkey", desc = "Allows you to craft Epic items." },

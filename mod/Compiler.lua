@@ -238,7 +238,7 @@ function Compiler:collectPerkInfo(outputInfoPath, outputSchemaPath)
                 local max = perkRec:GetLevelsCount()
                 local name = GetLocalizedText(perkRec:Loc_name_key())
                 local desc = GetLocalizedText(perkRec:Loc_desc_key()):gsub('{.+}', 'X')
-                local alias = name:gsub('%s%l', string.upper):gsub('[^%w]', '')
+                local alias = name:gsub('%s%l', string.upper):gsub('[^%w]', ''):gsub('^200', 'TwoHundred')
 
                 finfo:write(
                     ('\t{ alias = %q, type = %q, max = %d, attr = %q, req = %d, skill = %q, name = %q, desc = %q },\n')
