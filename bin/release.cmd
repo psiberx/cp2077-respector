@@ -34,6 +34,7 @@
 	-x!"%ModPath%\mod\data\*.csv" ^
 	-x!"%ModPath%\mod\data\*.txt" ^
 	-x!"%ModPath%\mod\data\*.xlsm" ^
+	-x!"%ModPath%\mod\data\tweakdb-ids.*" ^
 	-x!"%ModPath%\mod\data\tweakdb-names.*" ^
 	-x!"%ModPath%\specs\??*.lua" ^
 	-x!"%ModPath%\.gitignore" ^

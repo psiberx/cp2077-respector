@@ -239,7 +239,7 @@ return {
                                 { name = "Innovation", comment = perkDescription },
                                 { name = "Sapper", comment = perkDescription },
                                 { name = "FieldTechnician", comment = perkDescription },
-                                { name = "200Efficiency", comment = perkDescription },
+                                { name = "TwoHundredEfficiency", comment = perkDescription },
                                 { name = "ExNihilo", comment = perkDescription },
                                 { name = "EfficientUpgrades", comment = perkDescription },
                                 { name = "GreaseMonkey", comment = perkDescription },
