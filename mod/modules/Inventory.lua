@@ -534,10 +534,13 @@ function InventoryModule:applyItemSpec(itemSpec, specOptions, equipedSlots)
 					end
 
 					if slotSpec.slot and slotSpec.id then
-						local slotId = self.tweakDb:toSlotTweakId(slotSpec.slot, itemMeta.mod and itemMeta or itemType)
-						local partItemId = self:applyItemSpec(slotSpec, specOptions)
+					    local partTweakId = TweakDb.toTweakId(slotSpec.id)
+                        if partTweakId ~= self.clothingSlotBlocker then
+						    local slotId = self.tweakDb:toSlotTweakId(slotSpec.slot, itemMeta.mod and itemMeta or itemType)
+						    local partItemId = self:applyItemSpec(slotSpec, specOptions)
 
-						self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)
+						    self.itemModSystem:InstallItemPart(self.player, itemId, partItemId, slotId)
+						end
 					end
 				end
 			end
