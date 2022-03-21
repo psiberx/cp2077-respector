@@ -13,7 +13,7 @@ local searchSchema = {
 	{ field = 'tag', weight = 2 },
 	{ field = 'set', weight = 2 },
 	{ field = 'kind', weight = 2 },
-	{ field = 'type', weight = 3 },
+	{ field = 'id', weight = 3 },
 }
 
 local kindOrders = {
