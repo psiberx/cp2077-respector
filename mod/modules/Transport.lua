@@ -45,13 +45,14 @@ function TransportModule:getVehicles()
 	for _, vehicle in ipairs(vehicles) do
 		local vehicleMeta = self.tweakDb:resolve(vehicle.recordID)
 
-		local vehicleSpec = {}
+        if vehicleMeta then
+            local vehicleSpec = {}
+            vehicleSpec[1] = TweakDb.toVehicleAlias(vehicleMeta.id)
+            vehicleSpec._comment = self.tweakDb:describe(vehicleMeta)
+            vehicleSpec._order = self.tweakDb:order(vehicleMeta)
 
-		vehicleSpec[1] = TweakDb.toVehicleAlias(vehicleMeta.id)
-		vehicleSpec._comment = self.tweakDb:describe(vehicleMeta)
-		vehicleSpec._order = self.tweakDb:order(vehicleMeta)
-
-		table.insert(vehicleSpecs, vehicleSpec)
+            table.insert(vehicleSpecs, vehicleSpec)
+		end
 	end
 
 	self.tweakDb:unload()
