@@ -15,8 +15,8 @@ with useful extra features.
 
 ## Requirements
 
-- [Cyber Engine Tweaks](https://github.com/yamashi/CyberEngineTweaks) 1.9.6+
-- Cyberpunk 2077 1.11+
+- [Cyber Engine Tweaks](https://github.com/yamashi/CyberEngineTweaks) 1.20.0
+- Cyberpunk 2077 1.6
 
 ## Installation
 
