@@ -126,7 +126,7 @@ end
 function CraftingModule:isRecipeKnown(tweakId)
 	tweakId = TweakDb.toItemTweakId(tweakId)
 
-	return self.craftingSystem:IsRecipeKnown(tweakId, self.playerCraftBook)
+	return self.playerCraftBook:KnowsRecipe(tweakId)
 end
 
 function CraftingModule:addRecipe(tweakId)
