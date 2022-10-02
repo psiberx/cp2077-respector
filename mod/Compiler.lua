@@ -54,25 +54,23 @@ function Compiler:rehashTweakDbIds(stringsListPath, hashNamesDbPath, hashNamesCs
 	}
 
 	for line in fin:lines() do
-		local group, name, hash = line:match('^(%w+)%.(.+),(%d+)$')
-		local pass = false
+		local group, name = line:match('^(%w+)%.(.+)$')
+		local valid = false
 
 		if not group then
-			name, hash = line:match('^(<TDBID:[0-9A-Z]+:[0-9A-Z]+>),(%d+)$')
+			name = line:match('^(<TDBID:[0-9A-Z]+:[0-9A-Z]+>)$')
 			if name then
-				pass = true
+				valid = true
 			end
 		elseif allowedGroups[group] and not name:find('%.') and not name:find('_inline%d+$') then
-			pass = (group ~= 'Vehicle' or name:find('^v_'))
-			if pass then
+			valid = (group ~= 'Vehicle' or name:find('^v_'))
+			if valid then
 				name = group .. '.' .. name
 			end
 		end
 
-		if pass then
-			if hash == '0' then
-				hash = TweakDb.toKey(name)
-			end
+		if valid then
+            local hash = TweakDb.toKey(name)
 
 			fdb:write(string.format('[0x%016X] = %q,\n', hash, name))
 			fcsv:write(string.format('%s,0x%016X\n', name, hash))

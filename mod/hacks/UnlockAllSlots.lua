@@ -1,8 +1,6 @@
 local mod = ...
 local SimpleDb = mod.require('mod/helpers/SimpleDb')
-
-local clothingSlotBlocker = TweakDBID.new('Items.DummyFabricEnhancer')
-local weaponSlotBlocker = TweakDBID.new('Items.DummyWeaponMod')
+local TweakDb = mod.require('mod/helpers/TweakDb')
 
 return function()
 	local player = Game.GetPlayer()
@@ -28,10 +26,10 @@ return function()
 						local partId = part:GetItemID(part)
 						local tweakId = TweakDBID.new(partId.id)
 
-						if tweakId == clothingSlotBlocker or tweakId == weaponSlotBlocker then
-							itemModSystem:RemoveItemPart(player, itemId, slotId, true)
-							transactionSystem:RemoveItem(player, partId, 1)
-						end
+                        if TweakDb.isSlotBlocker(tweakId) then
+                            itemModSystem:RemoveItemPart(player, itemId, slotId, true)
+                            transactionSystem:RemoveItem(player, partId, 1)
+                        end
 					end
 				end
 			end

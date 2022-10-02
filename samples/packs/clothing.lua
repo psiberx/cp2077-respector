@@ -48,7 +48,7 @@ return {
 		-- It looks… angry somehow?
 		{ id = "Items.Helmet_02_rich_02" }, 
 
-		-- ABENDSTERN POLYCARBONATE DRESS SHOES / Clothing / Feet
+		-- ABENDSTERN POLYCARBONATE DRESS WEDGES / Clothing / Feet
 		-- For the stars who shine at night.
 		{ id = "Items.FormalShoes_03_rich_01" }, 
 
@@ -124,7 +124,7 @@ return {
 		-- Did Lizzy Wizzy own these? Maybe! Or Blue Moon from Us Cracks? Could be! So many possibilities!
 		{ id = "Items.Shorts_01_old_02" }, 
 
-		-- ANTI-PUNCTURE NANOWEAVE SLIP-ON SNEAKERS / Clothing / Feet
+		-- ANTI-PUNCTURE NANOWEAVE TONGUES / Clothing / Feet
 		-- They still resemble shoes, so chalk it up to a win.
 		{ id = "Items.CasualShoes_02_old_02" }, 
 
@@ -320,7 +320,7 @@ return {
 		-- Worn as an accessory or the world's tiniest vest.
 		{ id = "Items.Vest_07_basic_03" }, 
 
-		-- BASIC LOOSE POLYCARBONATE HIGHNECK / Clothing / Outer Torso
+		-- BASIC POLYCARBONATE FOLDTOP / Clothing / Outer Torso
 		-- If you talk any shit in this, you better back it up.
 		{ id = "Items.Jacket_11_basic_02" }, 
 
@@ -331,10 +331,6 @@ return {
 		-- BEACH PLEASE SQUARE GLASSES WITH TEMPERED LENSES / Clothing / Face
 		-- These colors are just beachy.
 		{ id = "Items.Glasses_02_basic_04" }, 
-
-		-- BEIGE DRESS SHOES WITH CUSHIONED COMPOSITE INSOLES / Clothing / Feet
-		-- Sure you can't afford better?
-		{ id = "Items.FormalShoes_01_basic_03" }, 
 
 		-- BERMUDA TRIANGLE CUTOUT BODYSUIT / Clothing / Outer Torso
 		-- Many will get lost in your gaze.
@@ -512,10 +508,6 @@ return {
 		-- Like out of a fairy tale.
 		{ id = "Items.FormalJacket_05_rich_01" }, 
 
-		-- CALAVERA TANK TOP / Clothing / Inner Torso
-		-- From Heywood? Then this is for you.
-		{ id = "Items.TShirt_07_rich_02" }, 
-
 		-- CAMO ARAMID-WEAVE STEEL-TOES / Clothing / Feet
 		-- Proud to be a New American.
 		{ id = "Items.Boots_07_basic_02" }, 
@@ -524,7 +516,7 @@ return {
 		-- Maybe if you add more pins it'll keep the threads from falling apart.
 		{ id = "Items.Vest_15_basic_02" }, 
 
-		-- CAMO LOOSE HIGHNECK / Clothing / Outer Torso
+		-- CAMO FOLDTOP / Clothing / Outer Torso
 		-- Pairs well with a panzer.
 		{ id = "Items.Jacket_11_old_01" }, 
 
@@ -585,10 +577,10 @@ return {
 		{ id = "Items.Jacket_17_old_01" }, 
 
 		-- CARBON-PLATED EDGERUNNER / Clothing / Outer Torso
-		-- Some rockerboy wrote a savage album in this jacket. You can feel it.
+		-- Some rockergirl wrote a savage album in this jacket. You can feel it.
 		{ id = "Items.Jacket_03_old_02" }, 
 
-		-- CARBON-REINFORCED SLIP-ON SNEAKERS / Clothing / Feet
+		-- CARBON-REINFORCED TONGUES / Clothing / Feet
 		-- You could wear these. But then your chooms might see you.
 		{ id = "Items.CasualShoes_02_old_01" }, 
 
@@ -648,7 +640,7 @@ return {
 		-- A little tacky.
 		{ id = "Items.FormalPants_01_basic_02" }, 
 
-		-- CLASSIC DRESS SHOES WITH POLYCARBONATE SUPPORT / Clothing / Feet
+		-- CLASSIC EVENING PUMPS WITH POLYCARBONATE SUPPORT / Clothing / Feet
 		-- Sewn with a craftsman's touch.
 		{ id = "Items.FormalShoes_02_basic_02" }, 
 
@@ -704,7 +696,7 @@ return {
 		-- The preferred jacket for many Tyger Claws.
 		{ id = "Items.FormalJacket_03_basic_01" }, 
 
-		-- COMFY DRESS SHOES WITH METAL INSERTS / Clothing / Feet
+		-- COMFY FORMAL PUMPS WITH METAL INSERTS / Clothing / Feet
 		-- A semi-formal, safe fashion choice.
 		{ id = "Items.FormalShoes_01_basic_02" }, 
 
@@ -820,11 +812,11 @@ return {
 		-- The nomad equivalent of formal attire.
 		{ id = "Items.FormalShirt_01_old_01" }, 
 
-		-- CREAMY RHUBARB DRESS SHOES WITH SOLE SUPPORT / Clothing / Feet
+		-- CREAMY RHUBARB DRESS WEDGES WITH SOLE SUPPORT / Clothing / Feet
 		-- The essence of distinguished taste.
 		{ id = "Items.FormalShoes_03_rich_02" }, 
 
-		-- CRYSTAL LILY EVENING SHOES WITH EXTRA-DURABLE SOLES / Clothing / Feet
+		-- CRYSTAL LILY EVENING PUMPS WITH EXTRA-DURABLE SOLES / Clothing / Feet
 		-- They demand attention so you don't have to.
 		{ id = "Items.FormalShoes_02_rich_03" }, 
 
@@ -912,10 +904,6 @@ return {
 		-- An old-timer ready to hit the market again.
 		{ id = "Items.Coat_02_old_02" }, 
 
-		-- DEADLY LAGOON ANTI-PUNCTURE WINDBREAKER / Clothing / Outer Torso
-		-- The robes of gopnik royalty.
-		{ id = "Items.Jacket_07_rich_02" }, 
-
 		-- DEADLY LAGOON ARMORED SYN-SILK POZER-JACKET / Clothing / Outer Torso
 		-- A symbol of the neon age.
 		{ id = "Items.Jacket_17_rich_06" }, 
@@ -957,7 +945,7 @@ return {
 		{ id = "Items.Pants_01_rich_03" }, 
 
 		-- DESERT CROSS STRONG-WEAVE BUTTON-UP / Clothing / Inner Torso
-		-- For the refined cowboy.
+		-- For the refined cowgirl.
 		{ id = "Items.FormalShirt_02_rich_01" }, 
 
 		-- DIAMANT NOIR CARBON-REINFORCED CORPORATE BLAZER / Clothing / Outer Torso
@@ -976,7 +964,7 @@ return {
 		-- Protect that squishy skull sponge of yours.
 		{ id = "Items.Helmet_01_basic_01" }, 
 
-		-- DOUBLE-VARNISHED FORMAL SHOES / Clothing / Feet
+		-- DOUBLE-VARNISHED FORMAL PUMPS / Clothing / Feet
 		-- Pumps for any pomp.
 		{ id = "Items.FormalShoes_02_basic_03" }, 
 
@@ -984,7 +972,7 @@ return {
 		-- Chillingly emotionless and terrifying.
 		{ id = "Items.Visor_02_rich_03" }, 
 
-		-- DUOLAYER FLORAL KEFFIYEH / Clothing / Head
+		-- DUOLAYER FLORAL HIJAB / Clothing / Head
 		-- From the spring-summer collection.
 		{ id = "Items.Scarf_03_basic_02" }, 
 
@@ -1000,7 +988,7 @@ return {
 		-- Why invest in sleeves if you don't have 'ganic arms?
 		{ id = "Items.Coat_02_basic_01" }, 
 
-		-- DUOLAYER QUILTED KEFFIYEH / Clothing / Head
+		-- DUOLAYER QUILTED HIJAB / Clothing / Head
 		-- Warm and cozy.
 		{ id = "Items.Scarf_03_old_02" }, 
 
@@ -1056,7 +1044,7 @@ return {
 		-- Simple. Functional.
 		{ id = "Items.Jumpsuit_01_old_01" }, 
 
-		-- DURABLE MODIFIED LINEN KEFFIYEH / Clothing / Head
+		-- DURABLE MODIFIED LINEN HIJAB / Clothing / Head
 		-- In the top-selling color.
 		{ id = "Items.Scarf_03_old_03" }, 
 
@@ -1140,7 +1128,7 @@ return {
 		-- Pair these bad boys with a hog that spits fire and… muah!
 		{ id = "Items.Glasses_01_basic_02" }, 
 
-		-- EMPERADOR TIGRE DUAL-WEAVE JUMPSUIT / Clothing / Outer Torso
+		-- EMPERATRIZ TIGRESA DUOWEAVE JUMPSUIT / Clothing / Outer Torso
 		-- Fabulous flair for the aristocracy of the streets.
 		{ id = "Items.Jumpsuit_01_rich_02" }, 
 
@@ -1152,7 +1140,7 @@ return {
 		-- Eccentricity is a currency in our world. Be rich.
 		{ id = "Items.Hat_01_rich_02" }, 
 
-		-- ENHANCED DAEMON HUNTER SLIP-ON SNEAKERS / Clothing / Feet
+		-- ENHANCED DAEMON HUNTER TONGUES / Clothing / Feet
 		-- You'll want to sleep in them.
 		{ id = "Items.CasualShoes_02_basic_01" }, 
 
@@ -1192,7 +1180,7 @@ return {
 		-- Twenty years ago these could've been a hit.
 		{ id = "Items.Shorts_04_old_04" }, 
 
-		-- FADED UNIWARE BELTED TANK / Clothing / Inner Torso
+		-- FADED UNIWARE KNOTTED TANK / Clothing / Inner Torso
 		-- Some old threads from an old-news brand.
 		{ id = "Items.TShirt_08_old_01" }, 
 
@@ -1243,6 +1231,10 @@ return {
 		-- FORMAL JACKET WITH COMPOSITE INSETS / Clothing / Outer Torso
 		-- Be a warming presence.
 		{ id = "Items.FormalJacket_05_basic_03" }, 
+
+		-- FORMAL PUMPS WITH CUSHIONED COMPOSITE INSOLES / Clothing / Feet
+		-- Sure you can't afford better?
+		{ id = "Items.FormalShoes_01_basic_03" }, 
 
 		-- FRAYED ATHLETIC SHOES / Clothing / Feet
 		-- Last season's big seller.
@@ -1368,7 +1360,7 @@ return {
 		-- Carry the street's atmosphere with you.
 		{ id = "Items.Glasses_03_basic_02" }, 
 
-		-- GRAFFITI THERMOSET SYN-WEAVE KEFFIYEH / Clothing / Head
+		-- GRAFFITI THERMOSET SYNWEAVE HIJAB / Clothing / Head
 		-- When you're aiming for both modesty and rebelliousness.
 		{ id = "Items.Scarf_03_basic_03" }, 
 
@@ -1384,11 +1376,11 @@ return {
 		-- When your aesthetic hovers between neomilitarism and entropy.
 		{ id = "Items.Shorts_05_old_04" }, 
 
-		-- GRAY AREA ANTI-TEAR KEFFIYEH / Clothing / Head
+		-- GRAY AREA ANTI-TEAR HIJAB / Clothing / Head
 		-- Comfortable, durable, unrestrictive.
 		{ id = "Items.Scarf_03_rich_01" }, 
 
-		-- GRAY DECAY TANK TOP / Clothing / Inner Torso
+		-- GRAY DECAY SYNFABRIC RACERBACK TANK / Clothing / Inner Torso
 		-- Someday your body will turn to dust. That is, unless you swap it for chrome.
 		{ id = "Items.TShirt_07_basic_01" }, 
 
@@ -1416,7 +1408,7 @@ return {
 		-- Don't count on standing out in it.
 		{ id = "Items.Vest_15_basic_01" }, 
 
-		-- HARDENED LEATHER LOOSE HIGHNECK / Clothing / Outer Torso
+		-- HARDENED LEATHER FOLDTOP / Clothing / Outer Torso
 		-- A bit worse for wear, but still keeping its shape.
 		{ id = "Items.Jacket_11_old_02" }, 
 
@@ -1604,7 +1596,7 @@ return {
 		-- Soft edges, sharp look.
 		{ id = "Items.Cap_03_rich_01" }, 
 
-		-- KINRYŪ DELUXE KEFFIYEH WITH PROTECTIVE MESH / Clothing / Head
+		-- KINRYŪ DELUXE HIJAB WITH PROTECTIVE MESH / Clothing / Head
 		-- You have money. Now everyone will know it.
 		{ id = "Items.Scarf_03_rich_03" }, 
 
@@ -1652,10 +1644,6 @@ return {
 		-- The heart will wear what the heart wants.
 		{ id = "Items.Jacket_17_rich_03" }, 
 
-		-- LEATHER ANKLE BOOTS WITH COMPOSITE INSERTS / Clothing / Feet
-		-- Don't need to look good alone. It's what you pair with them that matters.
-		{ id = "Items.Boots_01_old_01" }, 
-
 		-- LEATHER BIKER VEST / Clothing / Outer Torso
 		-- Have new syn-skin you want to show off? Then a short vest is for you.
 		{ id = "Items.Vest_20_old_02" }, 
@@ -1680,7 +1668,7 @@ return {
 		-- Industrial style for afternoons out under the sun.
 		{ id = "Items.Shorts_05_old_03" }, 
 
-		-- LIGHT KEFFIYEH WITH MICROPLATE MESH / Clothing / Head
+		-- LIGHT HIJAB WITH MICROPLATE MESH / Clothing / Head
 		-- 100% wool. But also 100% synthetic.
 		{ id = "Items.Scarf_03_basic_01" }, 
 
@@ -1760,15 +1748,11 @@ return {
 		-- The universal backdrop for every creation.
 		{ id = "Items.Shirt_01_old_02" }, 
 
-		-- LOOSE COOLQUILT HIGHNECK / Clothing / Outer Torso
-		-- Fastening it at the top is an actual crime. Or it should be.
-		{ id = "Items.Jacket_11_basic_01" }, 
-
 		-- LOOSE-FITS WITH MICROMESH UNDERLAYER / Clothing / Legs
 		-- Lower-class chic.
 		{ id = "Items.Pants_02_old_03" }, 
 
-		-- LÉZARD BEIGE LEATHER-COMPOSITE DRESS SHOES / Clothing / Feet
+		-- LÉZARD BEIGE LEATHER-COMPOSITE FORMAL PUMPS / Clothing / Feet
 		-- From a designer so niche not a soul has heard of him.
 		{ id = "Items.FormalShoes_02_rich_02" }, 
 
@@ -1860,7 +1844,7 @@ return {
 		-- When you want to be edgy, but you're also kind of a bum.
 		{ id = "Items.Jacket_08_old_02" }, 
 
-		-- MIDDAY GLOW POLYCARBONATE DRESS SHOES / Clothing / Feet
+		-- MIDDAY GLOW POLYCARBONATE FORMAL PUMPS / Clothing / Feet
 		-- Stunning. Pure and simple.
 		{ id = "Items.FormalShoes_01_rich_02" }, 
 
@@ -1936,9 +1920,13 @@ return {
 		-- Like pairing a foil-wrapped chocolate with a glass of milk. Expensive designer chocolate.
 		{ id = "Items.Coat_04_rich_02" }, 
 
-		-- MILKY TRAIL SLIP-ON CERAMIC ALLOY SNEAKERS / Clothing / Feet
+		-- MILKY TRAIL CERAMIC ALLOY CANVAS TONGUES / Clothing / Feet
 		-- Watch out for mud!
 		{ id = "Items.CasualShoes_02_basic_02" }, 
+
+		-- MINI COOLQUILT FOLDTOP / Clothing / Outer Torso
+		-- Fastening it at the top is an actual crime. Or it should be.
+		{ id = "Items.Jacket_11_basic_01" }, 
 
 		-- MODIFIED SNAKE-SKIN COWBOY HAT / Clothing / Head
 		-- A snake roast sure sounds good about now, doesn't it?
@@ -2048,7 +2036,7 @@ return {
 		-- Much like Night City, this jacket is expensive but lacks a couple important amenities.
 		{ id = "Items.Jacket_04_rich_03" }, 
 
-		-- NIGHT CITY TANK TOP / Clothing / Inner Torso
+		-- NIGHT CITY STURDIMESH RACERBACK TANK / Clothing / Inner Torso
 		-- Show a little local pride.
 		{ id = "Items.TShirt_07_basic_02" }, 
 
@@ -2365,6 +2353,10 @@ return {
 		-- It's got Maelstrom mania woven right into the fabric.
 		{ id = "Items.TShirt_02_rich_01" }, 
 
+		-- PSYCHO PUNCTURE-RESISTANT RACERBACK TANK / Clothing / Inner Torso
+		-- Think Maelstrom gets any royalties for this?
+		{ id = "Items.TShirt_07_rich_01" }, 
+
 		-- PSYCHO RACERS / Clothing / Legs
 		-- No one will want to share the road with you.
 		{ id = "Items.Pants_05_old_02" }, 
@@ -2372,10 +2364,6 @@ return {
 		-- PSYCHO TAC-FIBER BIKER PANTS / Clothing / Legs
 		-- Burn rubber on hell's highway!
 		{ id = "Items.Pants_03_rich_03" }, 
-
-		-- PSYCHO TANK TOP / Clothing / Inner Torso
-		-- Think Maelstrom gets any royalties for this?
-		{ id = "Items.TShirt_07_rich_01" }, 
 
 		-- PUNCTURE-RESISTANT LONG COAT / Clothing / Outer Torso
 		-- Urban legends say the mud can never be cleaned off…
@@ -2406,7 +2394,7 @@ return {
 		{ id = "Items.TShirt_11_old_01" }, 
 
 		-- PUNK HIGH-COLLAR VEST / Clothing / Outer Torso
-		-- Gives you bad boy vibes.
+		-- Gives you bad girl vibes.
 		{ id = "Items.Vest_07_old_01" }, 
 
 		-- PUNK SHORT-SLEEVE DUAL-MEMBRANE JACKET / Clothing / Outer Torso
@@ -2509,7 +2497,7 @@ return {
 		-- Lattice and syn-leather. A fashionable Frankenstein.
 		{ id = "Items.Pants_06_old_03" }, 
 
-		-- REINFORCED OFFICE SHOES / Clothing / Feet
+		-- REINFORCED OFFICE WEDGES / Clothing / Feet
 		-- Standard-issue for corporate managers and up.
 		{ id = "Items.FormalShoes_03_basic_01" }, 
 
@@ -2545,7 +2533,7 @@ return {
 		-- Good luck filling all these pockets.
 		{ id = "Items.Pants_04_old_02" }, 
 
-		-- REINFORCED UNIWARE ANKLE BOOTS / Clothing / Feet
+		-- REINFORCED UNIWARE PLATFORM BOOTS / Clothing / Feet
 		-- Casual, if not a little cliché.
 		{ id = "Items.Boots_01_basic_01" }, 
 
@@ -2557,7 +2545,7 @@ return {
 		-- Simple. Perhaps too simple.
 		{ id = "Items.Jacket_02_basic_01" }, 
 
-		-- REINFORCED-LEATHER OFFICE SHOES / Clothing / Feet
+		-- REINFORCED-LEATHER OFFICE PUMPS / Clothing / Feet
 		-- A cornerstone of any corporate wardrobe.
 		{ id = "Items.FormalShoes_02_basic_01" }, 
 
@@ -2580,6 +2568,14 @@ return {
 		-- RIGID TIGRE URBAIN STREET SHOES / Clothing / Feet
 		-- Feel that urban jungle energy.
 		{ id = "Items.CasualShoes_06_basic_02" }, 
+
+		-- RIPPED TACTICAL CAMO CROP TOP / Clothing / Inner Torso
+		-- Hit rock bottom? Let the world know!
+		{ id = "Items.TShirt_09_basic_01" }, 
+
+		-- RIPPED TAMASHĪ POLYAMIDE TANK TOP / Clothing / Inner Torso
+		-- Laundry day came and went. You're stuck with this now.
+		{ id = "Items.TShirt_09_old_01" }, 
 
 		-- ROBUST SPUNKY MONKEY KICKS / Clothing / Feet
 		-- Put Spunky Monkey in your gut, wear Spunky Monkey while you strut.
@@ -2705,12 +2701,16 @@ return {
 		-- Death never looked so good.
 		{ id = "Items.TShirt_03_rich_02" }, 
 
+		-- SANTA MUERTE NEOKITSCH ARAMID-WEAVE RACERBACK TANK / Clothing / Inner Torso
+		-- From Heywood? Then this is for you.
+		{ id = "Items.TShirt_07_rich_02" }, 
+
 		-- SAPFIR 3D HEAVY TRIPLE-WEAVE NANOCARBON POZER-JACKET / Clothing / Outer Torso
 		-- New, sparkling and reeking of privilege.
 		{ id = "Items.Jacket_17_rich_01" }, 
 
 		-- SCALED KINRYŪ BLAZER WITH CARBON-COMPOSITE INSETS / Clothing / Outer Torso
-		-- For kings of chromatic rock!
+		-- For queens of chromatic rock!
 		{ id = "Items.FormalJacket_04_rich_02" }, 
 
 		-- SCAV BALLISTIC VEST / Clothing / Outer Torso
@@ -2793,11 +2793,11 @@ return {
 		-- You can almost feel the frost of old Siberia. Almost.
 		{ id = "Items.Jacket_14_basic_02" }, 
 
-		-- SILBERMOND TOUGH-LINED DRESS SHOES / Clothing / Feet
+		-- SILBERMOND TOUGH-LINED OFFICE PUMPS / Clothing / Feet
 		-- Show your colleagues what pay grade you're in.
 		{ id = "Items.FormalShoes_01_rich_01" }, 
 
-		-- SILVER BLOOD DRESS SHOES WITH PROTECTIVE INSOLES / Clothing / Feet
+		-- SILVER BLOOD EVENING PUMPS WITH PROTECTIVE INSOLES / Clothing / Feet
 		-- Contrast keeps things interesting.
 		{ id = "Items.FormalShoes_02_rich_01" }, 
 
@@ -2833,7 +2833,7 @@ return {
 		-- A respectable look in and out of the office.
 		{ id = "Items.FormalPants_03_basic_01" }, 
 
-		-- SIMPLE POLYCARBONATE DRESS SHOES / Clothing / Feet
+		-- SIMPLE POLYCARBONATE OFFICE PUMPS / Clothing / Feet
 		-- Elegantly stiff.
 		{ id = "Items.FormalShoes_01_basic_01" }, 
 
@@ -2848,6 +2848,10 @@ return {
 		-- SLEEVELESS ARMOR-PLATED FIELD JACKET / Clothing / Outer Torso
 		-- So is it like a jacket, or a vest, or what?
 		{ id = "Items.Jacket_04_basic_03" }, 
+
+		-- SMILEY HARD ANTI-PUNCTURE WINDBREAKER / Clothing / Outer Torso
+		-- The robes of gopnik royalty.
+		{ id = "Items.Jacket_07_rich_02" }, 
 
 		-- SMILEY HARD PILOT CAP / Clothing / Head
 		-- Looks like a bunny, doesn't it? Whatever the hell that is.
@@ -2913,7 +2917,7 @@ return {
 		-- +10 feline grace
 		{ id = "Items.Pants_01_old_01" }, 
 
-		-- SPOTTED SLEEVELESS T-SHIRT / Clothing / Inner Torso
+		-- SPOTTED TANK TOP / Clothing / Inner Torso
 		-- Clearly secondhand. Possibly third.
 		{ id = "Items.TShirt_03_old_01" }, 
 
@@ -2945,7 +2949,7 @@ return {
 		-- Be a light in the dark.
 		{ id = "Items.Pants_02_basic_03" }, 
 
-		-- STREET KING ANKLE BOOTS WITH REINFORCED STITCHING / Clothing / Feet
+		-- STREET QUEEN PLATFORM BOOTS WITH REINFORCED STITCHING / Clothing / Feet
 		-- License to slay.
 		{ id = "Items.Boots_01_rich_01" }, 
 
@@ -3009,7 +3013,7 @@ return {
 		-- The color of blood mixed with mud.
 		{ id = "Items.Jacket_14_old_01" }, 
 
-		-- STURDY SYNFABRIC SUIT JACKET WITH POCKET SQUARE / Clothing / Outer Torso
+		-- STURDY SYNFABRIC SUIT JACKET / Clothing / Outer Torso
 		-- This jacket speaks the story of someone's downfall.
 		{ id = "Items.FormalJacket_01_old_01" }, 
 
@@ -3058,7 +3062,7 @@ return {
 		{ id = "Items.Coat_01_basic_03" }, 
 
 		-- STYLISH TORA TO RYŪ COAT WITH TITANIUM INSERTS / Clothing / Outer Torso
-		-- A coat to suit a king among fixers.
+		-- A coat to suit a queen among fixers.
 		{ id = "Items.Coat_01_rich_03" }, 
 
 		-- STYLISH TURQUOISE SPORT GLASSES / Clothing / Face
@@ -3125,11 +3129,11 @@ return {
 		-- Scav chic.
 		{ id = "Items.Jacket_13_old_01" }, 
 
-		-- TACTI-FIBER CAMO KEFFIYEH / Clothing / Head
+		-- TACTI-FIBER CAMO HIJAB / Clothing / Head
 		-- Must have belonged to a military nut.
 		{ id = "Items.Scarf_03_old_01" }, 
 
-		-- TACTI-FIBER RACERBACK TANK TOP / Clothing / Inner Torso
+		-- TACTI-FIBER RACERBACK TANK / Clothing / Inner Torso
 		-- Time to find a new home or a new dumpster.
 		{ id = "Items.TShirt_07_old_01" }, 
 
@@ -3145,10 +3149,6 @@ return {
 		-- Durability with a flair.
 		{ id = "Items.Pants_09_rich_02" }, 
 
-		-- TAMASHĪ COMPOSITE TANK TOP / Clothing / Inner Torso
-		-- The Tyger Claws runnin' thrift stores now?
-		{ id = "Items.TShirt_07_old_02" }, 
-
 		-- TAMASHĪ ENHANCED SHORT PUFFER / Clothing / Outer Torso
 		-- Too short for winter, too thick for summer.
 		{ id = "Items.Vest_16_basic_01" }, 
@@ -3161,7 +3161,7 @@ return {
 		-- "New" and improved to stay on your face.
 		{ id = "Items.Glasses_02_basic_03" }, 
 
-		-- TATTERED PLAID TANK / Clothing / Inner Torso
+		-- TATTERED PLAID CROP TOP / Clothing / Inner Torso
 		-- Listen, if you're already good-looking, this won't change that.
 		{ id = "Items.TShirt_09_basic_02" }, 
 
@@ -3241,6 +3241,10 @@ return {
 		-- Become a walking staph infection.
 		{ id = "Items.Boots_04_old_02" }, 
 
+		-- TITANIUM-LAYER PLATFORM BOOTS / Clothing / Feet
+		-- Don't need to look good alone. It's what you pair with them that matters.
+		{ id = "Items.Boots_01_old_01" }, 
+
 		-- TITANIUM-REINFORCED GAS MASK / Clothing / Face
 		-- Protection against smog and stiff vibes.
 		{ id = "Items.Mask_02_basic_01" }, 
@@ -3265,7 +3269,7 @@ return {
 		-- Tough to say whether this is a fashion-forward masterpiece or a bum's pajamas.
 		{ id = "Items.TShirt_05_old_03" }, 
 
-		-- TORN REINFORCED T-SHIRT / Clothing / Inner Torso
+		-- TORN REINFORCED TANK TOP / Clothing / Inner Torso
 		-- Are you sure this isn't a dishrag?
 		{ id = "Items.TShirt_09_old_02" }, 
 
@@ -3276,14 +3280,6 @@ return {
 		-- TORN SYN-BLEND T-SHIRT / Clothing / Inner Torso
 		-- Is this a shirt or an old sack of potatoes?
 		{ id = "Items.TShirt_05_old_04" }, 
-
-		-- TORN TACTI-FIBER CAMO TANK / Clothing / Inner Torso
-		-- Hit rock bottom? Let the world know!
-		{ id = "Items.TShirt_09_basic_01" }, 
-
-		-- TORN YORU NO SAMURAI POLYAMIDE T-SHIRT / Clothing / Inner Torso
-		-- Laundry day came and went. You're stuck with this now.
-		{ id = "Items.TShirt_09_old_01" }, 
 
 		-- TRAUMA TEAM ARMOR-WEAVE TACTICAL VEST / Clothing / Outer Torso
 		-- Good for quick access to medicine, bandages and ammo.
@@ -3418,7 +3414,7 @@ return {
 		{ id = "Items.TShirt_02_basic_01" }, 
 
 		-- UTILITARIAN COMPOSITE-MESH T-SHIRT / Clothing / Inner Torso
-		-- Won't be easy to miss with a big X on your chest.
+		-- Won't be easy to miss with a big X on your tits.
 		{ id = "Items.TShirt_02_old_04" }, 
 
 		-- VALENTINOS ARMOR-PLATED THERMOSET ARAMID COLLAR / Clothing / Outer Torso
@@ -3477,7 +3473,7 @@ return {
 		-- Unlike a ceremonial kimono, you can put this on yourself.
 		{ id = "Items.Vest_19_rich_01" }, 
 
-		-- WARDAT ZIHRIA ARAMID-WEAVE KEFFIYEH / Clothing / Head
+		-- WARDAT ZIHRIA ARAMID-WEAVE HIJAB / Clothing / Head
 		-- When you don't want to attract attention, but you really do.
 		{ id = "Items.Scarf_03_rich_02" }, 
 
@@ -3505,7 +3501,7 @@ return {
 		-- For cruising toward that setting sun.
 		{ id = "Items.Boots_10_basic_01" }, 
 
-		-- WOODEN BREEZE DRESS SHOES / Clothing / Feet
+		-- WOODEN BREEZE DRESS WEDGES / Clothing / Feet
 		-- Flaunt that grain! If you don't wear 'ganic, you're a nobody.
 		{ id = "Items.FormalShoes_03_basic_02" }, 
 
@@ -3672,6 +3668,10 @@ return {
 		-- YORU NO SAMURAI ARMORED KNEE-PAD RACERS / Clothing / Legs
 		-- Perfect for a little late-night fuckery.
 		{ id = "Items.Pants_05_rich_02" }, 
+
+		-- YORU NO SAMURAI COMPOSITE RACERBACK TANK / Clothing / Inner Torso
+		-- The Tyger Claws runnin' thrift stores now?
+		{ id = "Items.TShirt_07_old_02" }, 
 
 		-- YORU NO SAMURAI GMO-COTTON T-SHIRT / Clothing / Inner Torso
 		-- For the night samurai… whatever that means.

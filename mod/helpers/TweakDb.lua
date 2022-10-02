@@ -80,6 +80,8 @@ local itemModPrefixes = {
 	['Wea_TwoHandedClub'] = 'GenericWeaponMod',
 }
 
+local slotBlockers
+
 function TweakDb:load(path)
 	if not path or path == true then
 		path = 'mod/data/tweakdb-meta'
@@ -413,6 +415,50 @@ function TweakDb.extract(data)
 	end
 
 	return data
+end
+
+function TweakDb.isSlotBlocker(tweakId)
+    if not slotBlockers then
+        slotBlockers = {
+            TweakDBID('Items.BootsFabricEnhancer'),
+            TweakDBID('Items.DummyBootsFabricEnhancer'),
+            TweakDBID('Items.DummyFabricEnhancer'),
+            TweakDBID('Items.DummyFabricEnhancerBase'),
+            TweakDBID('Items.DummyFaceFabricEnhancer'),
+            TweakDBID('Items.DummyHeadFabricEnhancer'),
+            TweakDBID('Items.DummyPantsFabricEnhancer'),
+            TweakDBID('Items.DummyTorsoFabricEnhancer'),
+            TweakDBID('Items.FabricEnhancer'),
+            TweakDBID('Items.FaceFabricEnhancer'),
+            TweakDBID('Items.GenericFabricEnhancer'),
+            TweakDBID('Items.HeadFabricEnhancer'),
+            TweakDBID('Items.InnerAndOuterChestFabricEnhancer'),
+            TweakDBID('Items.IntrinsicFabricEnhancer01'),
+            TweakDBID('Items.IntrinsicFabricEnhancer02'),
+            TweakDBID('Items.IntrinsicFabricEnhancer03'),
+            TweakDBID('Items.IntrinsicFabricEnhancer04'),
+            TweakDBID('Items.IntrinsicFabricEnhancer05'),
+            TweakDBID('Items.IntrinsicFabricEnhancer06'),
+            TweakDBID('Items.IntrinsicFabricEnhancer07a'),
+            TweakDBID('Items.IntrinsicFabricEnhancer08'),
+            TweakDBID('Items.IntrinsicFabricEnhancer09'),
+            TweakDBID('Items.IntrinsicFabricEnhancer10'),
+            TweakDBID('Items.IntrinsicFabricEnhancer11'),
+            TweakDBID('Items.IntrinsicFabricEnhancer12'),
+            TweakDBID('Items.IntrinsicFabricEnhancer13'),
+            TweakDBID('Items.IntrinsicFabricEnhancerBase'),
+            TweakDBID('Items.OuterChestFabricEnhancer'),
+            TweakDBID('Items.PantsFabricEnhancer'),
+        }
+    end
+
+    for _, slotBlocker in ipairs(slotBlockers) do
+        if tweakId == slotBlocker then
+            return true
+        end
+    end
+
+    return false
 end
 
 return TweakDb

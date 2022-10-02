@@ -49,7 +49,7 @@ return {
 		{ id = "Items.Preset_Katana_GoG_Legendary" }, 
 
 		-- BUTCHER'S CLEAVER / Weapon / Melee / Blade
-		-- No one in NC butchers meat anymore, but there's still a demand for butcher knives…
+		-- A balanced weapon you can use to slice, dice, stab and throw. Great tool for those with a knack for quiet kills.
 		{ id = "Items.Preset_Butchers_Knife_Default" }, 
 
 		-- CARNAGE (MILITARY) / Weapon / Power / Shotgun
@@ -72,6 +72,14 @@ return {
 		-- It slices, it dices, it minces, it stabs! It does it all!
 		{ id = "Items.Preset_Chefs_Knife_Default" }, 
 
+		-- CLAW (NEON) / Weapon / Melee / Blade
+		-- Deals heavy damage, but requires serious brawn to wield it.
+		{ id = "Items.Preset_Fanged_Axe_Neon" }, 
+
+		-- CLAW / Weapon / Melee / Blade
+		-- Deals heavy damage, but requires serious brawn to wield it.
+		{ id = "Items.Preset_Fanged_Axe_Default" }, 
+
 		-- CROWBAR / Weapon / Melee / Blunt
 		-- The favorite tool of burglars and theoretical physicists from MIT.
 		{ id = "Items.Preset_Crowbar_Default" }, 
@@ -91,6 +99,26 @@ return {
 		-- CRUSHER / Weapon / Power / Shotgun
 		-- A firearm staple since 2020.
 		{ id = "Items.Preset_Crusher_Default" }, 
+
+		-- CUT-O-MATIC (MILITARY) / Weapon / Melee / Blade
+		-- The missing link between machetes and chainsaws. As effective and it is noisy - forget about stealth when using this baby.
+		{ id = "Items.Preset_Chainsword_Military" }, 
+
+		-- CUT-O-MATIC (NEON) / Weapon / Melee / Blade
+		-- The missing link between machetes and chainsaws. As effective and it is noisy - forget about stealth when using this baby.
+		{ id = "Items.Preset_Chainsword_Neon" }, 
+
+		-- CUT-O-MATIC (PIMP) / Weapon / Melee / Blade
+		-- The missing link between machetes and chainsaws. As effective and it is noisy - forget about stealth when using this baby.
+		{ id = "Items.Preset_Chainsword_Pimp" }, 
+
+		-- CUT-O-MATIC / Weapon / Melee / Blade
+		-- The missing link between machetes and chainsaws. As effective and it is noisy - forget about stealth when using this baby.
+		{ id = "Items.Preset_Chainsword_Default" }, 
+
+		-- CUT-O-MATIC / Weapon / Melee / Blade
+		-- The missing link between machetes and chainsaws. As effective and it is noisy - forget about stealth when using this baby.
+		{ id = "Items.Preset_Chainsword_Legendary" }, 
 
 		-- D5 COPPERHEAD (MILITARY) / Weapon / Power / Assault Rifle
 		-- From Alaska to Zimbabwe - a versatile weapon for versatile combatants.
@@ -113,19 +141,19 @@ return {
 		{ id = "Items.Preset_Copperhead_Default" }, 
 
 		-- D5 SIDEWINDER (MILITARY) / Weapon / Smart / Assault Rifle
-		-- Smart rifle. Smart choice.
+		-- Smart rifle. Smart choice. It doesn't happen too often, but missed shots do happen.
 		{ id = "Items.Preset_Sidewinder_Military" }, 
 
 		-- D5 SIDEWINDER (NEON) / Weapon / Smart / Assault Rifle
-		-- Smart rifle. Smart choice.
+		-- Smart rifle. Smart choice. It doesn't happen too often, but missed shots do happen.
 		{ id = "Items.Preset_Sidewinder_Neon" }, 
 
 		-- D5 SIDEWINDER (PIMP) / Weapon / Smart / Assault Rifle
-		-- Smart rifle. Smart choice.
+		-- Smart rifle. Smart choice. It doesn't happen too often, but missed shots do happen.
 		{ id = "Items.Preset_Sidewinder_Pimp" }, 
 
 		-- D5 SIDEWINDER / Weapon / Smart / Assault Rifle
-		-- Smart rifle. Smart choice.
+		-- Smart rifle. Smart choice. It doesn't happen too often, but missed shots do happen.
 		{ id = "Items.Preset_Sidewinder_Default" }, 
 
 		-- DA8 UMBRA (MILITARY) / Weapon / Power / Assault Rifle
@@ -388,6 +416,26 @@ return {
 		-- To nonspeakers, most everything in Japanese sounds sophisticated. Even a simple stick.
 		{ id = "Items.Preset_Kanabo_Default" }, 
 
+		-- KAPPA (MILITARY) / Weapon / Smart / Pistol
+		-- This hyperactive weapon can mark up to two targets at the same time, though it works best at close range.
+		{ id = "Items.Preset_Kappa_Military" }, 
+
+		-- KAPPA (NEON) / Weapon / Smart / Pistol
+		-- This hyperactive weapon can mark up to two targets at the same time, though it works best at close range.
+		{ id = "Items.Preset_Kappa_Neon" }, 
+
+		-- KAPPA (PIMP) / Weapon / Smart / Pistol
+		-- This hyperactive weapon can mark up to two targets at the same time, though it works best at close range.
+		{ id = "Items.Preset_Kappa_Pimp" }, 
+
+		-- KAPPA / Weapon / Smart / Pistol
+		-- This hyperactive weapon can mark up to two targets at the same time, though it works best at close range.
+		{ id = "Items.Preset_Kappa_Default" }, 
+
+		-- KAPPA / Weapon / Smart / Pistol
+		-- This hyperactive weapon can mark up to two targets at the same time, though it works best at close range.
+		{ id = "Items.Preset_Kappa_Legendary" }, 
+
 		-- KATANA (ARASAKA) / Weapon / Melee / Blade
 		-- Some have made the grave error of mistaking it for a purely ceremonial weapon.
 		{ id = "Items.Preset_Katana_Arasaka_2020" }, 
@@ -409,11 +457,11 @@ return {
 		{ id = "Items.Preset_Katana_Default" }, 
 
 		-- KNIFE (MILITARY) / Weapon / Melee / Blade
-		-- Engineered to kill, but has probably been used more often to open cans.
+		-- A balanced weapon you can use to slice, dice, stab and throw. Great tool for those with a knack for quiet kills.
 		{ id = "Items.Preset_Knife_Military" }, 
 
 		-- KNIFE / Weapon / Melee / Blade
-		-- Handy for when things get dicey.
+		-- A balanced weapon you can use to slice, dice, stab and throw. Great tool for those with a knack for quiet kills.
 		{ id = "Items.Preset_Knife_Default" }, 
 
 		-- KUKRI (VOODOO) / Weapon / Melee / Blade
@@ -423,6 +471,26 @@ return {
 		-- KUKRI / Weapon / Melee / Blade
 		-- This Nepalese knife is a testament to the cultural melting pot of the Night City streets.
 		{ id = "Items.Preset_Kukri_Default" }, 
+
+		-- KYUBI (MILITARY) / Weapon / Power / Assault Rifle
+		-- Semi-auto, all awesome.
+		{ id = "Items.Preset_Kyubi_Military" }, 
+
+		-- KYUBI (NEON) / Weapon / Power / Assault Rifle
+		-- Semi-auto, all awesome.
+		{ id = "Items.Preset_Kyubi_Neon" }, 
+
+		-- KYUBI (PIMP) / Weapon / Power / Assault Rifle
+		-- Semi-auto, all awesome.
+		{ id = "Items.Preset_Kyubi_Pimp" }, 
+
+		-- KYUBI / Weapon / Power / Assault Rifle
+		-- Semi-auto, all awesome.
+		{ id = "Items.Preset_Kyubi_Default" }, 
+
+		-- KYUBI / Weapon / Power / Assault Rifle
+		-- Semi-auto, all awesome.
+		{ id = "Items.Preset_Kyubi_Legendary" }, 
 
 		-- L-69 ZHUO (MILITARY) / Weapon / Smart / Shotgun
 		-- The benchmark in arms innovation.
@@ -592,6 +660,26 @@ return {
 		-- Come rain or shine, it'll weather it out.
 		{ id = "Items.Preset_Ajax_Default" }, 
 
+		-- MA70 HB (MILITARY) / Weapon / Power / LMG
+		-- It's time to bring out the big guns.
+		{ id = "Items.Preset_MA70_Military" }, 
+
+		-- MA70 HB (NEON) / Weapon / Power / LMG
+		-- It's time to bring out the big guns.
+		{ id = "Items.Preset_MA70_Neon" }, 
+
+		-- MA70 HB (PIMP) / Weapon / Power / LMG
+		-- It's time to bring out the big guns.
+		{ id = "Items.Preset_MA70_Pimp" }, 
+
+		-- MA70 HB / Weapon / Power / LMG
+		-- It's time to bring out the big guns.
+		{ id = "Items.Preset_MA70_Default" }, 
+
+		-- MA70 HB / Weapon / Power / LMG
+		-- It's time to bring out the big guns.
+		{ id = "Items.Preset_MA70_Legendary" }, 
+
 		-- MACHETE (MAELSTROM) / Weapon / Melee / Blade
 		-- Maelstromers don't fear pain, but they know how effective it can be.
 		{ id = "Items.Preset_Machete_Maelstrom" }, 
@@ -628,6 +716,18 @@ return {
 		-- Precision without compromise.
 		{ id = "Items.Preset_Nekomata_Default" }, 
 
+		-- NEUROTOXIN KNIFE (MILITARY) / Weapon / Melee / Blade
+		-- Deadly combination of physical and chemical damage.
+		{ id = "Items.Preset_Neurotoxin_Knife_Military" }, 
+
+		-- NEUROTOXIN KNIFE (NEON) / Weapon / Melee / Blade
+		-- Deadly combination of physical and chemical damage.
+		{ id = "Items.Preset_Neurotoxin_Knife_Neon" }, 
+
+		-- NEUROTOXIN KNIFE (PIMP) / Weapon / Melee / Blade
+		-- Deadly combination of physical and chemical damage.
+		{ id = "Items.Preset_Neurotoxin_Knife_Pimp" }, 
+
 		-- NUE (MILITARY) / Weapon / Power / Pistol
 		-- Engineered to fit any hand.
 		{ id = "Items.Preset_Nue_Military" }, 
@@ -660,6 +760,42 @@ return {
 		-- Packs one hell of a kick.
 		{ id = "Items.Preset_Overture_Default" }, 
 
+		-- PUNKNIFE (MILITARY) / Weapon / Melee / Blade
+		-- Perfectly balanced, lethal and fun. Be careful when throwing this knife - you could (and will) poke someone's Kiroshi out.
+		{ id = "Items.Preset_Punk_Knife_Military" }, 
+
+		-- PUNKNIFE (NEON) / Weapon / Melee / Blade
+		-- Perfectly balanced, lethal and fun. Be careful when throwing this knife - you could (and will) poke someone's Kiroshi out.
+		{ id = "Items.Preset_Punk_Knife_Neon" }, 
+
+		-- PUNKNIFE (PIMP) / Weapon / Melee / Blade
+		-- Perfectly balanced, lethal and fun. Be careful when throwing this knife - you could (and will) poke someone's Kiroshi out.
+		{ id = "Items.Preset_Punk_Knife_Pimp" }, 
+
+		-- PUNKNIFE / Weapon / Melee / Blade
+		-- Perfectly balanced, lethal and fun. Be careful when throwing this knife - you could (and will) poke someone's Kiroshi out.
+		{ id = "Items.Preset_Punk_Knife_Default" }, 
+
+		-- RAZOR (MILITARY) / Weapon / Melee / Blade
+		-- If it ain't reinforced concrete, you'll dismember it in a few slashes. Gotta be beefy enough to wield it, though.
+		{ id = "Items.Preset_Machete_Borg_Military" }, 
+
+		-- RAZOR (NEON) / Weapon / Melee / Blade
+		-- If it ain't reinforced concrete, you'll dismember it in a few slashes. Gotta be beefy enough to wield it, though.
+		{ id = "Items.Preset_Machete_Borg_Neon" }, 
+
+		-- RAZOR (PIMP) / Weapon / Melee / Blade
+		-- If it ain't reinforced concrete, you'll dismember it in a few slashes. Gotta be beefy enough to wield it, though.
+		{ id = "Items.Preset_Machete_Borg_Pimp" }, 
+
+		-- RAZOR / Weapon / Melee / Blade
+		-- If it ain't reinforced concrete, you'll dismember it in a few slashes. Gotta be beefy enough to wield it, though.
+		{ id = "Items.Preset_Machete_Borg_Default" }, 
+
+		-- ROCKETLAUNCHER / Weapon / Power / Sniper
+		-- From this weapon, there is no cover.
+		{ id = "Items.Preset_RocketLauncher_Default" }, 
+
 		-- RT-46 BURYA (MILITARY) / Weapon / Tech / Revolver
 		-- Electromagnetic pistol. Always ready to fire. All together now, choomrades: Glory to the progress of Soviet Socialist science!
 		{ id = "Items.Preset_Burya_Military" }, 
@@ -675,6 +811,26 @@ return {
 		-- RT-46 BURYA / Weapon / Tech / Revolver
 		-- Electromagnetic pistol. Always ready to fire. All together now, choomrades: Glory to the progress of Soviet Socialist science!
 		{ id = "Items.Preset_Burya_Default" }, 
+
+		-- SENKOH LX (MILITARY) / Weapon / Tech / SMG
+		-- Self-defense has never been more stylish.
+		{ id = "Items.Preset_Senkoh_Military" }, 
+
+		-- SENKOH LX (NEON) / Weapon / Tech / SMG
+		-- Self-defense has never been more stylish.
+		{ id = "Items.Preset_Senkoh_Neon" }, 
+
+		-- SENKOH LX (PIMP) / Weapon / Tech / SMG
+		-- Self-defense has never been more stylish.
+		{ id = "Items.Preset_Senkoh_Pimp" }, 
+
+		-- SENKOH LX / Weapon / Tech / SMG
+		-- Self-defense has never been more stylish.
+		{ id = "Items.Preset_Senkoh_Default" }, 
+
+		-- SENKOH LX / Weapon / Tech / SMG
+		-- Self-defense has never been more stylish.
+		{ id = "Items.Preset_Senkoh_Legendary" }, 
 
 		-- SLAUGHT-O-MATIC / Weapon / Power / Pistol / Common
 		-- Single-use and non-reloadable, but perfect for a pinch.
@@ -725,7 +881,7 @@ return {
 		{ id = "Items.Preset_Nue_Arasaka_2020" }, 
 
 		-- TANTO / Weapon / Melee / Blade
-		-- When the swordsmith doesn't have enough steel left for a katana.
+		-- When the swordsmith doesn't have enough steel left for a katana. It still packs a punch, though - accurate attacks will pierce all but the hardest armor pieces.
 		{ id = "Items.Preset_Tanto_Default" }, 
 
 		-- THE IRON / Weapon / Melee / Blunt
@@ -775,5 +931,21 @@ return {
 		-- UNITY / Weapon / Power / Pistol
 		-- It's mid-tier, but there's nothing really to complain about. It's easy to use, has a comfortable grip and most importantly - it's reliable. Don't overthink it.
 		{ id = "Items.Preset_V_Unity_Cutscene" }, 
+
+		-- VST-37 POZHAR (MILITARY) / Weapon / Power / Shotgun
+		-- High caliber, high damage, high recoil.
+		{ id = "Items.Preset_Pozhar_Military" }, 
+
+		-- VST-37 POZHAR (NEON) / Weapon / Power / Shotgun
+		-- High caliber, high damage, high recoil.
+		{ id = "Items.Preset_Pozhar_Neon" }, 
+
+		-- VST-37 POZHAR / Weapon / Power / Shotgun
+		-- High caliber, high damage, high recoil.
+		{ id = "Items.Preset_Pozhar_Default" }, 
+
+		-- VST-37 POZHAR / Weapon / Power / Shotgun
+		-- High caliber, high damage, high recoil.
+		{ id = "Items.Preset_Pozhar_Legendary" }, 
 	},
 }

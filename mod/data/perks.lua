@@ -21,7 +21,7 @@ return {
 	{ alias = "SteelShell", type = "Athletics_Area_09_Perk_1", max = 1, attr = "Body", req = 18, skill = "Athletics", name = "Steel Shell", desc = "Increases Armor by X%." },
 	{ alias = "TheRock", type = "Athletics_Area_10_Perk_1", max = 1, attr = "Body", req = 20, skill = "Athletics", name = "The Rock", desc = "Enemies cannot knock you down." },
 	{ alias = "Indestructible", type = "Athletics_Area_10_Perk_2", max = 1, attr = "Body", req = 20, skill = "Athletics", name = "Indestructible", desc = "Reduces all incoming damage by X%." },
-	{ alias = "HardMotherfucker", type = "AthleticsTrait01", max = 999, trait = true, attr = "Body", req = 20, skill = "Athletics", name = "Hard Motherfucker", desc = "When entering combat, Armor and Resistances increase by X sec." },
+	{ alias = "HardMotherfucker", type = "AthleticsTrait01", max = 999, attr = "Body", trait = true, req = 20, skill = "Athletics", name = "Hard Motherfucker", desc = "When entering combat, Armor and Resistances increase by X sec." },
 
 	-- Annihilation
 	{ alias = "HailOfBullets", type = "Demolition_Area_01_Perk_1", max = 3, attr = "Body", req = 3, skill = "Annihilation", name = "Hail of Bullets", desc = "Shotguns and Light Machine Guns deal X% more damage." },
@@ -42,7 +42,7 @@ return {
 	{ alias = "HitTheDeck", type = "Demolition_Area_09_Perk_1", max = 2, attr = "Body", req = 18, skill = "Annihilation", name = "Hit The Deck", desc = "Increases damage to staggered and knocked-down enemies from Shotguns and Light Machine Guns by X%." },
 	{ alias = "PoppinOff", type = "Demolition_Area_09_Perk_2", max = 2, attr = "Body", req = 18, skill = "Annihilation", name = "Poppin' Off", desc = "Shotguns have a X% higher chance of dismembering enemies." },
 	{ alias = "Biathlete", type = "Demolition_Area_10_Perk_1", max = 1, attr = "Body", req = 20, skill = "Annihilation", name = "Biathlete", desc = "Weapon spread from Shotguns and Light Machine Guns does not increase while moving." },
-	{ alias = "Bloodbath", type = "DemolitionTrait01", max = 999, trait = true, attr = "Body", req = 20, skill = "Annihilation", name = "Bloodbath", desc = "Dismembering enemies with a Shotgun or Light Machine Gun reduces weapon recoil by X sec." },
+	{ alias = "Bloodbath", type = "DemolitionTrait01", max = 999, attr = "Body", trait = true, req = 20, skill = "Annihilation", name = "Bloodbath", desc = "Dismembering enemies with a Shotgun or Light Machine Gun reduces weapon recoil by X sec." },
 
 	-- Street Brawler
 	{ alias = "Flurry", type = "Brawling_Area_01_Perk_1", max = 3, attr = "Body", req = 3, skill = "StreetBrawler", name = "Flurry", desc = "Increases damage from combo attacks with Blunt Weapons by X%." },
@@ -61,7 +61,7 @@ return {
 	{ alias = "Thrash", type = "Brawling_Area_07_Perk_2", max = 2, attr = "Body", req = 15, skill = "StreetBrawler", name = "Thrash", desc = "Strong Attacks with Blunt Weapons reduce the target's Armor by X sec." },
 	{ alias = "BidingTime", type = "Brawling_Area_08_Perk_1", max = 3, attr = "Body", req = 18, skill = "StreetBrawler", name = "Biding Time", desc = "Every 5 seconds, blocking an attack with a Blunt Weapon restores X% Health." },
 	{ alias = "Unshakable", type = "Brawling_Area_08_Perk_2", max = 3, attr = "Body", req = 18, skill = "StreetBrawler", name = "Unshakable", desc = "Successful attacks with Blunt Weapons against enemies affected by Stun restore X% Stamina." },
-	{ alias = "Guerrilla", type = "BrawlingTrait01", max = 999, trait = true, attr = "Body", req = 20, skill = "StreetBrawler", name = "Guerrilla", desc = "Increases Crit Damage by X sec. after entering combat." },
+	{ alias = "Guerrilla", type = "BrawlingTrait01", max = 999, attr = "Body", trait = true, req = 20, skill = "StreetBrawler", name = "Guerrilla", desc = "Increases Crit Damage by X sec. after entering combat." },
 
 	-- Assault
 	{ alias = "Bulletjock", type = "Assault_Area_01_Perk_1", max = 3, attr = "Reflexes", req = 3, skill = "Assault", name = "Bulletjock", desc = "Increases damage with Rifles and Submachine Guns by X%." },
@@ -83,7 +83,7 @@ return {
 	{ alias = "InPerspective", type = "Assault_Area_09_Perk_1", max = 1, attr = "Reflexes", req = 18, skill = "Assault", name = "In Perspective", desc = "Bullets fired from Power Rifles and Power Submachine Guns ricochet an additional X time(s)." },
 	{ alias = "LongShot", type = "Assault_Area_09_Perk_2", max = 1, attr = "Reflexes", req = 18, skill = "Assault", name = "Long Shot", desc = "Rifle and Submachine Gun damage increases the farther you are located from enemies." },
 	{ alias = "SavageStoic", type = "Assault_Area_10_Perk_1", max = 1, attr = "Reflexes", req = 20, skill = "Assault", name = "Savage Stoic", desc = "Increases damage with Rifles and Submachine Guns by X% when standing still." },
-	{ alias = "Punisher", type = "AssaultTrait01", max = 999, trait = true, attr = "Reflexes", req = 20, skill = "Assault", name = "Punisher", desc = "After defeating an enemy with a Rifle or Submachine Gun, weapon sway is nullified and weapon spread does not increase for X sec." },
+	{ alias = "Punisher", type = "AssaultTrait01", max = 999, attr = "Reflexes", trait = true, req = 20, skill = "Assault", name = "Punisher", desc = "After defeating an enemy with a Rifle or Submachine Gun, weapon sway is nullified and weapon spread does not increase for X sec." },
 
 	-- Handguns
 	{ alias = "Gunslinger", type = "Gunslinger_Area_01_Perk_1", max = 3, attr = "Reflexes", req = 3, skill = "Handguns", name = "Gunslinger", desc = "Reduces reload time for Pistols and Revolvers by X%." },
@@ -105,7 +105,7 @@ return {
 	{ alias = "Westworld", type = "Gunslinger_Area_08_Perk_2", max = 1, attr = "Reflexes", req = 16, skill = "Handguns", name = "Westworld", desc = "Increases Crit Chance for Pistols and Revolvers by X% if fully modded." },
 	{ alias = "LeadSponge", type = "Gunslinger_Area_09_Perk_1", max = 1, attr = "Reflexes", req = 18, skill = "Handguns", name = "Lead Sponge", desc = "Enables you to shoot with Pistols and Revolvers while dodging." },
 	{ alias = "Brainpower", type = "Gunslinger_Area_10_Perk_1", max = 1, attr = "Reflexes", req = 20, skill = "Handguns", name = "Brainpower", desc = "After a successful headshot with a Pistol or Revolver, Crit Chance increases by X sec." },
-	{ alias = "TheGoodTheBadAndTheUgly", type = "GunslingerTrait01", max = 999, trait = true, attr = "Reflexes", req = 20, skill = "Handguns", name = "The Good, the Bad and the Ugly", desc = "After a successful Crit Hit with a Pistol or Revolver, damage and Armor increase by X seconds." },
+	{ alias = "TheGoodTheBadAndTheUgly", type = "GunslingerTrait01", max = 999, attr = "Reflexes", trait = true, req = 20, skill = "Handguns", name = "The Good, the Bad and the Ugly", desc = "After a successful Crit Hit with a Pistol or Revolver, damage and Armor increase by X seconds." },
 
 	-- Blades
 	{ alias = "StingLikeABee", type = "Kenjutsu_Area_01_Perk_1", max = 3, attr = "Reflexes", req = 3, skill = "Blades", name = "Sting Like a Bee", desc = "Increases attack speed with Blades by X%." },
@@ -124,7 +124,7 @@ return {
 	{ alias = "JudgeJuryAndExecutioner", type = "Kenjutsu_Area_07_Perk_2", max = 3, attr = "Reflexes", req = 15, skill = "Blades", name = "Judge, Jury and Executioner", desc = "Increases damage with Blades by X% against enemies with max Health." },
 	{ alias = "CrimsonTide", type = "Kenjutsu_Area_08_Perk_1", max = 1, attr = "Reflexes", req = 18, skill = "Blades", name = "Crimson Tide", desc = "Bleeding applied with Blades can stack X time(s)." },
 	{ alias = "Deathbolt", type = "Kenjutsu_Area_08_Perk_2", max = 1, attr = "Reflexes", req = 18, skill = "Blades", name = "Deathbolt", desc = "While wielding a Blade, defeating an enemy restores X sec." },
-	{ alias = "DragonStrike", type = "KenjutsuTrait01", max = 999, trait = true, attr = "Reflexes", req = 20, skill = "Blades", name = "Dragon Strike", desc = "Increases Crit Damage with Blades by X%." },
+	{ alias = "DragonStrike", type = "KenjutsuTrait01", max = 999, attr = "Reflexes", trait = true, req = 20, skill = "Blades", name = "Dragon Strike", desc = "Increases Crit Damage with Blades by X%." },
 
 	-- Crafting
 	{ alias = "Mechanic", type = "Crafting_Area_01_Perk_1", max = 1, attr = "TechnicalAbility", req = 3, skill = "Crafting", name = "Mechanic", desc = "Gain more components when disassembling." },
@@ -144,7 +144,7 @@ return {
 	{ alias = "Tuneup", type = "Crafting_Area_08_Perk_2", max = 1, attr = "TechnicalAbility", req = 16, skill = "Crafting", name = "Tune-up", desc = "Allows you to upgrade lower quality components into higher quality ones." },
 	{ alias = "EdgerunnerArtisan", type = "Crafting_Area_09_Perk_1", max = 1, attr = "TechnicalAbility", req = 18, skill = "Crafting", name = "Edgerunner Artisan", desc = "Allows you to craft Legendary items." },
 	{ alias = "CuttingEdge", type = "Crafting_Area_10_Perk_1", max = 1, attr = "TechnicalAbility", req = 20, skill = "Crafting", name = "Cutting Edge", desc = "Improves damage and all damage-related stats of crafted weapons by X%." },
-	{ alias = "CrazyScience", type = "CraftingTrait01", max = 999, trait = true, attr = "TechnicalAbility", req = 20, skill = "Crafting", name = "Crazy Science", desc = "Increases the sale price of items by X%." },
+	{ alias = "CrazyScience", type = "CraftingTrait01", max = 999, attr = "TechnicalAbility", trait = true, req = 20, skill = "Crafting", name = "Crazy Science", desc = "Increases the sale price of items by X%." },
 
 	-- Engineering
 	{ alias = "MechLooter", type = "Engineering_Area_01_Perk_1", max = 3, attr = "TechnicalAbility", req = 3, skill = "Engineering", name = "Mech Looter", desc = "When looting drones, mechs and robots, there is a X% chance of looting a weapon mod or attachment." },
@@ -166,7 +166,7 @@ return {
 	{ alias = "LicketySplit", type = "Engineering_Area_09_Perk_1", max = 2, attr = "TechnicalAbility", req = 18, skill = "Engineering", name = "Lickety Split", desc = "Tech weapon charge time is reduced by X%." },
 	{ alias = "Jackpot", type = "Engineering_Area_10_Perk_1", max = 1, attr = "TechnicalAbility", req = 20, skill = "Engineering", name = "Jackpot", desc = "Enables grenades to deal Crit Hits." },
 	{ alias = "Superconductor", type = "Engineering_Area_10_Perk_2", max = 1, attr = "TechnicalAbility", req = 20, skill = "Engineering", name = "Superconductor", desc = "Tech weapons ignore Armor." },
-	{ alias = "Revamp", type = "EngineeringTrait01", max = 999, trait = true, attr = "TechnicalAbility", req = 20, skill = "Engineering", name = "Revamp", desc = "Increases damage from Tech weapons by X%." },
+	{ alias = "Revamp", type = "EngineeringTrait01", max = 999, attr = "TechnicalAbility", trait = true, req = 20, skill = "Engineering", name = "Revamp", desc = "Increases damage from Tech weapons by X%." },
 
 	-- Breach Protocol
 	{ alias = "BigSleep", type = "Hacking_Area_01_Perk_1", max = 2, attr = "Intelligence", req = 3, skill = "BreachProtocol", name = "Big Sleep", desc = "Unlocks the Big Sleep daemon, which disables all cameras in the network for X min." },
@@ -188,7 +188,7 @@ return {
 	{ alias = "HeadStart", type = "Hacking_Area_09_Perk_2", max = 1, attr = "Intelligence", req = 18, skill = "BreachProtocol", name = "Head Start", desc = "Automatically uploads the first daemon in the list at the start of Breach Protocol." },
 	{ alias = "Compression", type = "Hacking_Area_10_Perk_1", max = 1, attr = "Intelligence", req = 20, skill = "BreachProtocol", name = "Compression", desc = "Reduces the lengths of the sequences required to upload daemons by X. Cannot be reduced below 2." },
 	{ alias = "BufferOptimization", type = "Hacking_Area_10_Perk_2", max = 1, attr = "Intelligence", req = 20, skill = "BreachProtocol", name = "Buffer Optimization", desc = "Increases the duration of daemon effects by X%." },
-	{ alias = "Transmigration", type = "HackingTrait01", max = 999, trait = true, attr = "Intelligence", req = 20, skill = "BreachProtocol", name = "Transmigration", desc = "Increases the breach time of Breach Protocol by X%." },
+	{ alias = "Transmigration", type = "HackingTrait01", max = 999, attr = "Intelligence", trait = true, req = 20, skill = "BreachProtocol", name = "Transmigration", desc = "Increases the breach time of Breach Protocol by X%." },
 
 	-- Quickhacking
 	{ alias = "Biosynergy", type = "CombatHacking_Area_01_Perk_1", max = 3, attr = "Intelligence", req = 3, skill = "Quickhacking", name = "Biosynergy", desc = "Allows RAM to recover during combat. Recover X sec." },
@@ -201,7 +201,7 @@ return {
 	{ alias = "SignalSupport", type = "CombatHacking_Area_04_Perk_1", max = 2, attr = "Intelligence", req = 9, skill = "Quickhacking", name = "Signal Support", desc = "Increases quickhack duration by X%." },
 	{ alias = "SubliminalMessage", type = "CombatHacking_Area_05_Perk_1", max = 2, attr = "Intelligence", req = 11, skill = "Quickhacking", name = "Subliminal Message", desc = "Quickhacks deal X% more damage to unaware targets." },
 	{ alias = "Mnemonic", type = "CombatHacking_Area_06_Perk_1", max = 1, attr = "Intelligence", req = 12, skill = "Quickhacking", name = "Mnemonic", desc = "Reduces the cost of quickhacks used against an enemy already affected by a quickhack by X RAM units." },
-	{ alias = "Diffusion", type = "CombatHacking_Area_06_Perk_2", max = 1, attr = "Intelligence", req = 12, skill = "Quickhacking", name = "Diffusion", desc = "Quickhack spread distance is increased by X times." },
+	{ alias = "Diffusion", type = "CombatHacking_Area_06_Perk_2", max = 1, attr = "Intelligence", req = 12, skill = "Quickhacking", name = "Diffusion", desc = "Quickhack spread distance is X times larger." },
 	{ alias = "SchoolOfHardHacks", type = "CombatHacking_Area_06_Perk_3", max = 1, attr = "Intelligence", req = 12, skill = "Quickhacking", name = "School of Hard Hacks", desc = "Unlocks Crafting Specs for Rare quickhacks." },
 	{ alias = "Plague", type = "CombatHacking_Area_07_Perk_1", max = 3, attr = "Intelligence", req = 14, skill = "Quickhacking", name = "Plague", desc = "Quickhacks that spread can jump to X additional targets." },
 	{ alias = "CriticalError", type = "CombatHacking_Area_08_Perk_1", max = 1, attr = "Intelligence", req = 16, skill = "Quickhacking", name = "Critical Error", desc = "Quickhacks can now deal Crit Hits based on your Crit Chance and Crit Damage stats." },
@@ -209,13 +209,13 @@ return {
 	{ alias = "Anamnesis", type = "CombatHacking_Area_09_Perk_1", max = 3, attr = "Intelligence", req = 18, skill = "Quickhacking", name = "Anamnesis", desc = "Available cyberdeck RAM cannot drop below X unit(s)." },
 	{ alias = "Optimization", type = "CombatHacking_Area_10_Perk_1", max = 1, attr = "Intelligence", req = 20, skill = "Quickhacking", name = "Optimization", desc = "Reduces the cost of quickhacks by X RAM unit(s)." },
 	{ alias = "BartmossLegacy", type = "CombatHacking_Area_10_Perk_2", max = 1, attr = "Intelligence", req = 20, skill = "Quickhacking", name = "Bartmoss' Legacy", desc = "Unlocks Crafting Specs for Legendary quickhacks." },
-	{ alias = "MasterRAMLiberator", type = "CombatHackingTrait01", max = 999, trait = true, attr = "Intelligence", req = 20, skill = "Quickhacking", name = "Master RAM Liberator", desc = "Increases RAM recovery rate by X%." },
+	{ alias = "MasterRAMLiberator", type = "CombatHackingTrait01", max = 999, attr = "Intelligence", trait = true, req = 20, skill = "Quickhacking", name = "Master RAM Liberator", desc = "Increases RAM recovery rate by X%." },
 
 	-- Stealth
 	{ alias = "SilentAndDeadly", type = "Stealth_Area_01_Perk_1", max = 1, attr = "Cool", req = 3, skill = "Stealth", name = "Silent and Deadly", desc = "Increases damage dealt by silenced weapons by X% while sneaking." },
 	{ alias = "CrouchingTiger", type = "Stealth_Area_01_Perk_2", max = 1, attr = "Cool", req = 3, skill = "Stealth", name = "Crouching Tiger", desc = "Increases movement speed while sneaking by X%." },
 	{ alias = "HiddenDragon", type = "Stealth_Area_02_Perk_1", max = 1, attr = "Cool", req = 5, skill = "Stealth", name = "Hidden Dragon", desc = "Allows you to perform non-lethal aerial takedowns on unaware targets." },
-	{ alias = "DaggerDealer", type = "Stealth_Area_02_Perk_2", max = 1, attr = "Cool", req = 5, skill = "Stealth", name = "Dagger Dealer", desc = "Enables knife throwing. A thrown knife returns to the hand after X sec. Hold <Input context=\"Combat\" actionName=\"MeleeBlock\" color=\"Tutorial.InputHint\"></> to aim and press <Input context=\"Combat\" actionName=\"MeleeAttack\" color=\"Tutorial.InputHint\" hold=\"Hide\"></> to throw it." },
+	{ alias = "DaggerDealer", type = "Stealth_Area_02_Perk_2", max = 1, attr = "Cool", req = 5, skill = "Stealth", name = "Dagger Dealer", desc = "Enables knife throwing. A thrown knife returns to the hand after the time given in its description or immediately upon pickup. Hold <Input context=\"Combat\" actionName=\"MeleeBlock\" color=\"Tutorial.InputHint\"></> to aim and press <Input context=\"Combat\" actionName=\"MeleeAttack\" color=\"Tutorial.InputHint\" hold=\"Hide\"></> to throw it." },
 	{ alias = "StrikeFromTheShadows", type = "Stealth_Area_03_Perk_1", max = 1, attr = "Cool", req = 7, skill = "Stealth", name = "Strike From The Shadows", desc = "Increases your Crit Chance by X% while sneaking." },
 	{ alias = "Assassin", type = "Stealth_Area_03_Perk_2", max = 1, attr = "Cool", req = 7, skill = "Stealth", name = "Assassin", desc = "Deal X% more damage to human enemies." },
 	{ alias = "LegUp", type = "Stealth_Area_03_Perk_3", max = 1, attr = "Cool", req = 7, skill = "Stealth", name = "Leg Up", desc = "Movement speed after a successful takedown is increased by X sec." },
@@ -232,11 +232,11 @@ return {
 	{ alias = "RestorativeShadows", type = "Stealth_Area_08_Perk_1", max = 1, attr = "Cool", req = 16, skill = "Stealth", name = "Restorative Shadows", desc = "While in stealth, increases Health regen by X%." },
 	{ alias = "HastyRetreat", type = "Stealth_Area_08_Perk_2", max = 1, attr = "Cool", req = 16, skill = "Stealth", name = "Hasty Retreat", desc = "Temporarily boosts movement speed by X sec. when detected by an enemy." },
 	{ alias = "Juggler", type = "Stealth_Area_08_Perk_3", max = 1, attr = "Cool", req = 16, skill = "Stealth", name = "Juggler", desc = "When you defeat an enemy or land a Crit Hit with a thrown Knife, you will regain all Knives currently on cooldown." },
-	{ alias = "Neurotoxin", type = "Stealth_Area_09_Perk_1", max = 1, attr = "Cool", req = 18, skill = "Stealth", name = "Neurotoxin", desc = "Damage from Poison is doubled." },
+	{ alias = "CriticalAntidote", type = "Stealth_Area_09_Perk_1", max = 1, attr = "Cool", req = 18, skill = "Stealth", name = "Critical Antidote", desc = "A Strong Attack or thrown Knife against a poisoned enemy will remove their Poison status, dealing instant Poison damage instead, and will have a X sec. per affected enemy." },
 	{ alias = "CheatDeath", type = "Stealth_Area_09_Perk_2", max = 1, attr = "Cool", req = 18, skill = "Stealth", name = "Cheat Death", desc = "When your Health drops below X sec. Cannot occur more than once per minute." },
-	{ alias = "HastenTheInevitable", type = "Stealth_Area_09_Perk_3", max = 1, attr = "Cool", req = 18, skill = "Stealth", name = "Hasten the Inevitable", desc = "Deal X% more damage to enemies affected by Poison." },
+	{ alias = "CorrosivePoison", type = "Stealth_Area_09_Perk_3", max = 1, attr = "Cool", req = 18, skill = "Stealth", name = "Corrosive Poison", desc = "Poison now also affects drones, mechs and robots but with reduced effectiveness. Deal X% more damage to poisoned enemies." },
 	{ alias = "JeepersCreepers", type = "Stealth_Area_10_Perk_1", max = 1, attr = "Cool", req = 20, skill = "Stealth", name = "Jeepers Creepers", desc = "Crouch Attacks from stealth with melee weapons deal X% more damage and guarantee a Crit Hit." },
-	{ alias = "Toxicology", type = "StealthTrait01", max = 999, trait = true, attr = "Cool", req = 20, skill = "Stealth", name = "Toxicology", desc = "Increases the duration of Poison applied to enemies by X seconds." },
+	{ alias = "Toxicology", type = "StealthTrait01", max = 999, attr = "Cool", trait = true, req = 20, skill = "Stealth", name = "Toxicology", desc = "Increases the duration of Poison applied to enemies by X seconds." },
 
 	-- Cold Blood
 	{ alias = "ColdBlood", type = "ColdBlood_Area_01_Perk_1", max = 3, attr = "Cool", req = 3, skill = "ColdBlood", name = "Cold Blood", desc = "After defeating an enemy, gain Cold Blood for X sec shorter." },
@@ -257,5 +257,5 @@ return {
 	{ alias = "ColdestBlood", type = "ColdBlood_Area_08_Perk_2", max = 2, attr = "Cool", req = 16, skill = "ColdBlood", name = "Coldest Blood", desc = "Increases max stack amount for Cold Blood by X." },
 	{ alias = "Immunity", type = "ColdBlood_Area_09_Perk_1", max = 1, attr = "Cool", req = 18, skill = "ColdBlood", name = "Immunity", desc = "Grants immunity to Bleeding, Poison, Burn and Shock when at least X stack(s) of Cold Blood are active." },
 	{ alias = "Bloodswell", type = "ColdBlood_Area_10_Perk_1", max = 1, attr = "Cool", req = 20, skill = "ColdBlood", name = "Bloodswell", desc = "Upon receiving lethal damage while Cold Blood is active, prevents death, consumes all stacks of Cold Blood, restoring X sec." },
-	{ alias = "Merciless", type = "ColdBloodTrait01", max = 999, trait = true, attr = "Cool", req = 20, skill = "ColdBlood", name = "Merciless", desc = "While Cold Blood is active, increases Crit Chance by X%." },
+	{ alias = "Merciless", type = "ColdBloodTrait01", max = 999, attr = "Cool", trait = true, req = 20, skill = "ColdBlood", name = "Merciless", desc = "While Cold Blood is active, increases Crit Chance by X%." },
 }

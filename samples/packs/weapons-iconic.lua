@@ -29,10 +29,22 @@ return {
 		-- It's going to be a mess.
 		{ id = "Items.Preset_Tactician_Dino" }, 
 
+		-- BLUE FANG / Weapon / Melee / Blade / Rare
+		-- The neurotoxin coating the blade of this prototype knife is stunningly effective.
+		-- Stuns the enemy on hit.
+		-- Headshot stuns after 1 sec while other hits stun after 3 sec.
+		-- Enemies outside combat state get stunned immediately.
+		{ id = "Items.Preset_Neurotoxin_Knife_Iconic" }, 
+
 		-- BREAKTHROUGH / Weapon / Tech / Sniper Rifle / Epic
 		-- Pierces concrete like cardboard.
 		-- Can penatrate through walls and ricochet multiple times.
 		{ id = "Items.Preset_Nekomata_Breakthrough" }, 
+
+		-- BUTCHER'S CLEAVER / Weapon / Melee / Blade / Rare
+		-- This cleaver seems to have a thirst for blood. You can slice and dice, but throwing it is out of the question.
+		-- Definition of "bloodthirsty" When your enemy is bleeding, the cleaver attacks faster and uses less stamina.
+		{ id = "Items.Preset_Butchers_Knife_Iconic" }, 
 
 		-- BUZZSAW / Weapon / Power / SMG / Rare
 		-- An absolute beast with a nasty bite. Don't get too close.
@@ -120,6 +132,26 @@ return {
 		-- High chance to apply Bleeding.
 		-- Low chance to apply Stun.
 		{ id = "Items.Preset_Baseball_Bat_Denny" }, 
+
+		-- GUTS / Weapon / Power / Shotgun / Epic
+		-- Originally belonged to Rebecca from David Martinez's crew. It'll wreak bloody havoc, though it can be a little unpredictable. Much like its original owner.
+		-- Let the lead fly!
+		-- Shoot faster, deal more damage..
+		-- accuracy be damned.
+		-- Just don't shoot your eye out.
+		{ id = "Items.Preset_Carnage_Edgerunners" }, 
+
+		-- HEADHUNTER / Weapon / Melee / Blade / Rare
+		-- Throwing this knife is like imposing a death sentence.
+		-- Mark enemy on hit.
+		-- Attacking the enemie's head wth any weapon deals 250% damage, returns the Headhunter and clears the mark.
+		{ id = "Items.Preset_Punk_Knife_Iconic" }, 
+
+		-- HYPERCRITICAL / Weapon / Power / Precision Rifle / Epic
+		-- Tiny Mike somehow got a hold of this Serbian gem and turned it into a masterpiece of weaponry.
+		-- Sturdy design and Tiny Mike's Mods - an explosive combination.
+		-- Bullets detonate knocking down enemies while the final one always deals critical damage.
+		{ id = "Items.Preset_Kolac_Tiny_Mike" }, 
 
 		-- JINCHU-MARU / Weapon / Melee / Blade / Epic
 		-- The purest essence of a katana. No add-ons, no modifications - only razor-sharp steel.

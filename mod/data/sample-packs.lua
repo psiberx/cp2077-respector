@@ -82,4 +82,8 @@ return {
 		items = { kind = { "Clothing", "Weapon", "Mod" }, tag = "Patch 1.5" },
 		vehicles = { kind = "Vehicle", tag = "Patch 1.5" },
 	},
+	{
+		name = "patch-160",
+		items = { kind = { "Clothing", "Weapon", "Mod" }, tag = "Patch 1.6" },
+	},
 }

@@ -51,11 +51,7 @@ function mod.path(path)
 end
 
 function mod.load(path)
-	local chunk, err = loadfile(mod.path(path))
-
-	if not chunk then
-		print(err)
-	end
+	local chunk = loadfile(mod.path(path))
 
 	return chunk and chunk(mod, debug) or nil
 end

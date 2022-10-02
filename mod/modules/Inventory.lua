@@ -40,9 +40,6 @@ function InventoryModule:prepare()
 	self.playerEquipmentData['EquipItemInSlot'] = self.playerEquipmentData['EquipItem;ItemIDInt32BoolBool']
 	self.playerEquipmentData['GetItemInEquipSlotArea'] = self.playerEquipmentData['GetItemInEquipSlot;gamedataEquipmentAreaInt32']
 	self.playerEquipmentData['GetSlotIndexInArea'] = self.playerEquipmentData['GetSlotIndex;ItemIDgamedataEquipmentArea']
-
-	self.clothingSlotBlocker = TweakDBID.new('Items.DummyFabricEnhancer')
-	self.weaponSlotBlocker = TweakDBID.new('Items.DummyWeaponMod')
 end
 
 function InventoryModule:release()
@@ -500,10 +497,10 @@ function InventoryModule:applyItemSpec(itemSpec, specOptions, equipedSlots)
 					local partItemId = part:GetItemID(part)
 					local partTweakId = TweakDBID.new(partItemId.id)
 
-					if partTweakId == self.clothingSlotBlocker or partTweakId == self.weaponSlotBlocker then
-						self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
-						table.insert(removedParts, partItemId)
-					end
+                    if TweakDb.isSlotBlocker(partTweakId) then
+                        self.itemModSystem:RemoveItemPart(self.player, itemId, slotId, true)
+                        table.insert(removedParts, partItemId)
+                    end
 				end
 			end
 
@@ -535,7 +532,7 @@ function InventoryModule:applyItemSpec(itemSpec, specOptions, equipedSlots)
 
 					if slotSpec.slot and slotSpec.id then
 					    local partTweakId = TweakDb.toTweakId(slotSpec.id)
-                        if partTweakId ~= self.clothingSlotBlocker and partTweakId ~= self.weaponSlotBlocker then
+                        if not TweakDb.isSlotBlocker(partTweakId) then
 						    local slotId = self.tweakDb:toSlotTweakId(slotSpec.slot, itemMeta.mod and itemMeta or itemType)
 						    local partItemId = self:applyItemSpec(slotSpec, specOptions)
 

@@ -28,7 +28,7 @@ return {
 		-- All the money ain't worth frack. You play this game for power. The power to get things done; to make the big decisions; to affect things. You make a phone call, and the next thing you know, you're telling the president of some bushleague Euronation that he'd better play it your way, or he's history. - An Unidentified Corporate
 		{ id = "Items.Corporate_01_Set_FormalJacket" }, 
 
-		-- CORPO SET: ERGONOMIC REINFORCED CORPORATE EVENING SHOES / Clothing / Feet / Legendary
+		-- CORPO SET: ERGONOMIC REINFORCED CORPORATE PUMPS / Clothing / Feet / Legendary
 		-- All the money ain't worth frack. You play this game for power. The power to get things done; to make the big decisions; to affect things. You make a phone call, and the next thing you know, you're telling the president of some bushleague Euronation that he'd better play it your way, or he's history. - An Unidentified Corporate
 		{ id = "Items.Corporate_01_Set_FormalShoes" }, 
 
@@ -36,11 +36,11 @@ return {
 		-- All the money ain't worth frack. You play this game for power. The power to get things done; to make the big decisions; to affect things. You make a phone call, and the next thing you know, you're telling the president of some bushleague Euronation that he'd better play it your way, or he's history. - An Unidentified Corporate
 		{ id = "Items.Corporate_01_Set_Glasses" }, 
 
-		-- FIXER SET: ELASTIWEAVE FIXER SHOES WITH REINFORCED SEAMS / Clothing / Feet / Legendary
+		-- FIXER SET: ELASTIWEAVE FIXER PUMPS WITH REINFORCED SEAMS / Clothing / Feet / Legendary
 		-- Don't give me this "Robin Hood" stuff. I'm doin' a job, no more. I give people what they want, an' they pay me out. Maybe I even a few scores here and there, but that's good for business. I got a slogan... "How much you pay me? - Phil "Nacho" Hernandez, Fixer
 		{ id = "Items.Fixer_01_Set_FormalShoes" }, 
 
-		-- FIXER SET: HEAT-RESISTANT ARAMID-WEAVE FIXER SHIRT / Clothing / Inner Torso / Legendary
+		-- FIXER SET: HEAT-RESISTANT ARAMID-WEAVE FIXER BUSTIER / Clothing / Inner Torso / Legendary
 		-- Don't give me this "Robin Hood" stuff. I'm doin' a job, no more. I give people what they want, an' they pay me out. Maybe I even a few scores here and there, but that's good for business. I got a slogan... "How much you pay me? - Phil "Nacho" Hernandez, Fixer
 		{ id = "Items.Fixer_01_Set_TShirt" }, 
 
@@ -48,11 +48,11 @@ return {
 		-- Don't give me this "Robin Hood" stuff. I'm doin' a job, no more. I give people what they want, an' they pay me out. Maybe I even a few scores here and there, but that's good for business. I got a slogan... "How much you pay me? - Phil "Nacho" Hernandez, Fixer
 		{ id = "Items.Fixer_01_Set_Glasses" }, 
 
-		-- FIXER SET: PROTECTIVE-LAYER FIXER PANTS / Clothing / Legs / Legendary
+		-- FIXER SET: PROTECTIVE-LAYER FIXER SKIRT / Clothing / Legs / Legendary
 		-- Don't give me this "Robin Hood" stuff. I'm doin' a job, no more. I give people what they want, an' they pay me out. Maybe I even a few scores here and there, but that's good for business. I got a slogan... "How much you pay me? - Phil "Nacho" Hernandez, Fixer
 		{ id = "Items.Fixer_01_Set_Pants" }, 
 
-		-- FIXER SET: TRILAYER ARAMID-WEAVE FIXER COAT / Clothing / Outer Torso / Legendary
+		-- FIXER SET: TRILAYER ARAMID-WEAVE FIXER SKIRT WITH JACKET / Clothing / Outer Torso / Legendary
 		-- Don't give me this "Robin Hood" stuff. I'm doin' a job, no more. I give people what they want, an' they pay me out. Maybe I even a few scores here and there, but that's good for business. I got a slogan... "How much you pay me? - Phil "Nacho" Hernandez, Fixer
 		{ id = "Items.Fixer_01_Set_Coat" }, 
 
@@ -99,7 +99,7 @@ return {
 		-- I think they had some weeflerunner playin' Sysop for them. I burned in, jolted the guy with a borrowed Hellbolt, and did the major plunder action all over the Data Fortress. You guys who live in Realspace; you move so slow. Me, I like Netspace. It moves fast. You don't get old, you don't get slow and sloppy. You just leave the meat and go screamin'. - Spider Murphy
 		{ id = "Items.Netrunner_01_Set_Visor" }, 
 
-		-- NETRUNNER SET: DURA-MEMBRANE NETRUNNER NEOTAC PANTS / Clothing / Legs / Legendary
+		-- NETRUNNER SET: DURA-MEMBRANE NETRUNNER PANTS / Clothing / Legs / Legendary
 		-- I think they had some weeflerunner playin' Sysop for them. I burned in, jolted the guy with a borrowed Hellbolt, and did the major plunder action all over the Data Fortress. You guys who live in Realspace; you move so slow. Me, I like Netspace. It moves fast. You don't get old, you don't get slow and sloppy. You just leave the meat and go screamin'. - Spider Murphy
 		{ id = "Items.Netrunner_01_Set_Pants" }, 
 
@@ -131,21 +131,21 @@ return {
 		-- We don't have a home except the Caravan. We don't have rights except what we take. We get run out of town by the cops; we get raided by the roadwarrior packs, and we survive because we've got guns and bikes…There's kids, old men and women—families here. This ain't no boostergang. These people are my family. - Nomad Santiago
 		{ id = "Items.Nomad_01_Set_Pants" }, 
 
-		-- ROCKER SET: DUOLAYER POLYAMIDE ROCKER VEST / Clothing / Outer Torso / Legendary
+		-- ROCKER SET: ARMORWEAVE ROCKER BRA / Clothing / Inner Torso / Legendary
 		-- There were these scum out there who were messing with the world. They were killing people, raping the land, and lying in our faces when we caught 'em. Music always gets hammered down to the Three A's. Axe, Attitude and Audience. Me, I had an Axe and an Attitude. All I had to do was get the third one... - Kerry Eurodyne, Rockerboy
-		{ id = "Items.Rockerboy_01_Set_Jacket" }, 
+		{ id = "Items.Rockerboy_01_Set_TShirt" }, 
 
 		-- ROCKER SET: ELASTIC FLAME-RESISTANT ROCKER PANTS / Clothing / Legs / Legendary
 		-- There were these scum out there who were messing with the world. They were killing people, raping the land, and lying in our faces when we caught 'em. Music always gets hammered down to the Three A's. Axe, Attitude and Audience. Me, I had an Axe and an Attitude. All I had to do was get the third one... - Kerry Eurodyne, Rockerboy
 		{ id = "Items.Rockerboy_01_Set_Pants" }, 
 
-		-- ROCKER SET: PUNCTURE-RESISTANT ROCKER ANKLE BOOTS / Clothing / Feet / Legendary
+		-- ROCKER SET: PUNCTURE-RESISTANT ROCKER PLATFORM BOOTS / Clothing / Feet / Legendary
 		-- There were these scum out there who were messing with the world. They were killing people, raping the land, and lying in our faces when we caught 'em. Music always gets hammered down to the Three A's. Axe, Attitude and Audience. Me, I had an Axe and an Attitude. All I had to do was get the third one... - Kerry Eurodyne, Rockerboy
 		{ id = "Items.Rockerboy_01_Set_Boots" }, 
 
-		-- ROCKER SET: REINFORCED-SEAM COTTON ROCKER TANK / Clothing / Inner Torso / Legendary
+		-- ROCKER SET: REINFORCED COMPOSITE-LINED ROCKER FOLDTOP / Clothing / Outer Torso / Legendary
 		-- There were these scum out there who were messing with the world. They were killing people, raping the land, and lying in our faces when we caught 'em. Music always gets hammered down to the Three A's. Axe, Attitude and Audience. Me, I had an Axe and an Attitude. All I had to do was get the third one... - Kerry Eurodyne, Rockerboy
-		{ id = "Items.Rockerboy_01_Set_TShirt" }, 
+		{ id = "Items.Rockerboy_01_Set_Jacket" }, 
 
 		-- ROCKER SET: SCRATCH-RESISTANT POLARIZED ROCKER AVIATORS / Clothing / Face / Legendary
 		-- There were these scum out there who were messing with the world. They were killing people, raping the land, and lying in our faces when we caught 'em. Music always gets hammered down to the Three A's. Axe, Attitude and Audience. Me, I had an Axe and an Attitude. All I had to do was get the third one... - Kerry Eurodyne, Rockerboy
