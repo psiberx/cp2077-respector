@@ -10,7 +10,6 @@ function respecGui.init(_respector, _viewData, _userState)
 	viewData = _viewData
 	userState = _userState
 
-	respecGui.initViewData()
 	respecGui.initViewState()
 end
 
@@ -41,6 +40,7 @@ end
 
 function respecGui.onDrawEvent(justOpened)
 	if justOpened then
+		respecGui.initViewData()
 		respecGui.initViewState()
 	end
 

@@ -97,7 +97,6 @@ function tweaksGui.init(_respector, _tweaker, _userState, _persitentState)
 	equipAreaDb = SimpleDb:new()
 
 	tweaksGui.initUserState()
-	tweaksGui.initViewData()
 end
 
 function tweaksGui.initUserState(force)
@@ -155,6 +154,10 @@ end
 function tweaksGui.onDrawEvent()
 	if not userState.showTweaker then
 		return
+	end
+
+	if not viewData.fontSize then
+	    tweaksGui.initViewData()
 	end
 
 	ImGui.SetNextWindowPos(365, 400, ImGuiCond.FirstUseEver)

@@ -68,7 +68,6 @@ function gui.init(_respector, _tweaker)
 	gui.initHandlers()
 	gui.initPersistance()
 	gui.initUserState()
-	gui.initViewData()
 
 	respecGui.init(respector, viewData, userState)
 	tweaksGui.init(respector, tweaker, userState, persitentState)
@@ -163,8 +162,12 @@ function gui.onOverlayClose()
 end
 
 function gui.onDrawEvent()
-	if not viewData.showWindow or not viewData.viewScale then
+	if not viewData.showWindow then
 		return
+	end
+
+	if not viewData.fontSize then
+	    gui.initViewData()
 	end
 
 	ImGuiX.RestoreStack()

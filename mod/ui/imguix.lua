@@ -70,17 +70,17 @@ end
 
 -- Polyfill
 
-if not ImGuiMouseButton then
-	ImGuiMouseButton = {
-		Left = 0,
-		Right = 1,
-		Middle = 2,
-	}
-end
+--if not ImGuiMouseButton then
+--	ImGuiMouseButton = {
+--		Left = 0,
+--		Right = 1,
+--		Middle = 2,
+--	}
+--end
 
-if not ImGui.BeginListBox then
-	ImGui.BeginListBox = ImGui.ListBoxHeader
-	ImGui.EndListBox = ImGui.ListBoxFooter
-end
+--if not ImGui.BeginListBox then
+--	ImGui.BeginListBox = ImGui.ListBoxHeader
+--	ImGui.EndListBox = ImGui.ListBoxFooter
+--end
 
 return ImGuiX
